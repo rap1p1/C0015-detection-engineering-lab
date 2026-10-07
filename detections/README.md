@@ -73,7 +73,7 @@ as inputs, and no full-campaign rule is implemented merely by producing BB alert
 | R18 | R05/R09 proxy ancestry, R04 staging, task execution from R10/R11 |
 | R23 | R22 note paths, same process entity, impact output and recovery record |
 
-Use [correlation architecture](../docs/correlation-architecture.md) for same-host
+Use [correlation architecture](../docs/detection/correlation.md) for same-host
 entity/logon keys and cross-host handoffs. E7 may be `event.category=library`;
 hashes are mapped to `file.hash.sha256`. Empty entity IDs cannot establish a direct
 process link. 4672 records privileged-logon context, not local-group membership.

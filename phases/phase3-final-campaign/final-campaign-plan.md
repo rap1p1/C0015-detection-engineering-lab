@@ -4,7 +4,7 @@
 > **Historical design/investigation record.** The proposals, readiness statements,
 > commands and numbered gaps below describe an earlier iteration; they are not the
 > current procedure or a fresh assertion of deployed state. Use the
-> [current runbook](../../docs/attack-runbook.md), [campaign mapping](../../docs/attack-chain-plan.md),
+> [current runbook](../../docs/lab/runbook.md), [campaign mapping](../../docs/research/campaign-mapping.md),
 > and [RUN-09 report](../../reports/reference-run-20261002-09.md) for the implementation.
 
 ## Current implementation reconciliation

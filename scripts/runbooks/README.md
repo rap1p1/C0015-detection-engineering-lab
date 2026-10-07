@@ -10,5 +10,5 @@ types. Outputs can be read through `/results` or `/last` while the server is run
 
 The JSON description retains an earlier real-Mimikatz design. The retained reference
 runs document the compiled **LSASS-access surrogate** instead. The discovery JSON
-contains no credential-acquisition procedure; use the current [campaign mapping](../../docs/attack-chain-plan.md)
+contains no credential-acquisition procedure; use the current [campaign mapping](../../docs/research/campaign-mapping.md)
 and [reports](../../reports/) to distinguish implemented behavior from older intent.

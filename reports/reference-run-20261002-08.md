@@ -1,5 +1,8 @@
 # Reference Run Report — RUN-20261002-08 (campaign S1–S14, final tuned-rules run)
 
+[Run index](README.md) · [Study reading guide](../docs/README.md) · [Validation scope](../docs/validation/README.md)
+
+
 Window: 2026-10-02 09:33:00Z – 09:56:00Z. Ledger: [evidence/runs/RUN-20261002-08/](../evidence/runs/RUN-20261002-08/).
 
 Structure: **campaign chain S1–S14** (ends at bounded impact), then **Validation &

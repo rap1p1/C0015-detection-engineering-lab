@@ -1,5 +1,8 @@
 # Reference Run Report — RUN-20261002-09 (S6 + S12 lifecycle validation)
 
+[Run index](README.md) · [Study reading guide](../docs/README.md) · [Validation scope](../docs/validation/README.md)
+
+
 Window: 2026-10-02 12:55:00Z – 13:35:00Z. Ledger: [evidence/runs/RUN-20261002-09/](../evidence/runs/RUN-20261002-09/).
 
 ## Campaign chain (S1–S14)

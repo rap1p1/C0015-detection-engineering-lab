@@ -1,21 +1,21 @@
-# Technical documentation
+# Technical reading guide
 
-Read the latest [reference report](../reports/reference-run-20261002-09.md) alongside its
-[ledger](../evidence/runs/RUN-20261002-09/RUN-20261002-09.json). Run records describe what
-was observed; design notes describe intent. A later replay does not retroactively validate an older experiment.
+The study follows a research argument: question → historical evidence → laboratory model → telemetry/detection → evaluation. Use the numbered order below for a full read; use the last two columns to inspect the supporting implementation and run evidence.
 
-| Document | Purpose |
-|---|---|
-| [Architecture](architecture.md) | Hosts, networks, directory services, telemetry collection, and backend paths |
-| [Campaign mapping](attack-chain-plan.md) | Historical sources, current S1–S14 stage map, and fidelity distinctions |
-| [Runbook](attack-runbook.md) | Machine-specific procedure and expected evidence; command templates require runtime values |
-| [Correlation architecture](correlation-architecture.md) | Entity and logon joins, evidence tiers, and analyst correlation guidance |
-| [Telemetry comparison](telemetry-comparison-c0015-vs-lab.md) | Campaign behavior versus evidence in the retained runs |
-| [Payloads and C2](payloads-and-c2.md) | Implemented components, simulator endpoints, and control model |
+| Chapter | Read | Supporting material |
+|---|---|---|
+| 1. Question and foundations | [Research overview](research/overview.md) | [Source register](research/references.md) |
+| 2. Original campaign and laboratory fidelity | [Campaign mapping](research/campaign-mapping.md) | [Behavior/telemetry comparison](research/telemetry-comparison.md) |
+| 3. Laboratory method | [Architecture](lab/architecture.md) | [Detailed diagram](lab/architecture-overview.md), [components](lab/components.md), [Sysmon profiles](../configs/README.md) |
+| 4. Execution and observations | [RUN-09 report](../reports/reference-run-20261002-09.md) | [Run ledger](../evidence/runs/RUN-20261002-09/RUN-20261002-09.json), [operator runbook](lab/runbook.md) |
+| 5. Detection engineering | [Rule catalogue](../detections/README.md) | [Correlation model](detection/correlation.md), [query sources](../detections/queries/) |
+| 6. Evaluation and limitations | [Validation guide](validation/README.md) | [RUN-07 tuning reference](../reports/reference-run-20261002-07.md), [all run reports](../reports/README.md) |
 
-The campaign ends at **S14**. **S15** in historical ledgers is post-run validation.
-The [rule catalogue](../detections/README.md) maps detectable behaviors to rules;
-not every stage has a dedicated rule. S6 is an orchestration decision.
+## How to interpret the documents
 
-The phase folders retain investigation history. Their design documents are explicitly
-marked as historical where the implementation has superseded the proposed procedure.
+- Campaign claims cite historical sources. Lab findings cite a specific run and artifact/event references.
+- Design/runbook instructions describe intended procedures; reports and ledgers record execution outcomes.
+- S1–S14 are campaign stages. S15 is post-run validation. A successful verifier result does not override PARTIAL or NOT RUN stage statuses.
+- [Phase narratives](../phases/README.md) retain development history. Their older planning numbering is not the current ledger numbering.
+
+Files at the former flat `docs/*.md` paths are compatibility entry points. Current content is maintained in `research/`, `lab/`, `detection/` and `validation/`; existing payload references and rule metadata can continue using the old paths.

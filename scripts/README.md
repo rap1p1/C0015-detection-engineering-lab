@@ -31,7 +31,7 @@ See [evidence documentation](../evidence/README.md) before interpreting `ACCEPTE
 Implemented endpoints include **POST `/session/register`**, **GET `/task/next`**,
 **POST `/result`**, **POST `/cmd`**, **POST `/runbook`**, and GET `/sessions`,
 `/results`, `/last`. The old `/register` and `/poll` names are not current routes.
-Full endpoint semantics are in [payloads-and-c2.md](../docs/payloads-and-c2.md).
+Full endpoint semantics are in [payloads-and-c2.md](../docs/lab/components.md).
 
 Operator commands are dynamic. Size checks and a limited credential-string filter
 do not provide a benign-command allowlist or comprehensive secret detection.

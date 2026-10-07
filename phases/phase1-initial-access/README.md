@@ -23,6 +23,6 @@ self-writes**; it targets script/proxy writers. E7 hashes are available at
 ## Read next
 
 - [Historical entry design and investigation](initial-access-chain-design.md)
-- [Current runbook](../../docs/attack-runbook.md)
+- [Current runbook](../../docs/lab/runbook.md)
 - [Components](../../payloads/) and [rule catalogue](../../detections/README.md)
 - [Latest run evidence](../../evidence/runs/RUN-20261002-09/)

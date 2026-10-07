@@ -1,5 +1,8 @@
 # Reference Run Report — RUN-20261002-07 (campaign S1–S14, tuned rules)
 
+[Run index](README.md) · [Study reading guide](../docs/README.md) · [Validation scope](../docs/validation/README.md)
+
+
 Window: 2026-10-02 08:50:00Z – 09:15:00Z. Ledger: [evidence/runs/RUN-20261002-07/](../evidence/runs/RUN-20261002-07/).
 
 Structure: the **campaign chain is S1–S14** (ending at bounded impact). This report's
@@ -59,7 +62,7 @@ Evidence clarification: S6 is NOT RUN. S12 now has a **4634 Type-10 logoff at 09
 
 - Ledger + artifacts: [evidence/runs/RUN-20261002-07/](../evidence/runs/RUN-20261002-07/)
 - Rule index: [detections/README.md](../detections/README.md); verifier: [scripts/verify/verify_final_phases.py](../scripts/verify/verify_final_phases.py)
-- Detailed runbook: [docs/attack-runbook.md](../docs/attack-runbook.md)
+- Detailed runbook: [docs/attack-runbook.md](../docs/lab/runbook.md)
 
 
 ## RDP lifecycle provenance update

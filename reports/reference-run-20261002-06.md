@@ -1,5 +1,8 @@
 # Reference Run Report — RUN-20261002-06 (final campaign, C0015, re-run)
 
+[Run index](README.md) · [Study reading guide](../docs/README.md) · [Validation scope](../docs/validation/README.md)
+
+
 Window: 2026-10-02 07:49:00Z – 08:12:00Z. Ledger: [evidence/runs/RUN-20261002-06/](../evidence/runs/RUN-20261002-06/).
 
 ## Summary

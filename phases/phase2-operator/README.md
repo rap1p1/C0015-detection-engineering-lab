@@ -26,6 +26,6 @@ The pivot DLL's E7 hash is at `file.hash.sha256`; registration receipt and callb
 telemetry support session 2 independently of marker existence.
 
 - [Historical gap investigation](operator-phase-context-gaps-runbook.md)
-- [Current runbook](../../docs/attack-runbook.md) and [correlation keys](../../docs/correlation-architecture.md)
+- [Current runbook](../../docs/lab/runbook.md) and [correlation keys](../../docs/detection/correlation.md)
 - [Rule catalogue](../../detections/README.md) and [command batch data](../../scripts/runbooks/c0015-phase2.json)
 - [Latest evidence](../../evidence/runs/RUN-20261002-09/)

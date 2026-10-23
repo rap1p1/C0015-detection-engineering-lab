@@ -48,8 +48,22 @@ Start-Service WinRM
 Set-Item WSMan:\localhost\Client\TrustedHosts -Value 'DC01,FS01,WS01' -Force
 ```
 
+## Outbound path for the cloud transfer
+
+DC01 has no forwarders, so domain clients cannot resolve names outside the lab zone. The exfiltration
+stage needs one destination, and only one is opened: FS01 resolves `mega.co.nz`, `mega.nz`, and
+`mega.io` through a name resolution policy rule that points at the NAT resolver, while every other
+name stays on DC01 and fails. IPv6 is unbound on FS01 because the lab segment is IPv4 only and the
+resolver otherwise returns AAAA records first.
+
+```powershell
+Add-DnsClientNrptRule -Namespace '.mega.co.nz','.mega.nz','.mega.io' -NameServers '192.168.106.2'
+Get-NetAdapter | ForEach-Object { Disable-NetAdapterBinding -Name $_.Name -ComponentID ms_tcpip6 }
+```
+
 ## Accounts and DNS
 
 The account model and its rationale are in [`accounts.md`](accounts.md). The zone design and the
 records that must be absent are in [`dns/zone-plan.md`](dns/zone-plan.md).
+
 

@@ -1,17 +1,21 @@
-# docs — Canonical technical records
+# Technical reading guide
 
-Flat set of design/analysis documents that span the phases; phase-specific plans
-and run records live in `../phases/<phase>/`.
+The study follows a research argument: question → historical evidence → laboratory model → telemetry/detection → evaluation. Use the numbered order below for a full read; use the last two columns to inspect the supporting implementation and run evidence.
 
-| Document | Contents |
-|---|---|
-| [attack-chain-plan.md](attack-chain-plan.md) | The canonical S1-S15 chain: historical behavior per stage (`[OBSERVED-C0015]`), lab fidelity, telemetry/evidence rules, safety boundaries. |
-| [attack-runbook.md](attack-runbook.md) | Operator runbook: exact commands and expected evidence per stage (pre-run state + full walkthrough). |
-| [architecture.md](architecture.md) | Lab topology (VMs, VMnet2, host/guest channels), Elastic/Fleet ingestion, C2-SIM + HTTP servers. |
-| [correlation-architecture.md](correlation-architecture.md) | Detection correlation design: event joins (entity/logon-id/window), index layout, sweep mechanics. |
-| [telemetry-comparison-c0015-vs-lab.md](telemetry-comparison-c0015-vs-lab.md) | Event-level parity table: what the real intrusion produced vs what the lab emits (Sysmon/Security). |
-| [payloads-and-c2.md](payloads-and-c2.md) | Payload design notes and C2-SIM behavior (tasking, sessions, receipts). |
-| [fidelity-gap-and-rebuild-plan.md](fidelity-gap-and-rebuild-plan.md) | **v2 assessment**: 52-checkpoint fidelity score vs the source campaign (38.5 %), the top unsimulated behaviours, winlogon-injection research (Sliver `migrate`), rebuild architecture, retire list, detection impacts, and the install/registration checklist. |
+| Chapter | Read | Supporting material |
+|---|---|---|
+| 1. Question and foundations | [Research overview](research/overview.md) | [Source register](research/references.md) |
+| 2. Original campaign and laboratory fidelity | [Campaign mapping](research/campaign-mapping.md) | [Behavior/telemetry comparison](research/telemetry-comparison.md) |
+| 3. Laboratory method | [Architecture](lab/architecture.md) | [Detailed diagram](lab/architecture-overview.md), [components](lab/components.md), [Sysmon profiles](../configs/README.md) |
+| 4. Execution and observations | [RUN-09 report](../reports/reference-run-20261002-09.md) | [Run ledger](../evidence/runs/RUN-20261002-09/RUN-20261002-09.json), [operator runbook](lab/runbook.md) |
+| 5. Detection engineering | [Rule catalogue](../detections/README.md) | [Correlation model](detection/correlation.md), [query sources](../detections/queries/) |
+| 6. Evaluation and limitations | [Validation guide](validation/README.md) | [RUN-07 tuning reference](../reports/reference-run-20261002-07.md), [all run reports](../reports/README.md) |
 
-Traceability: every stage in `attack-chain-plan.md` maps to a rule in
-`../detections/README.md` and to the per-phase folder in `../phases/`.
+## How to interpret the documents
+
+- Campaign claims cite historical sources. Lab findings cite a specific run and artifact/event references.
+- Design/runbook instructions describe intended procedures; reports and ledgers record execution outcomes.
+- S1–S14 are campaign stages. S15 is post-run validation. A successful verifier result does not override PARTIAL or NOT RUN stage statuses.
+- [Phase narratives](../phases/README.md) retain development history. Their older planning numbering is not the current ledger numbering.
+
+Files at the former flat `docs/*.md` paths are compatibility entry points. Current content is maintained in `research/`, `lab/`, `detection/` and `validation/`; existing payload references and rule metadata can continue using the old paths.

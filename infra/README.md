@@ -22,7 +22,7 @@ names resolve inside the zone or fail.
 | `sysmon/` | Sysmon configuration profiles used on the Windows hosts |
 | `dns/` | Zone design for the campaign hostnames |
 | `c2/` | Listener layout, nginx front, implant generation commands |
-| `scripts/` | Provisioning scripts for accounts, shares, and DNS |
+| `scripts/` | Provisioning scripts for accounts, shares, DNS, and guest remoting |
 
 ## Sequence
 
@@ -32,7 +32,24 @@ names resolve inside the zone or fail.
 4. Start the listeners per [`c2/README.md`](c2/README.md) and verify name resolution from WS01.
 5. Take a snapshot of all three hosts before the first run.
 
+## Remote access
+
+The lab hosts are driven with PowerShell remoting. Each guest runs
+[`scripts/guest-winrm-bootstrap.ps1`](scripts/guest-winrm-bootstrap.ps1) once, which enables WinRM,
+opens the firewall for every network profile, and installs a startup task that re-asserts the
+configuration after a reboot. [`scripts/bootstrap-guests.ps1`](scripts/bootstrap-guests.ps1) pushes
+that script into each guest through `vmrun`; after the first push, `vmrun` is not needed.
+
+The host must trust the lab hosts for workgroup authentication:
+
+```powershell
+Set-Service WinRM -StartupType Automatic
+Start-Service WinRM
+Set-Item WSMan:\localhost\Client\TrustedHosts -Value 'DC01,FS01,WS01' -Force
+```
+
 ## Accounts and DNS
 
 The account model and its rationale are in [`accounts.md`](accounts.md). The zone design and the
 records that must be absent are in [`dns/zone-plan.md`](dns/zone-plan.md).
+

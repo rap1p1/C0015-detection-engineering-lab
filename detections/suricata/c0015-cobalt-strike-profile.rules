@@ -1,0 +1,39 @@
+# C0015 — Cobalt Strike jQuery profile and dead-beacon DNS
+# Reference: https://thedfirreport.com/2021/11/29/continuing-the-bazar-ransomware-story/
+
+alert http $HOME_NET any -> $EXTERNAL_NET any ( \
+  msg:"C0015 Cobalt Strike jQuery profile - beacon check-in"; \
+  flow:established,to_server; \
+  http.method; content:"GET"; \
+  http.uri; content:"/jquery-3.3.1.min.js"; nocase; \
+  http.user_agent; content:"Mozilla/5.0 (Windows NT"; \
+  reference:url,thedfirreport.com/2021/11/29/continuing-the-bazar-ransomware-story/; \
+  classtype:trojan-activity; sid:2100151; rev:1;)
+
+alert http $HOME_NET any -> $EXTERNAL_NET any ( \
+  msg:"C0015 Cobalt Strike jQuery profile - beacon task result"; \
+  flow:established,to_server; \
+  http.method; content:"POST"; \
+  http.uri; content:"/jquery-3.3.2.min.js"; nocase; \
+  reference:url,thedfirreport.com/2021/11/29/continuing-the-bazar-ransomware-story/; \
+  classtype:trojan-activity; sid:2100152; rev:1;)
+
+alert tls $HOME_NET any -> $EXTERNAL_NET any ( \
+  msg:"C0015 Cobalt Strike certificate subject observed"; \
+  flow:established,to_server; \
+  tls.subject; content:"checkauj.com"; nocase; \
+  reference:url,thedfirreport.com/2021/11/29/continuing-the-bazar-ransomware-story/; \
+  classtype:trojan-activity; sid:2100153; rev:1;)
+
+alert dns $HOME_NET any -> any any ( \
+  msg:"C0015 fallback beacon domain queried and unresolved"; \
+  dns.query; content:"volga.azureedge.net"; nocase; \
+  dns.rcode:3; \
+  reference:url,thedfirreport.com/2021/11/29/continuing-the-bazar-ransomware-story/; \
+  classtype:trojan-activity; sid:2100154; rev:1;)
+
+alert tls $HOME_NET any -> $EXTERNAL_NET any ( \
+  msg:"C0015 MEGA API hostname in TLS SNI"; \
+  flow:established,to_server; \
+  tls.sni; content:"g.api.mega.co.nz"; nocase; \
+  classtype:policy-violation; sid:2100155; rev:1;)

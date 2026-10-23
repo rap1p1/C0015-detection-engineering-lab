@@ -1,0 +1,8 @@
+# Remote layout for the lab. Credentials are supplied through the environment:
+#   C0015_MEGA_USER, C0015_MEGA_PASS
+# The real rclone.conf is written outside the repository and is never committed.
+
+[Mega]
+type = mega
+user = <account>
+pass = <obscured-app-password>

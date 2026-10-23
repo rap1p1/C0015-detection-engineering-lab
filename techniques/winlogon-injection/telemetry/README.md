@@ -1,4 +1,4 @@
-# Expected telemetry — winlogon injection
+# Expected telemetry - winlogon injection
 
 The implant migrates into winlogon.exe, so subsequent operator commands execute as SYSTEM with winlogon.exe as the parent process.
 

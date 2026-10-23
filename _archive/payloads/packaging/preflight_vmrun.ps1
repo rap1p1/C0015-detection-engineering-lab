@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-Preflight via VMware Workstation vmrun — automates the one-time P0 gates on
+Preflight via VMware Workstation vmrun - automates the one-time P0 gates on
 WS01 / FS01 / Kali WITHOUT touching their consoles (phases/phase1-initial-access/initial-access-chain-design.md §5.1).
 
 Pattern per guest: copy a script in -> run it (admin, output redirected to a file)
@@ -14,7 +14,7 @@ not from any persistent log. Delete the cred file after the campaign.
 Windows gates (WS01 + FS01):
   1. it.admin in local Administrators (SeDebug path)
   2. Defender: Tamper best-effort reg, ASR d1e49aac OFF, realtime OFF, exclusions
-  3. WMI inbound firewall group enabled  (WS01 NEW — remote S7b operator hop)
+  3. WMI inbound firewall group enabled  (WS01 NEW - remote S7b operator hop)
   4. icacls C:\C0015 Everyone:F (FS01)
   5. WS01: EnableLUA=0 (+ optional -DoReboot) ; Trust Center Word VBAWarnings/AccessVBOM/ProtectedView
 Kali gate: build the DLL payload (build_dll.sh + 143 surrogate) and print hashes.

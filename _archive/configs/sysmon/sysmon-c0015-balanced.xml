@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  C0015 Sysmon — BALANCED profile (routine collection) / schema 4.91 / Sysmon 15.21
+  C0015 Sysmon - BALANCED profile (routine collection) / schema 4.91 / Sysmon 15.21
   Narrowed from the CAPTURE profile: ImageLoad (E7), ProcessAccess (E10) and
   RegistryEvent are SCOPED instead of unfiltered, to keep routine volume low.
 

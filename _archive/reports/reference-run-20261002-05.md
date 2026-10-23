@@ -1,14 +1,14 @@
-# Reference Run Report — RUN-20261002-05 (final campaign, C0015)
+# Reference Run Report - RUN-20261002-05 (final campaign, C0015)
 
 [Run index](README.md) · [Study reading guide](../docs/README.md) · [Validation scope](../docs/validation/README.md)
 
 
-Window: 2026-10-02 05:41:00Z – 06:12:00Z. Ledger: [evidence/runs/RUN-20261002-05/](../evidence/runs/RUN-20261002-05/).
+Window: 2026-10-02 05:41:00Z - 06:12:00Z. Ledger: [evidence/runs/RUN-20261002-05/](../evidence/runs/RUN-20261002-05/).
 
 ## Summary
 
 The lab replayed the C0015 intrusion end to end under one run id: macro self-write
-entry (S1) → discovery and credential access from the beachhead (S4–S7b) → SMB handoff
+entry (S1) → discovery and credential access from the beachhead (S4-S7b) → SMB handoff
 and WMI pivot (S8a/S8b) → second session with server-side receipt (S9) → collection
 (S10) → two rclone transfer rounds to the internal sink (S11a/b with RDP between) →
 remote-tool deployment (S13) → bounded impact with verified rollback (S14).
@@ -21,20 +21,20 @@ remote-tool deployment (S13) → bounded impact with verified rollback (S14).
 | 05:41:42 | macro self-write of config/HTA/beacon | `c0015wf.log` |
 | 05:41:43 | mshta → regsvr32 → beacon powershell | E1 chain |
 | 05:41:44 | phase3 register | C2-SIM `S1-9a7cab91e7fd4f9f` |
-| 05:42:06–39 | discovery + share enumeration | E1 cmd/net view |
+| 05:42:06-39 | discovery + share enumeration | E1 cmd/net view |
 | 05:44:03 | LSASS surrogate E10 0x1010 | E1 → E10 |
 | 05:44:49 | it.admin network logon (FS01) | 4624 T3 |
 | 05:45:11 | WMI pivot: rundll32 (par=WmiPrvSE) | E1 + E7 (ART-06-01 hash) |
 | 05:45:12 | receipt ART-07-01-18c677ef | server-side |
-| 05:48–51 | collection staging (11 files) + zips | E11 + S5145 (381; C$:377) |
+| 05:48-51 | collection staging (11 files) + zips | E11 + S5145 (381; C$:377) |
 | 05:58:35 / 06:01:29 | rclone rounds 1 + 2 → sink :9001 | E1 rclone, E3, receipts 11/11 hash each |
 | 06:00:27 | interactive it.admin logon (LogonType 10, fs01) | 4624 x2 (logon ids 0x2d1c6d0/0x2d1c733) |
-| 06:02:21–55 | AnyDesk drop (Videos\) + run; ProcessHacker drop (C:\) | E11 + E1 |
-| 06:04:06–07 | impact: corpus + note writes | E11; Run 15 files; Rollback hash-equal |
+| 06:02:21-55 | AnyDesk drop (Videos\) + run; ProcessHacker drop (C:\) | E11 + E1 |
+| 06:04:06-07 | impact: corpus + note writes | E11; Run 15 files; Rollback hash-equal |
 
 ## Detection results
 
-At run time the suite had 22 rules (R01–R21, including R14a/R14b). R21 was later retired and R22–R24 added; the current suite has 24 rules. The alerting rules at this run were: R17 (WMI pivot), R18 (proxy-spawned
+At run time the suite had 22 rules (R01-R21, including R14a/R14b). R21 was later retired and R22-R24 added; the current suite has 24 rules. The alerting rules at this run were: R17 (WMI pivot), R18 (proxy-spawned
 egress). Raw stored counts for the window (upper bounds; suppression applies at
 execution): R16=340 (no suppression configured), R14b=288 (BB), R10=78, R14a=72,
 R12=33, R11=9, R18=9, R13=8, R17=3, R15=2, R20=3. R19 produced no alert in this window (rule imported after the run window; the Type-10
@@ -46,7 +46,7 @@ Analyst correlation guidance: R14a/R14b/R16 and earlier discovery provide contex
 
 - **S6 is NOT RUN** in this run. End-to-end wording describes the executed replay and its defined acceptance scope, not PASS for every numbered stage.
 
-- **S12 (RDP) — PARTIAL**: interactive it.admin logons (4624 LogonType 10) were recorded at
+- **S12 (RDP) - PARTIAL**: interactive it.admin logons (4624 LogonType 10) were recorded at
   06:00:27Z (logon ids 0x2d1c6d0/0x2d1c733). R19 produced no alert in this window because the rule
   was imported after the run window. The current ledger also records 4634 Type 10 at **06:01:07.328Z**, joined to the first logon by FS01 TargetLogonId **0x2d1c6d0**. This does not establish the lifecycle of the second T10 or separate reconnect/disconnect behavior.
 - **S14 impact** is a bounded, allowlist-capped, reversible surrogate; the corpus/backup

@@ -1,4 +1,4 @@
-# Expected telemetry — HTA proxy execution
+# Expected telemetry - HTA proxy execution
 
 mshta.exe runs the HTML Application, which fetches the next-stage module over HTTP and writes it to disk under an image extension before invoking regsvr32.
 

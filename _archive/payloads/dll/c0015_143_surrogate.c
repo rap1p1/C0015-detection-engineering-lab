@@ -1,5 +1,5 @@
 /*
- * c0015_143_surrogate.c — benign 143.dll surrogate [LAB-SURROGATE]
+ * c0015_143_surrogate.c - benign 143.dll surrogate [LAB-SURROGATE]
  *
  * Phase-2 S8/S9 role: mirrors the C0015 "143.dll" Cobalt Strike beacon that was
  * placed on the target and executed via WMI -> rundll32 (T1047/T1218.011). Lab

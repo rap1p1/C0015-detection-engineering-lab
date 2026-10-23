@@ -15,7 +15,7 @@ The study follows a research argument: question → historical evidence → labo
 
 - Campaign claims cite historical sources. Lab findings cite a specific run and artifact/event references.
 - Design/runbook instructions describe intended procedures; reports and ledgers record execution outcomes.
-- S1–S14 are campaign stages. S15 is post-run validation. A successful verifier result does not override PARTIAL or NOT RUN stage statuses.
+- S1-S14 are campaign stages. S15 is post-run validation. A successful verifier result does not override PARTIAL or NOT RUN stage statuses.
 - [Phase narratives](../phases/README.md) retain development history. Their older planning numbering is not the current ledger numbering.
 
 Files at the former flat `docs/*.md` paths are compatibility entry points. Current content is maintained in `research/`, `lab/`, `detection/` and `validation/`; existing payload references and rule metadata can continue using the old paths.

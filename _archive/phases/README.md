@@ -2,7 +2,7 @@
 
 [Project overview](../README.md) · [Current reading guide](../docs/README.md)
 
-These folders group the earlier development work. Their phase numbers are not the current S1–S14 ledger stage IDs. Use the current [campaign mapping](../docs/research/campaign-mapping.md) and [run reports](../reports/README.md) for supported findings.
+These folders group the earlier development work. Their phase numbers are not the current S1-S14 ledger stage IDs. Use the current [campaign mapping](../docs/research/campaign-mapping.md) and [run reports](../reports/README.md) for supported findings.
 
 | Folder | Scope |
 |---|---|

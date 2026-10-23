@@ -1,4 +1,4 @@
-# C0015 — BazarLoader to Conti, reconstructed for detection engineering
+# C0015 - BazarLoader to Conti, reconstructed for detection engineering
 
 ![ATT&CK](https://img.shields.io/badge/ATT%26CK-30%20techniques%20mapped-informational)
 ![techniques](https://img.shields.io/badge/techniques-14-blue)
@@ -187,7 +187,7 @@ version metadata, loaded by a signed Windows binary from a user-writable directo
 
 The delivery document carries the second stage as base64 and writes it at open time. The macro starts
 `cmd.exe /c mshta`, which yields the three-level edge `WINWORD.EXE -> cmd.exe -> mshta.exe`. The HTA
-keeps the three COM objects of the campaign — `MSXML2.XMLHTTP`, `ADODB.Stream`, and `WScript.Shell` —
+keeps the three COM objects of the campaign - `MSXML2.XMLHTTP`, `ADODB.Stream`, and `WScript.Shell` -
 downloads the module to `C:\Users\Public`, and registers it with `regsvr32`.
 
 Telemetry: process creation for the chain, file creation for the HTA and the module, and a module load
@@ -202,8 +202,8 @@ from a user-writable path with no valid signature.
 A service DLL hosts the stage inside `svchost.exe -k c0015grp` and spawns
 `rundll32.exe C:\Users\Public\C0015\D8B3.dll`. Because the service host runs as SYSTEM, the loader
 inherits SYSTEM without a separate privilege operation, and the process tree contains the campaign
-edge. The service installation adds events the source intrusion does not contain — a service
-installation record and the service registry keys — and those are the price of reproducing the host
+edge. The service installation adds events the source intrusion does not contain - a service
+installation record and the service registry keys - and those are the price of reproducing the host
 process without a real loader.
 
 A second module is generated against a name that does not resolve in the lab zone. It retries, the
@@ -309,7 +309,7 @@ transfer.
 ### Impact
 
 `locker.bat` is rendered per target host and executed from the backup server. The locker binary
-accepts the campaign argument set — `-m -net -size 10 -nomutex -p \\HOST\C$` — renames files in the
+accepts the campaign argument set - `-m -net -size 10 -nomutex -p \\HOST\C$` - renames files in the
 allowlisted corpus, and writes `readme.txt` into each directory it touches. No content is encrypted
 and no key material is generated; the rename and the note are the observables, and the corpus is
 restored from a hash-checked copy afterwards.
@@ -495,20 +495,20 @@ and impact followed by a verified restore.
 
 ## Credits and references
 
-- The DFIR Report, *CONTInuing the Bazar Ransomware Story*, 29 November 2021 —
+- The DFIR Report, *CONTInuing the Bazar Ransomware Story*, 29 November 2021 -
   <https://thedfirreport.com/2021/11/29/continuing-the-bazar-ransomware-story/>. The campaign
   narrative, the process ancestry, the command lines, and the indicator set in this repository are
   derived from that report.
-- MITRE ATT&CK campaign C0015 — <https://attack.mitre.org/campaigns/C0015/>
-- Sliver, BishopFox — <https://github.com/BishopFox/sliver>. Used as the C2 framework in place of
+- MITRE ATT&CK campaign C0015 - <https://attack.mitre.org/campaigns/C0015/>
+- Sliver, BishopFox - <https://github.com/BishopFox/sliver>. Used as the C2 framework in place of
   Cobalt Strike.
-- Sysmon, Microsoft Sysinternals — <https://learn.microsoft.com/sysinternals/downloads/sysmon>
-- rclone — <https://rclone.org/>
-- Process Hacker — <https://processhacker.sourceforge.io/>
-- Mimikatz, Benjamin Delpy — <https://github.com/gentilkiwi/mimikatz>
-- PowerView, PowerSploit — <https://github.com/PowerShellMafia/PowerSploit>
-- AnyDesk — <https://anydesk.com/>
-- Elastic Security — <https://www.elastic.co/security>
+- Sysmon, Microsoft Sysinternals - <https://learn.microsoft.com/sysinternals/downloads/sysmon>
+- rclone - <https://rclone.org/>
+- Process Hacker - <https://processhacker.sourceforge.io/>
+- Mimikatz, Benjamin Delpy - <https://github.com/gentilkiwi/mimikatz>
+- PowerView, PowerSploit - <https://github.com/PowerShellMafia/PowerSploit>
+- AnyDesk - <https://anydesk.com/>
+- Elastic Security - <https://www.elastic.co/security>
 
 ### Defensive use
 

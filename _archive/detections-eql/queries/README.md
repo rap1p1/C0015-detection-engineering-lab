@@ -1,6 +1,6 @@
 # Query sources
 
-There are **24 source files**. R01–R20 (including R14a/R14b) and R22/R24 are EQL.
+There are **24 source files**. R01-R20 (including R14a/R14b) and R22/R24 are EQL.
 **R23 is KQL for a threshold rule**, despite its `.eql` filename; its grouping and
 cardinality are exported by the generator. R21 is retired.
 
@@ -11,9 +11,9 @@ cardinality are exported by the generator. R21 is retired.
 | [r03-proxy-loader-loading-unsigned-module.eql](r03-proxy-loader-loading-unsigned-module.eql) | R03 | S2/S8b |
 | [r04-script-or-proxy-staging-file-write.eql](r04-script-or-proxy-staging-file-write.eql) | R04 | S2 |
 | [r05-proxy-loader-spawning-powershell.eql](r05-proxy-loader-spawning-powershell.eql) | R05 | S3/S9 |
-| [r06-script-host-network-egress.eql](r06-script-host-network-egress.eql) | R06 | S2–S3/S9 |
-| [r07-office-to-mshta-to-proxy-loader.eql](r07-office-to-mshta-to-proxy-loader.eql) | R07 | S1–S2 |
-| [r08-unsigned-module-load-to-powershell.eql](r08-unsigned-module-load-to-powershell.eql) | R08 | S2–S3/S8b–S9 |
+| [r06-script-host-network-egress.eql](r06-script-host-network-egress.eql) | R06 | S2-S3/S9 |
+| [r07-office-to-mshta-to-proxy-loader.eql](r07-office-to-mshta-to-proxy-loader.eql) | R07 | S1-S2 |
+| [r08-unsigned-module-load-to-powershell.eql](r08-unsigned-module-load-to-powershell.eql) | R08 | S2-S3/S8b-S9 |
 | [r09-proxy-spawned-powershell-network-egress.eql](r09-proxy-spawned-powershell-network-egress.eql) | R09 | S3/S9 |
 | [r10-powershell-spawning-nested-cmd.eql](r10-powershell-spawning-nested-cmd.eql) | R10 | S4 |
 | [r11-nested-cmd-launching-discovery-tool.eql](r11-nested-cmd-launching-discovery-tool.eql) | R11 | S4 |

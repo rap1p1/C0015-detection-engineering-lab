@@ -1,6 +1,6 @@
-# Detection measurement — RUN-20261002-05
+# Detection measurement - RUN-20261002-05
 
-Window: **2026-10-02 05:41:00Z–06:12:00Z**. This is a historical measurement of
+Window: **2026-10-02 05:41:00Z-06:12:00Z**. This is a historical measurement of
 the suite at that run, not the current 24-rule deployment.
 
 ## Campaign and evidence

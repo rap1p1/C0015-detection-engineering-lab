@@ -11,12 +11,12 @@ none is part of the documented deployed chain.
 |---|---|---|
 | S1 | Generated Word macro | Writes embedded config/HTA/beacon and starts mshta; manual document open replaces delivery |
 | S2 | `bootstrap.hta` | VBScript decodes benign base64, downloads DLL-as-JPG and launches regsvr32; JScript writes its marker |
-| S2–S3 | `c0015_bootstrap_dll.c` | DllRegisterServer bootstrap writes a marker and starts the session-1 PowerShell beacon |
+| S2-S3 | `c0015_bootstrap_dll.c` | DllRegisterServer bootstrap writes a marker and starts the session-1 PowerShell beacon |
 | S3/S9 | `c0015_beacon.ps1` | Registration, default task stream, queued operator commands, result posting |
 | S6 | Simulator target-decision task | Writes fixed-target FS01 decision artifact in RUN-09 |
 | S7b | `c0015_mimikatz_surrogate.c` | Opens LSASS with 0x1010 rights, emits benign placeholder output and a decoy dump file |
-| S8b–S9 | `c0015_143_surrogate.c` | LabEntry in rundll32 writes a marker and starts the FS01 beacon |
-| S10–S11 | WS01 operator processes + rclone | Collection through FS01 C$, then two transfers to internal WebDAV |
+| S8b-S9 | `c0015_143_surrogate.c` | LabEntry in rundll32 writes a marker and starts the FS01 beacon |
+| S10-S11 | WS01 operator processes + rclone | Collection through FS01 C$, then two transfers to internal WebDAV |
 | S13 | AnyDesk / ProcessHacker | Remote-tool/process-tool deployment surfaces; not replacement C2-SIM channels |
 | S14 | `c0015_impact.ps1` | Bounded file-name transformation, notes, verification and rollback on FS01 |
 
@@ -76,7 +76,7 @@ of assuming RDP always fell between its two transfer rounds.
 
 The impact component transforms an allowlisted dummy corpus and creates notes; it
 does not encrypt real user data. RUN-05 used an earlier one-directional comparison;
-06–09 record bidirectional Verify and rollback hash equality. Those results concern
+06-09 record bidirectional Verify and rollback hash equality. Those results concern
 file content/name state, not a complete enterprise recovery or separately measured
 ACL restoration.
 

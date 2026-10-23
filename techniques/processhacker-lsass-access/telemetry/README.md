@@ -1,4 +1,4 @@
-# Expected telemetry — LSASS access through ProcessHacker
+# Expected telemetry - LSASS access through ProcessHacker
 
 ProcessHacker is dropped in the root of C: and used to create a memory dump of lsass.exe, which is then parsed offline with Mimikatz.
 

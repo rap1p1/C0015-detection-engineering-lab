@@ -1,4 +1,4 @@
-# configs — Agent configuration
+# configs - Agent configuration
 
 | File | Purpose |
 |---|---|

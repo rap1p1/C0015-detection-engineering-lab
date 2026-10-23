@@ -1,4 +1,4 @@
-# Expected telemetry — Discovery through LOLBins
+# Expected telemetry - Discovery through LOLBins
 
 Host and domain discovery runs as one cmd.exe per command, spawned by winlogon.exe under a SYSTEM token.
 

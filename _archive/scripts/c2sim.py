@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""C0015 C2-SIM v3 — lab C2 simulator for the operator phase (benign, stdlib only).
+"""C0015 C2-SIM v3 - lab C2 simulator for the operator phase (benign, stdlib only).
 
 Operator-realistic: the C2 host can enqueue ARBITRARY BENIGN commands to a
 session via POST /cmd (dynamic tasking, like a real C2 operator); the beacon

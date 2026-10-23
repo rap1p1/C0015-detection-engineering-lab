@@ -1,7 +1,7 @@
 # Campaign mapping and fidelity
 
-The campaign execution map is **S1–S14**, with S7b, S8a/S8b and S11a/S11b refinements.
-**S15** in retained ledgers is post-run validation. Earlier P0–P15 planning numbers
+The campaign execution map is **S1-S14**, with S7b, S8a/S8b and S11a/S11b refinements.
+**S15** in retained ledgers is post-run validation. Earlier P0-P15 planning numbers
 were a different design scheme; they must not be used interchangeably with ledger stages.
 
 Read this mapping with the [runbook](../lab/runbook.md), [architecture](../lab/architecture.md),
@@ -50,9 +50,9 @@ documentation page is not a reproducible software-version assertion.
 Timeline spans 5 days in August 2021 (S2); Cobalt Strike and the operator are visible within the first two hours
 (S2). Each claim carries its label.
 
-1. Delivery: phishing ZIP -> Word document — `[INFERRED-C0015]` (S2 "likely"; S1 T1566.001); macro execution
+1. Delivery: phishing ZIP -> Word document - `[INFERRED-C0015]` (S2 "likely"; S1 T1566.001); macro execution
    `[OBSERVED-C0015]` (S2: Word 2003 XML document, user enables macro; T1204.002).
-2. HTA (JS/VBS, encoded — T1059.005/.007, T1027) -> `compareForfor.jpg` (masquerade — T1036) -> `c:\users\public`
+2. HTA (JS/VBS, encoded - T1059.005/.007, T1027) -> `compareForfor.jpg` (masquerade - T1036) -> `c:\users\public`
    -> REGSVR32 (T1218.010, T1105) `[OBSERVED-C0015]` (S2).
 3. Bazar (S0534) foothold: C2 `64.227.65.60:443` (also `161.35.147.110`, `161.35.155.92`, `64.227.69.92`; JA3
    `72a589da...`; cert GG EST / perdefue.fr), invokes Svchost, myexternalip lookup (T1016) `[OBSERVED-C0015]` (S2).
@@ -72,12 +72,12 @@ Timeline spans 5 days in August 2021 (S2); Cobalt Strike and the operator are vi
    `143.dll` (Cobalt Strike beacon) on the backup server; beacon injected into
    `svchost.exe -k UnistackSvcGroup -s CDPUserSvc`; callback checkauj[.]com; ~9 hours later an RDP session via the
    143.dll path (S2).
-9. Credential provenance for the WMI pivot: `[UNKNOWN-C0015]` — no LSASS/Mimikatz assumption is made.
+9. Credential provenance for the WMI pivot: `[UNKNOWN-C0015]` - no LSASS/Mimikatz assumption is made.
 10. Collection and exfiltration: ShareFinder re-run; data exfiltrated from a different server than the backup
     server (S2); Rclone -> MEGA in two rounds (day 1 and day 4) with `--bwlimit 10M --transfers 7
     --multi-thread-streams 7 --max-age 2y --ignore-existing --auto-confirm` (S2; S1 T1039, T1005, T1567.002,
     T1030) `[OBSERVED-C0015]`.
-11. RDP (T1021.001) `[OBSERVED-C0015]`: day 2 — to the backup server via the beacon; backup console; taskmanager
+11. RDP (T1021.001) `[OBSERVED-C0015]`: day 2 - to the backup server via the beacon; backup console; taskmanager
     GUI `/4`. Also recorded ~9 hours after 143.dll deployment.
 12. AnyDesk (T1219.002) `[OBSERVED-C0015]`: day 5, `c:\users\<REDACTED>\Videos`, long connection toward
     legitimately registered IPv4 ranges.
@@ -96,7 +96,7 @@ Timeline spans 5 days in August 2021 (S2); Cobalt Strike and the operator are vi
 | S3 | Bootstrap DLL starts PowerShell beacon; C2-SIM registration and task/result loop | Loader → beacon ancestry, beacon-owned E3, server registration context |
 | S4 | Discovery through the WS01 beacon and CMD children | E1 command classes; execution does not guarantee useful command output |
 | S5 | Share-enumeration commands and output | Lab substitute for PowerView ShareFinder; do not claim AdFind executed from its file drop alone |
-| S6 | Fixed scenario target FS01; server-side decision artifact | NOT RUN in 05–08; executed in 09 as ART-06-02, without discovery-derived selection proof |
+| S6 | Fixed scenario target FS01; server-side decision artifact | NOT RUN in 05-08; executed in 09 as ART-06-02, without discovery-derived selection proof |
 | S7 | Pre-provisioned it.admin operator context | Authentication events where generated; no proof of original credential provenance |
 | S7b | Compiled LSASS-access surrogate | E10 target LSASS, grant 0x1010; placeholder output and decoy dump, no real extraction |
 | S8a | WS01 tool fetch and SMB C$ staging to FS01 | E3/E11 plus target 5145 access checks; file hash continuity when recorded |
@@ -104,7 +104,7 @@ Timeline spans 5 days in August 2021 (S2); Cobalt Strike and the operator are vi
 | S9 | Pivot DLL starts FS01 beacon; registration accepted | Entity-owned E3 and ART-07-01 receipt; marker alone is insufficient |
 | S10 | WS01 operator reads through FS01 C$, stages collection under C$ | 5145/E11 and ART-08-01 manifest; 11 files, 309 bytes |
 | S11a/b | WS01 rclone sends two rounds to operator-host WebDAV :9001 | E1/E3 and ART-09-01 full-set equality per round; no MEGA or chunked POST service |
-| S12 | Operator-host RDP to FS01 | T10 logon → T10 logoff joined by TargetLogonId; R19 alerts in 06–09 |
+| S12 | Operator-host RDP to FS01 | T10 logon → T10 logoff joined by TargetLogonId; R19 alerts in 06-09 |
 | S13 | Portable AnyDesk deployment/execution and ProcessHacker deployment surface | E11/E1 as recorded; public relay observed separately, not used as C2-SIM operator transport |
 | S14 | FS01 bounded corpus transformation and note creation | E11 notes, R22/R23 in later runs, impact output; reversible surrogate rather than actual encryption |
 | Post-run S15 | Acceptance, scorecard and analyst evaluation | Ground truth and validation; not an additional attacker technique |
@@ -148,7 +148,7 @@ historical between-round ordering must not be asserted for every replay.
 is remote-access software; ProcessHacker is a process tool, and its historical LSASS
 use is inferred, not a confirmed credential dump. The impact harness runs separately
 on FS01, not as a proven descendant of the session-2 beacon. RUN-05 used one-directional
-recovery comparison; 06–09 record bidirectional verification.
+recovery comparison; 06-09 record bidirectional verification.
 
 ## Technique distinctions
 
@@ -158,7 +158,7 @@ recovery comparison; 06–09 record bidirectional verification.
   extraction or historical Mimikatz use. The original WMI credential provenance stays UNKNOWN.
 - Unsigned module status does not by itself reproduce T1553.002 invalid-signature
   behavior. Preserve historical and laboratory technique claims separately.
-- Sysmon E19–E21 describe WMI subscription events, not remote process creation.
+- Sysmon E19-E21 describe WMI subscription events, not remote process creation.
 - E3 is connection telemetry, not HTTP bodies, bandwidth measurement or completed exfiltration.
 - E2 is creation-time change, not rename. E11 create/overwrite is not ordinary read
   telemetry and does not guarantee a record for every rename.

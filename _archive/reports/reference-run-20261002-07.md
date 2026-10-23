@@ -1,20 +1,20 @@
-# Reference Run Report — RUN-20261002-07 (campaign S1–S14, tuned rules)
+# Reference Run Report - RUN-20261002-07 (campaign S1-S14, tuned rules)
 
 [Run index](README.md) · [Study reading guide](../docs/README.md) · [Validation scope](../docs/validation/README.md)
 
 
-Window: 2026-10-02 08:50:00Z – 09:15:00Z. Ledger: [evidence/runs/RUN-20261002-07/](../evidence/runs/RUN-20261002-07/).
+Window: 2026-10-02 08:50:00Z - 09:15:00Z. Ledger: [evidence/runs/RUN-20261002-07/](../evidence/runs/RUN-20261002-07/).
 
-Structure: the **campaign chain is S1–S14** (ending at bounded impact). This report's
-remaining sections are **Validation & Detection Coverage** and **Recovery & Cleanup** —
+Structure: the **campaign chain is S1-S14** (ending at bounded impact). This report's
+remaining sections are **Validation & Detection Coverage** and **Recovery & Cleanup** -
 Detection-Engineer evaluation, not simulated campaign behavior.
 
-## Campaign chain summary (S1–S14)
+## Campaign chain summary (S1-S14)
 
 | Stage | Evidence (key) |
 |---|---|
 | S1 entry | macro self-write (c0015wf.log 08:54:56Z) → mshta → regsvr32 (entity chain) → register `S1-353be732c7d5d5d2` 08:55:01Z |
-| S4–S5 discovery/share | runbook batch (30+ tasks); net view es_id `AaD706iPmO7CP6QKbU0_` 08:55:00Z |
+| S4-S5 discovery/share | runbook batch (30+ tasks); net view es_id `AaD706iPmO7CP6QKbU0_` 08:55:00Z |
 | S7b LSASS surface | E10 `AaD71qiPmO7CP6QmeEts` 08:58:21Z grant 0x1010 |
 | S8a/S8b handoff+pivot | 5145 C$; rundll32 `AaD716iPmO7CP6QUe7aE` 08:59:29Z (parent=WmiPrvSE, LabEntry); E7 unsigned `AaD716iPmO7CP6QUe7aI` |
 | S9 session-2 | entity-owned E3 08:59:33Z; receipt `ART-07-01-c0dfc1fa` 08:59:31Z |
@@ -35,8 +35,8 @@ Alert volume (stored docs in window; unique-activity where cardinality applies):
 | Rule | Docs | Unique activity | Note |
 |---|---|---|---|
 | R06 egress | 375 | **11 entities** | polling loop; entity suppression in place |
-| R16 admin share | 184 | — (per-logon context) | suppression host+SubjectLogonId+ShareName 5m configured; docs remain per-sweep copies (upper bound) |
-| R14b elevated | 169 | — (per-logon context) | suppression host+SubjectLogonId 5m configured; same caveat |
+| R16 admin share | 184 | - (per-logon context) | suppression host+SubjectLogonId+ShareName 5m configured; docs remain per-sweep copies (upper bound) |
+| R14b elevated | 169 | - (per-logon context) | suppression host+SubjectLogonId 5m configured; same caveat |
 | R17 WMI pivot | 3 | **1 sequence** | single activity |
 | R18 proxy egress | 6 | **2 activities** | second-session egress |
 | R22 note class | 3 | 3 creates | building block |

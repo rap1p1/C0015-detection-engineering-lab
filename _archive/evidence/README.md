@@ -33,7 +33,7 @@ The manifest-file hash and an individual transferred file's hash are different v
 `ACCEPTED` means the verifier's defined assertions succeeded for its supported run.
 It does not mean every stage is PASS or every historical technique was reproduced.
 RUN-05's committed scorecard uses `PASS`; later scorecards use `ACCEPTED`.
-S6 is NOT RUN in 05–08 and executed in 09. S12 remains PARTIAL, with a verified
+S6 is NOT RUN in 05-08 and executed in 09. S12 remains PARTIAL, with a verified
 4624 Type-10 → 4634 Type-10 join; disconnect/reconnect is not separately verified.
 
 Some older ledger notes retain superseded wording about E7 hashes or session lifetime.

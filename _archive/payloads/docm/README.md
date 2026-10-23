@@ -1,8 +1,8 @@
-# payloads/docm — Word macro base
+# payloads/docm - Word macro base
 
-`macro_payload.vba` — the canonical entry macro (S1, T1204.002/T1059.005): reads
+`macro_payload.vba` - the canonical entry macro (S1, T1204.002/T1059.005): reads
 `%PUBLIC%\C0015\config.ini`, and if `hta_path`/`mshta_path` are present launches
-`mshta` on the HTA — with a `m_bootstrapStarted` guard so only one chain starts per
+`mshta` on the HTA - with a `m_bootstrapStarted` guard so only one chain starts per
 document open.
 
 The **generated** self-write variant (macro that creates config/HTA/beacon from embedded

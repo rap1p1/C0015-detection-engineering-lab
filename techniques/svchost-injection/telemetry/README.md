@@ -1,4 +1,4 @@
-# Expected telemetry — svchost injection (CDPUserSvc)
+# Expected telemetry - svchost injection (CDPUserSvc)
 
 The pivot beacon on the backup server injects into the per-user svchost instance that hosts CDPUserSvc.
 

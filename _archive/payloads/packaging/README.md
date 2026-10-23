@@ -1,13 +1,13 @@
-# payloads/packaging — build / install / preflight / orchestrator
+# payloads/packaging - build / install / preflight / orchestrator
 
 Harness tooling that produces the runnable artifacts and drives the campaign.
 
 | Script | Purpose |
 |---|---|
-| `run_campaign_orchestrator.ps1` | `-Action Pre\|P1\|P2\|P3\|Artifacts\|Stop` — per-run config, server side, staged files, receipts guide, cleanup |
+| `run_campaign_orchestrator.ps1` | `-Action Pre\|P1\|P2\|P3\|Artifacts\|Stop` - per-run config, server side, staged files, receipts guide, cleanup |
 | `make_config.ps1` | generates the base per-run INI at `OutPath`; phase7 configuration is a separate template/harness input |
 | `gen_macro_embedded.ps1` | builds `stage/ws01/macro_embedded.vba` (self-contained standard-module macro with base64 blobs) |
-| `install_macro_docm.ps1` | injects the VBA into a `.docm` — `$doc.VBProject` + standard module `c0015Payload`, `AutoOpen` trigger, entry-macro guard |
+| `install_macro_docm.ps1` | injects the VBA into a `.docm` - `$doc.VBProject` + standard module `c0015Payload`, `AutoOpen` trigger, entry-macro guard |
 | `launch_servers.ps1` | starts/stops C2-SIM (guard-aware) + HTTP staging server (`-Stop` stops both) |
 | `preflight_vmrun.ps1` / `preflight_win.ps1` / `preflight_kali.sh` | machine readiness checks (hostname trim, tools, Escalate bash) |
 | `defender_off.ps1` | disables Defender via a SYSTEM scheduled task (used after snapshot reverts) |

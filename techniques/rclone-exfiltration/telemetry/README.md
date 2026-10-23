@@ -1,4 +1,4 @@
-# Expected telemetry — rclone exfiltration to MEGA
+# Expected telemetry - rclone exfiltration to MEGA
 
 rclone copies shares to a MEGA remote with bandwidth and parallelism limits, twice, with an RDP session between the rounds.
 

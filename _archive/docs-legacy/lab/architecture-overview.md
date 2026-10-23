@@ -6,7 +6,7 @@
 ```mermaid
 flowchart TD
 
-subgraph campaign["Campaign simulation · S1–S14"]
+subgraph campaign["Campaign simulation · S1-S14"]
     direction TD
 
     operator(("Lab operator"))

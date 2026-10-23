@@ -1,5 +1,5 @@
 /*
- * locker_sim.c — argument-compatible, reversible stand-in for the Conti locker
+ * locker_sim.c - argument-compatible, reversible stand-in for the Conti locker
  *
  * Accepts the deployment flag set produced by locker.bat:
  *

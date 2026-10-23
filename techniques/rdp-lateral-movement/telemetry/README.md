@@ -1,4 +1,4 @@
-# Expected telemetry — RDP through the beacon
+# Expected telemetry - RDP through the beacon
 
 The operator reaches the backup server over RDP tunnelled through the implant, so the implant process owns the 3389 connection.
 

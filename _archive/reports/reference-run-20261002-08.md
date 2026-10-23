@@ -1,20 +1,20 @@
-# Reference Run Report — RUN-20261002-08 (campaign S1–S14, final tuned-rules run)
+# Reference Run Report - RUN-20261002-08 (campaign S1-S14, final tuned-rules run)
 
 [Run index](README.md) · [Study reading guide](../docs/README.md) · [Validation scope](../docs/validation/README.md)
 
 
-Window: 2026-10-02 09:33:00Z – 09:56:00Z. Ledger: [evidence/runs/RUN-20261002-08/](../evidence/runs/RUN-20261002-08/).
+Window: 2026-10-02 09:33:00Z - 09:56:00Z. Ledger: [evidence/runs/RUN-20261002-08/](../evidence/runs/RUN-20261002-08/).
 
-Structure: **campaign chain S1–S14** (ends at bounded impact), then **Validation &
-Detection Coverage** and **Recovery & Cleanup** — Detection-Engineer work, not campaign
+Structure: **campaign chain S1-S14** (ends at bounded impact), then **Validation &
+Detection Coverage** and **Recovery & Cleanup** - Detection-Engineer work, not campaign
 behavior.
 
-## Campaign chain summary (S1–S14)
+## Campaign chain summary (S1-S14)
 
 | Stage | Evidence (key) |
 |---|---|
 | S1 entry | macro self-write → mshta → regsvr32 (entity-joined) → register `93ddfe8b` 09:33:23Z (`S1-6eb01d7793ddfe8b`) |
-| S4–S5 discovery/share | runbook batch; net view E1s |
+| S4-S5 discovery/share | runbook batch; net view E1s |
 | S7b LSASS surface | E10 lsass grant 0x1010 (no dump) |
 | S8a/S8b handoff+pivot | 5145 C$; rundll32 (par=WmiPrvSE, LabEntry) **09:39:45.723Z**, E1 `AaD7-6iPmO7CP6Tu_Akw` (retried after config propagation); E7 unsigned |
 | S9 session-2 | `S1-725a83c09ee55cdb` 09:39:46Z; receipt `ART-07-01-9ee55cdb` (run_id corrected to RUN-20261002-08) |
@@ -28,9 +28,9 @@ behavior.
 
 | Slot | Nội dung |
 |---|---|
-| SS01/SS05/SS06 (WS01) | network config, Sysmon active + E7/E10, audit policy/UTC — captured by the author (not stored in the repo) |
-| SS22 (FS01) | impact Verify/Rollback output — captured by the author |
-| SS28 | acceptance verifier output (RESULT: ACCEPTED) — captured by the author |
+| SS01/SS05/SS06 (WS01) | network config, Sysmon active + E7/E10, audit policy/UTC - captured by the author (not stored in the repo) |
+| SS22 (FS01) | impact Verify/Rollback output - captured by the author |
+| SS28 | acceptance verifier output (RESULT: ACCEPTED) - captured by the author |
 ## Validation & Detection Coverage (post-run)
 
 Acceptance: `python scripts/verify/verify_final_phases.py RUN-20261002-08` → **ACCEPTED**
@@ -52,7 +52,7 @@ Alert volume (stored docs in window):
 | R24 transfer tool | 6 | rclone rounds |
 | R19 RDP | 2 | T10 true positive |
 
-R23 fired again with the entity-based grouping — the 3 note creates share one
+R23 fired again with the entity-based grouping - the 3 note creates share one
 `process.entity_id` (same-process context as named).
 
 ## Recovery & Cleanup

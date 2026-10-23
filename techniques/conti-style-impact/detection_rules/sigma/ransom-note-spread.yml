@@ -1,0 +1,24 @@
+title: Ransom Note Written Across Multiple Directories
+id: 2c7d5be4-91a0-4f63-8e2d-4b1a9c0f6d58
+status: experimental
+description: The same note file name is created in several directories on one host within a short window. Encryption routines drop a note per directory, so the repetition is the signal rather than the file name alone.
+references:
+  - https://thedfirreport.com/2021/11/29/continuing-the-bazar-ransomware-story/
+author: rap1p1
+date: 2026/10/23
+logsource:
+  category: file_event
+  product: windows
+detection:
+  selection:
+    TargetFilename|endswith:
+      - '\\readme.txt'
+      - '\\README.txt'
+      - '\\read_me.txt'
+  condition: selection | count(TargetFilename) by Computer > 5
+falsepositives:
+  - Software distributions that ship a readme in every subdirectory
+level: high
+tags:
+  - attack.impact
+  - attack.t1486

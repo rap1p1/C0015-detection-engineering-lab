@@ -1,0 +1,34 @@
+title: LSASS Handle Requested with Read Rights
+id: e98a82a2-1399-48da-9616-55a2ca11f3c4
+status: experimental
+description: A process requests a handle to lsass.exe with access that permits memory reading. Dump tools require this mask; consumers that only query process information do not.
+references:
+  - https://thedfirreport.com/2021/11/29/continuing-the-bazar-ransomware-story/
+author: rap1p1
+date: 2026/10/23
+logsource:
+  category: process_access
+  product: windows
+detection:
+  selection:
+    TargetImage|endswith: '\\lsass.exe'
+    GrantedAccess:
+      - '0x1010'
+      - '0x1410'
+      - '0x1418'
+      - '0x143a'
+      - '0x1f0fff'
+      - '0x1fffff'
+  filter_system:
+    SourceImage|endswith:
+      - '\\lsass.exe'
+      - '\\services.exe'
+      - '\\svchost.exe'
+      - '\\MsMpEng.exe'
+  condition: selection and not filter_system
+falsepositives:
+  - Endpoint agents and backup software that read process memory
+level: critical
+tags:
+  - attack.credential_access
+  - attack.t1003.001

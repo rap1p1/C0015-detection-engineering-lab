@@ -33,6 +33,7 @@ directory returns an empty file, which would make the target-selection step impo
 ## Telemetry and detection
 
 Expected events are listed in [`telemetry/README.md`](telemetry/README.md). The rule
-[`detection_rules/sigma/powerview-sharefinder-cradle.yml`](detection_rules/sigma/powerview-sharefinder-cradle.yml)
+[`detection_rules/eql/sharefinder-cradle.eql`](detection_rules/eql/sharefinder-cradle.eql)
 matches a PowerShell command line that contains both a download cradle and `Invoke-ShareFinder`.
 Script block logging provides the same signal with the full function body.
+

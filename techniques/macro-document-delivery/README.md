@@ -31,6 +31,7 @@ without editing VBA.
 ## Telemetry and detection
 
 Expected events are listed in [`telemetry/README.md`](telemetry/README.md). The rule
-[`detection_rules/sigma/office-spawns-cmd.yml`](detection_rules/sigma/office-spawns-cmd.yml) matches
+[`detection_rules/eql/office-spawns-shell.eql`](detection_rules/eql/office-spawns-shell.eql) matches
 an Office process starting `cmd.exe` or `mshta.exe`; the cross-technique chain rule in
 `detections/sigma/` correlates the full document-to-module sequence.
+

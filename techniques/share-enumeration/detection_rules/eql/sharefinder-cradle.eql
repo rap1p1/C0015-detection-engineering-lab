@@ -1,0 +1,5 @@
+// PowerShell downloads a script and runs Invoke-ShareFinder in the same invocation.
+process where event.code == "1"
+  and process.name == "powershell.exe"
+  and process.command_line : ("*DownloadString*", "*Invoke-WebRequest*", "*IEX*")
+  and process.command_line : "*Invoke-ShareFinder*"

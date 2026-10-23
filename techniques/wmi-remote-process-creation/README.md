@@ -41,7 +41,8 @@ process tree on the target.
 ## Telemetry and detection
 
 Expected events are listed in [`telemetry/README.md`](telemetry/README.md). The rule
-[`detection_rules/sigma/wmiprvse-spawns-rundll32.yml`](detection_rules/sigma/wmiprvse-spawns-rundll32.yml)
+[`detection_rules/eql/wmiprvse-spawns-loader.eql`](detection_rules/eql/wmiprvse-spawns-loader.eql)
 matches a LOLBin whose parent is `WmiPrvSE.exe` and which loads an unsigned module. The rule
-[`detection_rules/sigma/wmic-process-create-rundll32.yml`](detection_rules/sigma/wmic-process-create-rundll32.yml)
+[`detection_rules/eql/wmic-remote-process-create.eql`](detection_rules/eql/wmic-remote-process-create.eql)
 matches the source-side command line.
+

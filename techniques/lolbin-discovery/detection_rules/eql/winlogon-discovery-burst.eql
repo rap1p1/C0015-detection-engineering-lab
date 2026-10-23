@@ -1,0 +1,12 @@
+// cmd.exe started by winlogon, followed by a discovery binary under that cmd.
+// The sequence keeps the two edges that make the behaviour specific.
+sequence by host.id with maxspan=60s
+  [process where event.code == "1"
+     and process.parent.name == "winlogon.exe"
+     and process.name == "cmd.exe"
+     and process.entity_id != null] by process.entity_id
+  [process where event.code == "1"
+     and process.parent.name == "cmd.exe"
+     and process.name : ("net.exe", "net1.exe", "nltest.exe", "tasklist.exe",
+                         "ping.exe", "whoami.exe", "wmic.exe")
+     and process.parent.entity_id != null] by process.parent.entity_id

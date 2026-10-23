@@ -35,6 +35,7 @@ the run.
 ## Telemetry and detection
 
 Expected events are listed in [`telemetry/README.md`](telemetry/README.md). The rule
-[`detection_rules/sigma/lsass-access-read-mask.yml`](detection_rules/sigma/lsass-access-read-mask.yml)
+[`detection_rules/eql/lsass-access-read-mask.eql`](detection_rules/eql/lsass-access-read-mask.eql)
 matches a handle request against `lsass.exe` whose granted access includes read rights, excluding the
 known system consumers.
+

@@ -6,10 +6,11 @@
 
   Intent:
     - E1/E3/E11 + E22 etc. broad (minus lab-noise exclusions) for process/network/file visibility.
-    - E7 ImageLoad: only lab staging / tooling paths (the DLL drops, not every module).
-    - E10 ProcessAccess: only targets of interest for the detection study
-      (lsass.exe + lab-target.exe). Telemetry-only; the lab NEVER injects into
-      or dumps these processes.
+    - E7 ImageLoad: staging and module-drop paths, including C:\Users\Public where
+      the masqueraded module lands.
+    - E10 ProcessAccess: lsass.exe plus winlogon.exe, and svchost.exe when the
+      source is rundll32.exe. These are the injection and dump targets the
+      technique folders depend on.
     - Registry: only Run/RunOnce/Services/Classes/Environment + VMware exclusion.
     - E23/E24/E27/E28 off (delete-archive / clipboard / BLOCKING features).
 
@@ -54,7 +55,7 @@
 
       <!-- E7: module load, scoped to lab staging/tooling paths only -->
       <ImageLoad onmatch="include">
-        <ImageLoaded condition="contains">C:\Users\Public\C0015\</ImageLoaded>
+        <ImageLoaded condition="contains">C:\Users\Public\</ImageLoaded>
         <ImageLoaded condition="contains">C:\C0015\</ImageLoaded>
         <ImageLoaded condition="contains">C:\Tools\</ImageLoaded>
         <ImageLoaded condition="contains">C:\Windows\Temp\</ImageLoaded>
@@ -72,6 +73,11 @@
       <ProcessAccess onmatch="include">
         <TargetImage condition="end with">\lab-target.exe</TargetImage>
         <TargetImage condition="end with">\lsass.exe</TargetImage>
+        <TargetImage condition="end with">\winlogon.exe</TargetImage>
+        <Rule groupRelation="and">
+          <SourceImage condition="end with">\rundll32.exe</SourceImage>
+          <TargetImage condition="end with">\svchost.exe</TargetImage>
+        </Rule>
       </ProcessAccess>
 
       <!-- E11: file create/overwrite, minus lab-infra noise -->
@@ -135,3 +141,4 @@
     </RuleGroup>
   </EventFiltering>
 </Sysmon>
+

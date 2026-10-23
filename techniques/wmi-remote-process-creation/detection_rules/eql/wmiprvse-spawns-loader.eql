@@ -1,0 +1,4 @@
+// WMI provider host creates the loader. This is the target-side edge of remote process creation.
+process where event.code == "1"
+  and process.parent.name == "wmiprvse.exe"
+  and process.name : ("rundll32.exe", "regsvr32.exe", "cmd.exe", "powershell.exe", "mshta.exe")

@@ -35,7 +35,8 @@ session is kept to preserve the `WmiPrvSE -> rundll32` evidence for the pivot st
 ## Telemetry and detection
 
 Expected events are listed in [`telemetry/README.md`](telemetry/README.md). The rule
-[`detection_rules/sigma/rundll32-injects-system-process.yml`](detection_rules/sigma/rundll32-injects-system-process.yml)
+[`detection_rules/eql/thread-into-system-process.eql`](detection_rules/eql/thread-into-system-process.eql)
 covers the thread creation into `svchost.exe`. The network side is covered by
-`detection_rules/sigma/service-host-egress.yml`, which matches an unexpected service host making an
+`detection_rules/eql/service-host-egress.eql`, which matches an unexpected service host making an
 outbound connection.
+

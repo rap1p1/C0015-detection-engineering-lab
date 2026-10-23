@@ -35,7 +35,8 @@ process list.
 ## Telemetry and detection
 
 Expected events are listed in [`telemetry/README.md`](telemetry/README.md). The rule
-[`detection_rules/sigma/beacon-process-opens-rdp.yml`](detection_rules/sigma/beacon-process-opens-rdp.yml)
+[`detection_rules/eql/implant-opens-rdp.eql`](detection_rules/eql/implant-opens-rdp.eql)
 matches a non-client process opening 3389. The rule
-[`detection_rules/sigma/rdp-type10-logon.yml`](detection_rules/sigma/rdp-type10-logon.yml) matches the
+[`detection_rules/eql/rdp-type10-logon.eql`](detection_rules/eql/rdp-type10-logon.eql) matches the
 target-side logon.
+

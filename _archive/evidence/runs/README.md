@@ -24,6 +24,6 @@ The shared [RUN-schema.json](RUN-schema.json) defines ledger structure.
 | `ART-06-02-RUN09.json` | Fixed-target S6 decision, present in RUN-09 |
 
 Filenames and reference completeness vary by run; inspect the ledger's artifact index.
-Keep campaign stages **S1–S14** separate from post-run **S15**. Preserve NOT RUN and
+Keep campaign stages **S1-S14** separate from post-run **S15**. Preserve NOT RUN and
 PARTIAL statuses rather than converting them to PASS because overall acceptance succeeded.
 See the [evidence contract](../README.md) for hash and provenance conventions.

@@ -63,9 +63,9 @@ all module loads or process accesses. The XML also contains path/process predica
 and a DC DNS-connection exclusion; it is not free of lab-specific filters.
 
 Event families configured across the profiles include E1/E2/E3/E5/E6/E7/E8/E9/E10/E11,
-E12–E18, E19–E22, E25/E26/E29. Empty include rules disable E23/E24/E27/E28;
+E12-E18, E19-E22, E25/E26/E29. Empty include rules disable E23/E24/E27/E28;
 E26 records deletions without the E23 archive behavior. An enabled event family does
-not imply it occurred during S1–S3 or any other particular stage.
+not imply it occurred during S1-S3 or any other particular stage.
 
 The retained WMI-pivot evidence has E7 hashes in **`file.hash.sha256` (ECS)**.
 The previous “unpopulated” conclusion came from checking the wrong field. The current
@@ -114,7 +114,7 @@ failure does not by itself diagnose the Elastic Agent's CA configuration. The
 acceptance script's lab TLS behavior is separate from Fleet enrollment trust.
 Credentials remain runtime inputs and are not required in documentation or evidence.
 
-Campaign execution is **S1–S14**. Post-run verification, recovery and cleanup are
+Campaign execution is **S1-S14**. Post-run verification, recovery and cleanup are
 separate activities. The bounded impact corpus resides on FS01, outside system and
 evidence paths; the retained recovery claim is content/hash equality, not complete
 enterprise recovery or independently verified ACL restoration.

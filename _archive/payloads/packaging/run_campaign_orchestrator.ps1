@@ -1,5 +1,5 @@
 <#
-C0015 — Campaign orchestrator, phases 1-3. RUN ON THE C2 HOST (192.168.50.1), repo root, PowerShell 5.1+.
+C0015 - Campaign orchestrator, phases 1-3. RUN ON THE C2 HOST (192.168.50.1), repo root, PowerShell 5.1+.
 
 Automates every beacon/server/artifact step of the chain; prints the steps that only a
 human can do (opening test.docm, runas/net-use password prompts). No secrets anywhere.

@@ -1,4 +1,4 @@
-# Expected telemetry — Portable AnyDesk deployment
+# Expected telemetry - Portable AnyDesk deployment
 
 AnyDesk is dropped into a user profile Videos directory and run from there, providing an out-of-band interactive channel.
 

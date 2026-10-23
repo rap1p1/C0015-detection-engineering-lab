@@ -1,4 +1,4 @@
-# Expected telemetry — WMI remote process creation
+# Expected telemetry - WMI remote process creation
 
 wmic creates a process on the backup server; WmiPrvSE.exe spawns rundll32.exe which loads 143.dll and registers the second beacon.
 

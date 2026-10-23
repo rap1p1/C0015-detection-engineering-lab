@@ -1,4 +1,4 @@
-# Phase 1 — entry and bootstrap (S1–S3)
+# Phase 1 - entry and bootstrap (S1-S3)
 
 A generated laboratory DOCM is opened on WS01 as `duc.user`. Its macro writes the
 embedded config, HTA and beacon, then starts mshta. The HTA downloads a benign
@@ -16,7 +16,7 @@ Children have their own entity IDs. The join is child.parent.entity_id to
 parent.process.entity_id, not an identical entity across the chain. The current
 entry is direct Office → mshta; a CMD hop in an old fixture is not mandatory.
 
-R01–R09 provide related detection predicates. **R04 does not match WINWORD's
+R01-R09 provide related detection predicates. **R04 does not match WINWORD's
 self-writes**; it targets script/proxy writers. E7 hashes are available at
 `file.hash.sha256`. Unsigned loading alone does not prove injection or T1553.002.
 

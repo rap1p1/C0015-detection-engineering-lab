@@ -1,5 +1,5 @@
 /*
-   C0015 — Go-compiled Cobalt Strike beacon DLL
+   C0015 - Go-compiled Cobalt Strike beacon DLL
    Reference: https://thedfirreport.com/2021/11/29/continuing-the-bazar-ransomware-story/
 
    The two beacon DLLs in the campaign are Go builds with no version metadata and a revoked or

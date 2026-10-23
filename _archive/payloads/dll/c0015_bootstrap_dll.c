@@ -1,5 +1,5 @@
 /*
- * c0015_bootstrap_dll.c — benign Bazar-stage bootstrap surrogate [LAB-SURROGATE]
+ * c0015_bootstrap_dll.c - benign Bazar-stage bootstrap surrogate [LAB-SURROGATE]
  *
  * Campaign mapping:
  *   - proxy execution of a DLL (Bazar loader chain analog)  -> T1218.010/T1218.011 role
@@ -57,7 +57,7 @@ __declspec(dllexport) HRESULT LabEntry(HWND hwnd, HINSTANCE hinst, LPSTR lpszCmd
         CloseHandle(f);
     }
 
-    /* observable 2: handoff S2->S3 — launch the session-1 beacon (config-driven) */
+    /* observable 2: handoff S2->S3 - launch the session-1 beacon (config-driven) */
     if (beacon_cmd[0] != '\0') {
         STARTUPINFOA si;
         PROCESS_INFORMATION pi;

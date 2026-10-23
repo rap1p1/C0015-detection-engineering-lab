@@ -9,7 +9,7 @@ hardcoded values. Historical fidelity is documented separately from successful e
 |---|---|---|
 | [docm/](docm/) | S1 | Base macro and generated self-write entry variant |
 | [hta/](hta/) | S2 | VBScript decode/download/proxy bootstrap and JScript marker |
-| [dll/](dll/) | S2–S3, S8b–S9 | Separate bootstrap and lateral-pivot DLL sources |
+| [dll/](dll/) | S2-S3, S8b-S9 | Separate bootstrap and lateral-pivot DLL sources |
 | [beacon/](beacon/) | S3/S9 and operator tasks | Registration/task/result agent |
 | [lsass/](lsass/) | S7b | LSASS-access surface, placeholder output and decoy dump |
 | [impact/](impact/) | S14 | Bounded, reversible dummy-corpus transformation |

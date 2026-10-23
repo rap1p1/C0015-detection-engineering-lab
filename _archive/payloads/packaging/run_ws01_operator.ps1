@@ -1,9 +1,9 @@
 <#
-C0015 phase-2 guided operator run — RUN ON WS01 (192.168.50.20), duc.user console.
+C0015 phase-2 guided operator run - RUN ON WS01 (192.168.50.20), duc.user console.
 Covers the operator-interactive steps: S0 seed -> S5 (remote note) -> S7 -> S7b -> S8a -> S8b.
-(S4/S5 are driven remotely from the C2 host — see run_campaign_orchestrator.ps1.)
+(S4/S5 are driven remotely from the C2 host - see run_campaign_orchestrator.ps1.)
 
-Passwords are ALWAYS entered at interactive prompts (net use * / runas) — never in
+Passwords are ALWAYS entered at interactive prompts (net use * / runas) - never in
 files, command lines or logs. Keep the S0 window OPEN until verification of S9.
 
 Usage:

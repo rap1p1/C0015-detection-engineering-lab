@@ -1,5 +1,5 @@
 /*
- * c0015_mimikatz_surrogate.c — benign Mimikatz-shaped LSASS access surrogate
+ * c0015_mimikatz_surrogate.c - benign Mimikatz-shaped LSASS access surrogate
  * [LAB-SURROGATE] [SUPPLEMENTAL-LAB-TECHNIQUE] (user-directed).
  *
  * Simulates the observable part of a `mimikatz sekurlsa::logonpasswords`

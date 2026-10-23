@@ -1,4 +1,4 @@
-# Expected telemetry — svchost stage hosting
+# Expected telemetry - svchost stage hosting
 
 A service DLL makes svchost.exe host the stage and spawn rundll32.exe, producing the svchost-to-rundll32 edge with a SYSTEM token.
 

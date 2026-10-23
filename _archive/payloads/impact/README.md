@@ -1,6 +1,6 @@
-# payloads/impact — bounded impact surrogate
+# payloads/impact - bounded impact surrogate
 
-`c0015_impact.ps1` — T1486 surrogate (rename + extension change + note) and T1083
+`c0015_impact.ps1` - T1486 surrogate (rename + extension change + note) and T1083
 post-impact listing, fully reversible.
 
 ## Actions (manifest-driven, `-Manifest <json>`)
@@ -15,7 +15,7 @@ post-impact listing, fully reversible.
 ## Safety (enforced in code)
 
 - Refuses drive roots, Windows/ProgramFiles/ProgramData/Users/Tools paths, reparse points,
-  non-allowlist roots, and cap violations (file/byte/time — evaluated per file, before the next file is processed).
+  non-allowlist roots, and cap violations (file/byte/time - evaluated per file, before the next file is processed).
 - No real encryption, no propagation; the corpus lives apart from lab evidence.
 
 ## Usage
@@ -27,4 +27,4 @@ powershell -File c0015_impact.ps1 -Manifest impact-manifest.json -Action Verify
 powershell -File c0015_impact.ps1 -Manifest impact-manifest.json -Action Rollback
 ```
 
-Telemetry: E11 records observed creates/overwrites and note writes; it does not guarantee a record for every rename. E2 is creation-time change, not rename, and is not a required impact signal. R22/R23 cover note creation/spread. Recovery evidence is content/hash equality; it is not an independent ACL-restoration assessment. RUN-05 used an earlier one-directional comparison; 06–09 record bidirectional verification.
+Telemetry: E11 records observed creates/overwrites and note writes; it does not guarantee a record for every rename. E2 is creation-time change, not rename, and is not a required impact signal. R22/R23 cover note creation/spread. Recovery evidence is content/hash equality; it is not an independent ACL-restoration assessment. RUN-05 used an earlier one-directional comparison; 06-09 record bidirectional verification.

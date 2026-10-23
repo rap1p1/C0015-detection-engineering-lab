@@ -1,4 +1,4 @@
-# c0015_defender_off.ps1 — runs as SYSTEM on the lab VMs (via schtasks /ru SYSTEM)
+# c0015_defender_off.ps1 - runs as SYSTEM on the lab VMs (via schtasks /ru SYSTEM)
 # Purpose: disable Tamper Protection (registry, SYSTEM context), then RTM/ASR/exclusions
 # so the campaign replication is not interfered with (lab-controlled environment).
 # Output redirected by the caller into C:\Windows\Temp\defender_off.out

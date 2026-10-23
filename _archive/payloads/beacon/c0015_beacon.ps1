@@ -1,5 +1,5 @@
 # ============================================================
-# c0015_beacon.ps1 — benign session beacon [LAB-SURROGATE]
+# c0015_beacon.ps1 - benign session beacon [LAB-SURROGATE]
 #
 # Campaign mapping:
 #   - Bazar/CS-like callback loop over web channel      -> T1071.001 (context)

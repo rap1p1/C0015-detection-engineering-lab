@@ -1,9 +1,9 @@
 # ============================================================
-# c0015_impact.ps1 — bounded Conti-like impact surrogate [LAB-SURROGATE]
+# c0015_impact.ps1 - bounded Conti-like impact surrogate [LAB-SURROGATE]
 #
 # Campaign mapping:
 #   - T1486: bulk file transformation (rename + extension change + note)
-#            on a disposable corpus — NO real encryption, NO propagation
+#            on a disposable corpus - NO real encryption, NO propagation
 #   - T1083: post-impact file listing to verify the run (DFIR behavior)
 #   - telemetry preserved: high-rate E11/E2/E26 activity, note creation
 #

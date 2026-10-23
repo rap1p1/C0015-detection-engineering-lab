@@ -1,4 +1,4 @@
-# Expected telemetry — Word document macro execution
+# Expected telemetry - Word document macro execution
 
 A weaponised Word document runs a VBA macro when the user enables content. The macro writes the HTML Application for the next stage to the user profile and launches it through cmd.exe.
 

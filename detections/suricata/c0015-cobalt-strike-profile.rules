@@ -1,4 +1,4 @@
-# C0015 — Cobalt Strike jQuery profile and dead-beacon DNS
+# C0015 - Cobalt Strike jQuery profile and dead-beacon DNS
 # Reference: https://thedfirreport.com/2021/11/29/continuing-the-bazar-ransomware-story/
 
 alert http $HOME_NET any -> $EXTERNAL_NET any ( \

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""c2sim_guard.py — watchdog for the lab C2-SIM server (gap G8).
+"""c2sim_guard.py - watchdog for the lab C2-SIM server (gap G8).
 
 Problem (run RUN-20260930-01): the C2-SIM process died at 03:04:38Z mid-run and
 was only restarted manually next day, leaving a telemetry/evidence gap. Root cause

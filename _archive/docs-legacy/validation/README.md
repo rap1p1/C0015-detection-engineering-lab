@@ -34,11 +34,11 @@ A documentation-only review can inspect committed evidence and run offline check
 
 | Assertion | Supported scope | Limitation |
 |---|---|---|
-| S6 target selection | RUN-09 artifact records FS01 decision | Fixed scenario selection; runs 05–08 remain NOT RUN. |
+| S6 target selection | RUN-09 artifact records FS01 decision | Fixed scenario selection; runs 05-08 remain NOT RUN. |
 | WMI → rundll32 → module | E1/E7 and artifact-hash continuity as recorded | DLL load is not proof of cross-process injection. |
 | Collection → transfer | 11-file manifests and two full-set sink receipts per recorded run | Internal WebDAV substitutes for MEGA; connection events alone do not prove transfer. |
 | RDP lifecycle | Same-host Type-10 4624/4634 LogonId joins | Reconnect 4778 / disconnect 4779 unverified; S12 PARTIAL. |
-| Recovery | RUN-05 one-directional comparison; 06–09 bidirectional comparison | Bounded corpus, not arbitrary enterprise recovery. |
+| Recovery | RUN-05 one-directional comparison; 06-09 bidirectional comparison | Bounded corpus, not arbitrary enterprise recovery. |
 | Detection behavior | RUN-07 tuning results; RUN-09 recorded references | No representative benign corpus or production precision/recall estimate. |
 
 ## Threats to validity

@@ -1,4 +1,4 @@
-# Expected telemetry — Conti-style impact through admin shares
+# Expected telemetry - Conti-style impact through admin shares
 
 A batch file launches a locker binary per target host against the C$ admin share; the locker renames files and drops a ransom note in every affected directory.
 

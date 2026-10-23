@@ -1,4 +1,4 @@
-# Expected telemetry — regsvr32 module execution
+# Expected telemetry - regsvr32 module execution
 
 regsvr32 loads a DLL whose extension is .jpg from a user-writable directory and calls DllRegisterServer, which starts the implant in-process.
 

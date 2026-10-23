@@ -1,4 +1,4 @@
-# Expected telemetry — Share enumeration with PowerView
+# Expected telemetry - Share enumeration with PowerView
 
 PowerShell downloads PowerView from a local staging cradle, runs Invoke-ShareFinder with share-access checks, and writes the results to ProgramData.
 

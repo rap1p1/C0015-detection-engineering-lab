@@ -36,6 +36,7 @@ in the lab DNS zone. The implant retries, the queries fail, and no connection is
 ## Telemetry and detection
 
 Expected events are listed in [`telemetry/README.md`](telemetry/README.md). The rule
-[`detection_rules/sigma/svchost-spawns-rundll32.yml`](detection_rules/sigma/svchost-spawns-rundll32.yml)
+[`detection_rules/eql/svchost-spawns-rundll32.eql`](detection_rules/eql/svchost-spawns-rundll32.eql)
 matches a `rundll32.exe` whose parent is `svchost.exe`, and the accompanying DNS rule matches repeated
 lookups that return a non-existent name.
+

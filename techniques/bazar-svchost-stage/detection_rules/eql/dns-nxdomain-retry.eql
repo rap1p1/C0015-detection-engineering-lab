@@ -1,0 +1,6 @@
+// Lookups that return a non-existent name, repeated by the same process.
+// A fallback beacon whose infrastructure is gone produces this while it walks its address list.
+// Pair with an Elastic threshold rule (count by process.entity_id over 10 minutes, > 8) to suppress
+// single failed lookups.
+any where event.code == "22"
+  and winlog.event_data.QueryStatus == "9003"

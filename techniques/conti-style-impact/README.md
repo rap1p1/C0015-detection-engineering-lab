@@ -39,7 +39,8 @@ corpus from a hash-checked copy.
 ## Telemetry and detection
 
 Expected events are listed in [`telemetry/README.md`](telemetry/README.md). The rule
-[`detection_rules/sigma/locker-binary-argument-set.yml`](detection_rules/sigma/locker-binary-argument-set.yml)
+[`detection_rules/eql/locker-argument-set.eql`](detection_rules/eql/locker-argument-set.eql)
 matches the argument combination, and
-[`detection_rules/sigma/ransom-note-spread.yml`](detection_rules/sigma/ransom-note-spread.yml) matches
+[`detection_rules/eql/ransom-note-creation.eql`](detection_rules/eql/ransom-note-creation.eql) matches
 the same note file appearing in several directories within a short window.
+

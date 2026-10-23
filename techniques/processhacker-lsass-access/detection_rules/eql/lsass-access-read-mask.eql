@@ -1,0 +1,5 @@
+// LSASS handle with read rights. The mask separates a dump from a process query.
+any where event.code == "10"
+  and winlog.event_data.TargetImage : "*\\lsass.exe"
+  and winlog.event_data.GrantedAccess in ("0x1010", "0x1410", "0x1418", "0x143a", "0x1f0fff", "0x1fffff")
+  and not process.name : ("lsass.exe", "services.exe", "svchost.exe", "MsMpEng.exe", "wininit.exe")

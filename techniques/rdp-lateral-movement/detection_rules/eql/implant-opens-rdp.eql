@@ -1,0 +1,5 @@
+// A non-client process opens 3389. Tunnelled RDP through an implant produces this edge.
+network where event.code == "3"
+  and destination.port == 3389
+  and network.direction == "egress"
+  and not process.name : ("mstsc.exe", "freerdp.exe", "wfica32.exe", "explorer.exe", "rdpclip.exe")

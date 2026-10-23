@@ -1,0 +1,3 @@
+// Note written per directory. Pair with a threshold rule on file.path to detect the spread.
+file where event.code == "11"
+  and file.name : ("readme.txt", "README.txt", "read_me.txt")

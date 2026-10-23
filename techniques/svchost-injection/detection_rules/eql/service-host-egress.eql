@@ -1,0 +1,6 @@
+// Service host originates a client connection to an external address.
+network where event.code == "3"
+  and process.name == "svchost.exe"
+  and network.direction == "egress"
+  and destination.port in (80, 443, 8080, 8443)
+  and not cidrMatch(destination.ip, "10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16", "127.0.0.0/8")

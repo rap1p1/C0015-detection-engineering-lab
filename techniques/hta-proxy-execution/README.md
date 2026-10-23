@@ -26,5 +26,6 @@ preserves the `E11` file-creation event on the victim host.
 ## Telemetry and detection
 
 Expected events are listed in [`telemetry/README.md`](telemetry/README.md). The rule
-[`detection_rules/sigma/mshta-downloads-and-executes.yml`](detection_rules/sigma/mshta-downloads-and-executes.yml)
+[`detection_rules/eql/mshta-spawns-loader.eql`](detection_rules/eql/mshta-spawns-loader.eql)
 matches `mshta.exe` that both makes a network connection and spawns `regsvr32.exe` or `rundll32.exe`.
+

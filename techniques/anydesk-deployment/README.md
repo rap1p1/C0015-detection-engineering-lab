@@ -28,6 +28,7 @@ per-user configuration after the run.
 ## Telemetry and detection
 
 Expected events are listed in [`telemetry/README.md`](telemetry/README.md). The rule
-[`detection_rules/sigma/remote-access-tool-in-user-media-path.yml`](detection_rules/sigma/remote-access-tool-in-user-media-path.yml)
+[`detection_rules/eql/remote-access-tool-in-media-path.eql`](detection_rules/eql/remote-access-tool-in-media-path.eql)
 matches a remote-access binary created and executed from `Videos`, `Music`, or `Pictures` under a user
 profile.
+

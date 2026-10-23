@@ -2,9 +2,7 @@
 
 ![ATT&CK](https://img.shields.io/badge/ATT%26CK-30%20techniques%20mapped-informational)
 ![techniques](https://img.shields.io/badge/techniques-14-blue)
-![Sigma](https://img.shields.io/badge/Sigma-20%20rules-green)
-![Suricata](https://img.shields.io/badge/Suricata-5%20signatures-orange)
-![YARA](https://img.shields.io/badge/YARA-1%20rule-red)
+![EQL](https://img.shields.io/badge/EQL-20%20rules-green)
 ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
 Between 2 and 6 August 2021, an operator entered a corporate network through a weaponised Word
@@ -353,10 +351,9 @@ C0015-detection-engineering-lab/
 ├── README.md
 ├── CREDITS.md
 ├── LICENSE
-├── detections/                  cross-technique rules
-│   ├── sigma/                   one rule that spans two stages
-│   ├── suricata/                jQuery profile, certificate subject, MEGA API
-│   └── yara/                    Go beacon module
+├── detections/
+│   ├── eql/                     rule that spans two stages
+│   └── README.md                index, field assumptions, upstream references
 ├── docs/                        topology, run order, ATT&CK coverage
 ├── infra/                       hosts, accounts, DNS design, C2 layout, Sysmon profiles
 │   ├── c2/                      listeners, nginx front, implant generation
@@ -369,7 +366,7 @@ C0015-detection-engineering-lab/
 │   │   ├── payload/             benign payload or surrogate source
 │   │   ├── tools/               launchers, wrappers, verification scripts
 │   │   ├── telemetry/           expected events and fields
-│   │   └── detection_rules/     Sigma rules for this technique
+│   │   └── detection_rules/     EQL rules for this technique
 │   ├── hta-proxy-execution/
 │   ├── regsvr32-module-execution/
 │   ├── bazar-svchost-stage/
@@ -396,61 +393,42 @@ standalone artifact keeps a short note explaining why instead of omitting the di
 
 | Stage | Telemetry | Rule |
 |---|---|---|
-| Document to shell | process creation, parent image | [`office-spawns-cmd.yml`](techniques/macro-document-delivery/detection_rules/sigma/office-spawns-cmd.yml) |
-| HTA to loader | process creation, parent image | [`mshta-downloads-and-executes.yml`](techniques/hta-proxy-execution/detection_rules/sigma/mshta-downloads-and-executes.yml) |
-| Unsigned module load | image load, signature status | [`regsvr32-unsigned-module-user-path.yml`](techniques/regsvr32-module-execution/detection_rules/sigma/regsvr32-unsigned-module-user-path.yml) |
-| Service host to loader | process creation, parent image | [`svchost-spawns-rundll32.yml`](techniques/bazar-svchost-stage/detection_rules/sigma/svchost-spawns-rundll32.yml) |
-| Fallback beacon | DNS query, response status | [`dns-nxdomain-beacon-retry.yml`](techniques/bazar-svchost-stage/detection_rules/sigma/dns-nxdomain-beacon-retry.yml) |
-| Injection into a system process | remote thread creation | [`rundll32-injects-system-process.yml`](techniques/winlogon-injection/detection_rules/sigma/rundll32-injects-system-process.yml) |
-| SYSTEM context | process creation, parent image | [`winlogon-spawns-shell.yml`](techniques/winlogon-injection/detection_rules/sigma/winlogon-spawns-shell.yml) |
-| Discovery burst | process creation density | [`discovery-lolbin-burst.yml`](techniques/lolbin-discovery/detection_rules/sigma/discovery-lolbin-burst.yml) |
-| Share enumeration | command line, script block | [`powerview-sharefinder-cradle.yml`](techniques/share-enumeration/detection_rules/sigma/powerview-sharefinder-cradle.yml) |
-| WMI pivot | process creation, parent image | [`wmiprvse-spawns-rundll32.yml`](techniques/wmi-remote-process-creation/detection_rules/sigma/wmiprvse-spawns-rundll32.yml) |
-| RDP through implant | network connection, destination port | [`beacon-process-opens-rdp.yml`](techniques/rdp-lateral-movement/detection_rules/sigma/beacon-process-opens-rdp.yml) |
-| LSASS access | process access, granted access | [`lsass-access-read-mask.yml`](techniques/processhacker-lsass-access/detection_rules/sigma/lsass-access-read-mask.yml) |
-| Cloud transfer | command line, egress | [`rclone-to-cloud-storage.yml`](techniques/rclone-exfiltration/detection_rules/sigma/rclone-to-cloud-storage.yml) |
-| Impact | command line, file creation | [`locker-binary-argument-set.yml`](techniques/conti-style-impact/detection_rules/sigma/locker-binary-argument-set.yml) |
+| Document to shell | process creation, parent image | [`office-spawns-shell.eql`](techniques/macro-document-delivery/detection_rules/eql/office-spawns-shell.eql) |
+| HTA to loader | process creation, parent image | [`mshta-spawns-loader.eql`](techniques/hta-proxy-execution/detection_rules/eql/mshta-spawns-loader.eql) |
+| Unsigned module load | image load, signature status | [`regsvr32-unsigned-image.eql`](techniques/regsvr32-module-execution/detection_rules/eql/regsvr32-unsigned-image.eql) |
+| Service host to loader | process creation, parent image | [`svchost-spawns-rundll32.eql`](techniques/bazar-svchost-stage/detection_rules/eql/svchost-spawns-rundll32.eql) |
+| Fallback beacon | DNS query, response status | [`dns-nxdomain-retry.eql`](techniques/bazar-svchost-stage/detection_rules/eql/dns-nxdomain-retry.eql) |
+| Injection into a system process | remote thread creation | [`thread-into-system-process.eql`](techniques/winlogon-injection/detection_rules/eql/thread-into-system-process.eql) |
+| SYSTEM context | process creation, parent image | [`winlogon-spawns-shell.eql`](techniques/winlogon-injection/detection_rules/eql/winlogon-spawns-shell.eql) |
+| Discovery burst | process creation density | [`winlogon-discovery-burst.eql`](techniques/lolbin-discovery/detection_rules/eql/winlogon-discovery-burst.eql) |
+| Share enumeration | command line, script block | [`sharefinder-cradle.eql`](techniques/share-enumeration/detection_rules/eql/sharefinder-cradle.eql) |
+| WMI pivot | process creation, parent image | [`wmiprvse-spawns-loader.eql`](techniques/wmi-remote-process-creation/detection_rules/eql/wmiprvse-spawns-loader.eql) |
+| RDP through implant | network connection, destination port | [`implant-opens-rdp.eql`](techniques/rdp-lateral-movement/detection_rules/eql/implant-opens-rdp.eql) |
+| LSASS access | process access, granted access | [`lsass-access-read-mask.eql`](techniques/processhacker-lsass-access/detection_rules/eql/lsass-access-read-mask.eql) |
+| Cloud transfer | command line, egress | [`rclone-cloud-transfer.eql`](techniques/rclone-exfiltration/detection_rules/eql/rclone-cloud-transfer.eql) |
+| Impact | command line, file creation | [`locker-argument-set.eql`](techniques/conti-style-impact/detection_rules/eql/locker-argument-set.eql) |
 
-The full set is indexed in [`detections/README.md`](detections/README.md), with network signatures in
-[`detections/suricata/`](detections/suricata/) and the file rule in
-[`detections/yara/`](detections/yara/).
+Every rule is an EQL query for Elastic Security. The index, the field assumptions, and the two
+configuration dependencies (Sysmon 8 and the ImageLoad scope) are in
+[`detections/README.md`](detections/README.md). The upstream SigmaHQ rules that were read while
+writing these queries, with links, are listed in
+[`docs/sigma-reference.md`](docs/sigma-reference.md).
 
 The cheapest reliable signal in the whole chain is the parent edge. A shell whose parent is
 `winlogon.exe` has no legitimate cause on a workstation, and the rule that matches it does not depend
 on a module hash, a directory, or a tool name:
 
-```yaml
-title: winlogon Spawns a Shell or Discovery Binary
-logsource:
-  category: process_creation
-  product: windows
-detection:
-  selection:
-    ParentImage|endswith: '\winlogon.exe'
-    Image|endswith:
-      - '\cmd.exe'
-      - '\powershell.exe'
-      - '\rundll32.exe'
-      - '\net.exe'
-      - '\net1.exe'
-      - '\nltest.exe'
-      - '\whoami.exe'
-      - '\wmic.exe'
-  condition: selection
-level: critical
+```eql
+process where event.code == "1"
+  and process.parent.name == "winlogon.exe"
+  and process.name : ("cmd.exe", "powershell.exe", "rundll32.exe",
+                      "net.exe", "net1.exe", "nltest.exe", "whoami.exe", "wmic.exe")
 ```
 
-The network side is covered by the profile rather than by the infrastructure, because the addresses
-change between runs and the URI pair does not:
-
-```text
-alert http $HOME_NET any -> $EXTERNAL_NET any ( \
-  msg:"C0015 Cobalt Strike jQuery profile - beacon check-in"; \
-  flow:established,to_server; \
-  http.method; content:"GET"; \
-  http.uri; content:"/jquery-3.3.1.min.js"; nocase; \
-  classtype:trojan-activity; sid:2100151; rev:1;)
-```
+Network detection is not part of the rule set here. The addresses change between runs, so a rule keyed
+on an IP or a JA3 value ages out; the durable network facts are the URI pair, the certificate subject,
+and the unresolved fallback name, all of which are recorded in `infra/c2/` and in the technique
+folders for use in proxy and TLS telemetry.
 
 ## How to run the lab
 
@@ -519,4 +497,6 @@ campaign hostnames are resolved by a local zone and never reach the internet. No
 for use outside an isolated environment that the operator owns.
 
 Licensed under the MIT licence. See [LICENSE](LICENSE).
+
+
 

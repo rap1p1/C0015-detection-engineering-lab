@@ -24,6 +24,12 @@ lab.
 Do not add a wildcard to `azureedge.net`; it would make the fallback name resolve and remove the
 observable.
 
+## Exception for the transfer destination
+
+The exfiltration stage writes to MEGA, which is outside the zone. FS01 carries a name resolution policy
+rule for `mega.co.nz`, `mega.nz`, and `mega.io` that sends only those names to the NAT resolver. The
+zone on DC01 remains authoritative for the campaign names, and no forwarder is added.
+
 ## Forwarders
 
 Remove forwarders on DC01 for the duration of the run. With no forwarder, any name outside the lab
@@ -58,3 +64,4 @@ Add-DnsServerResourceRecordA -ZoneName perdefue.fr -Name '@' -IPv4Address 192.16
 | `nslookup checkauj.com` from WS01 | 192.168.50.100 |
 | `nslookup volga.azureedge.net` from WS01 | non-existent domain |
 | Sysmon E22 for the failed lookup | `QueryStatus: 9003` |
+

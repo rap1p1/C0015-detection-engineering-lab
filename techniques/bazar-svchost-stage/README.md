@@ -43,13 +43,26 @@ lookups that return a non-existent name.
 
 ## Implementation notes
 
-The service-group route was built first: a service with `ImagePath` of
-`svchost.exe -k c0015grp` and `Parameters\ServiceDll` pointing at the stub. The registry matched a
-known service host entry, the stub exported `ServiceMain`, and the DLL sat in a directory readable by
-SYSTEM, but SCM returned 7000 (`file not found`) on start for both a user-writable path and
-`C:\ProgramData`. The lab therefore hosts the loader through a SYSTEM scheduled task, which yields
-`svchost.exe -k netsvcs -p` as the parent. The edge that matters, a service host starting
-`rundll32.exe`, is present; the group name differs from a dedicated group.
+The service host is created as a private instance. The type and the `-p` switch are both required:
+`SERVICE_WIN32_SHARE_PROCESS` without `-p`, or a quoted `binPath` built by `New-Service`, fails at
+start with SCM 7000 even though the registry matches a known service host entry.
+
+```
+sc create c0015svc type= own start= demand ^
+   binPath= "C:\Windows\System32\svchost.exe -k c0015grp -p" ^
+   DisplayName= "C0015 Stage Service"
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\c0015svc\Parameters" /v ServiceDll ^
+   /t REG_EXPAND_SZ /d "C:\Windows\Temp\c0015_stage.dll" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Svchost" /v c0015grp ^
+   /t REG_MULTI_SZ /d c0015svc /f
+sc start c0015svc
+```
+
+The result is a dedicated `svchost.exe -k c0015grp -p` whose child is
+`rundll32.exe C:\Users\Public\C0015\D8B3.dll DllRegisterServer`, running as SYSTEM. The stub reads
+`[stage] spawn_cmd` from `C:\Users\Public\C0015\config.ini`, so the child command line is configurable
+without rebuilding the DLL.
 
 The loader module is 46 MB. That is the size of a Go build and it is not a defect to be tuned away:
 rules for this stage key on the load path, the signature state, and the parent image.
+

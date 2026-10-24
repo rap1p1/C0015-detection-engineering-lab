@@ -39,3 +39,23 @@ Expected events are listed in [`telemetry/README.md`](telemetry/README.md). The 
 matches a handle request against `lsass.exe` whose granted access includes read rights, excluding the
 known system consumers.
 
+
+## Credential path used for the pivot
+
+`tools/c0015_prep.ps1` prepares the host: it enables `SeDebugPrivilege` in the calling process, clears
+`RunAsPPL` when set, adds Defender exclusions and disables real-time monitoring, and sets
+`LocalAccountTokenFilterPolicy`. It writes `C:\ProgramData\c0015-prep.txt`.
+
+The credential used for lateral movement is obtained, not provisioned:
+
+1. `bk.admin` is a member of the local Administrators group on the backup server and holds a session
+   there (a scheduled task started with `/ru C0015\bk.admin`), so its material is in LSASS.
+2. `mimikatz.exe "privilege::debug" "sekurlsa::logonpasswords"` runs on the backup server and yields
+   the NT hash.
+3. From the beachhead, `sekurlsa::pth /user:bk.admin /domain:C0015 /ntlm:<hash> /run:<script>` starts a
+   process with the forged logon session; the script runs `wmic /node:FS01 ...` through it.
+
+Observed telemetry: `E10` from `mimikatz.exe` to `lsass.exe` with `GrantedAccess 0x1010`, `E1` with the
+full mimikatz command line, then `4624` type 3 with `AuthenticationPackageName: NTLM` and
+`WorkstationName: WS01`, plus `4672` for the same account. No plaintext password is used at any point
+after the dump.

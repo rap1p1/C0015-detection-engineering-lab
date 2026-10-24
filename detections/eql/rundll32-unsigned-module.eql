@@ -2,5 +2,6 @@
 // Covers both the service-host stage and the WMI-created beacon; the edge is the same in both.
 any where event.code == "7"
   and process.name : ("rundll32.exe", "regsvr32.exe")
-  and file.code_signature.signed == false
+  and winlog.event_data.Signed : "false"
   and file.path : ("?:\\ProgramData\\*", "?:\\Users\\Public\\*", "?:\\Windows\\Temp\\*")
+

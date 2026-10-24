@@ -3,4 +3,5 @@
 // Pair with an Elastic threshold rule (count by process.entity_id over 10 minutes, > 8) to suppress
 // single failed lookups.
 any where event.code == "22"
-  and winlog.event_data.QueryStatus == "9003"
+  and sysmon.dns.status : "DNS_ERROR_RCODE_NAME_ERROR"
+

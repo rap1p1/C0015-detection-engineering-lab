@@ -355,6 +355,7 @@ C0015-detection-engineering-lab/
 │   ├── eql/                     rule that spans two stages
 │   └── README.md                index, field assumptions, upstream references
 ├── docs/                        topology, run order, ATT&CK coverage
+├── killchain/                   the executed chain end to end, with telemetry and rule results
 ├── infra/                       hosts, accounts, DNS design, C2 layout, Sysmon profiles
 │   ├── c2/                      listeners, nginx front, implant generation
 │   ├── dns/                     zone design
@@ -497,6 +498,7 @@ campaign hostnames are resolved by a local zone and never reach the internet. No
 for use outside an isolated environment that the operator owns.
 
 Licensed under the MIT licence. See [LICENSE](LICENSE).
+
 
 
 

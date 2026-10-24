@@ -126,11 +126,18 @@ rclone.exe --config C:\Tools\rclone.conf copy --max-age 2y "\\FS01\Shares" Mega:
   --ignore-existing --auto-confirm --multi-thread-streams 7 --transfers 7 --bwlimit 10M
 ```
 
-Observed: 40 objects, 142.9 MiB in `Mega:DATA`. The transfer runs from a SYSTEM task, so the parent
-is `svchost.exe` -> `cmd.exe` -> `rclone.exe`. One alert.
+Observed: 40 objects, 142.9 MiB in `Mega:DATA`, uploaded on the first successful attempt of the
+session. The rule fired once.
 
-The MEGA egress depends on the host's NAT resolver; when it is down the login fails with
-`unexpected end of JSON input`, which is what happened during the first attempt of this run.
+Two environment conditions affect this step and are worth recording:
+
+- The transfer needs the host NAT resolver for `g.api.mega.co.nz`. When the resolver is down the login
+  fails with `unexpected end of JSON input`; the NAT service on the hypervisor had to be restarted
+  before the transfer could run.
+- Reading the source through `\\FS01\Shares` from a process that runs as SYSTEM on FS01 fails with
+  `directory not found` because of the SMB loopback restriction. The successful upload read the same
+  corpus through the share while the task ran under a context that had a session to the server. A
+  repeatable run should either grant the SYSTEM context a session or read the local path.
 
 ### 10. Impact
 
@@ -204,4 +211,5 @@ process or to have an injected module would remove the noise.
 - The pass-the-hash step has no dedicated rule. It is visible as `4624` type 3 with NTLM and `4672`
   for an account that has no interactive session on the source host, which is a correlation, not a
   single-event rule.
+
 

@@ -40,3 +40,16 @@ Expected events are listed in [`telemetry/README.md`](telemetry/README.md). The 
 matches a `rundll32.exe` whose parent is `svchost.exe`, and the accompanying DNS rule matches repeated
 lookups that return a non-existent name.
 
+
+## Implementation notes
+
+The service-group route was built first: a service with `ImagePath` of
+`svchost.exe -k c0015grp` and `Parameters\ServiceDll` pointing at the stub. The registry matched a
+known service host entry, the stub exported `ServiceMain`, and the DLL sat in a directory readable by
+SYSTEM, but SCM returned 7000 (`file not found`) on start for both a user-writable path and
+`C:\ProgramData`. The lab therefore hosts the loader through a SYSTEM scheduled task, which yields
+`svchost.exe -k netsvcs -p` as the parent. The edge that matters, a service host starting
+`rundll32.exe`, is present; the group name differs from a dedicated group.
+
+The loader module is 46 MB. That is the size of a Go build and it is not a defect to be tuned away:
+rules for this stage key on the load path, the signature state, and the parent image.

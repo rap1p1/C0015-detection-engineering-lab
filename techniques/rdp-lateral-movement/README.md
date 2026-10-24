@@ -40,3 +40,9 @@ matches a non-client process opening 3389. The rule
 [`detection_rules/eql/rdp-type10-logon.eql`](detection_rules/eql/rdp-type10-logon.eql) matches the
 target-side logon.
 
+
+## Status
+
+Not yet exercised in a recorded run. The remaining work is the SOCKS listener on the backup-server
+session, an RDP client bound to that proxy, and the GUI launch of Task Manager inside the session.
+The connection to 3389 must be owned by the implant process, not by a client on the operator host.

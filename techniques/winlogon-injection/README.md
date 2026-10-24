@@ -48,3 +48,16 @@ non-system source image. The companion rule in `detection_rules/eql/winlogon-spa
 matches shells and discovery binaries whose parent is `winlogon.exe`, which is the cheaper detection
 of the same behaviour and does not depend on `E8`.
 
+
+## Implementation notes
+
+The client's migrate path did not complete on this build. It requires a terminal for its progress
+form, and when driven without one it either reported success without a session or returned an implant
+timeout. The lab therefore loads the same Sliver shellcode with an explicit
+`VirtualAllocEx` / `WriteProcessMemory` / `CreateRemoteThread` injector executed as `rundll32.exe`
+(`tools/c0015_injector.c`). The observable is unchanged: a handle request with write rights, an `E8`
+whose source image is `rundll32.exe` and whose target is `winlogon.exe`, and a session whose host
+process is the logon process.
+
+The injector reads its target PID and payload path from files next to the module, so the same build
+serves the winlogon stage and the service-host stage.

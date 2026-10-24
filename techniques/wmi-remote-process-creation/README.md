@@ -46,3 +46,10 @@ matches a LOLBin whose parent is `WmiPrvSE.exe` and which loads an unsigned modu
 [`detection_rules/eql/wmic-remote-process-create.eql`](detection_rules/eql/wmic-remote-process-create.eql)
 matches the source-side command line.
 
+
+## Comma or space
+
+`rundll32` accepts both `module.dll,Export` and `module.dll Export`. Through `wmic process call
+create` only the space form works: `wmic` splits its argument on commas and returns `ReturnValue 9`
+without creating a process. The pivot in `tools/wmi-pivot.ps1` therefore uses the space form. When the
+loader is started directly, the comma form is the documented one and is what the campaign uses.

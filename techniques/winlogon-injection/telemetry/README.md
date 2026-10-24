@@ -12,3 +12,14 @@ Collection notes: Sysmon 15.x with the profile in `infra/sysmon/`; Security chan
 creation auditing and command-line inclusion; PowerShell script block logging for the enumeration
 step. Field names in the rules assume the Elastic Common Schema mapping produced by the Elastic
 Agent Windows integration.
+
+## StartAddress check
+
+The `E8` event carries the address of the new thread's entry point. For an injection that address
+belongs to a private allocation in the target process, not to any mapped image. A thread that starts
+inside `winlogon.exe` or inside a loaded DLL is a legitimate thread creation and must not be read as
+an injection.
+
+Verification: take the `StartAddress` from the event, list the module base addresses of the target
+process, and confirm the address falls outside every range. The allocation recorded in this lab
+(`0x1E6854700000` for a `winlogon.exe` at its usual base) is in unbacked private memory.

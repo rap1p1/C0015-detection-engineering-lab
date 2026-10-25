@@ -285,3 +285,16 @@ Three rules dominate the volume: service host egress (168), LSASS access (59) an
   FS01 cannot read its own share over the loopback.
 - The pass-the-hash helper runs through a batch file, so the process tree gains one `cmd.exe` between
   `winlogon.exe` and `mk.exe`.
+
+## Verification of the interactive and discovery stages (2026-10-25)
+
+- RDP through the beacon: a port forward from WS01 to `FS01:3389` plus a SOCKS proxy on the client
+  carried the session. FS01 had to accept TLS without NLA (`UserAuthentication=0`, `SecurityLayer=2`)
+  because the client could not reach a KDC through the tunnel. The session produced a `4624` type 10
+  logon for `bk.admin`, started `CDPUserSvc` in a per-user service host, and `taskmgr /4` ran as a
+  child of `explorer.exe`.
+- Share enumeration: the download cradle runs from the SYSTEM loader session and writes
+  `C:\ProgramData\found_shares.txt`. The script now enumerates with `Get-WmiObject Win32_Share`,
+  falling back to `Get-SmbShare`, and records three shares in this lab.
+- `rundll32 <dll>,DllRegisterServer` through `wmic process call create` returns `9` on this build, so
+  the pivot keeps the space-separated form. The comma form works when the loader is started directly.

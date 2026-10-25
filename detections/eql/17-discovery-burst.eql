@@ -1,0 +1,8 @@
+process where event.code == "1"
+  and process.parent.name : "cmd.exe"
+  and (
+        (process.name : ("net.exe", "net1.exe") and process.command_line : ("* group *", "* view *"))
+     or (process.name : "nltest.exe" and process.command_line : "*domain_trusts*")
+     or (process.name : "tasklist.exe" and process.command_line : "*/s *")
+     or (process.name : "ping.exe" and process.command_line : "*-n *")
+  )

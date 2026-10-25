@@ -1,6 +1,6 @@
 # Detection content
 
-Thirteen EQL rules for Elastic Security, one source of truth in `detections/eql/`. Each rule is a
+Sixteen EQL rules for Elastic Security, one source of truth in `detections/eql/`. Each rule is a
 behaviour, not a single event, and each carries a MITRE ATT&CK tactic and technique in its metadata.
 
 The previous generation had twenty rules, most of them building blocks that fired on one event and
@@ -44,6 +44,9 @@ Three families:
 | 12 ransom note | Sysmon 11 | T1486 | high | 5 |
 | 13 rdp interactive logon | Security 4624 | T1021.001 | medium | 2 |
 | 14 task manager from shell | Sysmon 1 | T1057 | low | 2 |
+| 15 password spray | Security 4625 then 4624 | T1110.003 | high | 2 |
+| 16 lsass protection removed | Sysmon 13 | T1562.001 | high | 0 |
+| 17 discovery burst | Sysmon 1 | T1057 | medium | 36 |
 
 The hit counts are from the run that produced `killchain/telemetry/run-2026-10-25.json`, over the
 three hours that contain the whole chain. A rule that shows zero has no matching event in that
@@ -91,3 +94,4 @@ SigmaHQ rules with the same intent were read as prior art; the mapping is in
 (`title`, `description`, `level`, `tags` with `attack.*`) and Elastic's own detection-rule guidance,
 which is the same shape: one behaviour per rule, ATT&CK metadata, and a documented false-positive
 surface.
+

@@ -531,3 +531,32 @@ which depend on the exact access mask the tool uses and on the sample taken; bot
 Passing a compound command through `schtasks /tr` or through `wmic process call create` breaks on
 quoting and, in the wmic case, on commas. Each command is now written to a `.cmd` file during the
 staging step and started by path, which removed the last class of failures in this run.
+
+## Final run: interactive stage through the beacon
+
+The RDP leg now goes through the beacon instead of direct from the operator host, and discovery covers
+the campaign command set.
+
+| Step | Observation |
+|---|---|
+| RDP | `xfreerdp` over a SOCKS proxy hosted by the `winlogon` beacon, `/d:C0015.LAB`, NLA |
+| logon | `4624` type 10 for `helpdesk` with `IpAddress 192.168.50.20`, the beachhead, not the operator host |
+| session | `rdp-tcp#13` on the target, per-user service host present |
+| discovery | 138 lines: `whoami`, `nltest /domain_trusts`, `net group "domain admins" /dom`, `net localgroup "administrator"`, `net view /all /domain`, `net view /all`, `tasklist /s`, `time`, `ping` |
+| injection | into the per-user service host, `ReturnValue 0` |
+| dump | `dump.txt` 10.5 KB |
+| exfiltration | rclone over the share |
+| impact | five notes, forty renamed files |
+
+Alerts in the twenty minute window: 53, covering the delivery chain, the WMI execution on both sides,
+the LSASS access, the interactive logon, the transfer and the notes.
+
+### Rule review
+
+| Rule | Change | Result |
+|---|---|---|
+| 17 discovery burst | added, then narrowed to the campaign arguments (`group`, `view`, `domain_trusts`, `/s`, `-n`) | 36 hits in three hours, down from 136 |
+| 05 lsass credential access | none; the dump uses mask `0x1010`, which the rule already matches | fires |
+| 09 ntlm logon with privileges | none; the pivot authenticates with Kerberos, so the NTLM-scoped rule stays quiet by design | documented |
+| 15 password spray | unchanged; it fires when the failures land on the workstation | fires |
+| 16 lsass protection removed | unchanged; the lab never sets `RunAsPPL` | no data |

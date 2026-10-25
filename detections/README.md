@@ -1,6 +1,6 @@
 # Detection content
 
-Sixteen EQL rules for Elastic Security, one source of truth in `detections/eql/`. Each rule is a
+Fifteen EQL rules for Elastic Security, one source of truth in `detections/eql/`. Each rule is a
 behaviour, not a single event, and each carries a MITRE ATT&CK tactic and technique in its metadata.
 
 The previous generation had twenty rules, most of them building blocks that fired on one event and
@@ -18,6 +18,8 @@ engineering:
 - a severity and a risk score that mean something: `critical` only for code execution in a system
   process, credential theft, and impact
 - a false-positive note in the description when the behaviour has a benign explanation
+
+Rule 09, an NTLM network logon paired with a privileged token, was retired: the two events carry different account fields, so they cannot be joined, and the single-event form matches every NTLM network logon in a domain. Credential use is covered by 05, 13 and 15 instead.
 
 Three families:
 
@@ -39,7 +41,7 @@ Three families:
 | 06 wmi remote creation | Sysmon 1 | T1047 | medium | 2 |
 | 07 wmi hosted loader | Sysmon 1 | T1047 | high | 2 |
 | 08 service host starts loader | Sysmon 1 | T1543.003 | medium | 1 |
-| 09 ntlm logon with privileges | Security 4624 then 4672 | T1550.002 | high | 0 |
+
 | 11 cloud transfer | Sysmon 1 | T1567.002 | high | 2 |
 | 12 ransom note | Sysmon 11 | T1486 | high | 5 |
 | 13 rdp interactive logon | Security 4624 | T1021.001 | medium | 2 |
@@ -94,4 +96,5 @@ SigmaHQ rules with the same intent were read as prior art; the mapping is in
 (`title`, `description`, `level`, `tags` with `attack.*`) and Elastic's own detection-rule guidance,
 which is the same shape: one behaviour per rule, ATT&CK metadata, and a documented false-positive
 surface.
+
 

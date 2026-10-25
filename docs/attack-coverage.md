@@ -17,7 +17,7 @@ Techniques the lab exercises, the folder that implements each one, and the rule 
 | Credential Access | Password Spraying | T1110.003 | `bazar-svchost-stage` | 15 |
 | Lateral Movement | Windows Management Instrumentation | T1047 | `wmi-remote-process-creation` | 06, 07 |
 | Lateral Movement | Remote Services: RDP | T1021.001 | `rdp-lateral-movement` | 13 |
-| Lateral Movement | Pass the Hash | T1550.002 | `rdp-lateral-movement` | 09 |
+| Lateral Movement | Pass the Hash | T1550.002 | `processhacker-lsass-access` | 05 |
 | Discovery | Domain Trust Discovery | T1482 | `lolbin-discovery` | 01, 14 |
 | Discovery | Network Share Discovery | T1135 | `share-enumeration` | - |
 | Discovery | Process Discovery | T1057 | `lolbin-discovery` | 14 |
@@ -31,3 +31,4 @@ Discovery through share enumeration has no dedicated rule; it is covered by the 
 transfer that follows and by the parent edge of the process that runs it.
 
 Rule numbers refer to `detections/eql/`; the index is in [`detections/README.md`](../detections/README.md).
+

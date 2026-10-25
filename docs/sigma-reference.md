@@ -14,7 +14,7 @@ shipped here; the links are prior art, the EQL under `detections/eql/` is the im
 | 06 wmi remote creation | [`proc_creation_win_wmic_remote_execution.yml`](https://github.com/SigmaHQ/sigma/blob/master/rules/windows/process_creation/proc_creation_win_wmic_remote_execution.yml) |
 | 07 wmi hosted loader | [`proc_creation_win_wmiprvse_spawning_process.yml`](https://github.com/SigmaHQ/sigma/blob/master/rules/windows/process_creation/proc_creation_win_wmiprvse_spawning_process.yml) |
 | 08 service host starts loader | [`proc_creation_win_svchost_uncommon_command_line_flags.yml`](https://github.com/SigmaHQ/sigma/blob/master/rules/windows/process_creation/proc_creation_win_svchost_uncommon_command_line_flags.yml) |
-| 09 ntlm logon with privileges | [`win_security_susp_logon_explicit_credentials.yml`](https://github.com/SigmaHQ/sigma/blob/master/rules/windows/builtin/security/win_security_susp_logon_explicit_credentials.yml) |
+
 | 11 cloud transfer | [`proc_creation_win_pua_rclone_execution.yml`](https://github.com/SigmaHQ/sigma/blob/master/rules/windows/process_creation/proc_creation_win_pua_rclone_execution.yml) |
 | 12 ransom note | [`proc_creation_win_malware_conti_ransomware_commands.yml`](https://github.com/SigmaHQ/sigma/blob/master/rules-emerging-threats/2021/Malware/Conti/proc_creation_win_malware_conti_ransomware_commands.yml) |
 | 13 rdp interactive logon | [`proc_creation_win_svchost_termserv_proc_spawn.yml`](https://github.com/SigmaHQ/sigma/blob/master/rules/windows/process_creation/proc_creation_win_svchost_termserv_proc_spawn.yml) |
@@ -34,3 +34,4 @@ Two rules have no upstream link. They are marked here rather than given a path t
   separate, so either half can fire alone.
 - The impact rule accepts any binary ending in `_locker.exe` and matches the argument set, which
   survives a rename.
+

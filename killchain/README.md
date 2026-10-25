@@ -560,3 +560,33 @@ the LSASS access, the interactive logon, the transfer and the notes.
 | 09 ntlm logon with privileges | none; the pivot authenticates with Kerberos, so the NTLM-scoped rule stays quiet by design | documented |
 | 15 password spray | unchanged; it fires when the failures land on the workstation | fires |
 | 16 lsass protection removed | unchanged; the lab never sets `RunAsPPL` | no data |
+
+### Rule tuning pass (preview)
+
+Each rule was previewed over twenty-four hours. Every remaining rule matches at least one event.
+
+| Rule | Hits | Note |
+|---|---|---|
+| 01 office spawns script host | 21 | |
+| 02 script host starts loader | 20 | |
+| 03 loader loads unsigned module | 54 | Defender platform paths excluded after the first pass, 64 to 54 |
+| 04 injection into system process | 10 | |
+| 05 lsass credential access | 7 | mask `0x1010` |
+| 06 wmi remote creation | 38 | one per pivot, inflated by repeated runs |
+| 07 wmi hosted loader | 28 | |
+| 08 service host starts loader | 3 | |
+| 11 cloud transfer | 21 | |
+| 12 ransom note | 70 | five notes per impact run |
+| 13 rdp interactive logon | 27 | |
+| 14 task manager from shell | 2 | |
+| 15 password spray | 4 | |
+| 16 lsass protection removed | 2 | after the Lsa key was added to the Sysmon registry scope |
+| 17 discovery burst | 40 | narrowed to campaign arguments, 136 to 40 |
+
+Two changes came out of the pass:
+
+- rule 03 now excludes `ProgramData\Microsoft`, which produced most of its volume through Defender's own
+  modules;
+- rule 09 was retired. `4624` carries `TargetUserName` and `4672` carries `SubjectUserName`, so a
+  sequence on the account cannot join, and a single-event version matched every NTLM network logon in
+  the domain. Credential use stays covered by 05, 13 and 15.

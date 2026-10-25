@@ -94,6 +94,7 @@
 
       <!-- E12-14: registry, scoped to autostart/services/classes/environment -->
       <RegistryEvent onmatch="include">
+      <TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Lsa</TargetObject>
         <TargetObject condition="contains">\Software\Microsoft\Windows\CurrentVersion\Run</TargetObject>
         <TargetObject condition="contains">\Software\Microsoft\Windows\CurrentVersion\RunOnce</TargetObject>
         <TargetObject condition="contains">\System\CurrentControlSet\Services\</TargetObject>
@@ -141,4 +142,5 @@
     </RuleGroup>
   </EventFiltering>
 </Sysmon>
+
 

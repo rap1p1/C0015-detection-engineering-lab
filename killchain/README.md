@@ -436,3 +436,33 @@ move into that script.
 | WS01 | `C:\ProgramData\C0015` writable by `Users` | the user-level loader must be able to replace the binary |
 | WS01 | scheduled task `C0015Updater`, SYSTEM, every minute, runs `updater.exe` | the source of the missing privilege |
 | WS01 | `duc.user` stays a standard user | the constraint chosen for this lab |
+
+## Run with a weak helpdesk credential (2026-10-25, late)
+
+The machine account was removed from the backup server's local Administrators. Lateral movement now
+depends on a credential recovered from the domain: `helpdesk`, a member of `IT-Support`, which is a
+local administrator on both hosts, protected by a weak password.
+
+| Step | Result |
+|---|---|
+| document opened | macro, HTA, loader, SYSTEM stager as before |
+| spray | `net use` against the domain controller, hit on the fourth candidate |
+| discovery and share enumeration | written, share list produced |
+| staging on the target | `143.dll`, the dump tool and the locker copied over `C$` |
+| remote execution | `wmic /node:FS01 /user:... /password:...` returns `ReturnValue 0`, `ProcessId 5264` |
+| beacon on the target | session in `rundll32.exe` on FS01 under the helpdesk identity |
+| foothold | `C0015Persist`, onstart, SYSTEM, on FS01 |
+| defence relaxed on the target | Defender real-time off through a remote task |
+| credential collection | dump started through a remote task |
+| exfiltration | rclone over `\\FS01\\Shares` with the helpdesk credential |
+| impact | locker through a remote task, five notes and forty renames |
+
+Alerts in the window: 46, covering the delivery chain, the WMI execution on both sides, the injection,
+the LSASS access, the transfer and the notes. The spray rule and the logon-with-privileges rule did not
+fire; both need another pass.
+
+### Why the target-side steps run through scheduled tasks
+
+The Defender ASR rule that blocks process creation originating from WMI stopped the dump when it was
+started with `Win32_Process.Create`. Running the same command through a scheduled task on the target
+avoids that rule. This is a lab workaround and is recorded because it changes which events appear.

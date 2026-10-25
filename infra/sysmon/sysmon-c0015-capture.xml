@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  C0015 telemetry profile: CAPTURE v1.0 / 2026-09-26
+  C0015 telemetry profile: capture mode
   Newly authored configuration; NOT a recovery of the lost historical XML.
   Repository reviewed: rap1p1/C0015-Conti-Detection-Lab @ f6e23f0
   Target: existing Sysmon 15.21 with schema 4.91; verify acceptance on each VM.
@@ -22,7 +22,7 @@
   <DnsLookup>false</DnsLookup>
 
   <EventFiltering>
-    <RuleGroup name="C0015-CAPTURE-v1" groupRelation="or">
+    <RuleGroup name="C0015-CAPTURE" groupRelation="or">
 
       <!-- E1: Complete ancestry, including renamed tools and uncommon parents. -->
       <ProcessCreate onmatch="exclude" />
@@ -108,3 +108,4 @@
     </RuleGroup>
   </EventFiltering>
 </Sysmon>
+

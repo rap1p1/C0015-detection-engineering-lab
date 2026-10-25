@@ -381,7 +381,6 @@ C0015-detection-engineering-lab/
 │   ├── processhacker-lsass-access/
 │   ├── rclone-exfiltration/
 │   └── conti-style-impact/
-└── _archive/                    earlier phase-based material, retained for reference
 ```
 
 Each folder under `techniques/` covers one behaviour rather than one tool, so the folder name still
@@ -498,6 +497,7 @@ campaign hostnames are resolved by a local zone and never reach the internet. No
 for use outside an isolated environment that the operator owns.
 
 Licensed under the MIT licence. See [LICENSE](LICENSE).
+
 
 
 

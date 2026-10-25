@@ -35,7 +35,6 @@ being unsigned and loaded from a user-writable path.
 
 ## Telemetry and detection
 
-Expected events are listed in [`telemetry/README.md`](telemetry/README.md). The rule
-[`detection_rules/eql/regsvr32-unsigned-image.eql`](detection_rules/eql/regsvr32-unsigned-image.eql)
-matches an unsigned image load by `regsvr32.exe` from a user-writable directory.
+The rule for this behaviour lives in [`detections/eql/`](../../detections/eql/) and is listed in the index at [`detections/README.md`](../../detections/README.md). The field assumptions the rule depends on are recorded there.
+
 

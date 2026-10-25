@@ -27,8 +27,6 @@ per-user configuration after the run.
 
 ## Telemetry and detection
 
-Expected events are listed in [`telemetry/README.md`](telemetry/README.md). The rule
-[`detection_rules/eql/remote-access-tool-in-media-path.eql`](detection_rules/eql/remote-access-tool-in-media-path.eql)
-matches a remote-access binary created and executed from `Videos`, `Music`, or `Pictures` under a user
-profile.
+The rule for this behaviour lives in [`detections/eql/`](../../detections/eql/) and is listed in the index at [`detections/README.md`](../../detections/README.md). The field assumptions the rule depends on are recorded there.
+
 

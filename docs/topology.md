@@ -7,8 +7,8 @@
 | DC01 | 192.168.50.10 | AD DS, DNS for `c0015.lab` | Windows Server 2019 |
 | WS01 | 192.168.50.20 | Victim workstation, initial foothold | Windows 10 22H2 |
 | FS01 | 192.168.50.30 | Backup server, lateral target, impact origin | Windows 10 22H2 |
-| KALI | 192.168.50.100 | C2 server, staging, network tooling | Kali Linux |
-| WIN-C2 | 192.168.50.1 | HTTP staging for module and PowerView | Windows host or lab hypervisor |
+| KALI | 192.168.50.100 | C2 listener on 443, HTTP staging on 80, RDP client for the interactive stage | Kali Linux |
+
 
 FS01 holds the backup shares and the corpus used for collection and impact. The campaign separates the
 backup server from the data server; the lab consolidates both roles on FS01 because the estate has a
@@ -55,3 +55,4 @@ Rationale and provisioning: [`infra/accounts.md`](../infra/accounts.md).
 
 DC01 publishes the zones that resolve the campaign hostnames to the C2 host, and deliberately does not
 publish the fallback name. Design and verification queries: [`infra/dns/zone-plan.md`](../infra/dns/zone-plan.md).
+

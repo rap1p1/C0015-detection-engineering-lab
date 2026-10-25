@@ -38,9 +38,6 @@ corpus from a hash-checked copy.
 
 ## Telemetry and detection
 
-Expected events are listed in [`telemetry/README.md`](telemetry/README.md). The rule
-[`detection_rules/eql/locker-argument-set.eql`](detection_rules/eql/locker-argument-set.eql)
-matches the argument combination, and
-[`detection_rules/eql/ransom-note-creation.eql`](detection_rules/eql/ransom-note-creation.eql) matches
-the same note file appearing in several directories within a short window.
+The rule for this behaviour lives in [`detections/eql/`](../../detections/eql/) and is listed in the index at [`detections/README.md`](../../detections/README.md). The field assumptions the rule depends on are recorded there.
+
 

@@ -1,6 +1,6 @@
 # C0015 - BazarLoader to Conti, reconstructed for detection engineering
 
-![ATT&CK](https://img.shields.io/badge/ATT%26CK-30%20techniques%20mapped-informational)
+![ATT&CK](https://img.shields.io/badge/ATT%26CK-22%20techniques%20mapped-informational)
 ![techniques](https://img.shields.io/badge/techniques-14-blue)
 ![EQL](https://img.shields.io/badge/EQL-15%20rules-green)
 ![License](https://img.shields.io/badge/license-MIT-lightgrey)
@@ -496,6 +496,7 @@ campaign hostnames are resolved by a local zone and never reach the internet. No
 for use outside an isolated environment that the operator owns.
 
 Licensed under the MIT licence. See [LICENSE](LICENSE).
+
 
 
 

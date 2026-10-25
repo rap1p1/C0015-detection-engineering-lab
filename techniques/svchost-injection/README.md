@@ -34,9 +34,6 @@ session is kept to preserve the `WmiPrvSE -> rundll32` evidence for the pivot st
 
 ## Telemetry and detection
 
-Expected events are listed in [`telemetry/README.md`](telemetry/README.md). The rule
-[`detection_rules/eql/thread-into-system-process.eql`](detection_rules/eql/thread-into-system-process.eql)
-covers the thread creation into `svchost.exe`. The network side is covered by
-`detection_rules/eql/service-host-egress.eql`, which matches an unexpected service host making an
-outbound connection.
+The rule for this behaviour lives in [`detections/eql/`](../../detections/eql/) and is listed in the index at [`detections/README.md`](../../detections/README.md). The field assumptions the rule depends on are recorded there.
+
 

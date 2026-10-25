@@ -244,15 +244,5 @@
       "process.entity_id": "{88E52A21-D971-6ADC-BF01-000000000F00}",
       "user.name": "SYSTEM"
     }
-  ],
-  "alerts_by_rule": {
-    "C0015v2 | service host egress": 63,
-    "C0015v2 | winlogon discovery burst": 18,
-    "C0015v2 | ransom note creation": 6,
-    "C0015v2 | lsass access read mask": 4,
-    "C0015v2 | implant opens rdp": 3,
-    "C0015v2 | winlogon spawns shell": 2,
-    "C0015v2 | rclone cloud transfer": 1,
-    "C0015v2 | remote access tool in media path": 1
-  }
+  ]
 }

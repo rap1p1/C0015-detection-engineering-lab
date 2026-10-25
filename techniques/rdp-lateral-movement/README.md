@@ -34,11 +34,8 @@ process list.
 
 ## Telemetry and detection
 
-Expected events are listed in [`telemetry/README.md`](telemetry/README.md). The rule
-[`detection_rules/eql/implant-opens-rdp.eql`](detection_rules/eql/implant-opens-rdp.eql)
-matches a non-client process opening 3389. The rule
-[`detection_rules/eql/rdp-type10-logon.eql`](detection_rules/eql/rdp-type10-logon.eql) matches the
-target-side logon.
+The rule for this behaviour lives in [`detections/eql/`](../../detections/eql/) and is listed in the index at [`detections/README.md`](../../detections/README.md). The field assumptions the rule depends on are recorded there.
+
 
 
 ## Status

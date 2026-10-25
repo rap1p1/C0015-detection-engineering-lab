@@ -34,10 +34,8 @@ the run.
 
 ## Telemetry and detection
 
-Expected events are listed in [`telemetry/README.md`](telemetry/README.md). The rule
-[`detection_rules/eql/lsass-access-read-mask.eql`](detection_rules/eql/lsass-access-read-mask.eql)
-matches a handle request against `lsass.exe` whose granted access includes read rights, excluding the
-known system consumers.
+The rule for this behaviour lives in [`detections/eql/`](../../detections/eql/) and is listed in the index at [`detections/README.md`](../../detections/README.md). The field assumptions the rule depends on are recorded there.
+
 
 
 ## Credential path used for the pivot

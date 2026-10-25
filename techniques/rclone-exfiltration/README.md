@@ -40,8 +40,6 @@ transfer.
 
 ## Telemetry and detection
 
-Expected events are listed in [`telemetry/README.md`](telemetry/README.md). The rule
-[`detection_rules/eql/rclone-cloud-transfer.eql`](detection_rules/eql/rclone-cloud-transfer.eql)
-matches `rclone.exe` with a cloud remote and a bandwidth or parallelism flag. The network rule in
-`detections/suricata/` matches the MEGA API hostname in TLS SNI.
+The rule for this behaviour lives in [`detections/eql/`](../../detections/eql/) and is listed in the index at [`detections/README.md`](../../detections/README.md). The field assumptions the rule depends on are recorded there.
+
 

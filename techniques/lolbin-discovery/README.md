@@ -41,9 +41,6 @@ per run, which is the input for the target-selection step.
 
 ## Telemetry and detection
 
-Expected events are listed in [`telemetry/README.md`](telemetry/README.md). The rule
-[`detection_rules/eql/winlogon-spawns-shell.eql`](detection_rules/eql/winlogon-spawns-shell.eql)
-matches shells and discovery binaries whose parent is `winlogon.exe`. The rule
-[`detection_rules/eql/winlogon-discovery-burst.eql`](detection_rules/eql/winlogon-discovery-burst.eql)
-matches several distinct discovery binaries started by `cmd.exe` within a short window.
+The rule for this behaviour lives in [`detections/eql/`](../../detections/eql/) and is listed in the index at [`detections/README.md`](../../detections/README.md). The field assumptions the rule depends on are recorded there.
+
 

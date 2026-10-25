@@ -40,11 +40,8 @@ process tree on the target.
 
 ## Telemetry and detection
 
-Expected events are listed in [`telemetry/README.md`](telemetry/README.md). The rule
-[`detection_rules/eql/wmiprvse-spawns-loader.eql`](detection_rules/eql/wmiprvse-spawns-loader.eql)
-matches a LOLBin whose parent is `WmiPrvSE.exe` and which loads an unsigned module. The rule
-[`detection_rules/eql/wmic-remote-process-create.eql`](detection_rules/eql/wmic-remote-process-create.eql)
-matches the source-side command line.
+The rule for this behaviour lives in [`detections/eql/`](../../detections/eql/) and is listed in the index at [`detections/README.md`](../../detections/README.md). The field assumptions the rule depends on are recorded there.
+
 
 
 ## Comma or space

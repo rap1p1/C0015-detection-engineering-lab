@@ -41,12 +41,8 @@ injected image terminates the host. The lab takes a snapshot immediately before 
 
 ## Telemetry and detection
 
-Expected events are listed in [`telemetry/README.md`](telemetry/README.md). The rule
-[`detection_rules/eql/thread-into-system-process.eql`](detection_rules/eql/thread-into-system-process.eql)
-matches thread creation into `winlogon.exe`, `lsass.exe`, `services.exe`, or `svchost.exe` from a
-non-system source image. The companion rule in `detection_rules/eql/winlogon-spawns-shell.eql`
-matches shells and discovery binaries whose parent is `winlogon.exe`, which is the cheaper detection
-of the same behaviour and does not depend on `E8`.
+The rule for this behaviour lives in [`detections/eql/`](../../detections/eql/) and is listed in the index at [`detections/README.md`](../../detections/README.md). The field assumptions the rule depends on are recorded there.
+
 
 
 ## Implementation notes

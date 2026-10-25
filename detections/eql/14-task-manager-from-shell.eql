@@ -1,0 +1,4 @@
+process where event.code == "1"
+  and process.name : "taskmgr.exe"
+  and process.parent.name : "explorer.exe"
+  and process.command_line : "*/4*"

@@ -1,8 +1,0 @@
-// regsvr32 loads an unsigned image from a writable directory.
-// The extension is irrelevant at the image-load level, which is the point of the masquerade.
-any where event.code == "7"
-  and process.name == "regsvr32.exe"
-  and winlog.event_data.Signed : "false"
-  and file.path : ("?:\\Users\\Public\\*", "?:\\ProgramData\\*", "?:\\Windows\\Temp\\*",
-                   "?:\\Users\\*\\AppData\\*", "?:\\Users\\*\\Downloads\\*")
-

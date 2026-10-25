@@ -1,5 +1,0 @@
-// The logon process starts a shell. Cheaper than E8 and independent of the injection method.
-process where event.code == "1"
-  and process.parent.name == "winlogon.exe"
-  and process.name : ("cmd.exe", "powershell.exe", "rundll32.exe", "net.exe", "net1.exe",
-                      "nltest.exe", "whoami.exe", "wmic.exe", "tasklist.exe", "ping.exe")

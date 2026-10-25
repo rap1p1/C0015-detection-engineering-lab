@@ -1,6 +1,0 @@
-// Cross-process thread creation into a system-owned process.
-// Source is the loader that hosted the implant; target is the process the operator wants.
-any where event.code == "8"
-  and process.name : ("rundll32.exe", "regsvr32.exe", "powershell.exe")
-  and winlog.event_data.TargetImage : ("*\\winlogon.exe", "*\\services.exe", "*\\lsass.exe", "*\\svchost.exe")
-

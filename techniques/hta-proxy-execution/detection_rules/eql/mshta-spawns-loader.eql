@@ -1,4 +1,0 @@
-// mshta starts a module loader. The HTA stages the DLL and calls regsvr32 immediately.
-process where event.code == "1"
-  and process.parent.name == "mshta.exe"
-  and process.name : ("regsvr32.exe", "rundll32.exe")

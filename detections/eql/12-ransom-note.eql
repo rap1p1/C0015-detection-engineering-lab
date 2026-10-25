@@ -1,0 +1,2 @@
+file where event.code == "11"
+  and file.name : "readme.txt"

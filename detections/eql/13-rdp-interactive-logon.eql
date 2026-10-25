@@ -1,4 +1,3 @@
-// Interactive logon on the target. The workstation name is the field that identifies a tunnelled session.
 any where event.code == "4624"
   and winlog.event_data.LogonType == "10"
   and not winlog.event_data.TargetUserName : "*$"

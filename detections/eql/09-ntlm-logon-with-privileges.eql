@@ -1,0 +1,7 @@
+sequence by winlog.event_data.TargetUserName with maxspan=1m
+  [any where event.code == "4624"
+     and winlog.event_data.LogonType == "3"
+     and winlog.event_data.AuthenticationPackageName : "NTLM"
+     and not winlog.event_data.TargetUserName : "*$"]
+  [any where event.code == "4672"
+     and not winlog.event_data.SubjectUserName : ("*$", "SYSTEM", "LOCAL SERVICE", "NETWORK SERVICE")]

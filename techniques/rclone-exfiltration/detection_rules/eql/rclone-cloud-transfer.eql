@@ -1,5 +1,0 @@
-// rclone copy against a cloud remote with throttling flags.
-process where event.code == "1"
-  and process.name == "rclone.exe"
-  and process.command_line : "* copy *"
-  and process.command_line : ("*--bwlimit*", "*--transfers*", "*--multi-thread-streams*", "*--ignore-existing*")

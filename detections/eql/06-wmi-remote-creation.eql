@@ -1,6 +1,4 @@
-// Source-side command: remote process creation through wmic.
 process where event.code == "1"
   and process.name : "wmic.exe"
   and process.command_line : "*process call create*"
   and process.command_line : "*/node:*"
-

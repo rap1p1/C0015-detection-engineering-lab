@@ -1,4 +1,0 @@
-// Remote-access binary executed from a media directory under a user profile.
-process where event.code == "1"
-  and process.name : ("AnyDesk.exe", "RustDesk.exe", "TeamViewer.exe")
-  and process.executable : ("*\\Videos\\*", "*\\Music\\*", "*\\Pictures\\*")

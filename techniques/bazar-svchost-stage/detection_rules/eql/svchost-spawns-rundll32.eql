@@ -1,5 +1,0 @@
-// Service host spawns the module loader. The child inherits SYSTEM from the host.
-process where event.code == "1"
-  and process.parent.name : "svchost.exe"
-  and process.name : "rundll32.exe"
-

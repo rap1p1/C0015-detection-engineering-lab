@@ -1,5 +1,0 @@
-// Locker binary with the deployment argument set.
-process where event.code == "1"
-  and process.name : "*_locker.exe"
-  and process.command_line : ("*-nomutex*", "*-net*")
-  and process.command_line : "*-p \\\\*"

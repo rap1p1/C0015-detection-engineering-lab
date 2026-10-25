@@ -1,0 +1,6 @@
+sequence by host.id with maxspan=3m
+  [process where event.code == "1"
+     and process.name : ("mshta.exe", "wscript.exe", "cscript.exe")]
+  [process where event.code == "1"
+     and process.parent.name : ("mshta.exe", "wscript.exe", "cscript.exe")
+     and process.name : ("regsvr32.exe", "rundll32.exe")]

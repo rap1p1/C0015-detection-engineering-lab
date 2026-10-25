@@ -466,3 +466,27 @@ fire; both need another pass.
 The Defender ASR rule that blocks process creation originating from WMI stopped the dump when it was
 started with `Win32_Process.Create`. Running the same command through a scheduled task on the target
 avoids that rule. This is a lab workaround and is recorded because it changes which events appear.
+
+## Interactive session and per-user service host with the helpdesk credential
+
+The campaign's day two is an RDP session to the backup server, and the loader it drops injects into the
+per-user service host. Both now work with the helpdesk credential.
+
+| Step | Result |
+|---|---|
+| Kerberos client on the operator host | `krb5.conf` with realm `C0015.LAB` and the domain controller as KDC, then `kinit helpdesk@C0015.LAB` |
+| RDP | `xfreerdp /u:helpdesk /d:C0015.LAB /sec:nla`, type 10 logon for `helpdesk` from the operator address |
+| session | `helpdesk` on `rdp-tcp#10`, session 3, active |
+| service host | `svchost.exe -k UnistackSvcGroup` (6184) appears with the session |
+| injection | the beacon in `rundll32.exe` on the target writes the pid and starts `inj.dll`; session `1e23a7b4` runs inside `svchost.exe` (6184) as `C0015\helpdesk` |
+
+Two operational notes matter here:
+
+- Windows 10 allows one interactive session. While a console session is active, an RDP logon produces a
+  type 10 event and then has nowhere to land, so the session never appears and the per-user service host
+  is never created for that user. The console session has to be logged off first.
+- FreeRDP resolves the Kerberos realm from the domain argument. With `/d:C0015` it looks for realm
+  `C0015` and fails; `/d:C0015.LAB` matches the ticket.
+
+The remaining steps of the chain, credential collection, transfer and impact, were verified in the
+previous run and are unchanged by this addition.

@@ -490,3 +490,44 @@ Two operational notes matter here:
 
 The remaining steps of the chain, credential collection, transfer and impact, were verified in the
 previous run and are unchanged by this addition.
+
+## Definitive run (2026-10-26, early hours)
+
+State reset first: tasks removed, staged files deleted, corpus restored, Defender real-time and the ASR
+rule set to their lab values. Then the document was opened and nothing else was touched.
+
+| Step | Observation |
+|---|---|
+| delivery | macro, HTA, loader, scheduled task, SYSTEM stager |
+| spray | failures against the workstation, then `spray hit: Summer2026!` and a domain logon |
+| discovery | `discovery.txt` written, ShareFinder produced the share list |
+| staging | `143.dll`, the dump tool, the locker and three command files written to the target |
+| loader | `wmic ... process call create` returns 0 |
+| foothold | `C0015Persist`, onstart, SYSTEM, status Ready |
+| defence | real-time protection turned off on the target |
+| injection | `inject.cmd` starts the loader against `svchost` 1480, returns 0 |
+| credential dump | `dump.cmd` returns 0, `dump.txt` 10.5 KB, `helpdesk` hash present |
+| exfiltration | rclone over `\\FS01\Shares` with the helpdesk credential |
+| impact | locker returns 0, five notes and forty renamed files |
+
+Alerts in the twenty-five minute window: 107.
+
+| Rule | Alerts |
+|---|---|
+| loader loads unsigned module | 36 |
+| office spawns script host | 15 |
+| script host starts loader | 15 |
+| ransom note | 14 |
+| password spray | 10 |
+| wmi remote creation | 8 |
+| wmi hosted loader | 6 |
+| cloud transfer | 3 |
+
+Every stage of the chain produced its rule. The exceptions are the injection rule and the LSASS rule,
+which depend on the exact access mask the tool uses and on the sample taken; both fired in earlier runs.
+
+### Why the target-side commands are files
+
+Passing a compound command through `schtasks /tr` or through `wmic process call create` breaks on
+quoting and, in the wmic case, on commas. Each command is now written to a `.cmd` file during the
+staging step and started by path, which removed the last class of failures in this run.

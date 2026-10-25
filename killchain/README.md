@@ -396,3 +396,43 @@ Everything below exists so the chain can run on this hardware. None of it is par
 | FS01 | NRPT for the MEGA names, hosts entry for the API | the lab resolver does not carry public names |
 | Kali | HTTP on 80 for the implant, Sliver listener on 443, SOCKS for the pivot | staging and C2 |
 | WS01, FS01 | Sysmon profile with `E7` on staging paths, `E10` on winlogon and lsass, `E8`, `E22` | telemetry the rules depend on |
+
+## Autonomous run: one human action
+
+The chain now runs from a single user action, opening the document.
+
+```
+document opened by duc.user
+  macro writes the HTA and runs cmd /c mshta
+    HTA downloads compareForfor.jpg (the loader) and runs regsvr32 on it
+      loader writes C:\ProgramData\C0015\updater.exe
+        the scheduled task the environment already runs as SYSTEM starts it
+          stager downloads the implant, the stub and the second stage
+            stager starts rundll32 with the implant  -> SYSTEM beacon
+            stager starts the second stage as SYSTEM
+```
+
+Evidence from the run:
+
+| Step | Observation |
+|---|---|
+| loader | `download ... -> C:\ProgramData\C0015\updater.exe : ok`, file replaced |
+| task | the SYSTEM task starts the replaced binary within a minute |
+| stager | downloads all three files, then `implant started` and `second stage started` |
+| beacon | session in `rundll32.exe`, user `WS01$` |
+| second stage | `stage2 ran as nt authority\system` |
+
+The elevation comes from the lab weakness in `gap/README.md`: a directory writable by `Users` that a
+SYSTEM task executes from. The victim account stays a standard user.
+
+The second stage currently proves it runs as SYSTEM. The remaining steps of the campaign, from the
+`winlogon` injection to the locker, are still driven from the operator side and are the next thing to
+move into that script.
+
+### Lab configuration added for this step
+
+| Where | Change | Why |
+|---|---|---|
+| WS01 | `C:\ProgramData\C0015` writable by `Users` | the user-level loader must be able to replace the binary |
+| WS01 | scheduled task `C0015Updater`, SYSTEM, every minute, runs `updater.exe` | the source of the missing privilege |
+| WS01 | `duc.user` stays a standard user | the constraint chosen for this lab |

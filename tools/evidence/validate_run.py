@@ -144,7 +144,21 @@ def validate(bundle: Path) -> list[str]:
 
         if len(events) != status.get(alert_id, {}).get("events", 0):
             errors.append(f"{alert_id}: status.events does not match the linked event count")
-        recomputed_states[state or "missing"] = recomputed_states.get(state or "missing", 0) + 1
+        own_unresolved = [item for item in unresolved if item.get("alert") == alert_id]
+        reasons = {item.get("reason") for item in own_unresolved}
+        if not ancestors_of(alert) and not linked:
+            expected_state = "no_ancestors"
+        elif not events:
+            expected_state = "unresolved"
+        elif reasons - {"depth_limit_reached"}:
+            expected_state = "partial"
+        elif "depth_limit_reached" in reasons:
+            expected_state = "partial"
+        else:
+            expected_state = "resolved"
+        if state != expected_state:
+            errors.append(f"{alert_id}: state {state!r} but the graph implies {expected_state!r}")
+        recomputed_states[expected_state] = recomputed_states.get(expected_state, 0) + 1
 
         if state in {"resolved", "partial"} and not events:
             errors.append(f"{alert_id}: state {state} but no event document linked")

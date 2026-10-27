@@ -37,9 +37,9 @@ SECURITY = "logs-system.security-*"
 ALERTS = ".internal.alerts-security.alerts-default*"
 ALERT_PAGE = 500
 
-SECRET_ARG = re.compile(r"(/(?:password|p)[:\s]+)(\S+)", re.IGNORECASE)
-SECRET_SWITCH = re.compile(r"(-Password\s+)(\S+)", re.IGNORECASE)
-SECRET_ASSIGN = re.compile(r"(password=)(\S+)", re.IGNORECASE)
+SECRET_ARG = re.compile(r"(/(?:password|p)[:\s]+)(\"[^\"]*\"|'[^']*'|\S+)", re.IGNORECASE)
+SECRET_SWITCH = re.compile(r"(-Password\s+)(\"[^\"]*\"|'[^']*'|\S+)", re.IGNORECASE)
+SECRET_ASSIGN = re.compile(r"(password=)(\"[^\"]*\"|'[^']*'|\S+)", re.IGNORECASE)
 SECRET_VALUE = re.compile(r"(Summer2026!|Zq7!Kernel-Lab-2026#x|Password123!|Helpdesk2026!|Welcome1!)")
 
 

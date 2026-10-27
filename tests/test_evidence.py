@@ -197,6 +197,8 @@ with tempfile.TemporaryDirectory() as tmp:
 # --- redaction and search failure ------------------------------------------------------------
 check("arbitrary /password: value is redacted", "***" in capture_run.redact("/password:Hunter2!") and "Hunter2!" not in capture_run.redact("/password:Hunter2!"))
 check("arbitrary -Password value is redacted", "***" in capture_run.redact("-Password 'S3cret!'") and "S3cret!" not in capture_run.redact("-Password 'S3cret!'"))
+check("quoted /password value is redacted", "two words" not in capture_run.redact('/password:"two words"'))
+check("quoted -Password value is redacted", "two words" not in capture_run.redact("-Password 'two words'"))
 check("detection fields survive redaction", capture_run.redact({"command_line": "/password:x whoami"})["command_line"].startswith("/password:***"))
 
 

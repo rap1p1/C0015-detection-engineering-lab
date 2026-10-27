@@ -19,7 +19,7 @@ Generated from [`catalog.json`](catalog.json) by `tools/detections/catalog.py`. 
 | C0015-R11 | rclone transfer intent | alert | medium | T1567.002 Exfiltration to Cloud Storage | [`11-cloud-transfer.eql`](eql/11-cloud-transfer.eql) |
 | C0015-R12 | note creation | building_block | low | T1486 Data Encrypted for Impact | [`12-ransom-note.eql`](eql/12-ransom-note.eql) |
 | C0015-R13 | rdp interactive logon | enrichment | low | T1021.001 Remote Services: Remote Desktop Protocol | [`13-rdp-interactive-logon.eql`](eql/13-rdp-interactive-logon.eql) |
-| C0015-R15 | repeated authentication failures then success | alert | high | T1110.003 Brute Force: Password Spraying | [`15-password-spray.eql`](eql/15-password-spray.eql) |
+| C0015-R15 | repeated authentication failures then success | alert | high | T1110 Brute Force | [`15-password-spray.eql`](eql/15-password-spray.eql) |
 | C0015-R16 | lsass protection removed | alert | medium | T1562.001 Impair Defenses: Disable or Modify Tools | [`16-lsass-protection-removed.eql`](eql/16-lsass-protection-removed.eql) |
 | C0015-R17 | discovery command | building_block | low | T1087 Account Discovery | [`17-discovery-command.eql`](eql/17-discovery-command.eql) |
 | C0015-R18 | wmi shell execution | building_block | medium | T1047 Windows Management Instrumentation | [`18-wmi-shell.eql`](eql/18-wmi-shell.eql) |

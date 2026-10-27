@@ -158,9 +158,12 @@ switch ($Action) {
                 $journal.Add([pscustomobject]@{ action = 'modified'; path = $rel; sha256_before = $beforeMap[$rel].sha256 })
             }
         }
-        if ($journal.Count -gt $MaxFiles) { Fail "run changed $($journal.Count) paths, quota is $MaxFiles" }
         $journal | ConvertTo-Json -Depth 3 | Set-Content -LiteralPath $journalPath -Encoding UTF8
-        Info "journaled $($journal.Count) changes ($(@($journal | Where-Object action -eq 'added').Count) added, $(@($journal | Where-Object action -eq 'removed').Count) removed)"
+        $added = @($journal | Where-Object action -eq 'added').Count
+        $removed = @($journal | Where-Object action -eq 'removed').Count
+        $modified = @($journal | Where-Object action -eq 'modified').Count
+        Info "journaled $($journal.Count) changes ($added added, $removed removed, $modified modified)"
+        if ($journal.Count -gt $MaxFiles) { Fail "run changed $($journal.Count) paths, quota is $MaxFiles; journal kept for rollback" }
         if ($exit -ne 0) { Fail "locker failed with exit $exit; journal kept for rollback" }
     }
 
@@ -201,6 +204,12 @@ switch ($Action) {
                     if (-not (Test-Path -LiteralPath $parent)) { New-Item -ItemType Directory -Path $parent -Force | Out-Null }
                     Copy-Item -LiteralPath $source -Destination $full -Force
                 }
+                'modified' {
+                    $source = Join-Path $baselineContent $entry.path
+                    if (-not (Test-Path -LiteralPath $source)) { Fail "baseline lost $($entry.path)" }
+                    Copy-Item -LiteralPath $source -Destination $full -Force
+                }
+                default { Fail "unknown journal action: $($entry.action)" }
             }
         }
         $expected = Get-Content -LiteralPath $inventoryPath -Raw | ConvertFrom-Json

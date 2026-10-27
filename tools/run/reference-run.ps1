@@ -73,22 +73,37 @@ $corpusCount = Invoke-Command -ComputerName FS01 -Credential $cred -ArgumentList
     param($Corpus)
     Get-ChildItem $Corpus -Recurse -File -Filter *.c0015 -ErrorAction SilentlyContinue | ForEach-Object { Rename-Item $_.FullName ($_.Name -replace '\.c0015$','') -Force }
     Get-ChildItem $Corpus -Recurse -File -Filter readme.txt -ErrorAction SilentlyContinue | Remove-Item -Force
-    Get-Process rundll32,powershell -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
+    Get-CimInstance Win32_Process | Where-Object {
+        $_.CommandLine -match 'C0015|compareForfor|compareforfor|inj\.dll|143\.dll|locker|rclone'
+    } | ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }
     Remove-Item 'C:\ProgramData\dump.txt','C:\ProgramData\inj.dll','C:\ProgramData\143.dll','C:\ProgramData\mk.exe','C:\ProgramData\locker.exe','C:\locker.bat','C:\readme.txt','C:\Users\Public\C0015' -Recurse -Force -ErrorAction SilentlyContinue
     foreach ($t in (schtasks /query /fo csv 2>$null | ConvertFrom-Csv | Where-Object { $_.TaskName -match 'C0015' }).TaskName) { schtasks /delete /tn $t /f 2>$null | Out-Null }
     (Get-ChildItem $Corpus -Recurse -File).Count
 }
 if ($corpusCount -ge 40) { Ok "corpus restored ($corpusCount files)" } else { Bad "corpus has $corpusCount files" }
-$inventory = Invoke-Command -ComputerName FS01 -Credential $cred -ArgumentList $Corpus -ScriptBlock {
-    param($Corpus)
-    (Get-ChildItem $Corpus -Recurse -File | Sort-Object FullName |
-        ForEach-Object { "$($_.FullName.Substring($Corpus.Length))|$((Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash)" }) -join "`n"
+$baselineFile = "$Corpus.baseline\inventory.json"
+$comparison = Invoke-Command -ComputerName FS01 -Credential $cred -ArgumentList $Corpus, $baselineFile -ScriptBlock {
+    param($Corpus, $baselineFile)
+    if (-not (Test-Path -LiteralPath $baselineFile)) { throw "baseline inventory not found: $baselineFile" }
+    $expected = @{}
+    foreach ($item in (Get-Content -LiteralPath $baselineFile -Raw | ConvertFrom-Json)) { $expected[$item.relative] = $item.sha256 }
+    $actual = @{}
+    Get-ChildItem $Corpus -Recurse -File | ForEach-Object {
+        $rel = $_.FullName.Substring($Corpus.Length).TrimStart('\')
+        $actual[$rel] = (Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash
+    }
+    [pscustomobject]@{
+        Missing = @($expected.Keys | Where-Object { -not $actual.ContainsKey($_) }).Count
+        Extra   = @($actual.Keys | Where-Object { -not $expected.ContainsKey($_) }).Count
+        Changed = @($expected.Keys | Where-Object { $actual.ContainsKey($_) -and $actual[$_] -ne $expected[$_] }).Count
+        Expected = $expected.Count
+    }
 }
-$inventoryHash = [BitConverter]::ToString(
-    [System.Security.Cryptography.SHA256]::Create().ComputeHash(
-        [Text.Encoding]::UTF8.GetBytes($inventory))).Replace('-', '')
-if ($inventoryHash) { Ok "corpus inventory hash $($inventoryHash.Substring(0, 16))" } else { Bad 'corpus inventory empty' }
-
+if ($comparison.Missing -eq 0 -and $comparison.Extra -eq 0 -and $comparison.Changed -eq 0) {
+    Ok "corpus matches the baseline ($($comparison.Expected) files)"
+} else {
+    Bad "corpus differs from baseline: missing $($comparison.Missing), extra $($comparison.Extra), changed $($comparison.Changed)"
+}
 
 Stage 'reset beachhead'
 Invoke-Command -ComputerName WS01 -Credential $cred -ScriptBlock {

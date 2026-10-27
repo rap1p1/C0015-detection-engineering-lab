@@ -45,6 +45,11 @@ $staging = Invoke-Command -ComputerName WS01 -Credential $cred -ScriptBlock {
 if ($staging -eq 200) { Ok 'staging reachable from the victim' } else { Bad "staging returned $staging" }
 $health = & curl.exe -s -k -u "elastic:$($env:ES_PASS)" "$esUrl/_cluster/health"
 if ($health -match '"status"\s*:\s*"(green|yellow)"') { Ok 'Elasticsearch reachable' } else { Bad 'Elasticsearch not reachable' }
+if ($failed.Count -gt 0) {
+    Write-Host "`npreflight failed; nothing was changed" -ForegroundColor Red
+    $failed | ForEach-Object { Write-Host "  - $_" }
+    exit 1
+}
 
 Stage 'clear alerts'
 if (-not $KeepAlerts) {
@@ -74,10 +79,22 @@ $corpusCount = Invoke-Command -ComputerName FS01 -Credential $cred -ArgumentList
     (Get-ChildItem $Corpus -Recurse -File).Count
 }
 if ($corpusCount -ge 40) { Ok "corpus restored ($corpusCount files)" } else { Bad "corpus has $corpusCount files" }
+$inventory = Invoke-Command -ComputerName FS01 -Credential $cred -ArgumentList $Corpus -ScriptBlock {
+    param($Corpus)
+    (Get-ChildItem $Corpus -Recurse -File | Sort-Object FullName |
+        ForEach-Object { "$($_.FullName.Substring($Corpus.Length))|$((Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash)" }) -join "`n"
+}
+$inventoryHash = [BitConverter]::ToString(
+    [System.Security.Cryptography.SHA256]::Create().ComputeHash(
+        [Text.Encoding]::UTF8.GetBytes($inventory))).Replace('-', '')
+if ($inventoryHash) { Ok "corpus inventory hash $($inventoryHash.Substring(0, 16))" } else { Bad 'corpus inventory empty' }
+
 
 Stage 'reset beachhead'
 Invoke-Command -ComputerName WS01 -Credential $cred -ScriptBlock {
-    Get-Process WINWORD,mshta,regsvr32,rundll32,rclone,powershell -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
+    Get-CimInstance Win32_Process | Where-Object {
+        $_.CommandLine -match 'C0015|compareForfor|compareforfor|inj\.dll|143\.dll|locker'
+    } | ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }
     foreach ($t in (schtasks /query /fo csv 2>$null | ConvertFrom-Csv | Where-Object { $_.TaskName -match 'C0015' }).TaskName) { schtasks /delete /tn $t /f 2>$null | Out-Null }
     Remove-Item 'C:\ProgramData\C0015' -Recurse -Force -ErrorAction SilentlyContinue
     New-Item -ItemType Directory -Force 'C:\ProgramData\C0015' | Out-Null
@@ -148,11 +165,21 @@ if ($state.Renamed -ge 40) { Ok "renamed $($state.Renamed)" } else { Bad "rename
 if ($state.Persist) { Ok 'persistence task present' } else { Bad 'persistence task missing' }
 if ($state.Inject -match 'injector done') { Ok 'injector ran' } else { Bad 'injector did not run' }
 
+$settle = if ($env:C0015_SETTLE_SECONDS) { [int]$env:C0015_SETTLE_SECONDS } else { 180 }
+Stage 'settle'
+Write-Host "  waiting $settle s for ingestion and rule evaluation"
+Start-Sleep -Seconds $settle
 $end = (Get-Date).ToUniversalTime()
+
 Stage 'evidence'
-$env:ES_PASS = 'REDACTED'
-$env:ES_URL = 'https://100.77.46.126:9200'
-python (Join-Path $repo 'tools/evidence/capture_run.py') --run-id $RunId --start $start.ToString('yyyy-MM-ddTHH:mm:ssZ') --end $end.ToString('yyyy-MM-ddTHH:mm:ssZ') --out $evidence | Out-Host
+$capture = Join-Path $repo 'tools/evidence/capture_run.py'
+$validator = Join-Path $repo 'tools/evidence/validate_run.py'
+python $capture --run-id $RunId --capture-id "cap-$RunId" --start $start.ToString('yyyy-MM-ddTHH:mm:ssZ') --end $end.ToString('yyyy-MM-ddTHH:mm:ssZ') --out $evidence
+if ($LASTEXITCODE -ne 0) { Bad "capture exited $LASTEXITCODE" }
+else {
+    python $validator $evidence
+    if ($LASTEXITCODE -ne 0) { Bad "bundle validation failed" } else { Ok 'bundle captured and validated' }
+}
 
 Stage 'summary'
 if ($failed.Count -eq 0) {

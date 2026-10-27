@@ -81,6 +81,24 @@ notification.
 - `manifest.json` carries a checksum per file; the validator checks it, the alert-to-source links and the
   counts.
 
+## Run 2 - repeat of the same scenario
+
+A second execution with the same rules and deployment, captured as
+[`evidence/runs/run-2/`](../evidence/runs/run-2/run.json) (`cap-run2-1`).
+
+| Field | Value |
+|---|---|
+| Execution window (UTC) | 2026-10-27T15:09:31Z - 2026-10-27T15:20:26Z |
+| Capture window (UTC) | 2026-10-27T15:09:00Z - 2026-10-27T15:35:00Z |
+| Alerts | 34 C0015 documents from 12 rules, all resolved, 0 unresolved |
+| Injection | verified in the payload log |
+| Dump | 14.7 KB |
+| Impact | five notes, forty renamed files |
+
+The difference from run 1 is one extra R05 document (two LSASS access events instead of one); the set
+of rules that fired is otherwise the same. Both bundles validate and contain no credentials.
+
+
 ## Reproduce
 
 ```

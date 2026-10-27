@@ -1,0 +1,409 @@
+[
+  {
+    "_index": ".internal.alerts-security.alerts-default-000002",
+    "_id": "b0d18adc54a836af75a39cb44db230cf362a22286d3c090ec38273b7f0706ee5",
+    "_score": null,
+    "_source": {
+      "kibana.alert.rule.execution.timestamp": "2026-10-27T15:11:57.079Z",
+      "kibana.alert.start": "2026-10-27T15:11:57.079Z",
+      "kibana.alert.last_detected": "2026-10-27T15:11:57.079Z",
+      "kibana.version": "9.5.3",
+      "kibana.alert.rule.parameters": {
+        "description": "PowerShell with hidden AND (bypass|unrestricted) command-line flags, OR an encoded command (the encoded branch does not require hidden). Parent-name exclusions were removed: a parent name does not prove provenance.",
+        "risk_score": 47,
+        "severity": "medium",
+        "building_block_type": "default",
+        "note": "Validate the alert against its source events and the run ledger; see docs/telemetry-contract.md and docs/correlation-architecture.md.",
+        "license": "",
+        "author": [],
+        "false_positives": [
+          "Legitimate automation with hidden+bypass flags can match; re-baseline in the destination environment. No measured false-positive rate is implied."
+        ],
+        "from": "now-2m",
+        "rule_id": "53e2150f-dfb9-503a-8b7b-dfb9d778d383",
+        "max_signals": 100,
+        "risk_score_mapping": [],
+        "severity_mapping": [],
+        "threat": [
+          {
+            "framework": "MITRE ATT&CK",
+            "tactic": {
+              "id": "TA0002",
+              "name": "Execution",
+              "reference": "https://attack.mitre.org/tactics/TA0002/"
+            },
+            "technique": [
+              {
+                "id": "T1059",
+                "name": "Command and Scripting Interpreter",
+                "reference": "https://attack.mitre.org/techniques/T1059/",
+                "subtechnique": [
+                  {
+                    "id": "T1059.001",
+                    "name": "PowerShell",
+                    "reference": "https://attack.mitre.org/techniques/T1059.001/"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "to": "now",
+        "references": [],
+        "version": 1,
+        "exceptions_list": [],
+        "immutable": false,
+        "rule_source": {
+          "type": "internal"
+        },
+        "related_integrations": [],
+        "required_fields": [
+          {
+            "name": "@timestamp",
+            "type": "date",
+            "ecs": true
+          },
+          {
+            "name": "host.name",
+            "type": "keyword",
+            "ecs": true
+          },
+          {
+            "name": "winlog.channel",
+            "type": "keyword",
+            "ecs": false
+          },
+          {
+            "name": "winlog.event_id",
+            "type": "keyword",
+            "ecs": false
+          },
+          {
+            "name": "event.category",
+            "type": "keyword",
+            "ecs": true
+          },
+          {
+            "name": "process.command_line",
+            "type": "wildcard",
+            "ecs": true
+          },
+          {
+            "name": "process.name",
+            "type": "keyword",
+            "ecs": true
+          }
+        ],
+        "setup": "## Data requirements - S2\n\n- Sysmon event IDs consumed by the query: 1.\n- Channel: Microsoft-Windows-Sysmon/Operational.\n- Detection basis: \nDetection basis: Sigma PowerShell flag corpus (name-referenced); MITRE T1059.001. A command-line/context signal, not proof of script contents; overlap with S3/R2 for the WMI consumer is documented (one event, two signals).\n\nBuilding block (building_block_type=default): hidden from the default alert view, feeds correlation; no signal alone asserts an incident.\nVerify the installed integration: event.category, field types, casing, null handling and source-to-ECS mapping against actual events. required_fields is descriptive metadata, not a mapping check. The public export retains the original broad index patterns - scope them to verified data streams in the destination environment.\nQuery interpretation and evidence boundaries: \ndocs/telemetry-contract.md, docs/correlation-architecture.md, docs/attack-chain-plan.md.\nValidate every alert against its source events and the run ledger as described in \ndocs/attack-detection-mapping.md or detections/README.md.",
+        "type": "eql",
+        "language": "eql",
+        "index": [
+          "apm-*-transaction*",
+          "auditbeat-*",
+          "endgame-*",
+          "filebeat-*",
+          "logs-*",
+          "packetbeat-*",
+          "traces-apm*",
+          "winlogbeat-*",
+          "-*elastic-cloud-logs-*"
+        ],
+        "query": "/*\r\n * Detection basis: SIGMA/SAMR PowerShell command-line flag corpus; MITRE T1059.001.\r\n * Telemetry: Sysmon EID 1, process.command_line (raw winlog.event_data.CommandLine\r\n * is NOT mapped on the lab stack and was removed - EQL verification fails on\r\n * unmapped columns). Case-insensitive comparisons.\r\n * Predicate: hidden AND (bypass|unrestricted) --OR-- encoded command. The name says\r\n * \"Encoded\": an encoded command matches without requiring hidden.\r\n * Boundary: a command-line/context signal, not proof of script contents. Parent-name\r\n * exclusions were REMOVED (a parent name does not prove provenance); expect overlap\r\n * with S3/R2 for the WMI consumer, documented as one event seen by two signals.\r\n */\r\nprocess where\r\n  winlog.event_id : \"1\"\r\n  and winlog.channel : \"Microsoft-Windows-Sysmon/Operational\"\r\n  and process.name : \"powershell.exe\"\r\n  and (\r\n    (process.command_line : (\"*-WindowStyle*Hidden*\", \"*-w*hidden*\", \"*-WindowStyle 0*\")\r\n     and process.command_line : (\"*-ExecutionPolicy*Bypass*\", \"*-ep*bypass*\", \"*-ep*unrestricted*\"))\r\n    or process.command_line : \"*-EncodedCommand*\"\r\n  )",
+        "filters": [],
+        "alert_suppression": {
+          "group_by": [
+            "host.name",
+            "user.name"
+          ],
+          "duration": {
+            "value": 60,
+            "unit": "s"
+          },
+          "missing_fields_strategy": "suppress"
+        }
+      },
+      "kibana.alert.rule.category": "Event Correlation Rule",
+      "kibana.alert.rule.consumer": "siem",
+      "kibana.alert.rule.execution.uuid": "7b51fd45-6d2c-4283-a7b4-e62e2ce5287f",
+      "kibana.alert.rule.name": "[S2] PowerShell Hidden and Bypass or Encoded Command Patterns",
+      "kibana.alert.rule.producer": "siem",
+      "kibana.alert.rule.revision": 1,
+      "kibana.alert.rule.rule_type_id": "siem.eqlRule",
+      "kibana.alert.rule.uuid": "474394ed-a7e0-426e-b975-122eb9ae0c02",
+      "kibana.space_ids": [
+        "default"
+      ],
+      "kibana.alert.rule.tags": [
+        "Signal",
+        "PowerShell",
+        "T1059.001",
+        "Suspicious Flags"
+      ],
+      "@timestamp": "2026-10-27T15:11:57.069Z",
+      "agent": {
+        "name": "WS01",
+        "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+        "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+        "type": "filebeat",
+        "version": "9.5.3"
+      },
+      "process": {
+        "args": [
+          "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "-NoProfile",
+          "-ExecutionPolicy",
+          "Bypass",
+          "-WindowStyle",
+          "Hidden",
+          "-File",
+          "C:\\Windows\\Temp\\c0015_stage2.ps1"
+        ],
+        "parent": {
+          "args": [
+            "C:\\ProgramData\\C0015\\updater.exe"
+          ],
+          "name": "updater.exe",
+          "pid": 4924,
+          "args_count": 1,
+          "entity_id": "{88E52A21-BF04-6AE0-6A05-000000002600}",
+          "executable": "C:\\ProgramData\\C0015\\updater.exe",
+          "command_line": "\"C:\\ProgramData\\C0015\\updater.exe\""
+        },
+        "pe": {
+          "file_version": "10.0.19041.3636 (WinBuild.160101.0800)",
+          "product": "Microsoft\u00ae Windows\u00ae Operating System",
+          "imphash": "e3007c8e0098d06abf617eee6f0c5abd",
+          "description": "Windows PowerShell",
+          "original_file_name": "PowerShell.EXE",
+          "company": "Microsoft Corporation"
+        },
+        "name": "powershell.exe",
+        "pid": 5948,
+        "working_directory": "C:\\Windows\\system32\\",
+        "args_count": 8,
+        "entity_id": "{88E52A21-BF0E-6AE0-6D05-000000002600}",
+        "hash": {
+          "sha256": "64dd55e1c2373deed25c2776f553c632e58c45e56a0e4639dfd54ee97eab9c19"
+        },
+        "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "command_line": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File C:\\Windows\\Temp\\c0015_stage2.ps1"
+      },
+      "winlog": {
+        "computer_name": "WS01.c0015.lab",
+        "record_id": "1256967",
+        "process": {
+          "pid": 2616,
+          "thread": {
+            "id": 3880
+          }
+        },
+        "task": "Process Create (rule: ProcessCreate)",
+        "event_id": "1",
+        "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+        "channel": "Microsoft-Windows-Sysmon/Operational",
+        "event_data": {
+          "Company": "Microsoft Corporation",
+          "Description": "Windows PowerShell",
+          "LogonGuid": "{88E52A21-7C25-6AE0-E703-000000000000}",
+          "IntegrityLevel": "System",
+          "TerminalSessionId": "0",
+          "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+          "ParentUser": "NT AUTHORITY\\SYSTEM",
+          "FileVersion": "10.0.19041.3636 (WinBuild.160101.0800)",
+          "LogonId": "0x3e7"
+        },
+        "provider_name": "Microsoft-Windows-Sysmon",
+        "opcode": "Info",
+        "user": {
+          "identifier": "S-1-5-18",
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "type": "User"
+        },
+        "version": 5
+      },
+      "log": {
+        "level": "information"
+      },
+      "elastic_agent": {
+        "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+        "version": "9.5.3",
+        "snapshot": false
+      },
+      "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 15:11:10.838\nProcessGuid: {88E52A21-BF0E-6AE0-6D05-000000002600}\nProcessId: 5948\nImage: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\nFileVersion: 10.0.19041.3636 (WinBuild.160101.0800)\nDescription: Windows PowerShell\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: PowerShell.EXE\nCommandLine: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File C:\\Windows\\Temp\\c0015_stage2.ps1\nCurrentDirectory: C:\\Windows\\system32\\\nUser: NT AUTHORITY\\SYSTEM\nLogonGuid: {88E52A21-7C25-6AE0-E703-000000000000}\nLogonId: 0x3e7\nTerminalSessionId: 0\nIntegrityLevel: System\nHashes: SHA256=64DD55E1C2373DEED25C2776F553C632E58C45E56A0E4639DFD54EE97EAB9C19,IMPHASH=E3007C8E0098D06ABF617EEE6F0C5ABD\nParentProcessGuid: {88E52A21-BF04-6AE0-6A05-000000002600}\nParentProcessId: 4924\nParentImage: C:\\ProgramData\\C0015\\updater.exe\nParentCommandLine: \"C:\\ProgramData\\C0015\\updater.exe\"\nParentUser: NT AUTHORITY\\SYSTEM",
+      "input": {
+        "type": "winlog"
+      },
+      "ecs": {
+        "version": "8.17.0"
+      },
+      "related": {
+        "user": [
+          "SYSTEM"
+        ],
+        "hash": [
+          "64dd55e1c2373deed25c2776f553c632e58c45e56a0e4639dfd54ee97eab9c19",
+          "e3007c8e0098d06abf617eee6f0c5abd"
+        ]
+      },
+      "data_stream": {
+        "namespace": "c0015",
+        "type": "logs",
+        "dataset": "windows.sysmon_operational"
+      },
+      "host": {
+        "hostname": "WS01",
+        "os": {
+          "build": "19045.3803",
+          "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+          "name": "Windows 10 Pro",
+          "family": "windows",
+          "type": "windows",
+          "version": "10.0",
+          "platform": "windows"
+        },
+        "ip": [
+          "fe80::a7db:e701:40fd:fff7",
+          "192.168.50.20",
+          "fe80::1ec6:790e:c5d8:664f",
+          "192.168.106.136"
+        ],
+        "name": "ws01",
+        "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+        "mac": [
+          "00-0C-29-BF-09-D2",
+          "00-0C-29-BF-09-DC"
+        ],
+        "architecture": "x86_64"
+      },
+      "event": {
+        "agent_id_status": "verified",
+        "ingested": "2026-10-27T15:11:16Z",
+        "code": "1",
+        "provider": "Microsoft-Windows-Sysmon",
+        "created": "2026-10-27T15:11:11.172Z",
+        "action": "Process creation",
+        "category": [
+          "process"
+        ],
+        "type": [
+          "start"
+        ],
+        "dataset": "windows.sysmon_operational",
+        "module": "windows"
+      },
+      "user": {
+        "domain": "NT AUTHORITY",
+        "name": "SYSTEM",
+        "id": "S-1-5-18"
+      },
+      "kibana.alert.original_data_stream.namespace": "c0015",
+      "kibana.alert.original_data_stream.type": "logs",
+      "kibana.alert.original_data_stream.dataset": "windows.sysmon_operational",
+      "kibana.alert.original_event.agent_id_status": "verified",
+      "kibana.alert.original_event.ingested": "2026-10-27T15:11:16Z",
+      "kibana.alert.original_event.code": "1",
+      "kibana.alert.original_event.provider": "Microsoft-Windows-Sysmon",
+      "kibana.alert.original_event.created": "2026-10-27T15:11:11.172Z",
+      "kibana.alert.original_event.kind": "event",
+      "kibana.alert.original_event.action": "Process creation",
+      "kibana.alert.original_event.category": [
+        "process"
+      ],
+      "kibana.alert.original_event.type": [
+        "start"
+      ],
+      "kibana.alert.original_event.dataset": "windows.sysmon_operational",
+      "kibana.alert.original_event.module": "windows",
+      "event.kind": "signal",
+      "kibana.alert.original_time": "2026-10-27T15:11:10.838Z",
+      "kibana.alert.ancestors": [
+        {
+          "id": "AaF96o505TXapMJoxPK7",
+          "type": "event",
+          "index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+          "depth": 0
+        }
+      ],
+      "kibana.alert.status": "active",
+      "kibana.alert.workflow_status": "open",
+      "kibana.alert.depth": 1,
+      "kibana.alert.reason": "process event with process powershell.exe, parent process updater.exe, by SYSTEM on ws01 created medium alert [S2] PowerShell Hidden and Bypass or Encoded Command Patterns.",
+      "kibana.alert.building_block_type": "default",
+      "kibana.alert.severity": "medium",
+      "kibana.alert.risk_score": 47,
+      "kibana.alert.rule.actions": [],
+      "kibana.alert.rule.author": [],
+      "kibana.alert.rule.created_at": "2026-10-03T10:34:09.896Z",
+      "kibana.alert.rule.created_by": "elastic",
+      "kibana.alert.rule.description": "PowerShell with hidden AND (bypass|unrestricted) command-line flags, OR an encoded command (the encoded branch does not require hidden). Parent-name exclusions were removed: a parent name does not prove provenance.",
+      "kibana.alert.rule.enabled": true,
+      "kibana.alert.rule.exceptions_list": [],
+      "kibana.alert.rule.false_positives": [
+        "Legitimate automation with hidden+bypass flags can match; re-baseline in the destination environment. No measured false-positive rate is implied."
+      ],
+      "kibana.alert.rule.from": "now-2m",
+      "kibana.alert.rule.immutable": false,
+      "kibana.alert.rule.interval": "1m",
+      "kibana.alert.rule.indices": [
+        "apm-*-transaction*",
+        "auditbeat-*",
+        "endgame-*",
+        "filebeat-*",
+        "logs-*",
+        "packetbeat-*",
+        "traces-apm*",
+        "winlogbeat-*",
+        "-*elastic-cloud-logs-*"
+      ],
+      "kibana.alert.rule.license": "",
+      "kibana.alert.rule.max_signals": 100,
+      "kibana.alert.rule.note": "Validate the alert against its source events and the run ledger; see docs/telemetry-contract.md and docs/correlation-architecture.md.",
+      "kibana.alert.rule.references": [],
+      "kibana.alert.rule.risk_score_mapping": [],
+      "kibana.alert.rule.rule_id": "53e2150f-dfb9-503a-8b7b-dfb9d778d383",
+      "kibana.alert.rule.severity_mapping": [],
+      "kibana.alert.rule.threat": [
+        {
+          "framework": "MITRE ATT&CK",
+          "tactic": {
+            "id": "TA0002",
+            "name": "Execution",
+            "reference": "https://attack.mitre.org/tactics/TA0002/"
+          },
+          "technique": [
+            {
+              "id": "T1059",
+              "name": "Command and Scripting Interpreter",
+              "reference": "https://attack.mitre.org/techniques/T1059/",
+              "subtechnique": [
+                {
+                  "id": "T1059.001",
+                  "name": "PowerShell",
+                  "reference": "https://attack.mitre.org/techniques/T1059.001/"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "kibana.alert.rule.to": "now",
+      "kibana.alert.rule.type": "eql",
+      "kibana.alert.rule.updated_at": "2026-10-04T08:10:36.059Z",
+      "kibana.alert.rule.updated_by": "elastic",
+      "kibana.alert.rule.version": 1,
+      "kibana.alert.uuid": "b0d18adc54a836af75a39cb44db230cf362a22286d3c090ec38273b7f0706ee5",
+      "kibana.alert.workflow_tags": [],
+      "kibana.alert.workflow_assignee_ids": [],
+      "kibana.alert.rule.risk_score": 47,
+      "kibana.alert.rule.severity": "medium",
+      "kibana.alert.rule.building_block_type": "default",
+      "kibana.alert.intended_timestamp": "2026-10-27T15:11:57.069Z",
+      "kibana.alert.rule.execution.type": "scheduled"
+    },
+    "sort": [
+      1793113917069,
+      29
+    ]
+  }
+]

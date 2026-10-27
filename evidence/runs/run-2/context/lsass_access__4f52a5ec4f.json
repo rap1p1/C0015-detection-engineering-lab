@@ -1,0 +1,178 @@
+{
+  "behaviour": "lsass_access",
+  "index": "logs-windows.sysmon_operational-*",
+  "identifier": {
+    "field": "process.entity_id",
+    "value": "{88E52A21-C132-6AE0-4602-000000001600}",
+    "host": "fs01"
+  },
+  "alerts": [
+    "554f465435ab318a383ef52a0b621165f06d14fd3ce0eda385f41c4b4b73bb7a"
+  ],
+  "queries": [
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-10-27T15:17:18.000Z",
+                  "lte": "2026-10-27T15:23:18.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "fs01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "10"
+              }
+            },
+            {
+              "term": {
+                "process.entity_id": "{88E52A21-C132-6AE0-4602-000000001600}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-10-27T15:17:18.000Z",
+        "end": "2026-10-27T15:23:18.000Z"
+      },
+      "returned": 1,
+      "total": 1,
+      "relation": "eq"
+    }
+  ],
+  "returned": 1,
+  "truncated": false,
+  "sample": false,
+  "hits": [
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF98o505TXapMK_4PiV",
+      "_source": {
+        "agent": {
+          "name": "FS01",
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "type": "filebeat",
+          "ephemeral_id": "0a033b89-3c46-4114-a639-7d513be45f97",
+          "version": "9.5.3"
+        },
+        "process": {
+          "name": "mk.exe",
+          "pid": 376,
+          "thread": {
+            "id": 1764
+          },
+          "entity_id": "{88E52A21-C132-6AE0-4602-000000001600}",
+          "executable": "C:\\ProgramData\\mk.exe"
+        },
+        "winlog": {
+          "computer_name": "FS01.c0015.lab",
+          "record_id": "648868",
+          "process": {
+            "pid": 2708,
+            "thread": {
+              "id": 3936
+            }
+          },
+          "task": "Process accessed (rule: ProcessAccess)",
+          "event_id": "10",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "GrantedAccess": "0x1010",
+            "TargetUser": "NT AUTHORITY\\SYSTEM",
+            "TargetProcessId": "716",
+            "SourceUser": "C0015\\helpdesk",
+            "TargetImage": "C:\\Windows\\system32\\lsass.exe",
+            "CallTrace": "C:\\Windows\\SYSTEM32\\ntdll.dll+9d4a4|C:\\Windows\\System32\\KERNELBASE.dll+308ee|C:\\ProgramData\\mk.exe+b6222|C:\\ProgramData\\mk.exe+b65e5|C:\\ProgramData\\mk.exe+b6161|C:\\ProgramData\\mk.exe+838f4|C:\\ProgramData\\mk.exe+8372c|C:\\ProgramData\\mk.exe+83477|C:\\ProgramData\\mk.exe+bcbc9|C:\\Windows\\System32\\KERNEL32.DLL+17344|C:\\Windows\\SYSTEM32\\ntdll.dll+526b1",
+            "TargetProcessGUID": "{88E52A21-AAC1-6AE0-0D00-000000001600}"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 3
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "rule": {
+          "name": "C0015-BALANCED"
+        },
+        "message": "Process accessed:\nRuleName: C0015-BALANCED\nUtcTime: 2026-10-27 15:20:18.344\nSourceProcessGUID: {88E52A21-C132-6AE0-4602-000000001600}\nSourceProcessId: 376\nSourceThreadId: 1764\nSourceImage: C:\\ProgramData\\mk.exe\nTargetProcessGUID: {88E52A21-AAC1-6AE0-0D00-000000001600}\nTargetProcessId: 716\nTargetImage: C:\\Windows\\system32\\lsass.exe\nGrantedAccess: 0x1010\nCallTrace: C:\\Windows\\SYSTEM32\\ntdll.dll+9d4a4|C:\\Windows\\System32\\KERNELBASE.dll+308ee|C:\\ProgramData\\mk.exe+b6222|C:\\ProgramData\\mk.exe+b65e5|C:\\ProgramData\\mk.exe+b6161|C:\\ProgramData\\mk.exe+838f4|C:\\ProgramData\\mk.exe+8372c|C:\\ProgramData\\mk.exe+83477|C:\\ProgramData\\mk.exe+bcbc9|C:\\Windows\\System32\\KERNEL32.DLL+17344|C:\\Windows\\SYSTEM32\\ntdll.dll+526b1\nSourceUser: C0015\\helpdesk\nTargetUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T15:20:18.344Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "FS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "192.168.106.155",
+            "192.168.50.30"
+          ],
+          "name": "fs01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-3B-C6-18",
+            "00-0C-29-3B-C6-22"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T15:20:23Z",
+          "code": "10",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T15:20:18.834Z",
+          "kind": "event",
+          "action": "ProcessAccess",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "access"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    }
+  ]
+}

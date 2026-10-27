@@ -1,0 +1,72 @@
+{
+  "schema": "c0015.evidence.run/2",
+  "run_id": "run-1",
+  "capture_id": "cap-final04-v3",
+  "captured_utc": "2026-10-27T13:50:35.508303+00:00",
+  "stack": "elasticsearch 9.5.3",
+  "window": {
+    "start": "2026-10-27T12:20:00Z",
+    "end": "2026-10-27T12:40:00Z",
+    "timezone": "UTC"
+  },
+  "alerts": {
+    "c0015": 33,
+    "other": 1,
+    "by_rule": {
+      "C0015 | office spawns script host": 1,
+      "C0015 | script host starts loader": 1,
+      "C0015 | loader loads unsigned module": 2,
+      "C0015 | rdp interactive logon": 3,
+      "C0015 | note creation": 7,
+      "C0015 | discovery command": 6,
+      "C0015 | injection into system process": 1,
+      "C0015 | lsass credential access": 1,
+      "C0015 | wmi remote creation": 5,
+      "C0015 | wmi loader execution": 1,
+      "C0015 | rclone transfer intent": 1,
+      "C0015 | wmi shell execution": 4
+    }
+  },
+  "sources": {
+    "resolved_documents": 33,
+    "alerts_with_source": 33,
+    "unresolved": 0
+  },
+  "context": {
+    "process_creation": {
+      "returned": 25,
+      "total": 198,
+      "truncated": true
+    },
+    "module_load": {
+      "returned": 25,
+      "total": 39,
+      "truncated": true
+    },
+    "remote_thread": {
+      "returned": 5,
+      "total": 5,
+      "truncated": false
+    },
+    "lsass_access": {
+      "returned": 25,
+      "total": 7136,
+      "truncated": true
+    },
+    "file_creation": {
+      "returned": 25,
+      "total": 321,
+      "truncated": true
+    },
+    "logon": {
+      "returned": 25,
+      "total": 140,
+      "truncated": true
+    }
+  },
+  "query_size": 25,
+  "aliases": [
+    "run-final-04"
+  ],
+  "label": "reference run 1"
+}

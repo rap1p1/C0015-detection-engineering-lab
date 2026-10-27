@@ -1,0 +1,1 @@
+{"capture_kind":"legacy_projected","note":"Projected export from author lab; records are partial projections and only some carry event.code.","missing":["_id","_index","host.id","process.entity_id","event.code"]}

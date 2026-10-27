@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "c0015.evidence.export/1",
+  "title": "C0015 evidence export",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "capture", "source", "records"],
+  "properties": {
+    "schema": { "const": "c0015.evidence.export/1" },
+    "capture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["capture_id", "capture_kind", "created_utc", "operator_note"],
+      "properties": {
+        "capture_id": { "type": "string", "minLength": 8 },
+        "capture_kind": { "enum": ["live", "synthetic", "legacy_projected"] },
+        "created_utc": { "type": "string", "format": "date-time" },
+        "operator_note": { "type": "string" }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["index", "query_hash", "window_start", "window_end", "stack"],
+      "properties": {
+        "index": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+        "query_hash": { "type": "string" },
+        "window_start": { "type": "string", "format": "date-time" },
+        "window_end": { "type": "string", "format": "date-time" },
+        "stack": { "type": "string" },
+        "pagination": { "type": "object" }
+      }
+    },
+    "records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["_index", "_id", "timestamp", "host", "event"],
+        "properties": {
+          "_index": { "type": "string", "minLength": 1 },
+          "_id": { "type": "string", "minLength": 1 },
+          "timestamp": { "type": "string", "format": "date-time" },
+          "host": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name"],
+            "properties": {
+              "name": { "type": "string", "minLength": 1 },
+              "id": { "type": "string" }
+            }
+          },
+          "event": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["code", "category", "provider", "channel"],
+            "properties": {
+              "code": { "type": "string" },
+              "category": { "type": "string" },
+              "provider": { "type": "string" },
+              "channel": { "type": "string" }
+            }
+          },
+          "process": {
+            "type": "object",
+            "properties": {
+              "entity_id": { "type": "string" },
+              "name": { "type": "string" },
+              "parent": { "type": "object" }
+            }
+          },
+          "fields": { "type": "object" },
+          "provenance": {
+            "type": "object",
+            "properties": {
+              "query": { "type": "string" },
+              "projection": { "type": "array", "items": { "type": "string" } }
+            }
+          }
+        }
+      }
+    }
+  }
+}

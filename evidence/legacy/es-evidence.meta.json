@@ -1,0 +1,1 @@
+{"capture_kind":"legacy_projected","note":"Projected export from author lab; no _id, _index or host.id, so queries using those fields cannot be replayed against it.","missing":["_id","_index","host.id","process.entity_id"]}

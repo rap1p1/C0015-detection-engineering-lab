@@ -1,0 +1,4169 @@
+{
+  "index": "logs-windows.sysmon_operational-*",
+  "query": {
+    "bool": {
+      "filter": [
+        {
+          "range": {
+            "@timestamp": {
+              "gte": "2026-10-27T12:20:00Z",
+              "lte": "2026-10-27T12:40:00Z"
+            }
+          }
+        },
+        {
+          "term": {
+            "event.code": "1"
+          }
+        }
+      ]
+    }
+  },
+  "returned": 25,
+  "total": 198,
+  "truncated": true,
+  "sample": true,
+  "hits": [
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9To505TXapMFRlYsw",
+      "_score": null,
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "type": "filebeat",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "gpupdate.exe",
+            "/target:computer"
+          ],
+          "parent": {
+            "args": [
+              "C:\\Windows\\system32\\svchost.exe",
+              "-k",
+              "netsvcs",
+              "-p"
+            ],
+            "name": "svchost.exe",
+            "pid": 512,
+            "args_count": 4,
+            "entity_id": "{88E52A21-7C26-6AE0-1300-000000002600}",
+            "executable": "C:\\Windows\\System32\\svchost.exe",
+            "command_line": "C:\\Windows\\system32\\svchost.exe -k netsvcs -p"
+          },
+          "pe": {
+            "file_version": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "d2466cd4c38ecef8aab0ee78b79fc8b8",
+            "description": "Microsoft\u00ae Group Policy Update Utility",
+            "original_file_name": "GPUpdate.exe",
+            "company": "Microsoft Corporation"
+          },
+          "name": "gpupdate.exe",
+          "pid": 1304,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 2,
+          "entity_id": "{88E52A21-971B-6AE0-6704-000000002600}",
+          "hash": {
+            "sha256": "af4a3dfe8362bc7c3578d532f8b76626ac680af388d476ff26641ccff1e5ceb2"
+          },
+          "executable": "C:\\Windows\\System32\\gpupdate.exe",
+          "command_line": "\"gpupdate.exe\" /target:computer"
+        },
+        "winlog": {
+          "computer_name": "WS01.c0015.lab",
+          "record_id": "1226065",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "task": "Process Create (rule: ProcessCreate)",
+          "event_id": "1",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "Description": "Microsoft\u00ae Group Policy Update Utility",
+            "LogonGuid": "{88E52A21-7C26-6AE0-E403-000000000000}",
+            "IntegrityLevel": "System",
+            "TerminalSessionId": "0",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "ParentUser": "NT AUTHORITY\\SYSTEM",
+            "FileVersion": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "LogonId": "0x3e4"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 5
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:20:43.036\nProcessGuid: {88E52A21-971B-6AE0-6704-000000002600}\nProcessId: 1304\nImage: C:\\Windows\\System32\\gpupdate.exe\nFileVersion: 10.0.19041.3636 (WinBuild.160101.0800)\nDescription: Microsoft\u00ae Group Policy Update Utility\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: GPUpdate.exe\nCommandLine: \"gpupdate.exe\" /target:computer\nCurrentDirectory: C:\\Windows\\system32\\\nUser: NT AUTHORITY\\NETWORK SERVICE\nLogonGuid: {88E52A21-7C26-6AE0-E403-000000000000}\nLogonId: 0x3e4\nTerminalSessionId: 0\nIntegrityLevel: System\nHashes: SHA256=AF4A3DFE8362BC7C3578D532F8B76626AC680AF388D476FF26641CCFF1E5CEB2,IMPHASH=D2466CD4C38ECEF8AAB0EE78B79FC8B8\nParentProcessGuid: {88E52A21-7C26-6AE0-1300-000000002600}\nParentProcessId: 512\nParentImage: C:\\Windows\\System32\\svchost.exe\nParentCommandLine: C:\\Windows\\system32\\svchost.exe -k netsvcs -p\nParentUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:20:43.036Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "NETWORK SERVICE"
+          ],
+          "hash": [
+            "af4a3dfe8362bc7c3578d532f8b76626ac680af388d476ff26641ccff1e5ceb2",
+            "d2466cd4c38ecef8aab0ee78b79fc8b8"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:20:47Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "kind": "event",
+          "created": "2026-10-27T12:20:45.015Z",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "NETWORK SERVICE"
+        }
+      },
+      "sort": [
+        1793103643036
+      ]
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9To505TXapMFRlYs0",
+      "_score": null,
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "\\??\\C:\\Windows\\system32\\conhost.exe",
+            "0xffffffff",
+            "-ForceV1"
+          ],
+          "parent": {
+            "args": [
+              "gpupdate.exe",
+              "/target:computer"
+            ],
+            "name": "gpupdate.exe",
+            "pid": 1304,
+            "args_count": 2,
+            "entity_id": "{88E52A21-971B-6AE0-6704-000000002600}",
+            "executable": "C:\\Windows\\System32\\gpupdate.exe",
+            "command_line": "\"gpupdate.exe\" /target:computer"
+          },
+          "pe": {
+            "file_version": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "0f64302d3280de299f4c51a78746f606",
+            "description": "Console Window Host",
+            "original_file_name": "CONHOST.EXE",
+            "company": "Microsoft Corporation"
+          },
+          "name": "conhost.exe",
+          "pid": 1012,
+          "working_directory": "C:\\Windows",
+          "args_count": 3,
+          "entity_id": "{88E52A21-971B-6AE0-6804-000000002600}",
+          "hash": {
+            "sha256": "c43cf46192da061dd6169e55aac4d2d08a6c33c039a7dac0d88aa897661cbc87"
+          },
+          "executable": "C:\\Windows\\System32\\conhost.exe",
+          "command_line": "\\??\\C:\\Windows\\system32\\conhost.exe 0xffffffff -ForceV1"
+        },
+        "winlog": {
+          "record_id": "1226069",
+          "computer_name": "WS01.c0015.lab",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "task": "Process Create (rule: ProcessCreate)",
+          "event_id": "1",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "Description": "Console Window Host",
+            "LogonGuid": "{88E52A21-7C26-6AE0-E403-000000000000}",
+            "TerminalSessionId": "0",
+            "IntegrityLevel": "System",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "ParentUser": "NT AUTHORITY\\NETWORK SERVICE",
+            "FileVersion": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "LogonId": "0x3e4"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "version": 5,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:20:43.049\nProcessGuid: {88E52A21-971B-6AE0-6804-000000002600}\nProcessId: 1012\nImage: C:\\Windows\\System32\\conhost.exe\nFileVersion: 10.0.19041.3636 (WinBuild.160101.0800)\nDescription: Console Window Host\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: CONHOST.EXE\nCommandLine: \\??\\C:\\Windows\\system32\\conhost.exe 0xffffffff -ForceV1\nCurrentDirectory: C:\\Windows\nUser: NT AUTHORITY\\NETWORK SERVICE\nLogonGuid: {88E52A21-7C26-6AE0-E403-000000000000}\nLogonId: 0x3e4\nTerminalSessionId: 0\nIntegrityLevel: System\nHashes: SHA256=C43CF46192DA061DD6169E55AAC4D2D08A6C33C039A7DAC0D88AA897661CBC87,IMPHASH=0F64302D3280DE299F4C51A78746F606\nParentProcessGuid: {88E52A21-971B-6AE0-6704-000000002600}\nParentProcessId: 1304\nParentImage: C:\\Windows\\System32\\gpupdate.exe\nParentCommandLine: \"gpupdate.exe\" /target:computer\nParentUser: NT AUTHORITY\\NETWORK SERVICE",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:20:43.049Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "NETWORK SERVICE"
+          ],
+          "hash": [
+            "c43cf46192da061dd6169e55aac4d2d08a6c33c039a7dac0d88aa897661cbc87",
+            "0f64302d3280de299f4c51a78746f606"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:20:47Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:20:45.015Z",
+          "kind": "event",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "NETWORK SERVICE"
+        }
+      },
+      "sort": [
+        1793103643049
+      ]
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9To505TXapMF3lebJ",
+      "_score": null,
+      "_source": {
+        "agent": {
+          "name": "FS01",
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "type": "filebeat",
+          "ephemeral_id": "e87233a5-a8dd-40cf-9618-89f6cdee708d",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\Windows\\system32\\wsmprovhost.exe",
+            "-Embedding"
+          ],
+          "parent": {
+            "args": [
+              "C:\\Windows\\system32\\svchost.exe",
+              "-k",
+              "DcomLaunch",
+              "-p"
+            ],
+            "name": "svchost.exe",
+            "pid": 780,
+            "args_count": 4,
+            "entity_id": "{88E52A21-7C26-6AE0-0D00-000000001500}",
+            "executable": "C:\\Windows\\System32\\svchost.exe",
+            "command_line": "C:\\Windows\\system32\\svchost.exe -k DcomLaunch -p"
+          },
+          "pe": {
+            "file_version": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "e54118702a5da1e2a145713fb7d6a53b",
+            "description": "Host process for WinRM plug-ins",
+            "original_file_name": "wsmprovhost.exe",
+            "company": "Microsoft Corporation"
+          },
+          "name": "wsmprovhost.exe",
+          "pid": 580,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 2,
+          "entity_id": "{88E52A21-9726-6AE0-4402-000000001500}",
+          "hash": {
+            "sha256": "3f024e4b57c2606a3ffc9a98b22a895adb6d173e87af6037fde16d6df640488e"
+          },
+          "executable": "C:\\Windows\\System32\\wsmprovhost.exe",
+          "command_line": "C:\\Windows\\system32\\wsmprovhost.exe -Embedding"
+        },
+        "winlog": {
+          "computer_name": "FS01.c0015.lab",
+          "record_id": "615273",
+          "process": {
+            "pid": 2624,
+            "thread": {
+              "id": 4196
+            }
+          },
+          "event_id": "1",
+          "task": "Process Create (rule: ProcessCreate)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "LogonGuid": "{88E52A21-9726-6AE0-158C-A40000000000}",
+            "Description": "Host process for WinRM plug-ins",
+            "IntegrityLevel": "High",
+            "TerminalSessionId": "0",
+            "ParentUser": "NT AUTHORITY\\SYSTEM",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "FileVersion": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "LogonId": "0xa48c15"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "version": 5,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:20:54.194\nProcessGuid: {88E52A21-9726-6AE0-4402-000000001500}\nProcessId: 580\nImage: C:\\Windows\\System32\\wsmprovhost.exe\nFileVersion: 10.0.19041.3636 (WinBuild.160101.0800)\nDescription: Host process for WinRM plug-ins\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: wsmprovhost.exe\nCommandLine: C:\\Windows\\system32\\wsmprovhost.exe -Embedding\nCurrentDirectory: C:\\Windows\\system32\\\nUser: C0015\\Administrator\nLogonGuid: {88E52A21-9726-6AE0-158C-A40000000000}\nLogonId: 0xa48c15\nTerminalSessionId: 0\nIntegrityLevel: High\nHashes: SHA256=3F024E4B57C2606A3FFC9A98B22A895ADB6D173E87AF6037FDE16D6DF640488E,IMPHASH=E54118702A5DA1E2A145713FB7D6A53B\nParentProcessGuid: {88E52A21-7C26-6AE0-0D00-000000001500}\nParentProcessId: 780\nParentImage: C:\\Windows\\System32\\svchost.exe\nParentCommandLine: C:\\Windows\\system32\\svchost.exe -k DcomLaunch -p\nParentUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:20:54.194Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "Administrator"
+          ],
+          "hash": [
+            "3f024e4b57c2606a3ffc9a98b22a895adb6d173e87af6037fde16d6df640488e",
+            "e54118702a5da1e2a145713fb7d6a53b"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "FS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "192.168.106.155",
+            "192.168.50.30"
+          ],
+          "name": "fs01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-3B-C6-18",
+            "00-0C-29-3B-C6-22"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:20:56Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "kind": "event",
+          "created": "2026-10-27T12:20:55.772Z",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "Administrator"
+        }
+      },
+      "sort": [
+        1793103654194
+      ]
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9To505TXapMF3lebr",
+      "_score": null,
+      "_source": {
+        "agent": {
+          "name": "FS01",
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "ephemeral_id": "e87233a5-a8dd-40cf-9618-89f6cdee708d",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\Windows\\system32\\cmd.exe",
+            "/c",
+            "logoff 1"
+          ],
+          "parent": {
+            "args": [
+              "C:\\Windows\\system32\\wsmprovhost.exe",
+              "-Embedding"
+            ],
+            "name": "wsmprovhost.exe",
+            "pid": 580,
+            "args_count": 2,
+            "entity_id": "{88E52A21-9726-6AE0-4402-000000001500}",
+            "executable": "C:\\Windows\\System32\\wsmprovhost.exe",
+            "command_line": "C:\\Windows\\system32\\wsmprovhost.exe -Embedding"
+          },
+          "pe": {
+            "file_version": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "272245e2988e1e430500b852c4fb5e18",
+            "description": "Windows Command Processor",
+            "original_file_name": "Cmd.Exe",
+            "company": "Microsoft Corporation"
+          },
+          "name": "cmd.exe",
+          "pid": 588,
+          "working_directory": "C:\\Users\\Administrator\\Documents\\",
+          "args_count": 3,
+          "entity_id": "{88E52A21-9726-6AE0-4502-000000001500}",
+          "hash": {
+            "sha256": "265b69033cea7a9f8214a34cd9b17912909af46c7a47395dd7bb893a24507e59"
+          },
+          "executable": "C:\\Windows\\System32\\cmd.exe",
+          "command_line": "\"C:\\Windows\\system32\\cmd.exe\" /c \"logoff 1\""
+        },
+        "winlog": {
+          "record_id": "615307",
+          "computer_name": "FS01.c0015.lab",
+          "process": {
+            "pid": 2624,
+            "thread": {
+              "id": 4196
+            }
+          },
+          "event_id": "1",
+          "task": "Process Create (rule: ProcessCreate)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "LogonGuid": "{88E52A21-9726-6AE0-158C-A40000000000}",
+            "Description": "Windows Command Processor",
+            "IntegrityLevel": "High",
+            "TerminalSessionId": "0",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "ParentUser": "C0015\\Administrator",
+            "FileVersion": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "LogonId": "0xa48c15"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "version": 5,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:20:54.639\nProcessGuid: {88E52A21-9726-6AE0-4502-000000001500}\nProcessId: 588\nImage: C:\\Windows\\System32\\cmd.exe\nFileVersion: 10.0.19041.3636 (WinBuild.160101.0800)\nDescription: Windows Command Processor\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: Cmd.Exe\nCommandLine: \"C:\\Windows\\system32\\cmd.exe\" /c \"logoff 1\"\nCurrentDirectory: C:\\Users\\Administrator\\Documents\\\nUser: C0015\\Administrator\nLogonGuid: {88E52A21-9726-6AE0-158C-A40000000000}\nLogonId: 0xa48c15\nTerminalSessionId: 0\nIntegrityLevel: High\nHashes: SHA256=265B69033CEA7A9F8214A34CD9B17912909AF46C7A47395DD7BB893A24507E59,IMPHASH=272245E2988E1E430500B852C4FB5E18\nParentProcessGuid: {88E52A21-9726-6AE0-4402-000000001500}\nParentProcessId: 580\nParentImage: C:\\Windows\\System32\\wsmprovhost.exe\nParentCommandLine: C:\\Windows\\system32\\wsmprovhost.exe -Embedding\nParentUser: C0015\\Administrator",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:20:54.639Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "Administrator"
+          ],
+          "hash": [
+            "265b69033cea7a9f8214a34cd9b17912909af46c7a47395dd7bb893a24507e59",
+            "272245e2988e1e430500b852c4fb5e18"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "FS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "192.168.106.155",
+            "192.168.50.30"
+          ],
+          "name": "fs01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-3B-C6-18",
+            "00-0C-29-3B-C6-22"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:20:56Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:20:55.773Z",
+          "kind": "event",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "Administrator"
+        }
+      },
+      "sort": [
+        1793103654639
+      ]
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9To505TXapMF3lebt",
+      "_score": null,
+      "_source": {
+        "agent": {
+          "name": "FS01",
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "type": "filebeat",
+          "ephemeral_id": "e87233a5-a8dd-40cf-9618-89f6cdee708d",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "\\??\\C:\\Windows\\system32\\conhost.exe",
+            "0xffffffff",
+            "-ForceV1"
+          ],
+          "parent": {
+            "args": [
+              "C:\\Windows\\system32\\cmd.exe",
+              "/c",
+              "logoff 1"
+            ],
+            "name": "cmd.exe",
+            "pid": 588,
+            "args_count": 3,
+            "entity_id": "{88E52A21-9726-6AE0-4502-000000001500}",
+            "executable": "C:\\Windows\\System32\\cmd.exe",
+            "command_line": "\"C:\\Windows\\system32\\cmd.exe\" /c \"logoff 1\""
+          },
+          "pe": {
+            "file_version": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "0f64302d3280de299f4c51a78746f606",
+            "description": "Console Window Host",
+            "original_file_name": "CONHOST.EXE",
+            "company": "Microsoft Corporation"
+          },
+          "name": "conhost.exe",
+          "pid": 1160,
+          "working_directory": "C:\\Windows",
+          "args_count": 3,
+          "entity_id": "{88E52A21-9726-6AE0-4602-000000001500}",
+          "hash": {
+            "sha256": "c43cf46192da061dd6169e55aac4d2d08a6c33c039a7dac0d88aa897661cbc87"
+          },
+          "executable": "C:\\Windows\\System32\\conhost.exe",
+          "command_line": "\\??\\C:\\Windows\\system32\\conhost.exe 0xffffffff -ForceV1"
+        },
+        "winlog": {
+          "computer_name": "FS01.c0015.lab",
+          "record_id": "615309",
+          "process": {
+            "pid": 2624,
+            "thread": {
+              "id": 4196
+            }
+          },
+          "task": "Process Create (rule: ProcessCreate)",
+          "event_id": "1",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "Description": "Console Window Host",
+            "LogonGuid": "{88E52A21-9726-6AE0-158C-A40000000000}",
+            "IntegrityLevel": "High",
+            "TerminalSessionId": "0",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "ParentUser": "C0015\\Administrator",
+            "FileVersion": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "LogonId": "0xa48c15"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 5
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:20:54.642\nProcessGuid: {88E52A21-9726-6AE0-4602-000000001500}\nProcessId: 1160\nImage: C:\\Windows\\System32\\conhost.exe\nFileVersion: 10.0.19041.3636 (WinBuild.160101.0800)\nDescription: Console Window Host\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: CONHOST.EXE\nCommandLine: \\??\\C:\\Windows\\system32\\conhost.exe 0xffffffff -ForceV1\nCurrentDirectory: C:\\Windows\nUser: C0015\\Administrator\nLogonGuid: {88E52A21-9726-6AE0-158C-A40000000000}\nLogonId: 0xa48c15\nTerminalSessionId: 0\nIntegrityLevel: High\nHashes: SHA256=C43CF46192DA061DD6169E55AAC4D2D08A6C33C039A7DAC0D88AA897661CBC87,IMPHASH=0F64302D3280DE299F4C51A78746F606\nParentProcessGuid: {88E52A21-9726-6AE0-4502-000000001500}\nParentProcessId: 588\nParentImage: C:\\Windows\\System32\\cmd.exe\nParentCommandLine: \"C:\\Windows\\system32\\cmd.exe\" /c \"logoff 1\"\nParentUser: C0015\\Administrator",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:20:54.642Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "Administrator"
+          ],
+          "hash": [
+            "c43cf46192da061dd6169e55aac4d2d08a6c33c039a7dac0d88aa897661cbc87",
+            "0f64302d3280de299f4c51a78746f606"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "FS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "192.168.106.155",
+            "192.168.50.30"
+          ],
+          "name": "fs01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-3B-C6-18",
+            "00-0C-29-3B-C6-22"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:20:56Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "kind": "event",
+          "created": "2026-10-27T12:20:55.773Z",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "Administrator"
+        }
+      },
+      "sort": [
+        1793103654642
+      ]
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9To505TXapMF3lebu",
+      "_score": null,
+      "_source": {
+        "agent": {
+          "name": "FS01",
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "type": "filebeat",
+          "ephemeral_id": "e87233a5-a8dd-40cf-9618-89f6cdee708d",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "logoff",
+            "1"
+          ],
+          "parent": {
+            "args": [
+              "C:\\Windows\\system32\\cmd.exe",
+              "/c",
+              "logoff 1"
+            ],
+            "name": "cmd.exe",
+            "pid": 588,
+            "args_count": 3,
+            "entity_id": "{88E52A21-9726-6AE0-4502-000000001500}",
+            "executable": "C:\\Windows\\System32\\cmd.exe",
+            "command_line": "\"C:\\Windows\\system32\\cmd.exe\" /c \"logoff 1\""
+          },
+          "pe": {
+            "file_version": "10.0.19041.1 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "5dee48ec7c50d677fa5bfe4d23399111",
+            "description": "Session Logoff Utility",
+            "original_file_name": "logoff.exe",
+            "company": "Microsoft Corporation"
+          },
+          "name": "logoff.exe",
+          "pid": 7228,
+          "working_directory": "C:\\Users\\Administrator\\Documents\\",
+          "args_count": 2,
+          "entity_id": "{88E52A21-9726-6AE0-4702-000000001500}",
+          "hash": {
+            "sha256": "4b5df4ce25bcd9cf635cded7333f5f53d23f57b2adaca1ddf987c4b717f7ffb4"
+          },
+          "executable": "C:\\Windows\\System32\\logoff.exe",
+          "command_line": "logoff  1"
+        },
+        "winlog": {
+          "record_id": "615310",
+          "computer_name": "FS01.c0015.lab",
+          "process": {
+            "pid": 2624,
+            "thread": {
+              "id": 4196
+            }
+          },
+          "event_id": "1",
+          "task": "Process Create (rule: ProcessCreate)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "Description": "Session Logoff Utility",
+            "LogonGuid": "{88E52A21-9726-6AE0-158C-A40000000000}",
+            "IntegrityLevel": "High",
+            "TerminalSessionId": "0",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "ParentUser": "C0015\\Administrator",
+            "FileVersion": "10.0.19041.1 (WinBuild.160101.0800)",
+            "LogonId": "0xa48c15"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 5
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:20:54.669\nProcessGuid: {88E52A21-9726-6AE0-4702-000000001500}\nProcessId: 7228\nImage: C:\\Windows\\System32\\logoff.exe\nFileVersion: 10.0.19041.1 (WinBuild.160101.0800)\nDescription: Session Logoff Utility\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: logoff.exe\nCommandLine: logoff  1\nCurrentDirectory: C:\\Users\\Administrator\\Documents\\\nUser: C0015\\Administrator\nLogonGuid: {88E52A21-9726-6AE0-158C-A40000000000}\nLogonId: 0xa48c15\nTerminalSessionId: 0\nIntegrityLevel: High\nHashes: SHA256=4B5DF4CE25BCD9CF635CDED7333F5F53D23F57B2ADACA1DDF987C4B717F7FFB4,IMPHASH=5DEE48EC7C50D677FA5BFE4D23399111\nParentProcessGuid: {88E52A21-9726-6AE0-4502-000000001500}\nParentProcessId: 588\nParentImage: C:\\Windows\\System32\\cmd.exe\nParentCommandLine: \"C:\\Windows\\system32\\cmd.exe\" /c \"logoff 1\"\nParentUser: C0015\\Administrator",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:20:54.669Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "Administrator"
+          ],
+          "hash": [
+            "4b5df4ce25bcd9cf635cded7333f5f53d23f57b2adaca1ddf987c4b717f7ffb4",
+            "5dee48ec7c50d677fa5bfe4d23399111"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "FS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "192.168.106.155",
+            "192.168.50.30"
+          ],
+          "name": "fs01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-3B-C6-18",
+            "00-0C-29-3B-C6-22"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:20:56Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:20:55.773Z",
+          "kind": "event",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "Administrator"
+        }
+      },
+      "sort": [
+        1793103654669
+      ]
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9To505TXapMGflmZa",
+      "_score": null,
+      "_source": {
+        "agent": {
+          "name": "FS01",
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "type": "filebeat",
+          "ephemeral_id": "e87233a5-a8dd-40cf-9618-89f6cdee708d",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\Windows\\system32\\SearchProtocolHost.exe",
+            "Global\\UsGthrFltPipeMssGthrPipe16_",
+            "Global\\UsGthrCtrlFltPipeMssGthrPipe16",
+            "1",
+            "-2147483646",
+            "Software\\Microsoft\\Windows Search",
+            "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT; MS Search 4.0 Robot)",
+            "C:\\ProgramData\\Microsoft\\Search\\Data\\Temp\\usgthrsvc",
+            "DownLevelDaemon"
+          ],
+          "parent": {
+            "args": [
+              "C:\\Windows\\system32\\SearchIndexer.exe",
+              "/Embedding"
+            ],
+            "name": "SearchIndexer.exe",
+            "pid": 3928,
+            "args_count": 2,
+            "entity_id": "{88E52A21-7C2C-6AE0-4600-000000001500}",
+            "executable": "C:\\Windows\\System32\\SearchIndexer.exe",
+            "command_line": "C:\\Windows\\system32\\SearchIndexer.exe /Embedding"
+          },
+          "pe": {
+            "file_version": "7.0.19041.3758 (WinBuild.160101.0800)",
+            "product": "Windows\u00ae Search",
+            "imphash": "8b2a73cf81704f7aed84c67134ec39ac",
+            "description": "Microsoft Windows Search Protocol Host",
+            "original_file_name": "SearchProtocolHost.exe",
+            "company": "Microsoft Corporation"
+          },
+          "name": "SearchProtocolHost.exe",
+          "pid": 4696,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 9,
+          "entity_id": "{88E52A21-9728-6AE0-4802-000000001500}",
+          "hash": {
+            "sha256": "de9cb5458ca8144610f2b7532a2659752a4d0f7d20865b0a00f767ea91753237"
+          },
+          "executable": "C:\\Windows\\System32\\SearchProtocolHost.exe",
+          "command_line": "\"C:\\Windows\\system32\\SearchProtocolHost.exe\" Global\\UsGthrFltPipeMssGthrPipe16_ Global\\UsGthrCtrlFltPipeMssGthrPipe16 1 -2147483646 \"Software\\Microsoft\\Windows Search\" \"Mozilla/4.0 (compatible; MSIE 6.0; Windows NT; MS Search 4.0 Robot)\" \"C:\\ProgramData\\Microsoft\\Search\\Data\\Temp\\usgthrsvc\" \"DownLevelDaemon\" "
+        },
+        "winlog": {
+          "record_id": "615339",
+          "computer_name": "FS01.c0015.lab",
+          "process": {
+            "pid": 2624,
+            "thread": {
+              "id": 4196
+            }
+          },
+          "task": "Process Create (rule: ProcessCreate)",
+          "event_id": "1",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "LogonGuid": "{88E52A21-7C26-6AE0-E703-000000000000}",
+            "Description": "Microsoft Windows Search Protocol Host",
+            "IntegrityLevel": "System",
+            "TerminalSessionId": "0",
+            "ParentUser": "NT AUTHORITY\\SYSTEM",
+            "Product": "Windows\u00ae Search",
+            "FileVersion": "7.0.19041.3758 (WinBuild.160101.0800)",
+            "LogonId": "0x3e7"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "version": 5,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:20:56.104\nProcessGuid: {88E52A21-9728-6AE0-4802-000000001500}\nProcessId: 4696\nImage: C:\\Windows\\System32\\SearchProtocolHost.exe\nFileVersion: 7.0.19041.3758 (WinBuild.160101.0800)\nDescription: Microsoft Windows Search Protocol Host\nProduct: Windows\u00ae Search\nCompany: Microsoft Corporation\nOriginalFileName: SearchProtocolHost.exe\nCommandLine: \"C:\\Windows\\system32\\SearchProtocolHost.exe\" Global\\UsGthrFltPipeMssGthrPipe16_ Global\\UsGthrCtrlFltPipeMssGthrPipe16 1 -2147483646 \"Software\\Microsoft\\Windows Search\" \"Mozilla/4.0 (compatible; MSIE 6.0; Windows NT; MS Search 4.0 Robot)\" \"C:\\ProgramData\\Microsoft\\Search\\Data\\Temp\\usgthrsvc\" \"DownLevelDaemon\" \nCurrentDirectory: C:\\Windows\\system32\\\nUser: NT AUTHORITY\\SYSTEM\nLogonGuid: {88E52A21-7C26-6AE0-E703-000000000000}\nLogonId: 0x3e7\nTerminalSessionId: 0\nIntegrityLevel: System\nHashes: SHA256=DE9CB5458CA8144610F2B7532A2659752A4D0F7D20865B0A00F767EA91753237,IMPHASH=8B2A73CF81704F7AED84C67134EC39AC\nParentProcessGuid: {88E52A21-7C2C-6AE0-4600-000000001500}\nParentProcessId: 3928\nParentImage: C:\\Windows\\System32\\SearchIndexer.exe\nParentCommandLine: C:\\Windows\\system32\\SearchIndexer.exe /Embedding\nParentUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:20:56.104Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ],
+          "hash": [
+            "de9cb5458ca8144610f2b7532a2659752a4d0f7d20865b0a00f767ea91753237",
+            "8b2a73cf81704f7aed84c67134ec39ac"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "FS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "192.168.106.155",
+            "192.168.50.30"
+          ],
+          "name": "fs01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-3B-C6-18",
+            "00-0C-29-3B-C6-22"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:21:07Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "kind": "event",
+          "created": "2026-10-27T12:20:56.777Z",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "sort": [
+        1793103656104
+      ]
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9To505TXapMGflmZe",
+      "_score": null,
+      "_source": {
+        "agent": {
+          "name": "FS01",
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "ephemeral_id": "e87233a5-a8dd-40cf-9618-89f6cdee708d",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\Windows\\system32\\SearchFilterHost.exe",
+            "0",
+            "796",
+            "804",
+            "812",
+            "8192",
+            "808",
+            "792"
+          ],
+          "parent": {
+            "args": [
+              "C:\\Windows\\system32\\SearchIndexer.exe",
+              "/Embedding"
+            ],
+            "name": "SearchIndexer.exe",
+            "pid": 3928,
+            "args_count": 2,
+            "entity_id": "{88E52A21-7C2C-6AE0-4600-000000001500}",
+            "executable": "C:\\Windows\\System32\\SearchIndexer.exe",
+            "command_line": "C:\\Windows\\system32\\SearchIndexer.exe /Embedding"
+          },
+          "pe": {
+            "file_version": "7.0.19041.3758 (WinBuild.160101.0800)",
+            "product": "Windows\u00ae Search",
+            "imphash": "25975932fe65b44ea2dd939dc008d453",
+            "description": "Microsoft Windows Search Filter Host",
+            "original_file_name": "SearchFilterHost.exe",
+            "company": "Microsoft Corporation"
+          },
+          "name": "SearchFilterHost.exe",
+          "pid": 3752,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 8,
+          "entity_id": "{88E52A21-9728-6AE0-4902-000000001500}",
+          "hash": {
+            "sha256": "08500481dc54125715de3a0997052f781bf7674dc108520c8dfd38b731bc59df"
+          },
+          "executable": "C:\\Windows\\System32\\SearchFilterHost.exe",
+          "command_line": "\"C:\\Windows\\system32\\SearchFilterHost.exe\" 0 796 804 812 8192 808 792 "
+        },
+        "winlog": {
+          "record_id": "615343",
+          "computer_name": "FS01.c0015.lab",
+          "process": {
+            "pid": 2624,
+            "thread": {
+              "id": 4196
+            }
+          },
+          "task": "Process Create (rule: ProcessCreate)",
+          "event_id": "1",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "LogonGuid": "{88E52A21-7C26-6AE0-E703-000000000000}",
+            "Description": "Microsoft Windows Search Filter Host",
+            "TerminalSessionId": "0",
+            "IntegrityLevel": "Medium",
+            "ParentUser": "NT AUTHORITY\\SYSTEM",
+            "Product": "Windows\u00ae Search",
+            "FileVersion": "7.0.19041.3758 (WinBuild.160101.0800)",
+            "LogonId": "0x3e7"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 5
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:20:56.122\nProcessGuid: {88E52A21-9728-6AE0-4902-000000001500}\nProcessId: 3752\nImage: C:\\Windows\\System32\\SearchFilterHost.exe\nFileVersion: 7.0.19041.3758 (WinBuild.160101.0800)\nDescription: Microsoft Windows Search Filter Host\nProduct: Windows\u00ae Search\nCompany: Microsoft Corporation\nOriginalFileName: SearchFilterHost.exe\nCommandLine: \"C:\\Windows\\system32\\SearchFilterHost.exe\" 0 796 804 812 8192 808 792 \nCurrentDirectory: C:\\Windows\\system32\\\nUser: NT AUTHORITY\\SYSTEM\nLogonGuid: {88E52A21-7C26-6AE0-E703-000000000000}\nLogonId: 0x3e7\nTerminalSessionId: 0\nIntegrityLevel: Medium\nHashes: SHA256=08500481DC54125715DE3A0997052F781BF7674DC108520C8DFD38B731BC59DF,IMPHASH=25975932FE65B44EA2DD939DC008D453\nParentProcessGuid: {88E52A21-7C2C-6AE0-4600-000000001500}\nParentProcessId: 3928\nParentImage: C:\\Windows\\System32\\SearchIndexer.exe\nParentCommandLine: C:\\Windows\\system32\\SearchIndexer.exe /Embedding\nParentUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:20:56.122Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ],
+          "hash": [
+            "08500481dc54125715de3a0997052f781bf7674dc108520c8dfd38b731bc59df",
+            "25975932fe65b44ea2dd939dc008d453"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "FS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "192.168.106.155",
+            "192.168.50.30"
+          ],
+          "name": "fs01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-3B-C6-18",
+            "00-0C-29-3B-C6-22"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:21:07Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:20:56.777Z",
+          "kind": "event",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "sort": [
+        1793103656122
+      ]
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9To505TXapMGilkzA",
+      "_score": null,
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "type": "filebeat",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\Windows\\system32\\wsmprovhost.exe",
+            "-Embedding"
+          ],
+          "parent": {
+            "args": [
+              "C:\\Windows\\system32\\svchost.exe",
+              "-k",
+              "DcomLaunch",
+              "-p"
+            ],
+            "name": "svchost.exe",
+            "pid": 784,
+            "args_count": 4,
+            "entity_id": "{88E52A21-7C26-6AE0-0D00-000000002600}",
+            "executable": "C:\\Windows\\System32\\svchost.exe",
+            "command_line": "C:\\Windows\\system32\\svchost.exe -k DcomLaunch -p"
+          },
+          "pe": {
+            "file_version": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "e54118702a5da1e2a145713fb7d6a53b",
+            "description": "Host process for WinRM plug-ins",
+            "original_file_name": "wsmprovhost.exe",
+            "company": "Microsoft Corporation"
+          },
+          "name": "wsmprovhost.exe",
+          "pid": 6112,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 2,
+          "entity_id": "{88E52A21-972A-6AE0-6904-000000002600}",
+          "hash": {
+            "sha256": "3f024e4b57c2606a3ffc9a98b22a895adb6d173e87af6037fde16d6df640488e"
+          },
+          "executable": "C:\\Windows\\System32\\wsmprovhost.exe",
+          "command_line": "C:\\Windows\\system32\\wsmprovhost.exe -Embedding"
+        },
+        "winlog": {
+          "computer_name": "WS01.c0015.lab",
+          "record_id": "1226170",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "event_id": "1",
+          "task": "Process Create (rule: ProcessCreate)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "Description": "Host process for WinRM plug-ins",
+            "LogonGuid": "{88E52A21-972A-6AE0-6CED-920200000000}",
+            "TerminalSessionId": "0",
+            "IntegrityLevel": "High",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "ParentUser": "NT AUTHORITY\\SYSTEM",
+            "FileVersion": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "LogonId": "0x292ed6c"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "version": 5,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:20:58.929\nProcessGuid: {88E52A21-972A-6AE0-6904-000000002600}\nProcessId: 6112\nImage: C:\\Windows\\System32\\wsmprovhost.exe\nFileVersion: 10.0.19041.3636 (WinBuild.160101.0800)\nDescription: Host process for WinRM plug-ins\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: wsmprovhost.exe\nCommandLine: C:\\Windows\\system32\\wsmprovhost.exe -Embedding\nCurrentDirectory: C:\\Windows\\system32\\\nUser: C0015\\Administrator\nLogonGuid: {88E52A21-972A-6AE0-6CED-920200000000}\nLogonId: 0x292ed6c\nTerminalSessionId: 0\nIntegrityLevel: High\nHashes: SHA256=3F024E4B57C2606A3FFC9A98B22A895ADB6D173E87AF6037FDE16D6DF640488E,IMPHASH=E54118702A5DA1E2A145713FB7D6A53B\nParentProcessGuid: {88E52A21-7C26-6AE0-0D00-000000002600}\nParentProcessId: 784\nParentImage: C:\\Windows\\System32\\svchost.exe\nParentCommandLine: C:\\Windows\\system32\\svchost.exe -k DcomLaunch -p\nParentUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:20:58.929Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "Administrator"
+          ],
+          "hash": [
+            "3f024e4b57c2606a3ffc9a98b22a895adb6d173e87af6037fde16d6df640488e",
+            "e54118702a5da1e2a145713fb7d6a53b"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:21:07Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:21:00.060Z",
+          "kind": "event",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "Administrator"
+        }
+      },
+      "sort": [
+        1793103658929
+      ]
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9To505TXapMGilk3T",
+      "_score": null,
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "type": "filebeat",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\Windows\\system32\\SearchProtocolHost.exe",
+            "Global\\UsGthrFltPipeMssGthrPipe_S-1-5-21-497667922-586690666-3138289104-110319_",
+            "Global\\UsGthrCtrlFltPipeMssGthrPipe_S-1-5-21-497667922-586690666-3138289104-110319",
+            "1",
+            "-2147483646",
+            "Software\\Microsoft\\Windows Search",
+            "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT; MS Search 4.0 Robot)",
+            "C:\\ProgramData\\Microsoft\\Search\\Data\\Temp\\usgthrsvc",
+            "DownLevelDaemon",
+            "1"
+          ],
+          "parent": {
+            "args": [
+              "C:\\Windows\\system32\\SearchIndexer.exe",
+              "/Embedding"
+            ],
+            "name": "SearchIndexer.exe",
+            "pid": 4036,
+            "args_count": 2,
+            "entity_id": "{88E52A21-7C2C-6AE0-4500-000000002600}",
+            "executable": "C:\\Windows\\System32\\SearchIndexer.exe",
+            "command_line": "C:\\Windows\\system32\\SearchIndexer.exe /Embedding"
+          },
+          "pe": {
+            "file_version": "7.0.19041.3758 (WinBuild.160101.0800)",
+            "product": "Windows\u00ae Search",
+            "imphash": "8b2a73cf81704f7aed84c67134ec39ac",
+            "description": "Microsoft Windows Search Protocol Host",
+            "original_file_name": "SearchProtocolHost.exe",
+            "company": "Microsoft Corporation"
+          },
+          "name": "SearchProtocolHost.exe",
+          "pid": 3492,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 10,
+          "entity_id": "{88E52A21-972B-6AE0-6A04-000000002600}",
+          "hash": {
+            "sha256": "de9cb5458ca8144610f2b7532a2659752a4d0f7d20865b0a00f767ea91753237"
+          },
+          "executable": "C:\\Windows\\System32\\SearchProtocolHost.exe",
+          "command_line": "\"C:\\Windows\\system32\\SearchProtocolHost.exe\" Global\\UsGthrFltPipeMssGthrPipe_S-1-5-21-497667922-586690666-3138289104-110319_ Global\\UsGthrCtrlFltPipeMssGthrPipe_S-1-5-21-497667922-586690666-3138289104-110319 1 -2147483646 \"Software\\Microsoft\\Windows Search\" \"Mozilla/4.0 (compatible; MSIE 6.0; Windows NT; MS Search 4.0 Robot)\" \"C:\\ProgramData\\Microsoft\\Search\\Data\\Temp\\usgthrsvc\" \"DownLevelDaemon\"  \"1\""
+        },
+        "winlog": {
+          "record_id": "1226189",
+          "computer_name": "WS01.c0015.lab",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "event_id": "1",
+          "task": "Process Create (rule: ProcessCreate)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "Description": "Microsoft Windows Search Protocol Host",
+            "LogonGuid": "{88E52A21-8482-6AE0-FC81-B00000000000}",
+            "TerminalSessionId": "3",
+            "IntegrityLevel": "Medium",
+            "ParentUser": "NT AUTHORITY\\SYSTEM",
+            "Product": "Windows\u00ae Search",
+            "FileVersion": "7.0.19041.3758 (WinBuild.160101.0800)",
+            "LogonId": "0xb081fc"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 5
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:20:59.378\nProcessGuid: {88E52A21-972B-6AE0-6A04-000000002600}\nProcessId: 3492\nImage: C:\\Windows\\System32\\SearchProtocolHost.exe\nFileVersion: 7.0.19041.3758 (WinBuild.160101.0800)\nDescription: Microsoft Windows Search Protocol Host\nProduct: Windows\u00ae Search\nCompany: Microsoft Corporation\nOriginalFileName: SearchProtocolHost.exe\nCommandLine: \"C:\\Windows\\system32\\SearchProtocolHost.exe\" Global\\UsGthrFltPipeMssGthrPipe_S-1-5-21-497667922-586690666-3138289104-110319_ Global\\UsGthrCtrlFltPipeMssGthrPipe_S-1-5-21-497667922-586690666-3138289104-110319 1 -2147483646 \"Software\\Microsoft\\Windows Search\" \"Mozilla/4.0 (compatible; MSIE 6.0; Windows NT; MS Search 4.0 Robot)\" \"C:\\ProgramData\\Microsoft\\Search\\Data\\Temp\\usgthrsvc\" \"DownLevelDaemon\"  \"1\"\nCurrentDirectory: C:\\Windows\\system32\\\nUser: C0015\\duc.user\nLogonGuid: {88E52A21-8482-6AE0-FC81-B00000000000}\nLogonId: 0xb081fc\nTerminalSessionId: 3\nIntegrityLevel: Medium\nHashes: SHA256=DE9CB5458CA8144610F2B7532A2659752A4D0F7D20865B0A00F767EA91753237,IMPHASH=8B2A73CF81704F7AED84C67134EC39AC\nParentProcessGuid: {88E52A21-7C2C-6AE0-4500-000000002600}\nParentProcessId: 4036\nParentImage: C:\\Windows\\System32\\SearchIndexer.exe\nParentCommandLine: C:\\Windows\\system32\\SearchIndexer.exe /Embedding\nParentUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:20:59.378Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "duc.user"
+          ],
+          "hash": [
+            "de9cb5458ca8144610f2b7532a2659752a4d0f7d20865b0a00f767ea91753237",
+            "8b2a73cf81704f7aed84c67134ec39ac"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:21:07Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:21:00.061Z",
+          "kind": "event",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "duc.user"
+        }
+      },
+      "sort": [
+        1793103659378
+      ]
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9To505TXapMGilk3b",
+      "_score": null,
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "type": "filebeat",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\Windows\\system32\\cmd.exe",
+            "/c",
+            "logoff 1"
+          ],
+          "parent": {
+            "args": [
+              "C:\\Windows\\system32\\wsmprovhost.exe",
+              "-Embedding"
+            ],
+            "name": "wsmprovhost.exe",
+            "pid": 6112,
+            "args_count": 2,
+            "entity_id": "{88E52A21-972A-6AE0-6904-000000002600}",
+            "executable": "C:\\Windows\\System32\\wsmprovhost.exe",
+            "command_line": "C:\\Windows\\system32\\wsmprovhost.exe -Embedding"
+          },
+          "pe": {
+            "file_version": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "272245e2988e1e430500b852c4fb5e18",
+            "description": "Windows Command Processor",
+            "original_file_name": "Cmd.Exe",
+            "company": "Microsoft Corporation"
+          },
+          "name": "cmd.exe",
+          "pid": 6452,
+          "working_directory": "C:\\Users\\Administrator\\Documents\\",
+          "args_count": 3,
+          "entity_id": "{88E52A21-972B-6AE0-6B04-000000002600}",
+          "hash": {
+            "sha256": "265b69033cea7a9f8214a34cd9b17912909af46c7a47395dd7bb893a24507e59"
+          },
+          "executable": "C:\\Windows\\System32\\cmd.exe",
+          "command_line": "\"C:\\Windows\\system32\\cmd.exe\" /c \"logoff 1\""
+        },
+        "winlog": {
+          "record_id": "1226197",
+          "computer_name": "WS01.c0015.lab",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "task": "Process Create (rule: ProcessCreate)",
+          "event_id": "1",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "Description": "Windows Command Processor",
+            "LogonGuid": "{88E52A21-972A-6AE0-6CED-920200000000}",
+            "IntegrityLevel": "High",
+            "TerminalSessionId": "0",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "ParentUser": "C0015\\Administrator",
+            "FileVersion": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "LogonId": "0x292ed6c"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 5
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:20:59.385\nProcessGuid: {88E52A21-972B-6AE0-6B04-000000002600}\nProcessId: 6452\nImage: C:\\Windows\\System32\\cmd.exe\nFileVersion: 10.0.19041.3636 (WinBuild.160101.0800)\nDescription: Windows Command Processor\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: Cmd.Exe\nCommandLine: \"C:\\Windows\\system32\\cmd.exe\" /c \"logoff 1\"\nCurrentDirectory: C:\\Users\\Administrator\\Documents\\\nUser: C0015\\Administrator\nLogonGuid: {88E52A21-972A-6AE0-6CED-920200000000}\nLogonId: 0x292ed6c\nTerminalSessionId: 0\nIntegrityLevel: High\nHashes: SHA256=265B69033CEA7A9F8214A34CD9B17912909AF46C7A47395DD7BB893A24507E59,IMPHASH=272245E2988E1E430500B852C4FB5E18\nParentProcessGuid: {88E52A21-972A-6AE0-6904-000000002600}\nParentProcessId: 6112\nParentImage: C:\\Windows\\System32\\wsmprovhost.exe\nParentCommandLine: C:\\Windows\\system32\\wsmprovhost.exe -Embedding\nParentUser: C0015\\Administrator",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:20:59.385Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "Administrator"
+          ],
+          "hash": [
+            "265b69033cea7a9f8214a34cd9b17912909af46c7a47395dd7bb893a24507e59",
+            "272245e2988e1e430500b852c4fb5e18"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:21:07Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:21:00.061Z",
+          "kind": "event",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "Administrator"
+        }
+      },
+      "sort": [
+        1793103659385
+      ]
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9To505TXapMGilk3f",
+      "_score": null,
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "\\??\\C:\\Windows\\system32\\conhost.exe",
+            "0xffffffff",
+            "-ForceV1"
+          ],
+          "parent": {
+            "args": [
+              "C:\\Windows\\system32\\cmd.exe",
+              "/c",
+              "logoff 1"
+            ],
+            "name": "cmd.exe",
+            "pid": 6452,
+            "args_count": 3,
+            "entity_id": "{88E52A21-972B-6AE0-6B04-000000002600}",
+            "executable": "C:\\Windows\\System32\\cmd.exe",
+            "command_line": "\"C:\\Windows\\system32\\cmd.exe\" /c \"logoff 1\""
+          },
+          "pe": {
+            "file_version": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "0f64302d3280de299f4c51a78746f606",
+            "description": "Console Window Host",
+            "original_file_name": "CONHOST.EXE",
+            "company": "Microsoft Corporation"
+          },
+          "name": "conhost.exe",
+          "pid": 1344,
+          "working_directory": "C:\\Windows",
+          "args_count": 3,
+          "entity_id": "{88E52A21-972B-6AE0-6C04-000000002600}",
+          "hash": {
+            "sha256": "c43cf46192da061dd6169e55aac4d2d08a6c33c039a7dac0d88aa897661cbc87"
+          },
+          "executable": "C:\\Windows\\System32\\conhost.exe",
+          "command_line": "\\??\\C:\\Windows\\system32\\conhost.exe 0xffffffff -ForceV1"
+        },
+        "winlog": {
+          "computer_name": "WS01.c0015.lab",
+          "record_id": "1226201",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "event_id": "1",
+          "task": "Process Create (rule: ProcessCreate)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "LogonGuid": "{88E52A21-972A-6AE0-6CED-920200000000}",
+            "Description": "Console Window Host",
+            "TerminalSessionId": "0",
+            "IntegrityLevel": "High",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "ParentUser": "C0015\\Administrator",
+            "FileVersion": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "LogonId": "0x292ed6c"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "version": 5,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:20:59.396\nProcessGuid: {88E52A21-972B-6AE0-6C04-000000002600}\nProcessId: 1344\nImage: C:\\Windows\\System32\\conhost.exe\nFileVersion: 10.0.19041.3636 (WinBuild.160101.0800)\nDescription: Console Window Host\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: CONHOST.EXE\nCommandLine: \\??\\C:\\Windows\\system32\\conhost.exe 0xffffffff -ForceV1\nCurrentDirectory: C:\\Windows\nUser: C0015\\Administrator\nLogonGuid: {88E52A21-972A-6AE0-6CED-920200000000}\nLogonId: 0x292ed6c\nTerminalSessionId: 0\nIntegrityLevel: High\nHashes: SHA256=C43CF46192DA061DD6169E55AAC4D2D08A6C33C039A7DAC0D88AA897661CBC87,IMPHASH=0F64302D3280DE299F4C51A78746F606\nParentProcessGuid: {88E52A21-972B-6AE0-6B04-000000002600}\nParentProcessId: 6452\nParentImage: C:\\Windows\\System32\\cmd.exe\nParentCommandLine: \"C:\\Windows\\system32\\cmd.exe\" /c \"logoff 1\"\nParentUser: C0015\\Administrator",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:20:59.396Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "Administrator"
+          ],
+          "hash": [
+            "c43cf46192da061dd6169e55aac4d2d08a6c33c039a7dac0d88aa897661cbc87",
+            "0f64302d3280de299f4c51a78746f606"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:21:07Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:21:00.061Z",
+          "kind": "event",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "Administrator"
+        }
+      },
+      "sort": [
+        1793103659396
+      ]
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9To505TXapMGilk3j",
+      "_score": null,
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "logoff",
+            "1"
+          ],
+          "parent": {
+            "args": [
+              "C:\\Windows\\system32\\cmd.exe",
+              "/c",
+              "logoff 1"
+            ],
+            "name": "cmd.exe",
+            "pid": 6452,
+            "args_count": 3,
+            "entity_id": "{88E52A21-972B-6AE0-6B04-000000002600}",
+            "executable": "C:\\Windows\\System32\\cmd.exe",
+            "command_line": "\"C:\\Windows\\system32\\cmd.exe\" /c \"logoff 1\""
+          },
+          "pe": {
+            "file_version": "10.0.19041.1 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "5dee48ec7c50d677fa5bfe4d23399111",
+            "description": "Session Logoff Utility",
+            "original_file_name": "logoff.exe",
+            "company": "Microsoft Corporation"
+          },
+          "name": "logoff.exe",
+          "pid": 2436,
+          "working_directory": "C:\\Users\\Administrator\\Documents\\",
+          "args_count": 2,
+          "entity_id": "{88E52A21-972B-6AE0-6D04-000000002600}",
+          "hash": {
+            "sha256": "4b5df4ce25bcd9cf635cded7333f5f53d23f57b2adaca1ddf987c4b717f7ffb4"
+          },
+          "executable": "C:\\Windows\\System32\\logoff.exe",
+          "command_line": "logoff  1"
+        },
+        "winlog": {
+          "record_id": "1226205",
+          "computer_name": "WS01.c0015.lab",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "task": "Process Create (rule: ProcessCreate)",
+          "event_id": "1",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "LogonGuid": "{88E52A21-972A-6AE0-6CED-920200000000}",
+            "Description": "Session Logoff Utility",
+            "IntegrityLevel": "High",
+            "TerminalSessionId": "0",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "ParentUser": "C0015\\Administrator",
+            "FileVersion": "10.0.19041.1 (WinBuild.160101.0800)",
+            "LogonId": "0x292ed6c"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "version": 5,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:20:59.425\nProcessGuid: {88E52A21-972B-6AE0-6D04-000000002600}\nProcessId: 2436\nImage: C:\\Windows\\System32\\logoff.exe\nFileVersion: 10.0.19041.1 (WinBuild.160101.0800)\nDescription: Session Logoff Utility\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: logoff.exe\nCommandLine: logoff  1\nCurrentDirectory: C:\\Users\\Administrator\\Documents\\\nUser: C0015\\Administrator\nLogonGuid: {88E52A21-972A-6AE0-6CED-920200000000}\nLogonId: 0x292ed6c\nTerminalSessionId: 0\nIntegrityLevel: High\nHashes: SHA256=4B5DF4CE25BCD9CF635CDED7333F5F53D23F57B2ADACA1DDF987C4B717F7FFB4,IMPHASH=5DEE48EC7C50D677FA5BFE4D23399111\nParentProcessGuid: {88E52A21-972B-6AE0-6B04-000000002600}\nParentProcessId: 6452\nParentImage: C:\\Windows\\System32\\cmd.exe\nParentCommandLine: \"C:\\Windows\\system32\\cmd.exe\" /c \"logoff 1\"\nParentUser: C0015\\Administrator",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:20:59.425Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "Administrator"
+          ],
+          "hash": [
+            "4b5df4ce25bcd9cf635cded7333f5f53d23f57b2adaca1ddf987c4b717f7ffb4",
+            "5dee48ec7c50d677fa5bfe4d23399111"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:21:07Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:21:00.061Z",
+          "kind": "event",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "Administrator"
+        }
+      },
+      "sort": [
+        1793103659425
+      ]
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9To505TXapMGilk3v",
+      "_score": null,
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\Windows\\system32\\SearchFilterHost.exe",
+            "0",
+            "804",
+            "808",
+            "816",
+            "8192",
+            "812",
+            "788"
+          ],
+          "parent": {
+            "args": [
+              "C:\\Windows\\system32\\SearchIndexer.exe",
+              "/Embedding"
+            ],
+            "name": "SearchIndexer.exe",
+            "pid": 4036,
+            "args_count": 2,
+            "entity_id": "{88E52A21-7C2C-6AE0-4500-000000002600}",
+            "executable": "C:\\Windows\\System32\\SearchIndexer.exe",
+            "command_line": "C:\\Windows\\system32\\SearchIndexer.exe /Embedding"
+          },
+          "pe": {
+            "file_version": "7.0.19041.3758 (WinBuild.160101.0800)",
+            "product": "Windows\u00ae Search",
+            "imphash": "25975932fe65b44ea2dd939dc008d453",
+            "description": "Microsoft Windows Search Filter Host",
+            "original_file_name": "SearchFilterHost.exe",
+            "company": "Microsoft Corporation"
+          },
+          "name": "SearchFilterHost.exe",
+          "pid": 5772,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 8,
+          "entity_id": "{88E52A21-972B-6AE0-6E04-000000002600}",
+          "hash": {
+            "sha256": "08500481dc54125715de3a0997052f781bf7674dc108520c8dfd38b731bc59df"
+          },
+          "executable": "C:\\Windows\\System32\\SearchFilterHost.exe",
+          "command_line": "\"C:\\Windows\\system32\\SearchFilterHost.exe\" 0 804 808 816 8192 812 788 "
+        },
+        "winlog": {
+          "computer_name": "WS01.c0015.lab",
+          "record_id": "1226217",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "task": "Process Create (rule: ProcessCreate)",
+          "event_id": "1",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "LogonGuid": "{88E52A21-7C25-6AE0-E703-000000000000}",
+            "Description": "Microsoft Windows Search Filter Host",
+            "TerminalSessionId": "0",
+            "IntegrityLevel": "Medium",
+            "Product": "Windows\u00ae Search",
+            "ParentUser": "NT AUTHORITY\\SYSTEM",
+            "FileVersion": "7.0.19041.3758 (WinBuild.160101.0800)",
+            "LogonId": "0x3e7"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 5
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:20:59.446\nProcessGuid: {88E52A21-972B-6AE0-6E04-000000002600}\nProcessId: 5772\nImage: C:\\Windows\\System32\\SearchFilterHost.exe\nFileVersion: 7.0.19041.3758 (WinBuild.160101.0800)\nDescription: Microsoft Windows Search Filter Host\nProduct: Windows\u00ae Search\nCompany: Microsoft Corporation\nOriginalFileName: SearchFilterHost.exe\nCommandLine: \"C:\\Windows\\system32\\SearchFilterHost.exe\" 0 804 808 816 8192 812 788 \nCurrentDirectory: C:\\Windows\\system32\\\nUser: NT AUTHORITY\\SYSTEM\nLogonGuid: {88E52A21-7C25-6AE0-E703-000000000000}\nLogonId: 0x3e7\nTerminalSessionId: 0\nIntegrityLevel: Medium\nHashes: SHA256=08500481DC54125715DE3A0997052F781BF7674DC108520C8DFD38B731BC59DF,IMPHASH=25975932FE65B44EA2DD939DC008D453\nParentProcessGuid: {88E52A21-7C2C-6AE0-4500-000000002600}\nParentProcessId: 4036\nParentImage: C:\\Windows\\System32\\SearchIndexer.exe\nParentCommandLine: C:\\Windows\\system32\\SearchIndexer.exe /Embedding\nParentUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:20:59.446Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ],
+          "hash": [
+            "08500481dc54125715de3a0997052f781bf7674dc108520c8dfd38b731bc59df",
+            "25975932fe65b44ea2dd939dc008d453"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:21:07Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "kind": "event",
+          "created": "2026-10-27T12:21:00.064Z",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "sort": [
+        1793103659446
+      ]
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9To505TXapMGilk36",
+      "_score": null,
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "type": "filebeat",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\Windows\\system32\\wsmprovhost.exe",
+            "-Embedding"
+          ],
+          "parent": {
+            "args": [
+              "C:\\Windows\\system32\\svchost.exe",
+              "-k",
+              "DcomLaunch",
+              "-p"
+            ],
+            "name": "svchost.exe",
+            "pid": 784,
+            "args_count": 4,
+            "entity_id": "{88E52A21-7C26-6AE0-0D00-000000002600}",
+            "executable": "C:\\Windows\\System32\\svchost.exe",
+            "command_line": "C:\\Windows\\system32\\svchost.exe -k DcomLaunch -p"
+          },
+          "pe": {
+            "file_version": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "e54118702a5da1e2a145713fb7d6a53b",
+            "description": "Host process for WinRM plug-ins",
+            "original_file_name": "wsmprovhost.exe",
+            "company": "Microsoft Corporation"
+          },
+          "name": "wsmprovhost.exe",
+          "pid": 7036,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 2,
+          "entity_id": "{88E52A21-972B-6AE0-6F04-000000002600}",
+          "hash": {
+            "sha256": "3f024e4b57c2606a3ffc9a98b22a895adb6d173e87af6037fde16d6df640488e"
+          },
+          "executable": "C:\\Windows\\System32\\wsmprovhost.exe",
+          "command_line": "C:\\Windows\\system32\\wsmprovhost.exe -Embedding"
+        },
+        "winlog": {
+          "record_id": "1226228",
+          "computer_name": "WS01.c0015.lab",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "task": "Process Create (rule: ProcessCreate)",
+          "event_id": "1",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "Description": "Host process for WinRM plug-ins",
+            "LogonGuid": "{88E52A21-972B-6AE0-1721-930200000000}",
+            "TerminalSessionId": "0",
+            "IntegrityLevel": "High",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "ParentUser": "NT AUTHORITY\\SYSTEM",
+            "FileVersion": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "LogonId": "0x2932117"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "version": 5,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:20:59.538\nProcessGuid: {88E52A21-972B-6AE0-6F04-000000002600}\nProcessId: 7036\nImage: C:\\Windows\\System32\\wsmprovhost.exe\nFileVersion: 10.0.19041.3636 (WinBuild.160101.0800)\nDescription: Host process for WinRM plug-ins\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: wsmprovhost.exe\nCommandLine: C:\\Windows\\system32\\wsmprovhost.exe -Embedding\nCurrentDirectory: C:\\Windows\\system32\\\nUser: C0015\\Administrator\nLogonGuid: {88E52A21-972B-6AE0-1721-930200000000}\nLogonId: 0x2932117\nTerminalSessionId: 0\nIntegrityLevel: High\nHashes: SHA256=3F024E4B57C2606A3FFC9A98B22A895ADB6D173E87AF6037FDE16D6DF640488E,IMPHASH=E54118702A5DA1E2A145713FB7D6A53B\nParentProcessGuid: {88E52A21-7C26-6AE0-0D00-000000002600}\nParentProcessId: 784\nParentImage: C:\\Windows\\System32\\svchost.exe\nParentCommandLine: C:\\Windows\\system32\\svchost.exe -k DcomLaunch -p\nParentUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:20:59.538Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "Administrator"
+          ],
+          "hash": [
+            "3f024e4b57c2606a3ffc9a98b22a895adb6d173e87af6037fde16d6df640488e",
+            "e54118702a5da1e2a145713fb7d6a53b"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:21:07Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "kind": "event",
+          "created": "2026-10-27T12:21:00.064Z",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "Administrator"
+        }
+      },
+      "sort": [
+        1793103659538
+      ]
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9To505TXapMGil00M",
+      "_score": null,
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\Windows\\system32\\schtasks.exe",
+            "/query",
+            "/fo",
+            "csv"
+          ],
+          "parent": {
+            "args": [
+              "C:\\Windows\\system32\\wsmprovhost.exe",
+              "-Embedding"
+            ],
+            "name": "wsmprovhost.exe",
+            "pid": 7036,
+            "args_count": 2,
+            "entity_id": "{88E52A21-972B-6AE0-6F04-000000002600}",
+            "executable": "C:\\Windows\\System32\\wsmprovhost.exe",
+            "command_line": "C:\\Windows\\system32\\wsmprovhost.exe -Embedding"
+          },
+          "pe": {
+            "file_version": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "ecce05491f2e8f279f4790bcb1318c05",
+            "description": "Task Scheduler Configuration Tool",
+            "original_file_name": "schtasks.exe",
+            "company": "Microsoft Corporation"
+          },
+          "name": "schtasks.exe",
+          "pid": 3276,
+          "working_directory": "C:\\Users\\Administrator\\Documents\\",
+          "args_count": 4,
+          "entity_id": "{88E52A21-972B-6AE0-7004-000000002600}",
+          "hash": {
+            "sha256": "9a80453518078badf0679b0cf30f50a83163e5264a2665c6052cc27f168c50f2"
+          },
+          "executable": "C:\\Windows\\System32\\schtasks.exe",
+          "command_line": "\"C:\\Windows\\system32\\schtasks.exe\" /query /fo csv"
+        },
+        "winlog": {
+          "record_id": "1226246",
+          "computer_name": "WS01.c0015.lab",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "task": "Process Create (rule: ProcessCreate)",
+          "event_id": "1",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "Description": "Task Scheduler Configuration Tool",
+            "LogonGuid": "{88E52A21-972B-6AE0-1721-930200000000}",
+            "TerminalSessionId": "0",
+            "IntegrityLevel": "High",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "ParentUser": "C0015\\Administrator",
+            "FileVersion": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "LogonId": "0x2932117"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 5
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:20:59.772\nProcessGuid: {88E52A21-972B-6AE0-7004-000000002600}\nProcessId: 3276\nImage: C:\\Windows\\System32\\schtasks.exe\nFileVersion: 10.0.19041.3636 (WinBuild.160101.0800)\nDescription: Task Scheduler Configuration Tool\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: schtasks.exe\nCommandLine: \"C:\\Windows\\system32\\schtasks.exe\" /query /fo csv\nCurrentDirectory: C:\\Users\\Administrator\\Documents\\\nUser: C0015\\Administrator\nLogonGuid: {88E52A21-972B-6AE0-1721-930200000000}\nLogonId: 0x2932117\nTerminalSessionId: 0\nIntegrityLevel: High\nHashes: SHA256=9A80453518078BADF0679B0CF30F50A83163E5264A2665C6052CC27F168C50F2,IMPHASH=ECCE05491F2E8F279F4790BCB1318C05\nParentProcessGuid: {88E52A21-972B-6AE0-6F04-000000002600}\nParentProcessId: 7036\nParentImage: C:\\Windows\\System32\\wsmprovhost.exe\nParentCommandLine: C:\\Windows\\system32\\wsmprovhost.exe -Embedding\nParentUser: C0015\\Administrator",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:20:59.772Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "Administrator"
+          ],
+          "hash": [
+            "9a80453518078badf0679b0cf30f50a83163e5264a2665c6052cc27f168c50f2",
+            "ecce05491f2e8f279f4790bcb1318c05"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:21:07Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:21:00.069Z",
+          "kind": "event",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "Administrator"
+        }
+      },
+      "sort": [
+        1793103659772
+      ]
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9To505TXapMGil00Q",
+      "_score": null,
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "\\??\\C:\\Windows\\system32\\conhost.exe",
+            "0xffffffff",
+            "-ForceV1"
+          ],
+          "parent": {
+            "args": [
+              "C:\\Windows\\system32\\schtasks.exe",
+              "/query",
+              "/fo",
+              "csv"
+            ],
+            "name": "schtasks.exe",
+            "pid": 3276,
+            "args_count": 4,
+            "entity_id": "{88E52A21-972B-6AE0-7004-000000002600}",
+            "executable": "C:\\Windows\\System32\\schtasks.exe",
+            "command_line": "\"C:\\Windows\\system32\\schtasks.exe\" /query /fo csv"
+          },
+          "pe": {
+            "file_version": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "0f64302d3280de299f4c51a78746f606",
+            "description": "Console Window Host",
+            "original_file_name": "CONHOST.EXE",
+            "company": "Microsoft Corporation"
+          },
+          "name": "conhost.exe",
+          "pid": 7396,
+          "working_directory": "C:\\Windows",
+          "args_count": 3,
+          "entity_id": "{88E52A21-972B-6AE0-7104-000000002600}",
+          "hash": {
+            "sha256": "c43cf46192da061dd6169e55aac4d2d08a6c33c039a7dac0d88aa897661cbc87"
+          },
+          "executable": "C:\\Windows\\System32\\conhost.exe",
+          "command_line": "\\??\\C:\\Windows\\system32\\conhost.exe 0xffffffff -ForceV1"
+        },
+        "winlog": {
+          "record_id": "1226250",
+          "computer_name": "WS01.c0015.lab",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "task": "Process Create (rule: ProcessCreate)",
+          "event_id": "1",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "LogonGuid": "{88E52A21-972B-6AE0-1721-930200000000}",
+            "Description": "Console Window Host",
+            "IntegrityLevel": "High",
+            "TerminalSessionId": "0",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "ParentUser": "C0015\\Administrator",
+            "FileVersion": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "LogonId": "0x2932117"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 5
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:20:59.778\nProcessGuid: {88E52A21-972B-6AE0-7104-000000002600}\nProcessId: 7396\nImage: C:\\Windows\\System32\\conhost.exe\nFileVersion: 10.0.19041.3636 (WinBuild.160101.0800)\nDescription: Console Window Host\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: CONHOST.EXE\nCommandLine: \\??\\C:\\Windows\\system32\\conhost.exe 0xffffffff -ForceV1\nCurrentDirectory: C:\\Windows\nUser: C0015\\Administrator\nLogonGuid: {88E52A21-972B-6AE0-1721-930200000000}\nLogonId: 0x2932117\nTerminalSessionId: 0\nIntegrityLevel: High\nHashes: SHA256=C43CF46192DA061DD6169E55AAC4D2D08A6C33C039A7DAC0D88AA897661CBC87,IMPHASH=0F64302D3280DE299F4C51A78746F606\nParentProcessGuid: {88E52A21-972B-6AE0-7004-000000002600}\nParentProcessId: 3276\nParentImage: C:\\Windows\\System32\\schtasks.exe\nParentCommandLine: \"C:\\Windows\\system32\\schtasks.exe\" /query /fo csv\nParentUser: C0015\\Administrator",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:20:59.778Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "Administrator"
+          ],
+          "hash": [
+            "c43cf46192da061dd6169e55aac4d2d08a6c33c039a7dac0d88aa897661cbc87",
+            "0f64302d3280de299f4c51a78746f606"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:21:07Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "kind": "event",
+          "created": "2026-10-27T12:21:00.069Z",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "Administrator"
+        }
+      },
+      "sort": [
+        1793103659778
+      ]
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9To505TXapMGil08T",
+      "_score": null,
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\Windows\\system32\\SearchProtocolHost.exe",
+            "Global\\UsGthrFltPipeMssGthrPipe20_",
+            "Global\\UsGthrCtrlFltPipeMssGthrPipe20",
+            "1",
+            "-2147483646",
+            "Software\\Microsoft\\Windows Search",
+            "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT; MS Search 4.0 Robot)",
+            "C:\\ProgramData\\Microsoft\\Search\\Data\\Temp\\usgthrsvc",
+            "DownLevelDaemon"
+          ],
+          "parent": {
+            "args": [
+              "C:\\Windows\\system32\\SearchIndexer.exe",
+              "/Embedding"
+            ],
+            "name": "SearchIndexer.exe",
+            "pid": 4036,
+            "args_count": 2,
+            "entity_id": "{88E52A21-7C2C-6AE0-4500-000000002600}",
+            "executable": "C:\\Windows\\System32\\SearchIndexer.exe",
+            "command_line": "C:\\Windows\\system32\\SearchIndexer.exe /Embedding"
+          },
+          "pe": {
+            "file_version": "7.0.19041.3758 (WinBuild.160101.0800)",
+            "product": "Windows\u00ae Search",
+            "imphash": "8b2a73cf81704f7aed84c67134ec39ac",
+            "description": "Microsoft Windows Search Protocol Host",
+            "original_file_name": "SearchProtocolHost.exe",
+            "company": "Microsoft Corporation"
+          },
+          "name": "SearchProtocolHost.exe",
+          "pid": 3028,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 9,
+          "entity_id": "{88E52A21-972B-6AE0-7204-000000002600}",
+          "hash": {
+            "sha256": "de9cb5458ca8144610f2b7532a2659752a4d0f7d20865b0a00f767ea91753237"
+          },
+          "executable": "C:\\Windows\\System32\\SearchProtocolHost.exe",
+          "command_line": "\"C:\\Windows\\system32\\SearchProtocolHost.exe\" Global\\UsGthrFltPipeMssGthrPipe20_ Global\\UsGthrCtrlFltPipeMssGthrPipe20 1 -2147483646 \"Software\\Microsoft\\Windows Search\" \"Mozilla/4.0 (compatible; MSIE 6.0; Windows NT; MS Search 4.0 Robot)\" \"C:\\ProgramData\\Microsoft\\Search\\Data\\Temp\\usgthrsvc\" \"DownLevelDaemon\" "
+        },
+        "winlog": {
+          "record_id": "1226253",
+          "computer_name": "WS01.c0015.lab",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "event_id": "1",
+          "task": "Process Create (rule: ProcessCreate)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "Description": "Microsoft Windows Search Protocol Host",
+            "LogonGuid": "{88E52A21-7C25-6AE0-E703-000000000000}",
+            "IntegrityLevel": "System",
+            "TerminalSessionId": "0",
+            "ParentUser": "NT AUTHORITY\\SYSTEM",
+            "Product": "Windows\u00ae Search",
+            "FileVersion": "7.0.19041.3758 (WinBuild.160101.0800)",
+            "LogonId": "0x3e7"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 5
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:20:59.927\nProcessGuid: {88E52A21-972B-6AE0-7204-000000002600}\nProcessId: 3028\nImage: C:\\Windows\\System32\\SearchProtocolHost.exe\nFileVersion: 7.0.19041.3758 (WinBuild.160101.0800)\nDescription: Microsoft Windows Search Protocol Host\nProduct: Windows\u00ae Search\nCompany: Microsoft Corporation\nOriginalFileName: SearchProtocolHost.exe\nCommandLine: \"C:\\Windows\\system32\\SearchProtocolHost.exe\" Global\\UsGthrFltPipeMssGthrPipe20_ Global\\UsGthrCtrlFltPipeMssGthrPipe20 1 -2147483646 \"Software\\Microsoft\\Windows Search\" \"Mozilla/4.0 (compatible; MSIE 6.0; Windows NT; MS Search 4.0 Robot)\" \"C:\\ProgramData\\Microsoft\\Search\\Data\\Temp\\usgthrsvc\" \"DownLevelDaemon\" \nCurrentDirectory: C:\\Windows\\system32\\\nUser: NT AUTHORITY\\SYSTEM\nLogonGuid: {88E52A21-7C25-6AE0-E703-000000000000}\nLogonId: 0x3e7\nTerminalSessionId: 0\nIntegrityLevel: System\nHashes: SHA256=DE9CB5458CA8144610F2B7532A2659752A4D0F7D20865B0A00F767EA91753237,IMPHASH=8B2A73CF81704F7AED84C67134EC39AC\nParentProcessGuid: {88E52A21-7C2C-6AE0-4500-000000002600}\nParentProcessId: 4036\nParentImage: C:\\Windows\\System32\\SearchIndexer.exe\nParentCommandLine: C:\\Windows\\system32\\SearchIndexer.exe /Embedding\nParentUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:20:59.927Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ],
+          "hash": [
+            "de9cb5458ca8144610f2b7532a2659752a4d0f7d20865b0a00f767ea91753237",
+            "8b2a73cf81704f7aed84c67134ec39ac"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:21:07Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:21:01.077Z",
+          "kind": "event",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "sort": [
+        1793103659927
+      ]
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9To505TXapMGil08g",
+      "_score": null,
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "type": "filebeat",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\Windows\\system32\\schtasks.exe",
+            "/delete",
+            "/tn",
+            "\\C0015Word",
+            "/f"
+          ],
+          "parent": {
+            "args": [
+              "C:\\Windows\\system32\\wsmprovhost.exe",
+              "-Embedding"
+            ],
+            "name": "wsmprovhost.exe",
+            "pid": 7036,
+            "args_count": 2,
+            "entity_id": "{88E52A21-972B-6AE0-6F04-000000002600}",
+            "executable": "C:\\Windows\\System32\\wsmprovhost.exe",
+            "command_line": "C:\\Windows\\system32\\wsmprovhost.exe -Embedding"
+          },
+          "pe": {
+            "file_version": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "ecce05491f2e8f279f4790bcb1318c05",
+            "description": "Task Scheduler Configuration Tool",
+            "original_file_name": "schtasks.exe",
+            "company": "Microsoft Corporation"
+          },
+          "name": "schtasks.exe",
+          "pid": 5148,
+          "working_directory": "C:\\Users\\Administrator\\Documents\\",
+          "args_count": 5,
+          "entity_id": "{88E52A21-972C-6AE0-7304-000000002600}",
+          "hash": {
+            "sha256": "9a80453518078badf0679b0cf30f50a83163e5264a2665c6052cc27f168c50f2"
+          },
+          "executable": "C:\\Windows\\System32\\schtasks.exe",
+          "command_line": "\"C:\\Windows\\system32\\schtasks.exe\" /delete /tn \\C0015Word /f"
+        },
+        "winlog": {
+          "record_id": "1226266",
+          "computer_name": "WS01.c0015.lab",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "event_id": "1",
+          "task": "Process Create (rule: ProcessCreate)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "Description": "Task Scheduler Configuration Tool",
+            "LogonGuid": "{88E52A21-972B-6AE0-1721-930200000000}",
+            "IntegrityLevel": "High",
+            "TerminalSessionId": "0",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "ParentUser": "C0015\\Administrator",
+            "FileVersion": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "LogonId": "0x2932117"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 5
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:21:00.547\nProcessGuid: {88E52A21-972C-6AE0-7304-000000002600}\nProcessId: 5148\nImage: C:\\Windows\\System32\\schtasks.exe\nFileVersion: 10.0.19041.3636 (WinBuild.160101.0800)\nDescription: Task Scheduler Configuration Tool\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: schtasks.exe\nCommandLine: \"C:\\Windows\\system32\\schtasks.exe\" /delete /tn \\C0015Word /f\nCurrentDirectory: C:\\Users\\Administrator\\Documents\\\nUser: C0015\\Administrator\nLogonGuid: {88E52A21-972B-6AE0-1721-930200000000}\nLogonId: 0x2932117\nTerminalSessionId: 0\nIntegrityLevel: High\nHashes: SHA256=9A80453518078BADF0679B0CF30F50A83163E5264A2665C6052CC27F168C50F2,IMPHASH=ECCE05491F2E8F279F4790BCB1318C05\nParentProcessGuid: {88E52A21-972B-6AE0-6F04-000000002600}\nParentProcessId: 7036\nParentImage: C:\\Windows\\System32\\wsmprovhost.exe\nParentCommandLine: C:\\Windows\\system32\\wsmprovhost.exe -Embedding\nParentUser: C0015\\Administrator",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:21:00.547Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "Administrator"
+          ],
+          "hash": [
+            "9a80453518078badf0679b0cf30f50a83163e5264a2665c6052cc27f168c50f2",
+            "ecce05491f2e8f279f4790bcb1318c05"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:21:07Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:21:01.077Z",
+          "kind": "event",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "Administrator"
+        }
+      },
+      "sort": [
+        1793103660547
+      ]
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9To505TXapMGil08j",
+      "_score": null,
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "type": "filebeat",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "\\??\\C:\\Windows\\system32\\conhost.exe",
+            "0xffffffff",
+            "-ForceV1"
+          ],
+          "parent": {
+            "args": [
+              "C:\\Windows\\system32\\schtasks.exe",
+              "/delete",
+              "/tn",
+              "\\C0015Word",
+              "/f"
+            ],
+            "name": "schtasks.exe",
+            "pid": 5148,
+            "args_count": 5,
+            "entity_id": "{88E52A21-972C-6AE0-7304-000000002600}",
+            "executable": "C:\\Windows\\System32\\schtasks.exe",
+            "command_line": "\"C:\\Windows\\system32\\schtasks.exe\" /delete /tn \\C0015Word /f"
+          },
+          "pe": {
+            "file_version": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "0f64302d3280de299f4c51a78746f606",
+            "description": "Console Window Host",
+            "original_file_name": "CONHOST.EXE",
+            "company": "Microsoft Corporation"
+          },
+          "name": "conhost.exe",
+          "pid": 5484,
+          "working_directory": "C:\\Windows",
+          "args_count": 3,
+          "entity_id": "{88E52A21-972C-6AE0-7404-000000002600}",
+          "hash": {
+            "sha256": "c43cf46192da061dd6169e55aac4d2d08a6c33c039a7dac0d88aa897661cbc87"
+          },
+          "executable": "C:\\Windows\\System32\\conhost.exe",
+          "command_line": "\\??\\C:\\Windows\\system32\\conhost.exe 0xffffffff -ForceV1"
+        },
+        "winlog": {
+          "record_id": "1226269",
+          "computer_name": "WS01.c0015.lab",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "event_id": "1",
+          "task": "Process Create (rule: ProcessCreate)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "Description": "Console Window Host",
+            "LogonGuid": "{88E52A21-972B-6AE0-1721-930200000000}",
+            "IntegrityLevel": "High",
+            "TerminalSessionId": "0",
+            "ParentUser": "C0015\\Administrator",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "FileVersion": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "LogonId": "0x2932117"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 5
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:21:00.549\nProcessGuid: {88E52A21-972C-6AE0-7404-000000002600}\nProcessId: 5484\nImage: C:\\Windows\\System32\\conhost.exe\nFileVersion: 10.0.19041.3636 (WinBuild.160101.0800)\nDescription: Console Window Host\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: CONHOST.EXE\nCommandLine: \\??\\C:\\Windows\\system32\\conhost.exe 0xffffffff -ForceV1\nCurrentDirectory: C:\\Windows\nUser: C0015\\Administrator\nLogonGuid: {88E52A21-972B-6AE0-1721-930200000000}\nLogonId: 0x2932117\nTerminalSessionId: 0\nIntegrityLevel: High\nHashes: SHA256=C43CF46192DA061DD6169E55AAC4D2D08A6C33C039A7DAC0D88AA897661CBC87,IMPHASH=0F64302D3280DE299F4C51A78746F606\nParentProcessGuid: {88E52A21-972C-6AE0-7304-000000002600}\nParentProcessId: 5148\nParentImage: C:\\Windows\\System32\\schtasks.exe\nParentCommandLine: \"C:\\Windows\\system32\\schtasks.exe\" /delete /tn \\C0015Word /f\nParentUser: C0015\\Administrator",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:21:00.549Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "Administrator"
+          ],
+          "hash": [
+            "c43cf46192da061dd6169e55aac4d2d08a6c33c039a7dac0d88aa897661cbc87",
+            "0f64302d3280de299f4c51a78746f606"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:21:07Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:21:01.077Z",
+          "kind": "event",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "Administrator"
+        }
+      },
+      "sort": [
+        1793103660549
+      ]
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9To505TXapMGil09D",
+      "_score": null,
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "type": "filebeat",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\Windows\\system32\\icacls.exe",
+            "C:\\ProgramData\\C0015",
+            "/grant",
+            "Users:(OI)(CI)M",
+            "/T",
+            "/Q"
+          ],
+          "parent": {
+            "args": [
+              "C:\\Windows\\system32\\wsmprovhost.exe",
+              "-Embedding"
+            ],
+            "name": "wsmprovhost.exe",
+            "pid": 7036,
+            "args_count": 2,
+            "entity_id": "{88E52A21-972B-6AE0-6F04-000000002600}",
+            "executable": "C:\\Windows\\System32\\wsmprovhost.exe",
+            "command_line": "C:\\Windows\\system32\\wsmprovhost.exe -Embedding"
+          },
+          "pe": {
+            "file_version": "10.0.19041.1 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "446163a548337b5bcf2727bcd1cfb399",
+            "original_file_name": "iCACLS.EXE",
+            "company": "Microsoft Corporation"
+          },
+          "name": "icacls.exe",
+          "pid": 6396,
+          "working_directory": "C:\\Users\\Administrator\\Documents\\",
+          "args_count": 6,
+          "entity_id": "{88E52A21-972C-6AE0-7504-000000002600}",
+          "hash": {
+            "sha256": "222ea0e9d8ed1d337dbaedd75a13b8f28fa5c3711dcdf4307e75cede5b5f6b9a"
+          },
+          "executable": "C:\\Windows\\System32\\icacls.exe",
+          "command_line": "\"C:\\Windows\\system32\\icacls.exe\" C:\\ProgramData\\C0015 /grant Users:(OI)(CI)M /T /Q"
+        },
+        "winlog": {
+          "computer_name": "WS01.c0015.lab",
+          "record_id": "1226301",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "event_id": "1",
+          "task": "Process Create (rule: ProcessCreate)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "LogonGuid": "{88E52A21-972B-6AE0-1721-930200000000}",
+            "IntegrityLevel": "High",
+            "TerminalSessionId": "0",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "ParentUser": "C0015\\Administrator",
+            "FileVersion": "10.0.19041.1 (WinBuild.160101.0800)",
+            "LogonId": "0x2932117"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "version": 5,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:21:00.800\nProcessGuid: {88E52A21-972C-6AE0-7504-000000002600}\nProcessId: 6396\nImage: C:\\Windows\\System32\\icacls.exe\nFileVersion: 10.0.19041.1 (WinBuild.160101.0800)\nDescription: -\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: iCACLS.EXE\nCommandLine: \"C:\\Windows\\system32\\icacls.exe\" C:\\ProgramData\\C0015 /grant Users:(OI)(CI)M /T /Q\nCurrentDirectory: C:\\Users\\Administrator\\Documents\\\nUser: C0015\\Administrator\nLogonGuid: {88E52A21-972B-6AE0-1721-930200000000}\nLogonId: 0x2932117\nTerminalSessionId: 0\nIntegrityLevel: High\nHashes: SHA256=222EA0E9D8ED1D337DBAEDD75A13B8F28FA5C3711DCDF4307E75CEDE5B5F6B9A,IMPHASH=446163A548337B5BCF2727BCD1CFB399\nParentProcessGuid: {88E52A21-972B-6AE0-6F04-000000002600}\nParentProcessId: 7036\nParentImage: C:\\Windows\\System32\\wsmprovhost.exe\nParentCommandLine: C:\\Windows\\system32\\wsmprovhost.exe -Embedding\nParentUser: C0015\\Administrator",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:21:00.800Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "Administrator"
+          ],
+          "hash": [
+            "222ea0e9d8ed1d337dbaedd75a13b8f28fa5c3711dcdf4307e75cede5b5f6b9a",
+            "446163a548337b5bcf2727bcd1cfb399"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:21:07Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:21:01.078Z",
+          "kind": "event",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "Administrator"
+        }
+      },
+      "sort": [
+        1793103660800
+      ]
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9To505TXapMGil09H",
+      "_score": null,
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "\\??\\C:\\Windows\\system32\\conhost.exe",
+            "0xffffffff",
+            "-ForceV1"
+          ],
+          "parent": {
+            "args": [
+              "C:\\Windows\\system32\\icacls.exe",
+              "C:\\ProgramData\\C0015",
+              "/grant",
+              "Users:(OI)(CI)M",
+              "/T",
+              "/Q"
+            ],
+            "name": "icacls.exe",
+            "pid": 6396,
+            "args_count": 6,
+            "entity_id": "{88E52A21-972C-6AE0-7504-000000002600}",
+            "executable": "C:\\Windows\\System32\\icacls.exe",
+            "command_line": "\"C:\\Windows\\system32\\icacls.exe\" C:\\ProgramData\\C0015 /grant Users:(OI)(CI)M /T /Q"
+          },
+          "pe": {
+            "file_version": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "0f64302d3280de299f4c51a78746f606",
+            "description": "Console Window Host",
+            "original_file_name": "CONHOST.EXE",
+            "company": "Microsoft Corporation"
+          },
+          "name": "conhost.exe",
+          "pid": 5948,
+          "working_directory": "C:\\Windows",
+          "args_count": 3,
+          "entity_id": "{88E52A21-972C-6AE0-7604-000000002600}",
+          "hash": {
+            "sha256": "c43cf46192da061dd6169e55aac4d2d08a6c33c039a7dac0d88aa897661cbc87"
+          },
+          "executable": "C:\\Windows\\System32\\conhost.exe",
+          "command_line": "\\??\\C:\\Windows\\system32\\conhost.exe 0xffffffff -ForceV1"
+        },
+        "winlog": {
+          "computer_name": "WS01.c0015.lab",
+          "record_id": "1226305",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "task": "Process Create (rule: ProcessCreate)",
+          "event_id": "1",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "Description": "Console Window Host",
+            "LogonGuid": "{88E52A21-972B-6AE0-1721-930200000000}",
+            "TerminalSessionId": "0",
+            "IntegrityLevel": "High",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "ParentUser": "C0015\\Administrator",
+            "FileVersion": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "LogonId": "0x2932117"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "version": 5,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:21:00.805\nProcessGuid: {88E52A21-972C-6AE0-7604-000000002600}\nProcessId: 5948\nImage: C:\\Windows\\System32\\conhost.exe\nFileVersion: 10.0.19041.3636 (WinBuild.160101.0800)\nDescription: Console Window Host\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: CONHOST.EXE\nCommandLine: \\??\\C:\\Windows\\system32\\conhost.exe 0xffffffff -ForceV1\nCurrentDirectory: C:\\Windows\nUser: C0015\\Administrator\nLogonGuid: {88E52A21-972B-6AE0-1721-930200000000}\nLogonId: 0x2932117\nTerminalSessionId: 0\nIntegrityLevel: High\nHashes: SHA256=C43CF46192DA061DD6169E55AAC4D2D08A6C33C039A7DAC0D88AA897661CBC87,IMPHASH=0F64302D3280DE299F4C51A78746F606\nParentProcessGuid: {88E52A21-972C-6AE0-7504-000000002600}\nParentProcessId: 6396\nParentImage: C:\\Windows\\System32\\icacls.exe\nParentCommandLine: \"C:\\Windows\\system32\\icacls.exe\" C:\\ProgramData\\C0015 /grant Users:(OI)(CI)M /T /Q\nParentUser: C0015\\Administrator",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:21:00.805Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "Administrator"
+          ],
+          "hash": [
+            "c43cf46192da061dd6169e55aac4d2d08a6c33c039a7dac0d88aa897661cbc87",
+            "0f64302d3280de299f4c51a78746f606"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:21:07Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "kind": "event",
+          "created": "2026-10-27T12:21:01.078Z",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "Administrator"
+        }
+      },
+      "sort": [
+        1793103660805
+      ]
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9To505TXapMGil09U",
+      "_score": null,
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "type": "filebeat",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\Windows\\system32\\schtasks.exe",
+            "/create",
+            "/tn",
+            "C0015Updater",
+            "/tr",
+            "C:\\ProgramData\\C0015\\updater.exe",
+            "/sc",
+            "minute",
+            "/mo",
+            "1",
+            "/ru",
+            "SYSTEM",
+            "/rl",
+            "HIGHEST",
+            "/f"
+          ],
+          "parent": {
+            "args": [
+              "C:\\Windows\\system32\\wsmprovhost.exe",
+              "-Embedding"
+            ],
+            "name": "wsmprovhost.exe",
+            "pid": 7036,
+            "args_count": 2,
+            "entity_id": "{88E52A21-972B-6AE0-6F04-000000002600}",
+            "executable": "C:\\Windows\\System32\\wsmprovhost.exe",
+            "command_line": "C:\\Windows\\system32\\wsmprovhost.exe -Embedding"
+          },
+          "pe": {
+            "file_version": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "ecce05491f2e8f279f4790bcb1318c05",
+            "description": "Task Scheduler Configuration Tool",
+            "original_file_name": "schtasks.exe",
+            "company": "Microsoft Corporation"
+          },
+          "name": "schtasks.exe",
+          "pid": 1700,
+          "working_directory": "C:\\Users\\Administrator\\Documents\\",
+          "args_count": 15,
+          "entity_id": "{88E52A21-972C-6AE0-7704-000000002600}",
+          "hash": {
+            "sha256": "9a80453518078badf0679b0cf30f50a83163e5264a2665c6052cc27f168c50f2"
+          },
+          "executable": "C:\\Windows\\System32\\schtasks.exe",
+          "command_line": "\"C:\\Windows\\system32\\schtasks.exe\" /create /tn C0015Updater /tr C:\\ProgramData\\C0015\\updater.exe /sc minute /mo 1 /ru SYSTEM /rl HIGHEST /f"
+        },
+        "winlog": {
+          "record_id": "1226318",
+          "computer_name": "WS01.c0015.lab",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "event_id": "1",
+          "task": "Process Create (rule: ProcessCreate)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "Description": "Task Scheduler Configuration Tool",
+            "LogonGuid": "{88E52A21-972B-6AE0-1721-930200000000}",
+            "IntegrityLevel": "High",
+            "TerminalSessionId": "0",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "ParentUser": "C0015\\Administrator",
+            "FileVersion": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "LogonId": "0x2932117"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "version": 5,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:21:00.840\nProcessGuid: {88E52A21-972C-6AE0-7704-000000002600}\nProcessId: 1700\nImage: C:\\Windows\\System32\\schtasks.exe\nFileVersion: 10.0.19041.3636 (WinBuild.160101.0800)\nDescription: Task Scheduler Configuration Tool\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: schtasks.exe\nCommandLine: \"C:\\Windows\\system32\\schtasks.exe\" /create /tn C0015Updater /tr C:\\ProgramData\\C0015\\updater.exe /sc minute /mo 1 /ru SYSTEM /rl HIGHEST /f\nCurrentDirectory: C:\\Users\\Administrator\\Documents\\\nUser: C0015\\Administrator\nLogonGuid: {88E52A21-972B-6AE0-1721-930200000000}\nLogonId: 0x2932117\nTerminalSessionId: 0\nIntegrityLevel: High\nHashes: SHA256=9A80453518078BADF0679B0CF30F50A83163E5264A2665C6052CC27F168C50F2,IMPHASH=ECCE05491F2E8F279F4790BCB1318C05\nParentProcessGuid: {88E52A21-972B-6AE0-6F04-000000002600}\nParentProcessId: 7036\nParentImage: C:\\Windows\\System32\\wsmprovhost.exe\nParentCommandLine: C:\\Windows\\system32\\wsmprovhost.exe -Embedding\nParentUser: C0015\\Administrator",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:21:00.840Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "Administrator"
+          ],
+          "hash": [
+            "9a80453518078badf0679b0cf30f50a83163e5264a2665c6052cc27f168c50f2",
+            "ecce05491f2e8f279f4790bcb1318c05"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:21:07Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "kind": "event",
+          "created": "2026-10-27T12:21:01.078Z",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "Administrator"
+        }
+      },
+      "sort": [
+        1793103660840
+      ]
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9To505TXapMGil09V",
+      "_score": null,
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "type": "filebeat",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "\\??\\C:\\Windows\\system32\\conhost.exe",
+            "0xffffffff",
+            "-ForceV1"
+          ],
+          "parent": {
+            "args": [
+              "C:\\Windows\\system32\\schtasks.exe",
+              "/create",
+              "/tn",
+              "C0015Updater",
+              "/tr",
+              "C:\\ProgramData\\C0015\\updater.exe",
+              "/sc",
+              "minute",
+              "/mo",
+              "1",
+              "/ru",
+              "SYSTEM",
+              "/rl",
+              "HIGHEST",
+              "/f"
+            ],
+            "name": "schtasks.exe",
+            "pid": 1700,
+            "args_count": 15,
+            "entity_id": "{88E52A21-972C-6AE0-7704-000000002600}",
+            "executable": "C:\\Windows\\System32\\schtasks.exe",
+            "command_line": "\"C:\\Windows\\system32\\schtasks.exe\" /create /tn C0015Updater /tr C:\\ProgramData\\C0015\\updater.exe /sc minute /mo 1 /ru SYSTEM /rl HIGHEST /f"
+          },
+          "pe": {
+            "file_version": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "0f64302d3280de299f4c51a78746f606",
+            "description": "Console Window Host",
+            "original_file_name": "CONHOST.EXE",
+            "company": "Microsoft Corporation"
+          },
+          "name": "conhost.exe",
+          "pid": 6888,
+          "working_directory": "C:\\Windows",
+          "args_count": 3,
+          "entity_id": "{88E52A21-972C-6AE0-7804-000000002600}",
+          "hash": {
+            "sha256": "c43cf46192da061dd6169e55aac4d2d08a6c33c039a7dac0d88aa897661cbc87"
+          },
+          "executable": "C:\\Windows\\System32\\conhost.exe",
+          "command_line": "\\??\\C:\\Windows\\system32\\conhost.exe 0xffffffff -ForceV1"
+        },
+        "winlog": {
+          "record_id": "1226319",
+          "computer_name": "WS01.c0015.lab",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "event_id": "1",
+          "task": "Process Create (rule: ProcessCreate)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "LogonGuid": "{88E52A21-972B-6AE0-1721-930200000000}",
+            "Description": "Console Window Host",
+            "TerminalSessionId": "0",
+            "IntegrityLevel": "High",
+            "ParentUser": "C0015\\Administrator",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "FileVersion": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "LogonId": "0x2932117"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 5
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:21:00.842\nProcessGuid: {88E52A21-972C-6AE0-7804-000000002600}\nProcessId: 6888\nImage: C:\\Windows\\System32\\conhost.exe\nFileVersion: 10.0.19041.3636 (WinBuild.160101.0800)\nDescription: Console Window Host\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: CONHOST.EXE\nCommandLine: \\??\\C:\\Windows\\system32\\conhost.exe 0xffffffff -ForceV1\nCurrentDirectory: C:\\Windows\nUser: C0015\\Administrator\nLogonGuid: {88E52A21-972B-6AE0-1721-930200000000}\nLogonId: 0x2932117\nTerminalSessionId: 0\nIntegrityLevel: High\nHashes: SHA256=C43CF46192DA061DD6169E55AAC4D2D08A6C33C039A7DAC0D88AA897661CBC87,IMPHASH=0F64302D3280DE299F4C51A78746F606\nParentProcessGuid: {88E52A21-972C-6AE0-7704-000000002600}\nParentProcessId: 1700\nParentImage: C:\\Windows\\System32\\schtasks.exe\nParentCommandLine: \"C:\\Windows\\system32\\schtasks.exe\" /create /tn C0015Updater /tr C:\\ProgramData\\C0015\\updater.exe /sc minute /mo 1 /ru SYSTEM /rl HIGHEST /f\nParentUser: C0015\\Administrator",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:21:00.842Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "Administrator"
+          ],
+          "hash": [
+            "c43cf46192da061dd6169e55aac4d2d08a6c33c039a7dac0d88aa897661cbc87",
+            "0f64302d3280de299f4c51a78746f606"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:21:07Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:21:01.078Z",
+          "kind": "event",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "Administrator"
+        }
+      },
+      "sort": [
+        1793103660842
+      ]
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9To505TXapMHJmS-j",
+      "_score": null,
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "type": "filebeat",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "LogonUI.exe",
+            "/flags:0x0",
+            "/state0:0xa338f055",
+            "/state1:0x41c64e6d"
+          ],
+          "parent": {
+            "args": [
+              "winlogon.exe"
+            ],
+            "name": "winlogon.exe",
+            "pid": 4572,
+            "args_count": 1,
+            "entity_id": "{88E52A21-8481-6AE0-8202-000000002600}",
+            "executable": "C:\\Windows\\System32\\winlogon.exe",
+            "command_line": "winlogon.exe"
+          },
+          "pe": {
+            "file_version": "10.0.19041.1 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "b9b0b64b08b38276711093ca94348d39",
+            "description": "Windows Logon User Interface Host",
+            "original_file_name": "logonui.exe",
+            "company": "Microsoft Corporation"
+          },
+          "name": "LogonUI.exe",
+          "pid": 2272,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 4,
+          "entity_id": "{88E52A21-9733-6AE0-7904-000000002600}",
+          "hash": {
+            "sha256": "cf01e46c146699f6c0e3dd447043f59bc9438dbbcb9563af6c60ebc6d82727f2"
+          },
+          "executable": "C:\\Windows\\System32\\LogonUI.exe",
+          "command_line": "\"LogonUI.exe\" /flags:0x0 /state0:0xa338f055 /state1:0x41c64e6d"
+        },
+        "winlog": {
+          "computer_name": "WS01.c0015.lab",
+          "record_id": "1226386",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "task": "Process Create (rule: ProcessCreate)",
+          "event_id": "1",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "Description": "Windows Logon User Interface Host",
+            "LogonGuid": "{88E52A21-7C25-6AE0-E703-000000000000}",
+            "TerminalSessionId": "3",
+            "IntegrityLevel": "System",
+            "ParentUser": "NT AUTHORITY\\SYSTEM",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "FileVersion": "10.0.19041.1 (WinBuild.160101.0800)",
+            "LogonId": "0x3e7"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 5
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:21:07.104\nProcessGuid: {88E52A21-9733-6AE0-7904-000000002600}\nProcessId: 2272\nImage: C:\\Windows\\System32\\LogonUI.exe\nFileVersion: 10.0.19041.1 (WinBuild.160101.0800)\nDescription: Windows Logon User Interface Host\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: logonui.exe\nCommandLine: \"LogonUI.exe\" /flags:0x0 /state0:0xa338f055 /state1:0x41c64e6d\nCurrentDirectory: C:\\Windows\\system32\\\nUser: NT AUTHORITY\\SYSTEM\nLogonGuid: {88E52A21-7C25-6AE0-E703-000000000000}\nLogonId: 0x3e7\nTerminalSessionId: 3\nIntegrityLevel: System\nHashes: SHA256=CF01E46C146699F6C0E3DD447043F59BC9438DBBCB9563AF6C60EBC6D82727F2,IMPHASH=B9B0B64B08B38276711093CA94348D39\nParentProcessGuid: {88E52A21-8481-6AE0-8202-000000002600}\nParentProcessId: 4572\nParentImage: C:\\Windows\\System32\\winlogon.exe\nParentCommandLine: winlogon.exe\nParentUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:21:07.104Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ],
+          "hash": [
+            "cf01e46c146699f6c0e3dd447043f59bc9438dbbcb9563af6c60ebc6d82727f2",
+            "b9b0b64b08b38276711093ca94348d39"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:21:17Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:21:08.401Z",
+          "kind": "event",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "sort": [
+        1793103667104
+      ]
+    }
+  ]
+}

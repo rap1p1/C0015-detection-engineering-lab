@@ -1,4 +1,4 @@
 process where event.code == "1"
   and process.parent.name : "svchost.exe"
   and process.name : ("rundll32.exe", "regsvr32.exe")
-  and process.command_line : ("*\\Users\\*", "*\\ProgramData\\*", "*\\Windows\\Temp\\*", "*\\Temp\\*")
+  and process.command_line : ("*\\ProgramData\\*", "*\\Users\\Public\\*", "*\\Windows\\Temp\\*")

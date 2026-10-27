@@ -5,4 +5,5 @@ process where event.code == "1"
      or (process.name : "nltest.exe" and process.command_line : "*domain_trusts*")
      or (process.name : "tasklist.exe" and process.command_line : "*/s *")
      or (process.name : "ping.exe" and process.command_line : "*-n *")
+     or (process.name : "whoami.exe" and process.command_line : ("*/all*", "*/priv*"))
   )

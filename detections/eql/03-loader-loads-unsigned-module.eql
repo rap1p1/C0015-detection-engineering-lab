@@ -1,8 +1,6 @@
-sequence by host.id with maxspan=1m
-  [process where event.code == "1"
-     and process.name : ("rundll32.exe", "regsvr32.exe")]
-  [any where event.code == "7"
-     and winlog.event_data.Signed : "false"
-     and file.path : ("*\\Users\\Public\\*", "*\\ProgramData\\C0015\\*",
-                      "*\\Users\\*\\Downloads\\*", "*\\Windows\\Temp\\*")
-     and not file.path : ("*\\ProgramData\\Microsoft\\*", "*\\ProgramData\\Package Cache\\*")]
+any where event.code == "7"
+  and winlog.event_data.Signed : "false"
+  and process.name : ("rundll32.exe", "regsvr32.exe")
+  and file.path : ("*\\Users\\Public\\*", "*\\ProgramData\\C0015\\*",
+                   "*\\Users\\*\\Downloads\\*", "*\\Windows\\Temp\\*")
+  and not file.path : ("*\\ProgramData\\Microsoft\\*", "*\\ProgramData\\Package Cache\\*")

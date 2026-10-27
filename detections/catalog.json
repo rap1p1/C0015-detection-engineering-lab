@@ -1,0 +1,741 @@
+{
+  "schema": "c0015.detections.catalog/1",
+  "rules": [
+    {
+      "id": "C0015-R01",
+      "revision": 3,
+      "name": "office spawns script host",
+      "file": "detections/eql/01-office-spawns-script-host.eql",
+      "sha256": "4269a842da05c176f956b0acf1dd98ca277646d10ccb15818d1b27cd7fb33118",
+      "status": "shipped",
+      "role": "building_block",
+      "severity": "medium",
+      "risk_score": 47,
+      "attck": {
+        "tactic_id": "TA0002",
+        "tactic_name": "Execution",
+        "technique_id": "T1204.002",
+        "technique_name": "User Execution: Malicious File"
+      },
+      "description": "An Office process starts a shell or script host. Single event, so a long-running Office parent still matches.",
+      "limitations": "Benign macros and document add-ins produce the same edge; treat as context for the loader rule, not as proof of execution.",
+      "prerequisites": [
+        "Sysmon 1"
+      ],
+      "deployment": {
+        "index": [
+          "logs-windows.sysmon_operational-*",
+          "logs-system.security-*"
+        ],
+        "timestamp_field": "@timestamp",
+        "interval": "1m",
+        "lookback": "now-3m",
+        "max_signals": 100,
+        "enabled": true
+      },
+      "validation": {
+        "kind": "engine_run",
+        "engine": "elasticsearch 9.5.3",
+        "window": {
+          "start": "2026-09-12T00:00:00Z",
+          "end": "now"
+        },
+        "matches": 89,
+        "truncated": false,
+        "error": null,
+        "note": "Query parse and field existence only; matches are not classified as true or false positives."
+      }
+    },
+    {
+      "id": "C0015-R02",
+      "revision": 3,
+      "name": "script host starts loader",
+      "file": "detections/eql/02-script-host-starts-loader.eql",
+      "sha256": "9ece95c05822500490b52d676f24a4cb57300a6ef8a7cf1eeff65a309c0bc330",
+      "status": "shipped",
+      "role": "building_block",
+      "severity": "medium",
+      "risk_score": 47,
+      "attck": {
+        "tactic_id": "TA0005",
+        "tactic_name": "Defense Evasion",
+        "technique_id": "T1218.005",
+        "technique_name": "System Binary Proxy Execution: Mshta"
+      },
+      "description": "A script host starts regsvr32 or rundll32.",
+      "limitations": "Observation only; the loader behaviour is carried by C0015-R03.",
+      "prerequisites": [
+        "Sysmon 1"
+      ],
+      "deployment": {
+        "index": [
+          "logs-windows.sysmon_operational-*",
+          "logs-system.security-*"
+        ],
+        "timestamp_field": "@timestamp",
+        "interval": "1m",
+        "lookback": "now-3m",
+        "max_signals": 100,
+        "enabled": true
+      },
+      "validation": {
+        "kind": "engine_run",
+        "engine": "elasticsearch 9.5.3",
+        "window": {
+          "start": "2026-09-12T00:00:00Z",
+          "end": "now"
+        },
+        "matches": 70,
+        "truncated": false,
+        "error": null,
+        "note": "Query parse and field existence only; matches are not classified as true or false positives."
+      }
+    },
+    {
+      "id": "C0015-R03",
+      "revision": 3,
+      "name": "loader loads unsigned module",
+      "file": "detections/eql/03-loader-loads-unsigned-module.eql",
+      "sha256": "e0ac0f9129d30387ef28409e5552e77b637604e6b1074e15e48c329262a0d0be",
+      "status": "shipped",
+      "role": "alert",
+      "severity": "high",
+      "risk_score": 73,
+      "attck": {
+        "tactic_id": "TA0005",
+        "tactic_name": "Defense Evasion",
+        "technique_id": "T1574",
+        "technique_name": "Hijack Execution Flow"
+      },
+      "description": "rundll32 or regsvr32 loads an unsigned module from a staging directory. Judged on the module event itself, so a loader that was created long before still matches.",
+      "limitations": "Unsigned module load is not evidence of C2 or injection; the staging path list is the scope.",
+      "prerequisites": [
+        "Sysmon 7 scoped to staging paths"
+      ],
+      "deployment": {
+        "index": [
+          "logs-windows.sysmon_operational-*",
+          "logs-system.security-*"
+        ],
+        "timestamp_field": "@timestamp",
+        "interval": "1m",
+        "lookback": "now-3m",
+        "max_signals": 100,
+        "enabled": true
+      },
+      "validation": {
+        "kind": "engine_run",
+        "engine": "elasticsearch 9.5.3",
+        "window": {
+          "start": "2026-09-12T00:00:00Z",
+          "end": "now"
+        },
+        "matches": 105,
+        "truncated": false,
+        "error": null,
+        "note": "Query parse and field existence only; matches are not classified as true or false positives."
+      }
+    },
+    {
+      "id": "C0015-R04",
+      "revision": 3,
+      "name": "injection into system process",
+      "file": "detections/eql/04-injection-into-system-process.eql",
+      "sha256": "73b014a8da8b926ea19d79b7d1a72f74d6085b71380d65ffd1544602a29646ca",
+      "status": "shipped",
+      "role": "alert",
+      "severity": "high",
+      "risk_score": 73,
+      "attck": {
+        "tactic_id": "TA0004",
+        "tactic_name": "Privilege Escalation",
+        "technique_id": "T1055",
+        "technique_name": "Process Injection"
+      },
+      "description": "A loader or interpreter creates a remote thread in winlogon, lsass, services or a service host.",
+      "limitations": "One thread-creation event does not prove the payload executes; the target instance and start address are context.",
+      "prerequisites": [
+        "Sysmon 8"
+      ],
+      "deployment": {
+        "index": [
+          "logs-windows.sysmon_operational-*",
+          "logs-system.security-*"
+        ],
+        "timestamp_field": "@timestamp",
+        "interval": "1m",
+        "lookback": "now-3m",
+        "max_signals": 100,
+        "enabled": true
+      },
+      "validation": {
+        "kind": "engine_run",
+        "engine": "elasticsearch 9.5.3",
+        "window": {
+          "start": "2026-09-12T00:00:00Z",
+          "end": "now"
+        },
+        "matches": 21,
+        "truncated": false,
+        "error": null,
+        "note": "Query parse and field existence only; matches are not classified as true or false positives."
+      }
+    },
+    {
+      "id": "C0015-R05",
+      "revision": 3,
+      "name": "lsass credential access",
+      "file": "detections/eql/05-lsass-credential-access.eql",
+      "sha256": "db26737f45a3152ee253667893f9354d8a64882b1b8ff71b06fa1aefb2bbc177",
+      "status": "shipped",
+      "role": "alert",
+      "severity": "high",
+      "risk_score": 73,
+      "attck": {
+        "tactic_id": "TA0006",
+        "tactic_name": "Credential Access",
+        "technique_id": "T1003.001",
+        "technique_name": "LSASS Memory"
+      },
+      "description": "A process opens LSASS with a dump-like access mask. Known system and agent processes are excluded by name, not by directory.",
+      "limitations": "Access is not extraction. A process that opens LSASS may be a diagnostic tool; masks outside the list are not covered.",
+      "prerequisites": [
+        "Sysmon 10"
+      ],
+      "deployment": {
+        "index": [
+          "logs-windows.sysmon_operational-*",
+          "logs-system.security-*"
+        ],
+        "timestamp_field": "@timestamp",
+        "interval": "1m",
+        "lookback": "now-3m",
+        "max_signals": 100,
+        "enabled": true
+      },
+      "validation": {
+        "kind": "engine_run",
+        "engine": "elasticsearch 9.5.3",
+        "window": {
+          "start": "2026-09-12T00:00:00Z",
+          "end": "now"
+        },
+        "matches": 175,
+        "truncated": false,
+        "error": null,
+        "note": "Query parse and field existence only; matches are not classified as true or false positives."
+      }
+    },
+    {
+      "id": "C0015-R06",
+      "revision": 3,
+      "name": "wmi remote creation",
+      "file": "detections/eql/06-wmi-remote-creation.eql",
+      "sha256": "11b0165cf1ec520bd0719c96c813739bbdcad3f0714026038b7431adf7d834b1",
+      "status": "shipped",
+      "role": "building_block",
+      "severity": "low",
+      "risk_score": 21,
+      "attck": {
+        "tactic_id": "TA0008",
+        "tactic_name": "Lateral Movement",
+        "technique_id": "T1047",
+        "technique_name": "Windows Management Instrumentation"
+      },
+      "description": "wmic is invoked with a remote node and a process creation verb.",
+      "limitations": "Source intent only; the return value and the target-side execution are separate observations.",
+      "prerequisites": [
+        "Sysmon 1"
+      ],
+      "deployment": {
+        "index": [
+          "logs-windows.sysmon_operational-*",
+          "logs-system.security-*"
+        ],
+        "timestamp_field": "@timestamp",
+        "interval": "1m",
+        "lookback": "now-3m",
+        "max_signals": 100,
+        "enabled": true
+      },
+      "validation": {
+        "kind": "engine_run",
+        "engine": "elasticsearch 9.5.3",
+        "window": {
+          "start": "2026-09-12T00:00:00Z",
+          "end": "now"
+        },
+        "matches": 110,
+        "truncated": false,
+        "error": null,
+        "note": "Query parse and field existence only; matches are not classified as true or false positives."
+      }
+    },
+    {
+      "id": "C0015-R07",
+      "revision": 3,
+      "name": "wmi loader execution",
+      "file": "detections/eql/07-wmi-hosted-loader.eql",
+      "sha256": "91391191c49d65ca6c6bf22018689d86676119345ed0a5bbdf27ca379b32b2bc",
+      "status": "shipped",
+      "role": "alert",
+      "severity": "high",
+      "risk_score": 73,
+      "attck": {
+        "tactic_id": "TA0008",
+        "tactic_name": "Lateral Movement",
+        "technique_id": "T1047",
+        "technique_name": "Windows Management Instrumentation"
+      },
+      "description": "WmiPrvSE starts rundll32 or regsvr32 on the target.",
+      "limitations": "A loader under WMI is specific; generic shells under WMI are covered by C0015-R18.",
+      "prerequisites": [
+        "Sysmon 1"
+      ],
+      "deployment": {
+        "index": [
+          "logs-windows.sysmon_operational-*",
+          "logs-system.security-*"
+        ],
+        "timestamp_field": "@timestamp",
+        "interval": "1m",
+        "lookback": "now-3m",
+        "max_signals": 100,
+        "enabled": true
+      },
+      "validation": {
+        "kind": "engine_run",
+        "engine": "elasticsearch 9.5.3",
+        "window": {
+          "start": "2026-09-12T00:00:00Z",
+          "end": "now"
+        },
+        "matches": 45,
+        "truncated": false,
+        "error": null,
+        "note": "Query parse and field existence only; matches are not classified as true or false positives."
+      }
+    },
+    {
+      "id": "C0015-R08",
+      "revision": 3,
+      "name": "service host starts loader",
+      "file": "detections/eql/08-service-host-starts-loader.eql",
+      "sha256": "0ea8c3ecace201b1a82416ba93fd7b80be1faf4590d5494390e5b85e28882dfa",
+      "status": "shipped",
+      "role": "building_block",
+      "severity": "low",
+      "risk_score": 21,
+      "attck": {
+        "tactic_id": "TA0005",
+        "tactic_name": "Defense Evasion",
+        "technique_id": "T1218.011",
+        "technique_name": "System Binary Proxy Execution: Rundll32"
+      },
+      "description": "A service host starts a loader from a staging path.",
+      "limitations": "Parent-child observation only; it does not prove a service was created or modified.",
+      "prerequisites": [
+        "Sysmon 1"
+      ],
+      "deployment": {
+        "index": [
+          "logs-windows.sysmon_operational-*",
+          "logs-system.security-*"
+        ],
+        "timestamp_field": "@timestamp",
+        "interval": "1m",
+        "lookback": "now-3m",
+        "max_signals": 100,
+        "enabled": true
+      },
+      "validation": {
+        "kind": "engine_run",
+        "engine": "elasticsearch 9.5.3",
+        "window": {
+          "start": "2026-09-12T00:00:00Z",
+          "end": "now"
+        },
+        "matches": 16,
+        "truncated": false,
+        "error": null,
+        "note": "Query parse and field existence only; matches are not classified as true or false positives."
+      }
+    },
+    {
+      "id": "C0015-R11",
+      "revision": 3,
+      "name": "rclone transfer intent",
+      "file": "detections/eql/11-cloud-transfer.eql",
+      "sha256": "c281d022827ec322652c99ed7aa7f54ae203948671aa9fb4b2a89994d0ce0b57",
+      "status": "shipped",
+      "role": "alert",
+      "severity": "medium",
+      "risk_score": 47,
+      "attck": {
+        "tactic_id": "TA0010",
+        "tactic_name": "Exfiltration",
+        "technique_id": "T1567.002",
+        "technique_name": "Exfiltration to Cloud Storage"
+      },
+      "description": "rclone runs a copy or sync verb against a remote whose name contains mega.",
+      "limitations": "Intent only. The remote alias is not proof the destination is MEGA, and no transfer volume is observed.",
+      "prerequisites": [
+        "Sysmon 1 with process.args"
+      ],
+      "deployment": {
+        "index": [
+          "logs-windows.sysmon_operational-*",
+          "logs-system.security-*"
+        ],
+        "timestamp_field": "@timestamp",
+        "interval": "1m",
+        "lookback": "now-3m",
+        "max_signals": 100,
+        "enabled": true
+      },
+      "validation": {
+        "kind": "engine_run",
+        "engine": "elasticsearch 9.5.3",
+        "window": {
+          "start": "2026-09-12T00:00:00Z",
+          "end": "now"
+        },
+        "matches": 29,
+        "truncated": false,
+        "error": null,
+        "note": "Query parse and field existence only; matches are not classified as true or false positives."
+      }
+    },
+    {
+      "id": "C0015-R12",
+      "revision": 3,
+      "name": "note creation",
+      "file": "detections/eql/12-ransom-note.eql",
+      "sha256": "dbaa2a75e5a908ce498c0f02f311227620efd34b8b70c6200f196c03e49aac49",
+      "status": "shipped",
+      "role": "building_block",
+      "severity": "low",
+      "risk_score": 21,
+      "attck": {
+        "tactic_id": "TA0040",
+        "tactic_name": "Impact",
+        "technique_id": "T1486",
+        "technique_name": "Data Encrypted for Impact"
+      },
+      "description": "A file named readme.txt is created.",
+      "limitations": "A single note is not impact. Fanout across directories is the analyst signal; a legitimate README matches too.",
+      "prerequisites": [
+        "Sysmon 11"
+      ],
+      "deployment": {
+        "index": [
+          "logs-windows.sysmon_operational-*",
+          "logs-system.security-*"
+        ],
+        "timestamp_field": "@timestamp",
+        "interval": "1m",
+        "lookback": "now-3m",
+        "max_signals": 100,
+        "enabled": true
+      },
+      "validation": {
+        "kind": "engine_run",
+        "engine": "elasticsearch 9.5.3",
+        "window": {
+          "start": "2026-09-12T00:00:00Z",
+          "end": "now"
+        },
+        "matches": 144,
+        "truncated": false,
+        "error": null,
+        "note": "Query parse and field existence only; matches are not classified as true or false positives."
+      }
+    },
+    {
+      "id": "C0015-R13",
+      "revision": 3,
+      "name": "rdp interactive logon",
+      "file": "detections/eql/13-rdp-interactive-logon.eql",
+      "sha256": "3778811fe9a791e9bd95f7dc3f08e2c6e7495e4db78b41b54d5cd04c4ffd017e",
+      "status": "shipped",
+      "role": "enrichment",
+      "severity": "low",
+      "risk_score": 21,
+      "attck": {
+        "tactic_id": "TA0008",
+        "tactic_name": "Lateral Movement",
+        "technique_id": "T1021.001",
+        "technique_name": "Remote Services: Remote Desktop Protocol"
+      },
+      "description": "A non-machine account opens an interactive RDP session.",
+      "limitations": "Context only. Type 10 does not prove a tunnel or malicious intent.",
+      "prerequisites": [
+        "Security 4624"
+      ],
+      "deployment": {
+        "index": [
+          "logs-windows.sysmon_operational-*",
+          "logs-system.security-*"
+        ],
+        "timestamp_field": "@timestamp",
+        "interval": "5m",
+        "lookback": "now-10m",
+        "max_signals": 100,
+        "enabled": true
+      },
+      "validation": {
+        "kind": "engine_run",
+        "engine": "elasticsearch 9.5.3",
+        "window": {
+          "start": "2026-09-12T00:00:00Z",
+          "end": "now"
+        },
+        "matches": 54,
+        "truncated": false,
+        "error": null,
+        "note": "Query parse and field existence only; matches are not classified as true or false positives."
+      }
+    },
+    {
+      "id": "C0015-R15",
+      "revision": 3,
+      "name": "repeated authentication failures then success",
+      "file": "detections/eql/15-password-spray.eql",
+      "sha256": "b27bfa9b8ed0aa170c2ca822906df124b5e69ec2a03458dca3f08ce15d9c2745",
+      "status": "shipped",
+      "role": "alert",
+      "severity": "high",
+      "risk_score": 73,
+      "attck": {
+        "tactic_id": "TA0006",
+        "tactic_name": "Credential Access",
+        "technique_id": "T1110.003",
+        "technique_name": "Brute Force: Password Spraying"
+      },
+      "description": "Two failed network logons for one account on one host followed by a successful network logon.",
+      "limitations": "The lab tests several passwords for one account, which is guessing rather than spraying across accounts; the failure reason is not filtered yet.",
+      "prerequisites": [
+        "Security 4625 with LogonType 3",
+        "Security 4624"
+      ],
+      "deployment": {
+        "index": [
+          "logs-windows.sysmon_operational-*",
+          "logs-system.security-*"
+        ],
+        "timestamp_field": "@timestamp",
+        "interval": "1m",
+        "lookback": "now-15m",
+        "max_signals": 100,
+        "enabled": true
+      },
+      "validation": {
+        "kind": "engine_run",
+        "engine": "elasticsearch 9.5.3",
+        "window": {
+          "start": "2026-09-12T00:00:00Z",
+          "end": "now"
+        },
+        "matches": 7,
+        "truncated": false,
+        "error": null,
+        "note": "Query parse and field existence only; matches are not classified as true or false positives."
+      }
+    },
+    {
+      "id": "C0015-R16",
+      "revision": 3,
+      "name": "lsass protection removed",
+      "file": "detections/eql/16-lsass-protection-removed.eql",
+      "sha256": "348ac0fdf0de3afba2cfe70bd28d3f7202a6f1c0ce0984c4658292e6f233550e",
+      "status": "shipped",
+      "role": "alert",
+      "severity": "medium",
+      "risk_score": 47,
+      "attck": {
+        "tactic_id": "TA0005",
+        "tactic_name": "Defense Evasion",
+        "technique_id": "T1562.001",
+        "technique_name": "Impair Defenses: Disable or Modify Tools"
+      },
+      "description": "The RunAsPPL registry value is written to zero.",
+      "limitations": "Configuration change only; effective protection also depends on reboot or policy.",
+      "prerequisites": [
+        "Sysmon 13 with the Lsa key in scope"
+      ],
+      "deployment": {
+        "index": [
+          "logs-windows.sysmon_operational-*",
+          "logs-system.security-*"
+        ],
+        "timestamp_field": "@timestamp",
+        "interval": "1m",
+        "lookback": "now-3m",
+        "max_signals": 100,
+        "enabled": true
+      },
+      "validation": {
+        "kind": "engine_run",
+        "engine": "elasticsearch 9.5.3",
+        "window": {
+          "start": "2026-09-12T00:00:00Z",
+          "end": "now"
+        },
+        "matches": 2,
+        "truncated": false,
+        "error": null,
+        "note": "Query parse and field existence only; matches are not classified as true or false positives."
+      }
+    },
+    {
+      "id": "C0015-R17",
+      "revision": 3,
+      "name": "discovery command",
+      "file": "detections/eql/17-discovery-command.eql",
+      "sha256": "5287d3fa2f5f774146de4cc91d7bfefcca604db63f981420569436c50580bddf",
+      "status": "shipped",
+      "role": "building_block",
+      "severity": "low",
+      "risk_score": 21,
+      "attck": {
+        "tactic_id": "TA0007",
+        "tactic_name": "Discovery",
+        "technique_id": "T1087",
+        "technique_name": "Account Discovery"
+      },
+      "description": "A shell spawned by a logon process, loader or service host runs a discovery command with campaign-style arguments.",
+      "limitations": "A single command is context. The burst analytic groups distinct families per host and parent entity.",
+      "prerequisites": [
+        "Sysmon 1"
+      ],
+      "deployment": {
+        "index": [
+          "logs-windows.sysmon_operational-*",
+          "logs-system.security-*"
+        ],
+        "timestamp_field": "@timestamp",
+        "interval": "1m",
+        "lookback": "now-3m",
+        "max_signals": 100,
+        "enabled": true
+      },
+      "validation": {
+        "kind": "engine_run",
+        "engine": "elasticsearch 9.5.3",
+        "window": {
+          "start": "2026-09-12T00:00:00Z",
+          "end": "now"
+        },
+        "matches": 2000,
+        "truncated": true,
+        "error": null,
+        "note": "Query parse and field existence only; matches are not classified as true or false positives."
+      }
+    },
+    {
+      "id": "C0015-R18",
+      "revision": 3,
+      "name": "wmi shell execution",
+      "file": "detections/eql/18-wmi-shell.eql",
+      "sha256": "d7981446125c3e43a8b0896956d5bcf50e1cbec36973acbea2fa5cdc36685fd4",
+      "status": "shipped",
+      "role": "building_block",
+      "severity": "medium",
+      "risk_score": 47,
+      "attck": {
+        "tactic_id": "TA0008",
+        "tactic_name": "Lateral Movement",
+        "technique_id": "T1047",
+        "technique_name": "Windows Management Instrumentation"
+      },
+      "description": "WmiPrvSE starts a generic shell or interpreter.",
+      "limitations": "Administrative WMI does the same; kept as context for the loader rule.",
+      "prerequisites": [
+        "Sysmon 1"
+      ],
+      "deployment": {
+        "index": [
+          "logs-windows.sysmon_operational-*",
+          "logs-system.security-*"
+        ],
+        "timestamp_field": "@timestamp",
+        "interval": "1m",
+        "lookback": "now-3m",
+        "max_signals": 100,
+        "enabled": true
+      },
+      "validation": {
+        "kind": "engine_run",
+        "engine": "elasticsearch 9.5.3",
+        "window": {
+          "start": "2026-09-12T00:00:00Z",
+          "end": "now"
+        },
+        "matches": 76,
+        "truncated": false,
+        "error": null,
+        "note": "Query parse and field existence only; matches are not classified as true or false positives."
+      }
+    },
+    {
+      "id": "C0015-R09",
+      "revision": 1,
+      "name": "ntlm logon with privileges",
+      "file": null,
+      "sha256": null,
+      "status": "retired",
+      "role": "alert",
+      "severity": null,
+      "risk_score": null,
+      "attck": {
+        "tactic_id": "TA0008",
+        "tactic_name": "Lateral Movement",
+        "technique_id": "T1550.002",
+        "technique_name": "Pass the Hash"
+      },
+      "description": "Retired: NTLM network logon followed by a privileged token.",
+      "limitations": "",
+      "prerequisites": [],
+      "deployment": null,
+      "validation": {
+        "kind": "retired",
+        "engine": null,
+        "evidence": null,
+        "note": ""
+      },
+      "retirement": {
+        "reason": "EQL can join per clause, but the pair does not prove pass-the-hash and the single-event form matches every NTLM network logon in a domain."
+      }
+    },
+    {
+      "id": "C0015-R14",
+      "revision": 1,
+      "name": "task manager from shell",
+      "file": null,
+      "sha256": null,
+      "status": "retired",
+      "role": "hunt",
+      "severity": null,
+      "risk_score": null,
+      "attck": {
+        "tactic_id": "TA0007",
+        "tactic_name": "Discovery",
+        "technique_id": "T1057",
+        "technique_name": "Process Discovery"
+      },
+      "description": "Retired from active alerting: saved hunt / campaign note.",
+      "limitations": "",
+      "prerequisites": [],
+      "deployment": null,
+      "validation": {
+        "kind": "retired",
+        "engine": null,
+        "evidence": null,
+        "note": ""
+      },
+      "retirement": {
+        "reason": "Task Manager started with /4 is operator habit, reachable by any user and does not justify a visible alert; kept as a saved hunt note."
+      }
+    }
+  ]
+}

@@ -1,4 +1,4 @@
 process where event.code == "1"
-  and process.name : "wmic.exe"
+  and process.name : ("wmic.exe", "WMIC.exe")
   and process.command_line : "*process call create*"
   and process.command_line : "*/node:*"

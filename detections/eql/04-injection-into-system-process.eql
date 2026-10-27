@@ -1,4 +1,4 @@
 any where event.code == "8"
-  and process.name : ("rundll32.exe", "regsvr32.exe", "powershell.exe", "cmd.exe", "mshta.exe")
+  and process.name : ("rundll32.exe", "regsvr32.exe", "powershell.exe", "cmd.exe", "rundll32.exe")
   and winlog.event_data.TargetImage : ("*\\winlogon.exe", "*\\lsass.exe",
                                        "*\\services.exe", "*\\svchost.exe")

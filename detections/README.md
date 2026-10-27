@@ -1,100 +1,87 @@
 # Detection content
 
-Fifteen EQL rules for Elastic Security, one source of truth in `detections/eql/`. Each rule is a
-behaviour, not a single event, and each carries a MITRE ATT&CK tactic and technique in its metadata.
+The rule package is defined by [`catalog.json`](catalog.json). The table in [`INDEX.md`](INDEX.md) is
+generated from it and must not be edited by hand:
 
-The previous generation had twenty rules, most of them building blocks that fired on one event and
-produced hundreds of alerts in a day of ordinary activity. This set keeps the same coverage and folds
-the building blocks into sequences and scoped event queries.
+```
+python3 tools/detections/catalog.py --check     # verify package (CI gate)
+python3 tools/detections/catalog.py --index     # regenerate INDEX.md
+python3 tools/detections/catalog.py --update    # refresh content hashes
+```
 
-## Design
+`--check` fails on a rule file that is missing, untracked, ignored by `.gitignore`, changed without a
+catalog update, referenced twice, or present on disk without a catalog entry.
 
-Rules follow the shape Sigma uses, which is also the shape Elastic documents for detection
-engineering:
+## What a catalog entry carries
 
-- a behaviour that an analyst can explain to a stakeholder, in one sentence
-- a data source and a query that reads it, with the field names actually present in this pipeline
-- ATT&CK tactic and technique in the metadata, not in the description text
-- a severity and a risk score that mean something: `critical` only for code execution in a system
-  process, credential theft, and impact
-- a false-positive note in the description when the behaviour has a benign explanation
+| Field | Meaning |
+|---|---|
+| `id` | stable identifier (`C0015-R01`); retired ids are never reused |
+| `revision` | incremented when the query or its claim changes |
+| `file` + `sha256` | the query and a content hash |
+| `status` | `shipped` or `retired`; retired entries keep a reason and no file |
+| `role` | `alert`, `building_block`, `enrichment`, or `hunt` |
+| `severity`, `risk_score` | used when the rule is imported |
+| `attck` | tactic and technique id, no more than the query supports |
+| `prerequisites` | the events and configuration the query depends on |
+| `limitations` | what the query does not prove |
+| `deployment` | index patterns, timestamp field, interval, lookback, `max_signals`, enabled state |
+| `validation` | the stack, window, match count and truncation flag from the last engine run |
 
-Rule 09, an NTLM network logon paired with a privileged token, was retired: the two events carry different account fields, so they cannot be joined, and the single-event form matches every NTLM network logon in a domain. Credential use is covered by 05, 13 and 15 instead.
+## Roles
 
-Three families:
+- **alert** - a behaviour worth an analyst's attention on its own.
+- **building_block** - a precise observation that is too common to alert alone; meant to be correlated.
+- **enrichment** - context attached to another alert (interactive logon, operator habit).
+- **hunt** - a starting point for a hypothesis, not a detector.
 
-| Family | Rules | Question it answers |
-|---|---|---|
-| Execution | 01, 02, 03, 08 | Did a document, a script host or a service host start a loader, and did that loader load code from a writable path? |
-| Access | 04, 05, 06, 07, 09, 13 | Did something inject into a system process, read LSASS, or move to another host over WMI, NTLM or RDP? |
-| Objectives | 11, 12, 14 | Is data leaving, is a note being written, is the operator looking at processes? |
+The role is part of the claim. A `building_block` described in prose as a finished detection is a
+documentation bug, not a detection.
 
-## Index
+## Deployment contract
 
-| Rule | Event | ATT&CK | Severity | Hits in 3 h |
-|---|---|---|---|---|
-| 01 office spawns script host | Sysmon 1 sequence | T1204 | high | 3 |
-| 02 script host starts loader | Sysmon 1 sequence | T1218 | high | 2 |
-| 03 loader loads unsigned module | Sysmon 1 then 7 | T1574 | critical | 4 |
-| 04 injection into system process | Sysmon 8 | T1055.003 | critical | 2 |
-| 05 lsass credential access | Sysmon 10 | T1003.001 | critical | 1 |
-| 06 wmi remote creation | Sysmon 1 | T1047 | medium | 2 |
-| 07 wmi hosted loader | Sysmon 1 | T1047 | high | 2 |
-| 08 service host starts loader | Sysmon 1 | T1543.003 | medium | 1 |
+Every entry records the index patterns, the timestamp field, the schedule and the signal cap that are
+applied by `tools/detections/kibana_bundle.py`. That tool builds the payload from the catalog and applies
+it as an explicit operator step, gated on `KIBANA_PASS`, and it maps the catalog role to the deployment:
+rules whose role is `building_block` are created with `building_block_type: default`, and no rule is
+given a notification action. Nothing runs in CI.
 
-| 11 cloud transfer | Sysmon 1 | T1567.002 | high | 2 |
-| 12 ransom note | Sysmon 11 | T1486 | high | 5 |
-| 13 rdp interactive logon | Security 4624 | T1021.001 | medium | 2 |
-| 14 task manager from shell | Sysmon 1 | T1057 | low | 2 |
-| 15 password spray | Security 4625 then 4624 | T1110.003 | high | 2 |
-| 16 lsass protection removed | Sysmon 13 | T1562.001 | high | 0 |
-| 17 discovery burst | Sysmon 1 | T1057 | medium | 36 |
+Two things must stay true when the rules are imported into a stack:
 
-The hit counts are from the run that produced `killchain/telemetry/run-2026-10-25.json`, over the
-three hours that contain the whole chain. A rule that shows zero has no matching event in that
-window; rule 09 needs an NTLM network logon and a privileged token for the same account inside one
-minute, which the pass-the-hash step in that run produced before the rule existed.
+1. the index patterns must match the data the sensors actually write, and
+2. the field names in the queries must exist in that pipeline.
 
-## Tuning history
+Neither is proven by a query parsing. See the evidence schema in
+[`evidence/schema/export-v1.schema.json`](../evidence/schema/export-v1.schema.json)
+for the fields an export must carry to be checkable.
 
-| Rule | Before | After | Why |
-|---|---|---|---|
-| lsass credential access | 59 alerts in 90 min | 1 in 3 h | the agent, Defender and system processes open LSASS with the same mask; excluded by image and by name |
-| service host starts loader | 15 in 3 h | 1 in 3 h | Windows components call `rundll32` from System32; the rule now requires a loader from a writable path |
-| ntlm network logon plus privileged logon | 200+ each | one sequence | the two events are normal on their own; requiring the pair for one account inside a minute removes the background |
-| service host egress | 168 in 90 min | removed | a service host reaching the internet is normal on this build; the behaviour of interest is covered by 03 and 04 |
-| dns nxdomain retry | 32 in 90 min | removed | Windows produces failed lookups constantly; without a name list the rule cannot separate signal |
-| implant opens rdp | 3 false positives | removed | replaced by 13, which reads the logon event instead of a listening socket |
+## Validation status
 
-## Field assumptions
+Every shipped entry records `validation.kind = engine_run` from
+`tools/detections/engine_check.py` against Elasticsearch 9.5.3 over the window
+`2026-09-12 -> now`, using the index patterns in each entry's `deployment` block. The run proves that
+each query parses and that the fields it names exist in this pipeline; it does **not** classify the
+matches as true or false positives, and it does **not** prove that a scheduled rule alerts.
 
-The queries use the Elastic Common Schema as produced by the Elastic Agent Windows integration.
+`C0015-R17` returned the 2000 result cap and is marked `truncated: true`; its match count is a floor,
+not a total.
 
-| Query field | Source event | Raw field |
-|---|---|---|
-| `process.parent.name`, `process.entity_id` | Sysmon 1 | `ParentImage`, `ProcessGuid` |
-| `winlog.event_data.Signed` | Sysmon 7 | `Signed` (string, `"false"`) |
-| `winlog.event_data.TargetImage` | Sysmon 8 and 10 | same |
-| `process.name` as the `E8` source | Sysmon 8 | `SourceImage` is not mapped in this pipeline |
-| `winlog.event_data.GrantedAccess` | Sysmon 10 | same |
-| `winlog.event_data.LogonType`, `AuthenticationPackageName` | Security 4624 | same |
-| `winlog.event_data.SubjectUserName` | Security 4672 | same |
-| `file.name`, `file.extension` | Sysmon 11 | `TargetFilename` |
+Scheduled execution, suppression and lookback are configured in Kibana and are not exercised by the
+repository's checks; the deployment block records the values in use.
 
-Two fields decide whether a rule fires at all, and both are configuration-dependent:
+## Retired
 
-- Sysmon 8 must be enabled. In the profile shipped here it is enabled through an empty `exclude`
-  group in the rule set.
-- Sysmon 7 must cover the directory the module is loaded from. The balanced profile scopes
-  `ImageLoad` to staging paths; the extension masquerade puts the file under `C:\Users\Public`, which
-  the profile includes.
+`C0015-R09` (NTLM network logon followed by a privileged token) is retired. The reason is in the
+catalog: EQL can join per clause, but the pair does not prove pass-the-hash, and the single-event form
+matches every NTLM network logon in a domain. Credential use is covered by `R05`, `R13` and `R15` with
+their own limitations.
 
-## References used while writing the rules
+## Field notes that are still open
 
-SigmaHQ rules with the same intent were read as prior art; the mapping is in
-[`docs/sigma-reference.md`](../docs/sigma-reference.md). The style follows the Sigma specification
-(`title`, `description`, `level`, `tags` with `attack.*`) and Elastic's own detection-rule guidance,
-which is the same shape: one behaviour per rule, ATT&CK metadata, and a documented false-positive
-surface.
+- `E7` module loads carry the loading process identity, which is what `R03` joins on. Whether the
+  pipeline populates `process.entity_id` on `E7` must be confirmed on the target stack before the rule
+  is called deployable.
+- `E13` DWORD representation (`registry.data.strings : "0"`) is asserted by the rule and has not been
+  confirmed against a captured document from the target stack.
 
 

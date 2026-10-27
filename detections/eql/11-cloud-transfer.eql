@@ -1,3 +1,4 @@
 process where event.code == "1"
   and process.name : "rclone*.exe"
-  and process.command_line : ("*mega*", "*--transfers*", "*--multi-thread-streams*")
+  and process.args : ("copy", "sync")
+  and process.command_line : "*mega*"

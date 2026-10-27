@@ -1,7 +1,4 @@
-sequence by host.id with maxspan=2m
-  [process where event.code == "1"
-     and process.name : ("WINWORD.EXE", "EXCEL.EXE", "POWERPNT.EXE")]
-  [process where event.code == "1"
-     and process.parent.name : ("WINWORD.EXE", "EXCEL.EXE", "POWERPNT.EXE")
-     and process.name : ("cmd.exe", "powershell.exe", "mshta.exe", "wscript.exe",
-                         "cscript.exe", "regsvr32.exe", "rundll32.exe")]
+process where event.code == "1"
+  and process.parent.name : ("WINWORD.EXE", "EXCEL.EXE", "POWERPNT.EXE")
+  and process.name : ("cmd.exe", "powershell.exe", "mshta.exe", "wscript.exe",
+                      "cscript.exe", "regsvr32.exe", "rundll32.exe")

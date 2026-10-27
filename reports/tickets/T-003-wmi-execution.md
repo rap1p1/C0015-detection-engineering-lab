@@ -4,7 +4,7 @@
 |---|---|
 | Ticket | T-003 |
 | Case | [WMI lateral execution](../cases/wmi-execution.md) |
-| Run | `run-1`, capture `cap-final04-v3` |
+| Run | `run-1`, capture `cap-run1-1` |
 | Opened (UTC) | 2026-10-27T12:27:03Z |
 | Status | Open - escalated to Tier 2 |
 
@@ -58,4 +58,5 @@ backup server within twenty-one seconds.
 ## Escalation
 
 Tier 2 immediately. Containment is recommended but has **not** been performed.
+
 

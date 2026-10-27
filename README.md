@@ -29,7 +29,7 @@ Three ways in, depending on what you want to check.
 |---|---|
 | Read one investigation end to end | [Office to loader](reports/cases/office-loader.md) and its [ticket](reports/tickets/T-001-office-loader.md) |
 | Check the evidence behind it | [reference run](reports/reference-run.md) and the bundle at `evidence/runs/run-1/` |
-| Rebuild the lab | [scenario contract](docs/study/scenario-contract.md) and [architecture](docs/study/architecture.md) |
+| Rebuild the lab | [scenario contract](docs/study/scenario-contract.md), [architecture](docs/study/architecture.md) and the [attack playbook](attack-playbook/README.md) |
 
 The case starts from an alert, resolves the source events by index and id, and stops where the telemetry
 stops. The bundle it cites is validated by `tools/evidence/validate_run.py` in CI.
@@ -485,6 +485,7 @@ campaign hostnames are resolved by a local zone and never reach the internet. No
 for use outside an isolated environment that the operator owns.
 
 Licensed under the MIT licence. See [LICENSE](LICENSE).
+
 
 
 

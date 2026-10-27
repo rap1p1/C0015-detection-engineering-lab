@@ -4,13 +4,13 @@
 |---|---|
 | Ticket | T-001 |
 | Case | [Office to loader](../cases/office-loader.md) |
-| Run | `run-1`, capture `cap-final04-v3` |
+| Run | `run-1`, capture `cap-run1-1` |
 | Opened (UTC) | 2026-10-27T12:22:19Z |
 | Status | Open - escalated to Tier 2 |
 
 ## Summary
 
-`ws01` reported an unsigned module load two seconds after `mshta.exe` started `regsvr32.exe` from a file
+`ws01` reported an unsigned module load 0.234 s after `mshta.exe` started `regsvr32.exe` from a file
 in the user's profile. The process chain begins under `WINWORD.EXE`. A second unsigned module was loaded
 from `C:\Windows\Temp` sixteen seconds later.
 
@@ -68,5 +68,7 @@ All four are in `.ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002` an
 
 Tier 2: the chain reaches proxy execution with an unsigned module, and the host is adjacent to the file
 server. Containment is recommended but has **not** been performed.
+
+
 
 

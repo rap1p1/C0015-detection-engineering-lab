@@ -7,7 +7,7 @@
 | Capture window (UTC) | 2026-10-27T12:20:00Z - 2026-10-27T12:40:00Z |
 | Stack | Elasticsearch 9.5.3, Kibana 9.5.3 |
 | Rule set | catalog revision 3, 15 shipped rules, 7 with the building-block role |
-| Evidence | [`evidence/runs/run-1/`](../evidence/runs/run-1/run.json) (capture `cap-final04-v3`) |
+| Evidence | [`evidence/runs/run-1/`](../evidence/runs/run-1/run.json) (capture `cap-run1-1`) |
 
 The scenario is executed by opening the macro document in the victim session. The operator actions are
 the reset before the run and the two sessions the chain needs, both opened after the window starts.
@@ -84,11 +84,15 @@ notification.
 ## Reproduce
 
 ```
-pwsh tools/run/reference-run.ps1 -RunId run-1
+ES_PASS=... C0015_VICTIM_PW=... C0015_HELPDESK_PW=... pwsh tools/run/reference-run.ps1 -RunId run-1
 
 ES_PASS=... python3 tools/evidence/capture_run.py --run-id run-1 \
   --start 2026-10-27T12:20:00Z --end 2026-10-27T12:40:00Z \
   --out evidence/runs/run-1
 ```
+
+
+
+
 
 

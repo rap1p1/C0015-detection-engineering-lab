@@ -402,7 +402,8 @@
       "kibana.alert.rule.execution.type": "scheduled"
     },
     "sort": [
-      1793103763463
+      1793103763463,
+      40
     ]
   }
 ]

@@ -21,8 +21,11 @@ $ErrorActionPreference = 'Stop'
 $repo = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
 $cred = Import-Clixml (Join-Path $repo 'stage/lab-credentials-adm.xml')
 $kaliKey = Join-Path $env:USERPROFILE '.ssh\c0015_kali'
-$victimPw = 'Zq7!Kernel-Lab-2026#x'
-$helpdeskPw = 'Summer2026!'
+$esUrl = if ($env:ES_URL) { $env:ES_URL } else { 'https://100.77.46.126:9200' }
+if (-not $env:ES_PASS) { throw 'ES_PASS is not set' }
+$victimPw = $env:C0015_VICTIM_PW
+$helpdeskPw = $env:C0015_HELPDESK_PW
+if (-not $victimPw -or -not $helpdeskPw) { throw 'C0015_VICTIM_PW and C0015_HELPDESK_PW must be set' }
 $evidence = Join-Path $repo "evidence/runs/$RunId"
 $failed = New-Object System.Collections.Generic.List[string]
 $current = ''
@@ -36,9 +39,13 @@ Write-Host "run id: $RunId"
 
 Stage 'clear alerts'
 if (-not $KeepAlerts) {
-    $body = '{"query":{"match_all":{}}}'
-    & curl.exe -s -k -u "elastic:$($env:ES_PASS)" -X POST "https://100.77.46.126:9200/.internal.alerts-security.alerts-default*/_delete_by_query?conflicts=proceed&refresh=true" -H 'Content-Type: application/json' -d $body | Out-Null
-    Ok 'alert index cleared'
+    $body = @{ query = @{ bool = @{ filter = @(@{ range = @{ '@timestamp' = @{ gte = 'now-6h' } } });
+                                  should = @(@{ prefix = @{ 'kibana.alert.rule.rule_id' = 'c0015-' } });
+                                  minimum_should_match = 1 } } } | ConvertTo-Json -Depth 8
+    $response = & curl.exe -s -k -u "elastic:$($env:ES_PASS)" -X POST "$esUrl/.internal.alerts-security.alerts-default*/_delete_by_query?conflicts=proceed&refresh=true" -H 'Content-Type: application/json' -d $body
+    $parsed = $response | ConvertFrom-Json
+    if ($parsed.error) { Bad "alert cleanup failed: $($parsed.error.type)" }
+    else { Ok "removed $($parsed.deleted) C0015 alerts from the last six hours" }
 }
 
 Stage 'reset target'
@@ -64,6 +71,14 @@ Invoke-Command -ComputerName WS01 -Credential $cred -ScriptBlock {
     schtasks /create /tn C0015Updater /tr "C:\ProgramData\C0015\updater.exe" /sc minute /mo 1 /ru SYSTEM /rl HIGHEST /f 2>&1 | Out-Null
 }
 Ok 'beachhead reset'
+
+Stage 'preflight'
+$staging = Invoke-Command -ComputerName WS01 -Credential $cred -ScriptBlock {
+    try { (Invoke-WebRequest 'http://192.168.50.100/updater.exe' -Method Head -TimeoutSec 8 -UseBasicParsing).StatusCode } catch { 0 }
+}
+if ($staging -eq 200) { Ok 'staging reachable from the victim' } else { Bad "staging returned $staging" }
+$health = & curl.exe -s -k -u "elastic:$($env:ES_PASS)" "$esUrl/_cluster/health"
+if ($health -match '"status"\s*:\s*"(green|yellow)"') { Ok 'Elasticsearch reachable' } else { Bad 'Elasticsearch not reachable' }
 
 Stage 'sessions'
 Invoke-Command -ComputerName FS01 -Credential $cred -ScriptBlock { & cmd.exe /c 'logoff 1' 2>$null; Start-Sleep -Seconds 3 } | Out-Null

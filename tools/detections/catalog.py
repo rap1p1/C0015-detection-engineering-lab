@@ -158,7 +158,8 @@ def render_index(data: dict) -> str:
         attck = r.get("attck", {})
         lines.append(
             f"| {r['id']} | {r['name']} | {r.get('role')} | {r.get('severity')} "
-            f"| {attck.get('technique','')} | [`{Path(r['file']).name}`](eql/{Path(r['file']).name}) |"
+            f"| {attck.get('technique_id','')} {attck.get('technique_name','')} "
+            f"| [`{Path(r['file']).name}`](eql/{Path(r['file']).name}) |"
         )
     if retired:
         lines += ["", "## Retired", "", "| ID | Rule | Reason |", "|---|---|---|"]

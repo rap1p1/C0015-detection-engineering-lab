@@ -1,80 +1,70 @@
 # Case: Office to loader
 
-**Alert** `C0015 | loader loads unsigned module`, 2026-10-27T12:22:19Z, host `ws01`.
-**Bundle** [`evidence/runs/run-1/`](../../evidence/runs/run-1/run.json), capture `cap-final04-v3`.
+**Bundle** [`evidence/runs/run-1/`](../../evidence/runs/run-1/run.json), capture `cap-run1-1`.
+**Alerts** four documents: R01 at 12:22:13Z, R02 at 12:22:16Z, R03 twice at 12:22:19Z.
 
-The investigation starts from the alert and walks backwards through the source documents to the process
-chain that produced it.
+The investigation starts from the alerts, resolves their source events by index and id, and then asks
+what those events actually connect.
 
-## 1. The alert
+## 1. Source events, by alert
 
-| Field | Value |
-|---|---|
-| Rule | R03 loader loads unsigned module (role `alert`, revision 3) |
-| Alert time | 2026-10-27T12:22:19.358Z and 12:22:19.360Z |
-| Host | `ws01` |
-| Detection fields | module path, signature state, loading process |
+Each row is a document referenced by an alert; `alert` is the alert `_id` prefix, `source` the document
+`_id`. Entity ids are Sysmon `ProcessGuid` values, abbreviated to the parts that matter.
 
-## 2. Source events
+| # | Alert | Source | UTC | Process (entity) | Parent (entity) | Command line / file |
+|---|---|---|---|---|---|---|
+| 1 | R01 `11181ec86fe7` | `AaF9T4505TXapMFDnV4y` | 12:21:47.263 | `cmd.exe` `…-975B-…-9504` | `WINWORD.EXE` `…-9757-…-9404` | `cmd.exe /c mshta "C:\Users\duc.user\compareforfor.hta"` |
+| 2 | R02 `037457061001` | `AaF9T4505TXapMFqnWWP` | 12:21:48.568 | `regsvr32.exe` `…-975C-…-9A04` | `mshta.exe` `…-975B-…-9704` | `regsvr32.exe C:\Users\Public\compareForfor.jpg` |
+| 3 | R03 `6d0d0b427690` | `AaF9T4505TXapMFqnWWV` | 12:21:48.802 | `regsvr32.exe` `…-975C-…-9A04` | not carried by E7 | module `C:\Users\Public\compareForfor.jpg`, `Signed=false` |
+| 4 | R03 `022fa9b857d4` | `AaF9T4505TXapMGSnkEd` | 12:22:04.962 | `rundll32.exe` `…-976C-…-9E04` | not carried by E7 | module `C:\Windows\Temp\c0015_d8b3.dll`, `Signed=false` |
 
-Every row is a document the alert references, with its index and id in `sources/by_alert.json`.
+## 2. What the joins prove
 
-| UTC | Source locator | Process / parent | Command line | File |
-|---|---|---|---|---|
-| 12:21:47.263 | `...2026.10.24-000002` / `AaF9T4505TXapMFDnV4y` | `cmd.exe` ← `WINWORD.EXE` | `cmd.exe /c mshta "C:\Users\duc.user\compareforfor.hta"` | - |
-| 12:21:48.568 | `...2026.10.24-000002` / `AaF9T4505TXapMFqnWWP` | `regsvr32.exe` ← `mshta.exe` | `regsvr32.exe C:\Users\Public\compareForfor.jpg` | - |
-| 12:21:48.802 | `...2026.10.24-000002` / `AaF9T4505TXapMFqnWWV` | `regsvr32.exe` (module load) | - | `C:\Users\Public\compareForfor.jpg`, `Signed=false` |
-| 12:22:04.962 | `...2026.10.24-000002` / `AaF9T4505TXapMGSnkEd` | `rundll32.exe` (module load) | - | `C:\Windows\Temp\c0015_d8b3.dll`, `Signed=false` |
+Events 1 to 3 are one chain, and the identity is explicit rather than inferred from time:
 
-The two R03 alerts point at two different module loads: the proxy-execution DLL and the DLL the loader
-wrote to a temporary path. The second one is the more interesting event and the one a reader should
-follow.
+- event 1 names `WINWORD.EXE` as the parent of `cmd.exe`;
+- event 2 names `mshta.exe` as the parent of `regsvr32.exe`, and that `mshta.exe` entity id
+  (`…-975B-…-9704`) is the process started by the `cmd.exe` in event 1;
+- event 3 carries the same process entity id as event 2 (`…-975C-…-9A04`), so the unsigned module was
+  loaded by that exact `regsvr32.exe` instance.
 
-## 3. What the chain proves
+So: **a Word process started a shell, the shell started `mshta`, `mshta` started `regsvr32`, and that
+`regsvr32` loaded an unsigned `.jpg` as a module.**
 
-Reading the four documents in order:
+## 3. What is not proven
 
-1. Word spawned `cmd.exe` with a command line that starts `mshta` on a file in the user's profile.
-2. `mshta.exe` spawned `regsvr32.exe` with the image path `C:\Users\Public\compareForfor.jpg`.
-3. `regsvr32.exe` loaded that `.jpg` as a module, and the sensor recorded it as unsigned.
-4. About sixteen seconds later, `rundll32.exe` loaded `C:\Windows\Temp\c0015_d8b3.dll`, also unsigned.
+Event 4 is a **different process instance** (`…-976C-…-9E04`) that loaded a second unsigned module from
+`C:\Windows\Temp` sixteen seconds later. Its E7 record carries no parent, and the bundle does not contain
+the process-creation event for that `rundll32.exe`. The observations are:
 
-The ancestry is direct: each event names its parent, and the timestamps are consistent with that order.
-This is an execution chain from a document to a proxy-executed module and then to a second, unsigned
-module outside the Office process tree.
+- **observed:** the Office → script host → proxy execution → unsigned module chain (events 1-3);
+- **observed:** a later unsigned module load by `rundll32.exe` (event 4);
+- **not proven here:** that the first chain started that `rundll32.exe`.
 
-## 4. What it does not prove
+Same host and close timing is correlation, not causality. Closing that gap needs the process-creation
+event for the `rundll32.exe` (with parent entity id) or the scheduled-task creation that ran it.
 
 | Claim | Status |
 |---|---|
-| The document ran a macro | Not shown here. The first event is `cmd.exe` under Word; macro execution itself needs a Word or Office telemetry source. |
-| `compareForfor.jpg` is malicious | Not shown. Only that it is unsigned and was loaded by `regsvr32`. |
-| The loader contacted a remote host | Not shown. No network event is in this bundle; the proxy-execution and module-load events carry no destination. |
-| Code executed successfully | Not shown. A module load is not proof that its exports ran. |
-| Persistence or system-level access | Not shown in this case; it happens later in the chain and is out of scope here. |
+| A Word process started a shell | Proven by event 1 |
+| The shell started `mshta` | Proven by event 1 command line and event 2 parent name |
+| `mshta` started `regsvr32` | Proven by event 2 parent entity id |
+| `regsvr32` loaded an unsigned module | Proven by event 3, same entity id |
+| The second module came from the first chain | **Not proven** |
+| Network activity or C2 | Not in this bundle |
 
-## 5. Analyst disposition
+## 4. Timing
 
-Investigate further, priority high. The behaviour is consistent with a document that drops a script
-host, which in turn proxy-executes an unsigned module from a user-writable path. The next step is to
-look for network activity from `regsvr32.exe` and `rundll32.exe` on `ws01` in the same minute, and for
-the file creation of `c0015_d8b3.dll`.
+Event 1 to event 2 is **1.305 s**; event 2 to event 3 is **0.234 s**; event 3 to event 4 is **16.16 s**.
 
-## 6. Operator ground truth (not derived from telemetry)
+## 5. Disposition
 
-The lab was built to reproduce this chain, so the operator knows the document is `decree-08.03.2021.docm`,
-the HTA is `compareforfor.hta`, and `compareForfor.jpg` is the loader stub that fetches the next stage.
-None of that is visible in the evidence above, and the case must be readable without it.
+Investigate, priority high. The proven chain reaches proxy execution with an unsigned module from a
+user-writable path. Next: find the process-creation event for the `rundll32.exe` in event 4 and any
+network event from `ws01` around 12:22Z.
 
-## 7. Reproduction
+## 6. Operator ground truth
 
-```
-python3 tools/evidence/validate_run.py evidence/runs/run-1
-python3 -c "import json;d=json.load(open('evidence/runs/run-1/sources/by_alert.json'));print(len(d))"
-```
-
-Open [`alerts/c0015.json`](../../evidence/runs/run-1/alerts/c0015.json) for the alert documents
-and [`sources/by_alert.json`](../../evidence/runs/run-1/sources/by_alert.json) for the mapping
-from each alert to the events above.
-
+The lab builds this chain from a document macro; the operator knows the HTA path and that the `.jpg` is a
+loader stub. None of that is in the events above, and the case is written to stand without it.
 

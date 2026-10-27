@@ -1,4 +1,5 @@
 {
+  "behaviour": "module_load",
   "index": "logs-windows.sysmon_operational-*",
   "query": {
     "bool": {
@@ -6,9 +7,14 @@
         {
           "range": {
             "@timestamp": {
-              "gte": "2026-10-27T12:20:00Z",
-              "lte": "2026-10-27T12:40:00Z"
+              "gte": "2026-10-27T12:18:26.000Z",
+              "lte": "2026-10-27T12:30:24.000Z"
             }
+          }
+        },
+        {
+          "term": {
+            "host.name": "ws01"
           }
         },
         {
@@ -19,363 +25,20 @@
       ]
     }
   },
+  "anchor": {
+    "host": "ws01",
+    "alerts": 18,
+    "first_alert": "11181ec86fe7d4af687cdf0affeffab2cce1ba3465fe5365ef135cc6971d9246",
+    "last_alert": "d67b149b447a26a0b3f308e47658d5bd20808de49fb7d33515b56cefc3591141"
+  },
+  "window": {
+    "start": "2026-10-27T12:18:26.000Z",
+    "end": "2026-10-27T12:30:24.000Z"
+  },
   "returned": 25,
-  "total": 39,
+  "total": 29,
   "truncated": true,
-  "sample": true,
   "hits": [
-    {
-      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
-      "_id": "AaF9To505TXapMF3lebQ",
-      "_score": null,
-      "_source": {
-        "agent": {
-          "name": "FS01",
-          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
-          "ephemeral_id": "e87233a5-a8dd-40cf-9618-89f6cdee708d",
-          "type": "filebeat",
-          "version": "9.5.3"
-        },
-        "process": {
-          "name": "wsmprovhost.exe",
-          "pid": 580,
-          "entity_id": "{88E52A21-9726-6AE0-4402-000000001500}",
-          "executable": "C:\\Windows\\System32\\wsmprovhost.exe"
-        },
-        "winlog": {
-          "record_id": "615280",
-          "computer_name": "FS01.c0015.lab",
-          "process": {
-            "pid": 2624,
-            "thread": {
-              "id": 4196
-            }
-          },
-          "task": "Image loaded (rule: ImageLoad)",
-          "event_id": "7",
-          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
-          "channel": "Microsoft-Windows-Sysmon/Operational",
-          "event_data": {
-            "SignatureStatus": "Valid",
-            "Company": "Microsoft Corporation",
-            "Description": "IOfficeAntiVirus Module",
-            "Signed": "true",
-            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
-            "Signature": "Microsoft Windows",
-            "FileVersion": "4.18.26100.4 (79b015c6fabb20b1ccd067f376e490f0bac19809)"
-          },
-          "provider_name": "Microsoft-Windows-Sysmon",
-          "opcode": "Info",
-          "version": 3,
-          "user": {
-            "identifier": "S-1-5-18",
-            "domain": "NT AUTHORITY",
-            "name": "SYSTEM",
-            "type": "User"
-          }
-        },
-        "log": {
-          "level": "information"
-        },
-        "dll": {
-          "path": "C:\\ProgramData\\Microsoft\\Windows Defender\\Platform\\4.18.26100.4-0\\MpOAV.dll",
-          "code_signature": {
-            "trusted": true,
-            "subject_name": "Microsoft Windows",
-            "status": "trusted"
-          },
-          "pe": {
-            "imphash": "51b68385f2a62c378c8719cb05178191",
-            "original_file_name": "MpOAV.dll"
-          },
-          "name": "MpOAV.dll",
-          "hash": {
-            "sha256": "f4bf2fbdfef5fd081dfcc92cac458832040888c0c1c0e1905f38e0e3ca864c9b"
-          }
-        },
-        "elastic_agent": {
-          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
-          "version": "9.5.3",
-          "snapshot": false
-        },
-        "rule": {
-          "name": "C0015-BALANCED"
-        },
-        "message": "Image loaded:\nRuleName: C0015-BALANCED\nUtcTime: 2026-10-27 12:20:54.406\nProcessGuid: {88E52A21-9726-6AE0-4402-000000001500}\nProcessId: 580\nImage: C:\\Windows\\System32\\wsmprovhost.exe\nImageLoaded: C:\\ProgramData\\Microsoft\\Windows Defender\\Platform\\4.18.26100.4-0\\MpOAV.dll\nFileVersion: 4.18.26100.4 (79b015c6fabb20b1ccd067f376e490f0bac19809)\nDescription: IOfficeAntiVirus Module\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: MpOAV.dll\nHashes: SHA256=F4BF2FBDFEF5FD081DFCC92CAC458832040888C0C1C0E1905F38E0E3CA864C9B,IMPHASH=51B68385F2A62C378C8719CB05178191\nSigned: true\nSignature: Microsoft Windows\nSignatureStatus: Valid\nUser: C0015\\Administrator",
-        "input": {
-          "type": "winlog"
-        },
-        "@timestamp": "2026-10-27T12:20:54.406Z",
-        "file": {
-          "path": "C:\\ProgramData\\Microsoft\\Windows Defender\\Platform\\4.18.26100.4-0\\MpOAV.dll",
-          "extension": "dll",
-          "code_signature": {
-            "valid": true,
-            "trusted": true,
-            "subject_name": "Microsoft Windows",
-            "status": "Valid"
-          },
-          "pe": {
-            "file_version": "4.18.26100.4 (79b015c6fabb20b1ccd067f376e490f0bac19809)",
-            "product": "Microsoft\u00ae Windows\u00ae Operating System",
-            "imphash": "51b68385f2a62c378c8719cb05178191",
-            "description": "IOfficeAntiVirus Module",
-            "original_file_name": "MpOAV.dll",
-            "company": "Microsoft Corporation"
-          },
-          "name": "MpOAV.dll",
-          "directory": "C:\\ProgramData\\Microsoft\\Windows Defender\\Platform\\4.18.26100.4-0",
-          "hash": {
-            "sha256": "f4bf2fbdfef5fd081dfcc92cac458832040888c0c1c0e1905f38e0e3ca864c9b"
-          }
-        },
-        "ecs": {
-          "version": "8.17.0"
-        },
-        "related": {
-          "user": [
-            "Administrator"
-          ],
-          "hash": [
-            "f4bf2fbdfef5fd081dfcc92cac458832040888c0c1c0e1905f38e0e3ca864c9b",
-            "51b68385f2a62c378c8719cb05178191"
-          ]
-        },
-        "data_stream": {
-          "namespace": "c0015",
-          "type": "logs",
-          "dataset": "windows.sysmon_operational"
-        },
-        "host": {
-          "hostname": "FS01",
-          "os": {
-            "build": "19045.3803",
-            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
-            "name": "Windows 10 Pro",
-            "type": "windows",
-            "family": "windows",
-            "version": "10.0",
-            "platform": "windows"
-          },
-          "ip": [
-            "192.168.106.155",
-            "192.168.50.30"
-          ],
-          "name": "fs01",
-          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
-          "mac": [
-            "00-0C-29-3B-C6-18",
-            "00-0C-29-3B-C6-22"
-          ],
-          "architecture": "x86_64"
-        },
-        "event": {
-          "agent_id_status": "verified",
-          "ingested": "2026-10-27T12:20:56Z",
-          "code": "7",
-          "provider": "Microsoft-Windows-Sysmon",
-          "created": "2026-10-27T12:20:55.772Z",
-          "kind": "event",
-          "action": [
-            "Image loaded",
-            "load"
-          ],
-          "category": [
-            "process",
-            "library"
-          ],
-          "type": [
-            "change",
-            "start"
-          ],
-          "dataset": "windows.sysmon_operational"
-        },
-        "user": {
-          "domain": "C0015",
-          "name": "Administrator",
-          "id": "S-1-5-18"
-        }
-      },
-      "sort": [
-        1793103654406
-      ]
-    },
-    {
-      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
-      "_id": "AaF9To505TXapMF3lebR",
-      "_score": null,
-      "_source": {
-        "agent": {
-          "name": "FS01",
-          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
-          "type": "filebeat",
-          "ephemeral_id": "e87233a5-a8dd-40cf-9618-89f6cdee708d",
-          "version": "9.5.3"
-        },
-        "process": {
-          "name": "wsmprovhost.exe",
-          "pid": 580,
-          "entity_id": "{88E52A21-9726-6AE0-4402-000000001500}",
-          "executable": "C:\\Windows\\System32\\wsmprovhost.exe"
-        },
-        "winlog": {
-          "computer_name": "FS01.c0015.lab",
-          "record_id": "615281",
-          "process": {
-            "pid": 2624,
-            "thread": {
-              "id": 4196
-            }
-          },
-          "event_id": "7",
-          "task": "Image loaded (rule: ImageLoad)",
-          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
-          "channel": "Microsoft-Windows-Sysmon/Operational",
-          "event_data": {
-            "SignatureStatus": "Valid",
-            "Company": "Microsoft Corporation",
-            "Description": "Client Interface",
-            "Signed": "true",
-            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
-            "FileVersion": "4.18.26100.4 (79b015c6fabb20b1ccd067f376e490f0bac19809)",
-            "Signature": "Microsoft Windows"
-          },
-          "provider_name": "Microsoft-Windows-Sysmon",
-          "opcode": "Info",
-          "user": {
-            "identifier": "S-1-5-18",
-            "domain": "NT AUTHORITY",
-            "name": "SYSTEM",
-            "type": "User"
-          },
-          "version": 3
-        },
-        "log": {
-          "level": "information"
-        },
-        "dll": {
-          "path": "C:\\ProgramData\\Microsoft\\Windows Defender\\Platform\\4.18.26100.4-0\\MpClient.dll",
-          "code_signature": {
-            "trusted": true,
-            "subject_name": "Microsoft Windows",
-            "status": "trusted"
-          },
-          "pe": {
-            "imphash": "163c8161342630d518e7af81892de0f4",
-            "original_file_name": "mpclient.dll"
-          },
-          "name": "MpClient.dll",
-          "hash": {
-            "sha256": "ab453f1054aa02d563bfb75f6404d7077ba4765885fe80ecec529913efdbc7a2"
-          }
-        },
-        "elastic_agent": {
-          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
-          "version": "9.5.3",
-          "snapshot": false
-        },
-        "rule": {
-          "name": "C0015-BALANCED"
-        },
-        "message": "Image loaded:\nRuleName: C0015-BALANCED\nUtcTime: 2026-10-27 12:20:54.406\nProcessGuid: {88E52A21-9726-6AE0-4402-000000001500}\nProcessId: 580\nImage: C:\\Windows\\System32\\wsmprovhost.exe\nImageLoaded: C:\\ProgramData\\Microsoft\\Windows Defender\\Platform\\4.18.26100.4-0\\MpClient.dll\nFileVersion: 4.18.26100.4 (79b015c6fabb20b1ccd067f376e490f0bac19809)\nDescription: Client Interface\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: mpclient.dll\nHashes: SHA256=AB453F1054AA02D563BFB75F6404D7077BA4765885FE80ECEC529913EFDBC7A2,IMPHASH=163C8161342630D518E7AF81892DE0F4\nSigned: true\nSignature: Microsoft Windows\nSignatureStatus: Valid\nUser: C0015\\Administrator",
-        "input": {
-          "type": "winlog"
-        },
-        "@timestamp": "2026-10-27T12:20:54.406Z",
-        "file": {
-          "path": "C:\\ProgramData\\Microsoft\\Windows Defender\\Platform\\4.18.26100.4-0\\MpClient.dll",
-          "extension": "dll",
-          "code_signature": {
-            "valid": true,
-            "trusted": true,
-            "subject_name": "Microsoft Windows",
-            "status": "Valid"
-          },
-          "pe": {
-            "file_version": "4.18.26100.4 (79b015c6fabb20b1ccd067f376e490f0bac19809)",
-            "product": "Microsoft\u00ae Windows\u00ae Operating System",
-            "imphash": "163c8161342630d518e7af81892de0f4",
-            "description": "Client Interface",
-            "original_file_name": "mpclient.dll",
-            "company": "Microsoft Corporation"
-          },
-          "name": "MpClient.dll",
-          "directory": "C:\\ProgramData\\Microsoft\\Windows Defender\\Platform\\4.18.26100.4-0",
-          "hash": {
-            "sha256": "ab453f1054aa02d563bfb75f6404d7077ba4765885fe80ecec529913efdbc7a2"
-          }
-        },
-        "ecs": {
-          "version": "8.17.0"
-        },
-        "related": {
-          "user": [
-            "Administrator"
-          ],
-          "hash": [
-            "ab453f1054aa02d563bfb75f6404d7077ba4765885fe80ecec529913efdbc7a2",
-            "163c8161342630d518e7af81892de0f4"
-          ]
-        },
-        "data_stream": {
-          "namespace": "c0015",
-          "type": "logs",
-          "dataset": "windows.sysmon_operational"
-        },
-        "host": {
-          "hostname": "FS01",
-          "os": {
-            "build": "19045.3803",
-            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
-            "name": "Windows 10 Pro",
-            "type": "windows",
-            "family": "windows",
-            "version": "10.0",
-            "platform": "windows"
-          },
-          "ip": [
-            "192.168.106.155",
-            "192.168.50.30"
-          ],
-          "name": "fs01",
-          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
-          "mac": [
-            "00-0C-29-3B-C6-18",
-            "00-0C-29-3B-C6-22"
-          ],
-          "architecture": "x86_64"
-        },
-        "event": {
-          "agent_id_status": "verified",
-          "ingested": "2026-10-27T12:20:56Z",
-          "code": "7",
-          "provider": "Microsoft-Windows-Sysmon",
-          "kind": "event",
-          "created": "2026-10-27T12:20:55.772Z",
-          "action": [
-            "Image loaded",
-            "load"
-          ],
-          "category": [
-            "process",
-            "library"
-          ],
-          "type": [
-            "change",
-            "start"
-          ],
-          "dataset": "windows.sysmon_operational"
-        },
-        "user": {
-          "domain": "C0015",
-          "name": "Administrator",
-          "id": "S-1-5-18"
-        }
-      },
-      "sort": [
-        1793103654406
-      ]
-    },
     {
       "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
       "_id": "AaF9To505TXapMGilkzK",
@@ -3718,168 +3381,6 @@
     },
     {
       "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
-      "_id": "AaF9VI505TXapMEVqvrl",
-      "_score": null,
-      "_source": {
-        "agent": {
-          "name": "FS01",
-          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
-          "type": "filebeat",
-          "ephemeral_id": "e87233a5-a8dd-40cf-9618-89f6cdee708d",
-          "version": "9.5.3"
-        },
-        "process": {
-          "name": "rundll32.exe",
-          "pid": 6704,
-          "entity_id": "{88E52A21-9897-6AE0-6502-000000001500}",
-          "executable": "C:\\Windows\\System32\\rundll32.exe"
-        },
-        "winlog": {
-          "record_id": "617184",
-          "computer_name": "FS01.c0015.lab",
-          "process": {
-            "pid": 2624,
-            "thread": {
-              "id": 4196
-            }
-          },
-          "event_id": "7",
-          "task": "Image loaded (rule: ImageLoad)",
-          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
-          "channel": "Microsoft-Windows-Sysmon/Operational",
-          "event_data": {
-            "SignatureStatus": "Unavailable",
-            "Signed": "false"
-          },
-          "provider_name": "Microsoft-Windows-Sysmon",
-          "opcode": "Info",
-          "version": 3,
-          "user": {
-            "identifier": "S-1-5-18",
-            "domain": "NT AUTHORITY",
-            "name": "SYSTEM",
-            "type": "User"
-          }
-        },
-        "log": {
-          "level": "information"
-        },
-        "dll": {
-          "path": "C:\\ProgramData\\143.dll",
-          "code_signature": {
-            "trusted": false,
-            "status": "Unavailable"
-          },
-          "pe": {
-            "imphash": "a932b2196fb8f937e20a13df0715af7f"
-          },
-          "name": "143.dll",
-          "hash": {
-            "sha256": "433b606f9c8870b3417e5857a9b6c9fde037c44db44281817cf0761e7c4d3098"
-          }
-        },
-        "elastic_agent": {
-          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
-          "version": "9.5.3",
-          "snapshot": false
-        },
-        "rule": {
-          "name": "C0015-BALANCED"
-        },
-        "message": "Image loaded:\nRuleName: C0015-BALANCED\nUtcTime: 2026-10-27 12:27:03.525\nProcessGuid: {88E52A21-9897-6AE0-6502-000000001500}\nProcessId: 6704\nImage: C:\\Windows\\System32\\rundll32.exe\nImageLoaded: C:\\ProgramData\\143.dll\nFileVersion: -\nDescription: -\nProduct: -\nCompany: -\nOriginalFileName: -\nHashes: SHA256=433B606F9C8870B3417E5857A9B6C9FDE037C44DB44281817CF0761E7C4D3098,IMPHASH=A932B2196FB8F937E20A13DF0715AF7F\nSigned: false\nSignature: -\nSignatureStatus: Unavailable\nUser: C0015\\helpdesk",
-        "input": {
-          "type": "winlog"
-        },
-        "@timestamp": "2026-10-27T12:27:03.525Z",
-        "file": {
-          "path": "C:\\ProgramData\\143.dll",
-          "extension": "dll",
-          "code_signature": {
-            "trusted": false,
-            "status": "Unavailable"
-          },
-          "pe": {
-            "imphash": "a932b2196fb8f937e20a13df0715af7f"
-          },
-          "name": "143.dll",
-          "directory": "C:\\ProgramData",
-          "hash": {
-            "sha256": "433b606f9c8870b3417e5857a9b6c9fde037c44db44281817cf0761e7c4d3098"
-          }
-        },
-        "ecs": {
-          "version": "8.17.0"
-        },
-        "related": {
-          "user": [
-            "helpdesk"
-          ],
-          "hash": [
-            "433b606f9c8870b3417e5857a9b6c9fde037c44db44281817cf0761e7c4d3098",
-            "a932b2196fb8f937e20a13df0715af7f"
-          ]
-        },
-        "data_stream": {
-          "namespace": "c0015",
-          "type": "logs",
-          "dataset": "windows.sysmon_operational"
-        },
-        "host": {
-          "hostname": "FS01",
-          "os": {
-            "build": "19045.3803",
-            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
-            "name": "Windows 10 Pro",
-            "type": "windows",
-            "family": "windows",
-            "version": "10.0",
-            "platform": "windows"
-          },
-          "ip": [
-            "192.168.106.155",
-            "192.168.50.30"
-          ],
-          "name": "fs01",
-          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
-          "mac": [
-            "00-0C-29-3B-C6-18",
-            "00-0C-29-3B-C6-22"
-          ],
-          "architecture": "x86_64"
-        },
-        "event": {
-          "agent_id_status": "verified",
-          "ingested": "2026-10-27T12:27:05Z",
-          "code": "7",
-          "provider": "Microsoft-Windows-Sysmon",
-          "created": "2026-10-27T12:27:03.777Z",
-          "kind": "event",
-          "action": [
-            "Image loaded",
-            "load"
-          ],
-          "category": [
-            "process",
-            "library"
-          ],
-          "type": [
-            "change",
-            "start"
-          ],
-          "dataset": "windows.sysmon_operational"
-        },
-        "user": {
-          "domain": "C0015",
-          "name": "helpdesk",
-          "id": "S-1-5-18"
-        }
-      },
-      "sort": [
-        1793104023525
-      ]
-    },
-    {
-      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
       "_id": "AaF9VI505TXapMElq27k",
       "_score": null,
       "_source": {
@@ -4236,29 +3737,207 @@
     },
     {
       "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
-      "_id": "AaF9VI505TXapMFBrF12",
+      "_id": "AaF9VI505TXapMFMrXYE",
       "_score": null,
       "_source": {
         "agent": {
-          "name": "FS01",
-          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
           "type": "filebeat",
-          "ephemeral_id": "e87233a5-a8dd-40cf-9618-89f6cdee708d",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
           "version": "9.5.3"
         },
         "process": {
-          "name": "powershell.exe",
-          "pid": 7664,
-          "entity_id": "{88E52A21-989A-6AE0-6602-000000001500}",
-          "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+          "name": "WMIC.exe",
+          "pid": 4372,
+          "entity_id": "{88E52A21-989D-6AE0-CE04-000000002600}",
+          "executable": "C:\\Windows\\System32\\wbem\\WMIC.exe"
         },
         "winlog": {
-          "record_id": "617238",
-          "computer_name": "FS01.c0015.lab",
+          "computer_name": "WS01.c0015.lab",
+          "record_id": "1228775",
           "process": {
-            "pid": 2624,
+            "pid": 2616,
             "thread": {
-              "id": 4196
+              "id": 3880
+            }
+          },
+          "event_id": "7",
+          "task": "Image loaded (rule: ImageLoad)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "SignatureStatus": "Valid",
+            "Company": "Microsoft Corporation",
+            "Description": "IOfficeAntiVirus Module",
+            "Signed": "true",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "FileVersion": "4.18.26100.4 (79b015c6fabb20b1ccd067f376e490f0bac19809)",
+            "Signature": "Microsoft Windows"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "version": 3,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "dll": {
+          "path": "C:\\ProgramData\\Microsoft\\Windows Defender\\Platform\\4.18.26100.4-0\\MpOAV.dll",
+          "code_signature": {
+            "trusted": true,
+            "subject_name": "Microsoft Windows",
+            "status": "trusted"
+          },
+          "pe": {
+            "imphash": "51b68385f2a62c378c8719cb05178191",
+            "original_file_name": "MpOAV.dll"
+          },
+          "name": "MpOAV.dll",
+          "hash": {
+            "sha256": "f4bf2fbdfef5fd081dfcc92cac458832040888c0c1c0e1905f38e0e3ca864c9b"
+          }
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "rule": {
+          "name": "C0015-BALANCED"
+        },
+        "message": "Image loaded:\nRuleName: C0015-BALANCED\nUtcTime: 2026-10-27 12:27:09.607\nProcessGuid: {88E52A21-989D-6AE0-CE04-000000002600}\nProcessId: 4372\nImage: C:\\Windows\\System32\\wbem\\WMIC.exe\nImageLoaded: C:\\ProgramData\\Microsoft\\Windows Defender\\Platform\\4.18.26100.4-0\\MpOAV.dll\nFileVersion: 4.18.26100.4 (79b015c6fabb20b1ccd067f376e490f0bac19809)\nDescription: IOfficeAntiVirus Module\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: MpOAV.dll\nHashes: SHA256=F4BF2FBDFEF5FD081DFCC92CAC458832040888C0C1C0E1905F38E0E3CA864C9B,IMPHASH=51B68385F2A62C378C8719CB05178191\nSigned: true\nSignature: Microsoft Windows\nSignatureStatus: Valid\nUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:27:09.607Z",
+        "file": {
+          "path": "C:\\ProgramData\\Microsoft\\Windows Defender\\Platform\\4.18.26100.4-0\\MpOAV.dll",
+          "extension": "dll",
+          "code_signature": {
+            "valid": true,
+            "trusted": true,
+            "subject_name": "Microsoft Windows",
+            "status": "Valid"
+          },
+          "pe": {
+            "file_version": "4.18.26100.4 (79b015c6fabb20b1ccd067f376e490f0bac19809)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "51b68385f2a62c378c8719cb05178191",
+            "description": "IOfficeAntiVirus Module",
+            "original_file_name": "MpOAV.dll",
+            "company": "Microsoft Corporation"
+          },
+          "name": "MpOAV.dll",
+          "directory": "C:\\ProgramData\\Microsoft\\Windows Defender\\Platform\\4.18.26100.4-0",
+          "hash": {
+            "sha256": "f4bf2fbdfef5fd081dfcc92cac458832040888c0c1c0e1905f38e0e3ca864c9b"
+          }
+        },
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ],
+          "hash": [
+            "f4bf2fbdfef5fd081dfcc92cac458832040888c0c1c0e1905f38e0e3ca864c9b",
+            "51b68385f2a62c378c8719cb05178191"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:27:19Z",
+          "code": "7",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:27:10.676Z",
+          "kind": "event",
+          "action": [
+            "Image loaded",
+            "load"
+          ],
+          "category": [
+            "process",
+            "library"
+          ],
+          "type": [
+            "change",
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "sort": [
+        1793104029607
+      ]
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9VI505TXapMFMrXYW",
+      "_score": null,
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "name": "WMIC.exe",
+          "pid": 2404,
+          "entity_id": "{88E52A21-989D-6AE0-D004-000000002600}",
+          "executable": "C:\\Windows\\System32\\wbem\\WMIC.exe"
+        },
+        "winlog": {
+          "record_id": "1228793",
+          "computer_name": "WS01.c0015.lab",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
             }
           },
           "event_id": "7",
@@ -4304,18 +3983,18 @@
           }
         },
         "elastic_agent": {
-          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
           "version": "9.5.3",
           "snapshot": false
         },
         "rule": {
           "name": "C0015-BALANCED"
         },
-        "message": "Image loaded:\nRuleName: C0015-BALANCED\nUtcTime: 2026-10-27 12:27:06.667\nProcessGuid: {88E52A21-989A-6AE0-6602-000000001500}\nProcessId: 7664\nImage: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\nImageLoaded: C:\\ProgramData\\Microsoft\\Windows Defender\\Platform\\4.18.26100.4-0\\MpOAV.dll\nFileVersion: 4.18.26100.4 (79b015c6fabb20b1ccd067f376e490f0bac19809)\nDescription: IOfficeAntiVirus Module\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: MpOAV.dll\nHashes: SHA256=F4BF2FBDFEF5FD081DFCC92CAC458832040888C0C1C0E1905F38E0E3CA864C9B,IMPHASH=51B68385F2A62C378C8719CB05178191\nSigned: true\nSignature: Microsoft Windows\nSignatureStatus: Valid\nUser: C0015\\helpdesk",
+        "message": "Image loaded:\nRuleName: C0015-BALANCED\nUtcTime: 2026-10-27 12:27:09.907\nProcessGuid: {88E52A21-989D-6AE0-D004-000000002600}\nProcessId: 2404\nImage: C:\\Windows\\System32\\wbem\\WMIC.exe\nImageLoaded: C:\\ProgramData\\Microsoft\\Windows Defender\\Platform\\4.18.26100.4-0\\MpOAV.dll\nFileVersion: 4.18.26100.4 (79b015c6fabb20b1ccd067f376e490f0bac19809)\nDescription: IOfficeAntiVirus Module\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: MpOAV.dll\nHashes: SHA256=F4BF2FBDFEF5FD081DFCC92CAC458832040888C0C1C0E1905F38E0E3CA864C9B,IMPHASH=51B68385F2A62C378C8719CB05178191\nSigned: true\nSignature: Microsoft Windows\nSignatureStatus: Valid\nUser: NT AUTHORITY\\SYSTEM",
         "input": {
           "type": "winlog"
         },
-        "@timestamp": "2026-10-27T12:27:06.667Z",
+        "@timestamp": "2026-10-27T12:27:09.907Z",
         "file": {
           "path": "C:\\ProgramData\\Microsoft\\Windows Defender\\Platform\\4.18.26100.4-0\\MpOAV.dll",
           "extension": "dll",
@@ -4344,7 +4023,7 @@
         },
         "related": {
           "user": [
-            "helpdesk"
+            "SYSTEM"
           ],
           "hash": [
             "f4bf2fbdfef5fd081dfcc92cac458832040888c0c1c0e1905f38e0e3ca864c9b",
@@ -4357,7 +4036,7 @@
           "dataset": "windows.sysmon_operational"
         },
         "host": {
-          "hostname": "FS01",
+          "hostname": "WS01",
           "os": {
             "build": "19045.3803",
             "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
@@ -4368,23 +4047,25 @@
             "platform": "windows"
           },
           "ip": [
-            "192.168.106.155",
-            "192.168.50.30"
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
           ],
-          "name": "fs01",
+          "name": "ws01",
           "id": "88e52a21-1605-4868-9e88-53ea14415caa",
           "mac": [
-            "00-0C-29-3B-C6-18",
-            "00-0C-29-3B-C6-22"
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
           ],
           "architecture": "x86_64"
         },
         "event": {
           "agent_id_status": "verified",
-          "ingested": "2026-10-27T12:27:16Z",
+          "ingested": "2026-10-27T12:27:19Z",
           "code": "7",
           "provider": "Microsoft-Windows-Sysmon",
-          "created": "2026-10-27T12:27:07.789Z",
+          "created": "2026-10-27T12:27:10.676Z",
           "kind": "event",
           "action": [
             "Image loaded",
@@ -4401,13 +4082,369 @@
           "dataset": "windows.sysmon_operational"
         },
         "user": {
-          "domain": "C0015",
-          "name": "helpdesk",
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
           "id": "S-1-5-18"
         }
       },
       "sort": [
-        1793104026667
+        1793104029907
+      ]
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9VI505TXapMFMrXYe",
+      "_score": null,
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "name": "WMIC.exe",
+          "pid": 2404,
+          "entity_id": "{88E52A21-989D-6AE0-D004-000000002600}",
+          "executable": "C:\\Windows\\System32\\wbem\\WMIC.exe"
+        },
+        "winlog": {
+          "record_id": "1228801",
+          "computer_name": "WS01.c0015.lab",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "task": "Image loaded (rule: ImageLoad)",
+          "event_id": "7",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "SignatureStatus": "Valid",
+            "Company": "Microsoft Corporation",
+            "Description": "Client Interface",
+            "Signed": "true",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "FileVersion": "4.18.26100.4 (79b015c6fabb20b1ccd067f376e490f0bac19809)",
+            "Signature": "Microsoft Windows"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "version": 3,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "dll": {
+          "path": "C:\\ProgramData\\Microsoft\\Windows Defender\\Platform\\4.18.26100.4-0\\MpClient.dll",
+          "code_signature": {
+            "trusted": true,
+            "subject_name": "Microsoft Windows",
+            "status": "trusted"
+          },
+          "pe": {
+            "imphash": "163c8161342630d518e7af81892de0f4",
+            "original_file_name": "mpclient.dll"
+          },
+          "name": "MpClient.dll",
+          "hash": {
+            "sha256": "ab453f1054aa02d563bfb75f6404d7077ba4765885fe80ecec529913efdbc7a2"
+          }
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "rule": {
+          "name": "C0015-BALANCED"
+        },
+        "message": "Image loaded:\nRuleName: C0015-BALANCED\nUtcTime: 2026-10-27 12:27:09.954\nProcessGuid: {88E52A21-989D-6AE0-D004-000000002600}\nProcessId: 2404\nImage: C:\\Windows\\System32\\wbem\\WMIC.exe\nImageLoaded: C:\\ProgramData\\Microsoft\\Windows Defender\\Platform\\4.18.26100.4-0\\MpClient.dll\nFileVersion: 4.18.26100.4 (79b015c6fabb20b1ccd067f376e490f0bac19809)\nDescription: Client Interface\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: mpclient.dll\nHashes: SHA256=AB453F1054AA02D563BFB75F6404D7077BA4765885FE80ECEC529913EFDBC7A2,IMPHASH=163C8161342630D518E7AF81892DE0F4\nSigned: true\nSignature: Microsoft Windows\nSignatureStatus: Valid\nUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:27:09.954Z",
+        "file": {
+          "path": "C:\\ProgramData\\Microsoft\\Windows Defender\\Platform\\4.18.26100.4-0\\MpClient.dll",
+          "extension": "dll",
+          "code_signature": {
+            "valid": true,
+            "trusted": true,
+            "subject_name": "Microsoft Windows",
+            "status": "Valid"
+          },
+          "pe": {
+            "file_version": "4.18.26100.4 (79b015c6fabb20b1ccd067f376e490f0bac19809)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "163c8161342630d518e7af81892de0f4",
+            "description": "Client Interface",
+            "original_file_name": "mpclient.dll",
+            "company": "Microsoft Corporation"
+          },
+          "name": "MpClient.dll",
+          "directory": "C:\\ProgramData\\Microsoft\\Windows Defender\\Platform\\4.18.26100.4-0",
+          "hash": {
+            "sha256": "ab453f1054aa02d563bfb75f6404d7077ba4765885fe80ecec529913efdbc7a2"
+          }
+        },
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ],
+          "hash": [
+            "ab453f1054aa02d563bfb75f6404d7077ba4765885fe80ecec529913efdbc7a2",
+            "163c8161342630d518e7af81892de0f4"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:27:19Z",
+          "code": "7",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:27:10.676Z",
+          "kind": "event",
+          "action": [
+            "Image loaded",
+            "load"
+          ],
+          "category": [
+            "process",
+            "library"
+          ],
+          "type": [
+            "change",
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "sort": [
+        1793104029954
+      ]
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9VI505TXapMFyrcL8",
+      "_score": null,
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "name": "WMIC.exe",
+          "pid": 8156,
+          "entity_id": "{88E52A21-98A7-6AE0-D204-000000002600}",
+          "executable": "C:\\Windows\\System32\\wbem\\WMIC.exe"
+        },
+        "winlog": {
+          "record_id": "1228869",
+          "computer_name": "WS01.c0015.lab",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "event_id": "7",
+          "task": "Image loaded (rule: ImageLoad)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "SignatureStatus": "Valid",
+            "Company": "Microsoft Corporation",
+            "Description": "IOfficeAntiVirus Module",
+            "Signed": "true",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "FileVersion": "4.18.26100.4 (79b015c6fabb20b1ccd067f376e490f0bac19809)",
+            "Signature": "Microsoft Windows"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 3
+        },
+        "log": {
+          "level": "information"
+        },
+        "dll": {
+          "path": "C:\\ProgramData\\Microsoft\\Windows Defender\\Platform\\4.18.26100.4-0\\MpOAV.dll",
+          "code_signature": {
+            "trusted": true,
+            "subject_name": "Microsoft Windows",
+            "status": "trusted"
+          },
+          "pe": {
+            "imphash": "51b68385f2a62c378c8719cb05178191",
+            "original_file_name": "MpOAV.dll"
+          },
+          "name": "MpOAV.dll",
+          "hash": {
+            "sha256": "f4bf2fbdfef5fd081dfcc92cac458832040888c0c1c0e1905f38e0e3ca864c9b"
+          }
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "rule": {
+          "name": "C0015-BALANCED"
+        },
+        "message": "Image loaded:\nRuleName: C0015-BALANCED\nUtcTime: 2026-10-27 12:27:19.023\nProcessGuid: {88E52A21-98A7-6AE0-D204-000000002600}\nProcessId: 8156\nImage: C:\\Windows\\System32\\wbem\\WMIC.exe\nImageLoaded: C:\\ProgramData\\Microsoft\\Windows Defender\\Platform\\4.18.26100.4-0\\MpOAV.dll\nFileVersion: 4.18.26100.4 (79b015c6fabb20b1ccd067f376e490f0bac19809)\nDescription: IOfficeAntiVirus Module\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: MpOAV.dll\nHashes: SHA256=F4BF2FBDFEF5FD081DFCC92CAC458832040888C0C1C0E1905F38E0E3CA864C9B,IMPHASH=51B68385F2A62C378C8719CB05178191\nSigned: true\nSignature: Microsoft Windows\nSignatureStatus: Valid\nUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:27:19.023Z",
+        "file": {
+          "path": "C:\\ProgramData\\Microsoft\\Windows Defender\\Platform\\4.18.26100.4-0\\MpOAV.dll",
+          "extension": "dll",
+          "code_signature": {
+            "valid": true,
+            "trusted": true,
+            "subject_name": "Microsoft Windows",
+            "status": "Valid"
+          },
+          "pe": {
+            "file_version": "4.18.26100.4 (79b015c6fabb20b1ccd067f376e490f0bac19809)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "51b68385f2a62c378c8719cb05178191",
+            "description": "IOfficeAntiVirus Module",
+            "original_file_name": "MpOAV.dll",
+            "company": "Microsoft Corporation"
+          },
+          "name": "MpOAV.dll",
+          "directory": "C:\\ProgramData\\Microsoft\\Windows Defender\\Platform\\4.18.26100.4-0",
+          "hash": {
+            "sha256": "f4bf2fbdfef5fd081dfcc92cac458832040888c0c1c0e1905f38e0e3ca864c9b"
+          }
+        },
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ],
+          "hash": [
+            "f4bf2fbdfef5fd081dfcc92cac458832040888c0c1c0e1905f38e0e3ca864c9b",
+            "51b68385f2a62c378c8719cb05178191"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:27:28Z",
+          "code": "7",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:27:20.697Z",
+          "kind": "event",
+          "action": [
+            "Image loaded",
+            "load"
+          ],
+          "category": [
+            "process",
+            "library"
+          ],
+          "type": [
+            "change",
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "sort": [
+        1793104039023
       ]
     }
   ]

@@ -137,10 +137,14 @@ def validate(bundle: Path) -> list[str]:
             errors.append(f"{alert_id}: state resolved but listed as unresolved")
         if state == "no_ancestors" and linked:
             errors.append(f"{alert_id}: no_ancestors but documents linked")
-        direct = {(item.get("index"), item.get("id")) for item in ancestors_of(alert)}
+        allowed = {(item.get("index"), item.get("id")) for item in ancestors_of(alert)}
+        for doc in linked:
+            if doc.get("kind") == "alert":
+                for item in ancestors_of(doc):
+                    allowed.add((item.get("index"), item.get("id")))
         if state == "resolved" and events:
-            if not any((doc["_index"], doc["_id"]) in direct for doc in events):
-                errors.append(f"{alert_id}: resolved event is not one of the alert's ancestors")
+            if not any((doc["_index"], doc["_id"]) in allowed for doc in events):
+                errors.append(f"{alert_id}: resolved event is not on the alert's ancestor path")
 
     for name, info in (field(run, "context") or {}).items():
         payload = load(f"context/{name}.json", None)

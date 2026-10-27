@@ -4,7 +4,7 @@
 |---|---|
 | Ticket | T-003 |
 | Case | [WMI lateral execution](../cases/wmi-execution.md) |
-| Run | `run-1`, capture `cap-run1-1` |
+| Run | `run-1`, capture `cap-run1-2` |
 | Opened (UTC) | 2026-10-27T12:27:03Z |
 | Status | Open - escalated to Tier 2 |
 

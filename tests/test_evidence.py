@@ -129,7 +129,7 @@ with tempfile.TemporaryDirectory() as tmp:
 with tempfile.TemporaryDirectory() as tmp:
     bundle = write_bundle(Path(tmp) / "tamper-locator", source_id="not-an-ancestor")
     errors = validate_run.validate(bundle)
-    check("source not in ancestors fails", any("not one of the alert's ancestors" in e for e in errors), str(errors))
+    check("source not in ancestors fails", any("ancestor path" in e for e in errors), str(errors))
 
 with tempfile.TemporaryDirectory() as tmp:
     bundle = write_bundle(Path(tmp) / "tamper-hits", hits_count=0, returned=2)
@@ -159,6 +159,25 @@ with tempfile.TemporaryDirectory() as tmp:
     (bundle / "context" / "extra.json").write_text("{}", encoding="utf-8")
     errors = validate_run.validate(bundle)
     check("unlisted file fails", any("not covered by the manifest" in e for e in errors), str(errors))
+
+
+with tempfile.TemporaryDirectory() as tmp:
+    bundle = write_bundle(Path(tmp) / "nested")
+    alert = {"_id": "a1", "_source": {"kibana.alert.rule.name": "C0015 | x",
+                                      "kibana.alert.ancestors": [{"index": "i", "id": "inner-alert"}]}}
+    (bundle / "alerts" / "c0015.json").write_text(json.dumps([alert]), encoding="utf-8")
+    (bundle / "sources" / "by_alert.json").write_text(json.dumps({"a1": [
+        {"_index": "i", "_id": "inner-alert", "kind": "alert",
+         "_source": {"kibana.alert.uuid": "u", "kibana.alert.ancestors": [{"index": "i", "id": "e1"}]}},
+        {"_index": "i", "_id": "e1", "kind": "event", "_source": {}}]}), encoding="utf-8")
+    manifest = json.loads((bundle / "manifest.json").read_text(encoding="utf-8"))
+    for entry in manifest["files"]:
+        target = bundle / entry["path"]
+        entry["sha256"] = validate_run.sha256_file(target)
+    (bundle / "manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
+    errors = validate_run.validate(bundle)
+    check("event behind an alert ancestor is accepted",
+          not any("ancestor path" in e for e in errors), str(errors))
 
 print()
 if failures:

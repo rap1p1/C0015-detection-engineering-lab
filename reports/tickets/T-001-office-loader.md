@@ -4,7 +4,7 @@
 |---|---|
 | Ticket | T-001 |
 | Case | [Office to loader](../cases/office-loader.md) |
-| Run | `run-1`, capture `cap-run1-1` |
+| Run | `run-1`, capture `cap-run1-2` |
 | Opened (UTC) | 2026-10-27T12:22:19Z |
 | Status | Open - escalated to Tier 2 |
 

@@ -1,6 +1,6 @@
 # Case: LSASS access
 
-**Bundle** [`evidence/runs/run-1/`](../../evidence/runs/run-1/run.json), capture `cap-run1-1`.
+**Bundle** [`evidence/runs/run-1/`](../../evidence/runs/run-1/run.json), capture `cap-run1-2`.
 **Alert** `C0015 | lsass credential access`, document created 2026-10-27T12:27:19.358Z.
 
 ## 1. Source event
@@ -16,8 +16,10 @@
 | Target user (`TargetUser`) | `NT AUTHORITY\SYSTEM` |
 | Granted access | `0x1010` |
 
-`SourceUser` is the identity the opening process runs as; `TargetUser` is the account LSASS runs as. They
-are different fields, and neither is a substitute for `user.id`, which this event leaves empty.
+`SourceUser` is the identity the opening process runs as; `TargetUser` is the account LSASS runs as. The
+ECS `user.id` on this document is `S-1-5-18` (SYSTEM), so it describes the target side, not the opening
+process. The mapping between these three fields must be confirmed against the pipeline rather than
+assumed, and the raw document is not altered to make them agree.
 
 ## 2. What the event shows
 
@@ -31,7 +33,7 @@ pattern a credential dumper uses.
 |---|---|
 | Credentials were read | Not shown. The event records a handle, not reads. |
 | A dump file was written | Not shown in this bundle; needs a file-creation event in the same window. |
-| The process was started by the intrusion | Not shown. The E10 record carries no parent and no creation event for `mk.exe` is in the bundle. |
+| The process was started by the intrusion | Partly shown. The entity context holds the creation of `mk.exe` at 12:27:19.170 (`AaF9VI505TXapMFlrcSm`) with parent `cmd.exe` `…-6E02`; the parent of that `cmd.exe` is not in the bundle. |
 | The account has rights beyond its group membership | Not shown. `SourceUser` records the token owner, not the privileges used. |
 
 ## 4. Context worth collecting next

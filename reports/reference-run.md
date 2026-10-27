@@ -7,7 +7,7 @@
 | Capture window (UTC) | 2026-10-27T12:20:00Z - 2026-10-27T12:40:00Z |
 | Stack | Elasticsearch 9.5.3, Kibana 9.5.3 |
 | Rule set | catalog revision 3, 15 shipped rules, 7 with the building-block role |
-| Evidence | [`evidence/runs/run-1/`](../evidence/runs/run-1/run.json) (capture `cap-run1-1`) |
+| Evidence | [`evidence/runs/run-1/`](../evidence/runs/run-1/run.json) (capture `cap-run1-2`) |
 
 The scenario is executed by opening the macro document in the victim session. The operator actions are
 the reset before the run and the two sessions the chain needs, both opened after the window starts.

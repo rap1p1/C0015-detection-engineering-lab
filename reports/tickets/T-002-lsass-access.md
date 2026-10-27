@@ -4,7 +4,7 @@
 |---|---|
 | Ticket | T-002 |
 | Case | [LSASS access](../cases/lsass-access.md) |
-| Run | `run-1`, capture `cap-run1-1` |
+| Run | `run-1`, capture `cap-run1-2` |
 | Opened (UTC) | 2026-10-27T12:27:19Z |
 | Status | Open - Tier 1 investigation, escalation required |
 

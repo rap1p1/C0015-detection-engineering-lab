@@ -239,7 +239,9 @@ def capture_context(es: Elastic, anchors: list[dict], window: int, size: int) ->
                 "anchor": {"host": host, "alerts": len(items),
                            "first_alert": items[0]["alert"], "last_alert": items[-1]["alert"]},
                 "window": {"start": start, "end": end},
-                "returned": len(hits), "total": total, "truncated": len(hits) < total, "hits": hits,
+                "returned": len(hits), "total": total, "truncated": len(hits) < total,
+                "sample": len(hits) < total, "order": "ascending, first page of the window",
+                "hits": hits,
             }
     return out
 

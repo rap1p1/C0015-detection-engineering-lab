@@ -41,6 +41,8 @@
   "returned": 25,
   "total": 25,
   "truncated": false,
+  "sample": false,
+  "order": "ascending, first page of the window",
   "hits": [
     {
       "_index": ".ds-logs-system.security-c0015-2026.10.24-000002",

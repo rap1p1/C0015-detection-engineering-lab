@@ -38,6 +38,8 @@
   "returned": 25,
   "total": 121,
   "truncated": true,
+  "sample": true,
+  "order": "ascending, first page of the window",
   "hits": [
     {
       "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",

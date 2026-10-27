@@ -5,7 +5,7 @@ Elastic, and the rule that covers it. The run was performed on 24 October 2026 a
 described in `docs/topology.md`: WS01 (192.168.50.20), FS01 (192.168.50.30), DC01 (192.168.50.10),
 C2 on 192.168.50.100.
 
-Data captured from Elasticsearch is in [`telemetry/es-evidence.json`](telemetry/es-evidence.json).
+Data captured from Elasticsearch is in [`../../evidence/legacy/es-evidence.json`](../../evidence/legacy/es-evidence.json).
 Timestamps in that file are UTC.
 
 ## Chain at a glance
@@ -217,7 +217,7 @@ process or to have an injected module would remove the noise.
 ## Full run from the delivery document (2026-10-25)
 
 This run starts at the delivery document and ends at the impact stage. Evidence for it is in
-[`telemetry/run-2026-10-25.json`](telemetry/run-2026-10-25.json).
+[`../../evidence/legacy/run-2026-10-25.json`](../../evidence/legacy/run-2026-10-25.json).
 
 ### Execution
 
@@ -590,3 +590,29 @@ Two changes came out of the pass:
 - rule 09 was retired. `4624` carries `TargetUserName` and `4672` carries `SubjectUserName`, so a
   sequence on the account cannot join, and a single-event version matched every NTLM network logon in
   the domain. Credential use stays covered by 05, 13 and 15.
+
+
+## Corrected run: session first, injection automatic
+
+The previous run missed the service-host injection because the payload waited three minutes for a user
+session that was opened later. Two changes fixed the sequence:
+
+- the wait window is ten minutes and logs every minute while it waits;
+- the lab opens the target session **before** the document, so the per-user service host exists when the
+  payload reaches that step.
+
+| Step | Observation |
+|---|---|
+| target session | `helpdesk` on `rdp-tcp#1`, `svchost -k UnistackSvcGroup` 3780 created |
+| delivery | document, loader, SYSTEM stager |
+| spray | `spray hit: Summer2026!` |
+| discovery and share enumeration | written |
+| staging, loader, persistence, defence | all `ReturnValue 0`, task `Running` |
+| injection | `injection into 3780 -> ReturnValue 0`, logged as `injected into UnistackSvcGroup 3780` |
+| dump | `dump.txt` 14.8 KB |
+| exfiltration | rclone finished |
+| impact | five notes, forty renamed files |
+
+Alerts in the window: 89, and the injection rule fired this time, which it did not in the run where the
+step was completed by hand.
+

@@ -1,3 +1,7 @@
+> **Status of this route.** The shipped `payload/c0015_stager.c` spawns `rundll32` directly and does
+> not install a service. The service DLL and `tools/install_stage_service.ps1` are kept as a historical
+> route for reference and are not part of the current chain. The process tree currently produced is
+> `svchost.exe` (task scheduler host) -> `rundll32.exe`, not a dedicated service group.
 # svchost stage hosting
 
 The loader hands off to a `svchost.exe` that hosts the stage. Two DLLs are then loaded through
@@ -63,4 +67,5 @@ without rebuilding the DLL.
 
 The loader module is 46 MB. That is the size of a Go build and it is not a defect to be tuned away:
 rules for this stage key on the load path, the signature state, and the parent image.
+
 

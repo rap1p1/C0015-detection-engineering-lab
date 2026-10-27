@@ -4,7 +4,7 @@ A service DLL makes svchost.exe host the stage and spawn rundll32.exe, producing
 
 | Source | Event | Fields |
 |---|---|---|
-| Security 7045 | service installed | `ServiceName`, `ImagePath` |
+| System, provider Service Control Manager, 7045 | service installed (Security 4697 only when the audit prerequisite is enabled) | `ServiceName`, `ImagePath` |
 | Sysmon E13 | `ServiceDll` and `Svchost` group registry writes | `registry.path`, `registry.data.strings` |
 | Sysmon E1 | `svchost.exe -k <group>` -> `rundll32.exe` | `process.parent.name`, `process.parent.command_line` |
 
@@ -12,3 +12,4 @@ Collection notes: Sysmon 15.x with the profile in `infra/sysmon/`; Security chan
 creation auditing and command-line inclusion; PowerShell script block logging for the enumeration
 step. Field names in the rules assume the Elastic Common Schema mapping produced by the Elastic
 Agent Windows integration.
+

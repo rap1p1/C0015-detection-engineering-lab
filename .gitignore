@@ -1,39 +1,44 @@
-# Secrets / credentials
+# Runtime and secret material lives only in these paths. Everything else is source and is tracked.
+# File-name globs such as *password* or *credential* are deliberately NOT used: they match detection
+# rules whose subject is credential access and silently drop them from the package.
+
+# local operator state (credentials, plans, scratch builds)
+/stage/
+/_local/
+/build/
+/out/
+*.pid
+
+# C2 material that must never be published
+/infra/c2/private/
+/infra/c2/certs/
+
+# key material anywhere
 *.pem
 *.key
 *.p12
 *.pfx
-*.crt
-*.cer
 *.jks
 
-# Environment / secret files
+# environment files that carry secrets
 .env
 .env.*
-*secret*
-*token*
-*password*
-*credential*
+!.env.example
 
-# Elastic / Fleet sensitive artifacts
+# Elastic tokens and enrollment material
 enrollment*
 service-token*
 fleet-token*
 
-# Logs / temporary files
+# logs and scratch files
 *.log
 *.tmp
 *.bak
+c0015-comparefor.jpg
 
-# Python (offline lab components under scripts/)
+# python caches
 __pycache__/
 *.pyc
-
-# Generated / runtime artifacts (build output, staged deliveries, server pid)
-build/
-stage/
-*.pid
-c0015-comparefor.jpg
 
 # OS / editor files
 .DS_Store

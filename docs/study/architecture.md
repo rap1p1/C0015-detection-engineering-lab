@@ -17,7 +17,7 @@ single server, and the transfer command, the remote name, and the destination se
 ## Network
 
 VMnet2, `192.168.50.0/24`, DHCP disabled. WS01 and FS01 carry a second NAT adapter for updates. During
-a run there is no route from the lab segment to the internet, and DNS on DC01 has no forwarders.
+a run the lab segment has no designed route to the internet and DC01 has no forwarders; FS01 keeps a NAT adapter for software updates and for the MEGA transfer, so the segment is not airtight and the exception is listed in `infra/README.md`.
 
 ## Telemetry path
 
@@ -49,10 +49,12 @@ command line is truncated.
 | `C0015\svc_backup` | Service logon on FS01 | Backup agent identity |
 | `C0015\WS01$` | Local administrator on FS01 | Machine account path for the SYSTEM pivot |
 
-Rationale and provisioning: [`infra/accounts.md`](../infra/accounts.md).
+Rationale and provisioning: [`infra/accounts.md`](../../infra/accounts.md).
 
 ## Domain services
 
 DC01 publishes the zones that resolve the campaign hostnames to the C2 host, and deliberately does not
-publish the fallback name. Design and verification queries: [`infra/dns/zone-plan.md`](../infra/dns/zone-plan.md).
+publish the fallback name. Design and verification queries: [`infra/dns/zone-plan.md`](../../infra/dns/zone-plan.md).
+
+
 

@@ -1,72 +1,207 @@
 <#
 .SYNOPSIS
-    Render locker.bat for the target list, run it from the backup server, verify, restore.
+    Render the locker batch, mutate a disposable corpus, verify and restore it exactly.
+
 .DESCRIPTION
-    The batch file keeps the campaign argument set. The simulator renames files and writes the note;
-    restore removes the suffix and the note, then compares hashes against the pre-run manifest.
+    The simulator only renames files and writes a note; it never encrypts. Every mutation is decided in
+    a plan step, recorded in a journal, and reversed from that journal. Nothing is inferred from a file
+    name or suffix.
+
+    Safety contract:
+      * the corpus must contain the sentinel file `.c0015-sandbox`
+      * the baseline copy lives next to the corpus, never inside it
+      * `Plan` is the default and changes nothing; `Execute` is required to mutate
+      * quotas are checked before each operation, not only at the start
+      * `Rollback` restores exactly the journal and then compares the inventory against the baseline
+
 .EXAMPLE
-    .\run-impact.ps1 -Targets FS01,WS01 -Corpus C:\C0015\corpus -Action Run
+    .\run-impact.ps1 -Corpus .\sandbox -Action Prepare
+    .\run-impact.ps1 -Corpus .\sandbox -Action Plan
+    .\run-impact.ps1 -Corpus .\sandbox -Action Execute -Locker .\locker_sim.exe
+    .\run-impact.ps1 -Corpus .\sandbox -Action Verify
+    .\run-impact.ps1 -Corpus .\sandbox -Action Rollback
 #>
 param(
-    [string]$Targets = 'FS01,WS01',
-    [string]$Corpus  = 'C:\C0015\corpus',
-    [string]$Locker  = 'C:\o4IRWsH4N1a3hjO9Sy2rPP02oyUddH7zA5xGih0ESmlhiiXD9kpWVCPfOwUnayZp_locker.exe',
-    [ValidateSet('Prepare','Run','Verify','Rollback')][string]$Action = 'Prepare'
+    [Parameter(Mandatory)][string]$Corpus,
+    [ValidateSet('Prepare','Plan','Execute','Verify','Rollback')][string]$Action = 'Plan',
+    [string]$Locker = '',
+    [int]$MaxFiles = 500,
+    [long]$MaxBytes = 512MB,
+    [switch]$Force
 )
 
-$root   = Split-Path -Parent $PSScriptRoot
-$tpl    = Join-Path $root 'payload\locker.bat.tpl'
-$bat    = Join-Path $env:TEMP 'locker.bat'
-$backup = Join-Path $Corpus '_backup'
+$ErrorActionPreference = 'Stop'
+$sentinelName = '.c0015-sandbox'
+$noteName = 'readme.txt'
+$suffix = '.c0015'
 
-function Get-Manifest {
-    Get-ChildItem -LiteralPath $Corpus -Recurse -File -Force |
-        Where-Object { $_.FullName -notlike "$backup*" -and $_.Name -ne 'readme.txt' } |
+function Fail([string]$message) { Write-Host "[x] $message" -ForegroundColor Red; exit 2 }
+function Info([string]$message) { Write-Host "[+] $message" }
+
+if (-not (Test-Path -LiteralPath $Corpus -PathType Container)) { Fail "corpus not found: $Corpus" }
+$corpusPath = (Resolve-Path -LiteralPath $Corpus).Path.TrimEnd('\')
+$baseline = "$corpusPath.baseline"
+$journalPath = Join-Path $baseline 'journal.json'
+$inventoryPath = Join-Path $baseline 'inventory.json'
+$baselineContent = Join-Path $baseline 'content'
+
+if ($baseline.StartsWith($corpusPath + '\', [System.StringComparison]::OrdinalIgnoreCase) -or
+    $corpusPath.StartsWith($baseline + '\', [System.StringComparison]::OrdinalIgnoreCase)) {
+    Fail 'baseline and corpus overlap; put them side by side'
+}
+
+$sentinel = Join-Path $corpusPath $sentinelName
+if (-not (Test-Path -LiteralPath $sentinel)) {
+    Fail "corpus is not a disposable sandbox: missing $sentinelName"
+}
+
+$reparse = Get-ChildItem -LiteralPath $corpusPath -Recurse -Force -ErrorAction SilentlyContinue |
+    Where-Object { $_.Attributes -band [IO.FileAttributes]::ReparsePoint }
+if ($reparse) { Fail "corpus contains a reparse point: $($reparse[0].FullName)" }
+
+function Get-Inventory {
+    Get-ChildItem -LiteralPath $corpusPath -Recurse -File -Force |
+        Sort-Object FullName |
         ForEach-Object {
             [pscustomobject]@{
-                relative = $_.FullName.Substring($Corpus.Length).TrimStart('\')
+                relative = $_.FullName.Substring($corpusPath.Length).TrimStart('\')
                 sha256   = (Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash
                 size     = $_.Length
             }
         }
 }
 
+function Get-Plan {
+    $plan = New-Object System.Collections.Generic.List[object]
+    $files = Get-ChildItem -LiteralPath $corpusPath -Recurse -File -Force | Sort-Object FullName
+    if ($files.Count -gt $MaxFiles) { Fail "corpus has $($files.Count) files, quota is $MaxFiles" }
+    $bytes = ($files | Measure-Object Length -Sum).Sum
+    if ($bytes -gt $MaxBytes) { Fail "corpus is $bytes bytes, quota is $MaxBytes" }
+
+    $directories = $files | ForEach-Object { Split-Path -Parent $_.FullName } | Sort-Object -Unique
+    foreach ($dir in $directories) {
+        $notePath = Join-Path $dir $noteName
+        if (-not (Test-Path -LiteralPath $notePath)) {
+            $plan.Add([pscustomobject]@{ action = 'note'; path = $notePath.Substring($corpusPath.Length).TrimStart('\') })
+        }
+    }
+    foreach ($file in $files) {
+        if ($file.Name -eq $noteName -or $file.Name -eq $sentinelName) { continue }
+        if ($file.Name.EndsWith($suffix)) { continue }
+        $plan.Add([pscustomobject]@{ action = 'rename'; path = $file.FullName.Substring($corpusPath.Length).TrimStart('\') })
+    }
+    $plan
+}
+
 switch ($Action) {
     'Prepare' {
-        if (-not (Test-Path -LiteralPath $Corpus)) { throw "corpus missing: $Corpus" }
-        if (Test-Path -LiteralPath $backup) { Remove-Item -LiteralPath $backup -Recurse -Force }
-        New-Item -ItemType Directory -Path $backup | Out-Null
-        Copy-Item -LiteralPath $Corpus -Destination $backup -Recurse -Force
-        Get-Manifest | ConvertTo-Json -Depth 3 | Set-Content -LiteralPath (Join-Path $backup 'manifest.json')
-        Write-Host "[+] corpus backed up to $backup"
-    }
-    'Run' {
-        if (-not (Test-Path -LiteralPath $Locker)) { throw "locker missing: $Locker" }
-        $content = (Get-Content -LiteralPath $tpl -Raw).
-            Replace('@@LOCKER_NAME@@', (Split-Path -Leaf $Locker)).
-            Replace('@@TARGETS@@', $Targets)
-        Set-Content -LiteralPath $bat -Value $content -Encoding ASCII
-        Write-Host "[*] $bat"
-        Get-Content -LiteralPath $bat | ForEach-Object { Write-Host "    $_" }
-        & cmd.exe /c $bat
-        Write-Host "[+] batch exited $LASTEXITCODE"
-    }
-    'Verify' {
-        $notes = Get-ChildItem -LiteralPath $Corpus -Recurse -File -Filter 'readme.txt' -Force
-        $locks = Get-ChildItem -LiteralPath $Corpus -Recurse -File -Filter '*.c0015' -Force
-        Write-Host "[+] $($notes.Count) notes, $($locks.Count) renamed files"
-    }
-    'Rollback' {
-        Get-ChildItem -LiteralPath $Corpus -Recurse -File -Filter '*.c0015' -Force | ForEach-Object {
-            Rename-Item -LiteralPath $_.FullName -NewName ($_.Name -replace '\.c0015$','') -Force
+        if (Test-Path -LiteralPath $baseline) {
+            if (-not $Force) { Fail "baseline exists: $baseline (use -Force to rebuild)" }
+            Remove-Item -LiteralPath $baseline -Recurse -Force
         }
-        Get-ChildItem -LiteralPath $Corpus -Recurse -File -Filter 'readme.txt' -Force |
-            Remove-Item -Force
-        Copy-Item -Path (Join-Path $backup '*') -Destination $Corpus -Recurse -Force
-        $manifest = Get-Content -LiteralPath (Join-Path $backup 'manifest.json') -Raw | ConvertFrom-Json
-        $current  = Get-Manifest
-        $diff = Compare-Object ($manifest | ForEach-Object { "$($_.relative)|$($_.sha256)" }) `
-                               ($current  | ForEach-Object { "$($_.relative)|$($_.sha256)" })
-        if ($diff) { Write-Warning 'hash mismatch after rollback'; $diff | Format-Table } else { Write-Host '[+] rollback verified, hashes match' }
+        New-Item -ItemType Directory -Path $baseline | Out-Null
+        New-Item -ItemType Directory -Path $baselineContent | Out-Null
+        Copy-Item -Path (Join-Path $corpusPath '*') -Destination $baselineContent -Recurse -Force
+        $inventory = Get-Inventory
+        $inventory | ConvertTo-Json -Depth 3 | Set-Content -LiteralPath $inventoryPath -Encoding UTF8
+        '[]' | Set-Content -LiteralPath $journalPath -Encoding UTF8
+        Info "baseline written: $inventoryPath ($($inventory.Count) files)"
+    }
+
+    'Plan' {
+        $plan = Get-Plan
+        Info "plan: $($plan.Count) operations"
+        $plan | Group-Object action | ForEach-Object { Info "  $($_.Name): $($_.Count)" }
+        Info 'no files changed'
+    }
+
+    'Execute' {
+        if (-not (Test-Path -LiteralPath $inventoryPath)) { Fail 'run Prepare first' }
+        if (-not $Locker) { Fail '-Locker is required for Execute' }
+        if (-not (Test-Path -LiteralPath $Locker)) { Fail "locker not found: $Locker" }
+
+        $before = Get-Inventory
+        # the simulator reads its root from the environment; the wrapper binds it to this corpus
+        $env:C0015_CORPUS = $corpusPath
+        if ([IO.Path]::GetExtension($Locker) -eq '.ps1') {
+            & pwsh -NoProfile -File $Locker
+        } elseif ($IsWindows) {
+            & cmd.exe /c "`"$Locker`""
+        } else {
+            & pwsh -NoProfile -File $Locker
+        }
+        $exit = $LASTEXITCODE
+        Info "locker exited $exit"
+        $after = Get-Inventory
+
+        $beforeMap = @{}
+        foreach ($item in $before) { $beforeMap[$item.relative] = $item }
+        $afterMap = @{}
+        foreach ($item in $after) { $afterMap[$item.relative] = $item }
+
+        $journal = New-Object System.Collections.Generic.List[object]
+        foreach ($rel in $afterMap.Keys) {
+            if (-not $beforeMap.ContainsKey($rel)) { $journal.Add([pscustomobject]@{ action = 'added'; path = $rel }) }
+        }
+        foreach ($rel in $beforeMap.Keys) {
+            if (-not $afterMap.ContainsKey($rel)) {
+                $journal.Add([pscustomobject]@{ action = 'removed'; path = $rel; sha256_before = $beforeMap[$rel].sha256 })
+            }
+        }
+        if ($journal.Count -gt $MaxFiles) { Fail "run changed $($journal.Count) paths, quota is $MaxFiles" }
+        $journal | ConvertTo-Json -Depth 3 | Set-Content -LiteralPath $journalPath -Encoding UTF8
+        Info "journaled $($journal.Count) changes ($(@($journal | Where-Object action -eq 'added').Count) added, $(@($journal | Where-Object action -eq 'removed').Count) removed)"
+        if ($exit -ne 0) { Fail "locker failed with exit $exit; journal kept for rollback" }
+    }
+
+    'Verify' {
+        if (-not (Test-Path -LiteralPath $journalPath)) { Fail 'no journal; nothing was executed' }
+        $journal = Get-Content -LiteralPath $journalPath -Raw | ConvertFrom-Json
+        if (-not $journal) { Fail 'journal is empty' }
+        $failures = 0
+        foreach ($entry in $journal) {
+            $full = Join-Path $corpusPath $entry.path
+            switch ($entry.action) {
+                'rename' { if (-not (Test-Path -LiteralPath ($full + $suffix))) { Write-Host "[x] missing rename: $($entry.path)$suffix"; $failures++ } }
+                'note'   { if (-not (Test-Path -LiteralPath $full)) { Write-Host "[x] missing note: $($entry.path)"; $failures++ } }
+            }
+        }
+        if ($failures) { Fail "$failures journal entries not reflected on disk" }
+        Info "verified $($journal.Count) journal entries"
+    }
+
+    'Rollback' {
+        if (-not (Test-Path -LiteralPath $journalPath)) { Fail 'no journal; nothing to roll back' }
+        $journal = @(Get-Content -LiteralPath $journalPath -Raw | ConvertFrom-Json)
+        foreach ($entry in $journal) {
+            $full = Join-Path $corpusPath $entry.path
+            switch ($entry.action) {
+                'added' { if (Test-Path -LiteralPath $full) { Remove-Item -LiteralPath $full -Force } }
+                'removed' {
+                    $source = Join-Path $baselineContent $entry.path
+                    if (-not (Test-Path -LiteralPath $source)) { Fail "baseline lost $($entry.path)" }
+                    $parent = Split-Path -Parent $full
+                    if (-not (Test-Path -LiteralPath $parent)) { New-Item -ItemType Directory -Path $parent -Force | Out-Null }
+                    Copy-Item -LiteralPath $source -Destination $full -Force
+                }
+            }
+        }
+        '[]' | Set-Content -LiteralPath $journalPath -Encoding UTF8
+
+        $expected = Get-Content -LiteralPath $inventoryPath -Raw | ConvertFrom-Json
+        $actual = Get-Inventory
+        $expectedSet = $expected | ForEach-Object { "$($_.relative)|$($_.sha256)" }
+        $actualSet = $actual | ForEach-Object { "$($_.relative)|$($_.sha256)" }
+        $diff = Compare-Object -ReferenceObject $expectedSet -DifferenceObject $actualSet
+        if ($diff) {
+            Write-Host '[x] inventory does not match baseline' -ForegroundColor Red
+            $diff | Format-Table | Out-String | Write-Host
+            exit 1
+        }
+        Info "rollback verified: $($actual.Count) files match the baseline"
     }
 }
+
+
+
+

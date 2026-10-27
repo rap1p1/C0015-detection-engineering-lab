@@ -32,7 +32,7 @@ zone on DC01 remains authoritative for the campaign names, and no forwarder is a
 
 ## Forwarders
 
-Remove forwarders on DC01 for the duration of the run. With no forwarder, any name outside the lab
+Remove forwarders on DC01 for the duration of the run. With no forwarder, any name outside the lab zone has no configured resolver; this is a resolver configuration, not an egress firewall, and a server with recursion enabled can still fall back to root hints. The egress policy is stated separately in `infra/README.md`. Any name outside the lab
 zones fails immediately and the lab cannot reach the internet through DNS. The hosts keep their NAT
 adapter for updates when the run is not active.
 
@@ -64,4 +64,5 @@ Add-DnsServerResourceRecordA -ZoneName perdefue.fr -Name '@' -IPv4Address 192.16
 | `nslookup checkauj.com` from WS01 | 192.168.50.100 |
 | `nslookup volga.azureedge.net` from WS01 | non-existent domain |
 | Sysmon E22 for the failed lookup | `QueryStatus: 9003` |
+
 

@@ -20,6 +20,34 @@ module loader, a provider host spawning a loader through WMI, a cloud transfer w
 a locker binary invoked with a fixed argument set. The rules in this repository were written against
 those events and are stored beside the technique that produces them.
 
+
+## Start here
+
+Three ways in, depending on what you want to check.
+
+| Goal | Path |
+|---|---|
+| Read one investigation end to end | [Office to loader](reports/cases/office-loader.md) and its [ticket](reports/tickets/T-001-office-loader.md) |
+| Check the evidence behind it | [reference run](reports/reference-run.md) and the bundle at `evidence/runs/run-1/` |
+| Rebuild the lab | [scenario contract](docs/study/scenario-contract.md) and [architecture](docs/study/architecture.md) |
+
+The case starts from an alert, resolves the source events by index and id, and stops where the telemetry
+stops. The bundle it cites is validated by `tools/evidence/validate_run.py` in CI.
+
+## Status of this repository
+
+| Area | State |
+|---|---|
+| Package integrity | verified by `tools/detections/catalog.py --check` (hashes, tracked files, orphans, ignore rules) |
+| Markdown links | verified by `tools/ci/check_links.py` |
+| Impact simulator safety | verified by `tests/impact-sandbox.ps1` (baseline outside corpus, journal, exact rollback, idempotent) |
+| Evidence schema | defined in `evidence/schema/export-v1.schema.json`; legacy exports are labelled `legacy_projected` and are not replayable |
+| EQL engine validation | run on Elasticsearch 9.5.3 over `2026-09-12 -> now`; every shipped entry records `validation.kind = engine_run` with its match count (R17 truncated at the cap) |
+| Elastic detection integration | the rule set is imported and enabled in Kibana; the `deployment` block records the schedule and index patterns used |
+| Sensor contract | Sysmon profile in `infra/sysmon/`; the fields each rule depends on are listed per entry in the catalog |
+
+The narrative in `docs/history/` describes runs performed at earlier revisions. It is kept as history; it
+is not evidence for the current rule revision, and the catalog does not inherit its counts.
 ## Table of contents
 
 - [The original campaign](#the-original-campaign)
@@ -203,7 +231,7 @@ the environment already runs as SYSTEM starts that binary, so the chain continue
 without the user holding any administrative group membership.
 
 The task and its writable directory are the privilege the source report never explains; they are
-declared in [`gap/README.md`](gap/README.md).
+declared in [`docs/study/gaps.md`](docs/study/gaps.md).
 
 Telemetry: the `WINWORD.EXE -> cmd.exe -> mshta.exe -> regsvr32.exe` chain, a write into `ProgramData`
 by the user, a process created by the task scheduler from that path, and the
@@ -347,39 +375,35 @@ flowchart TD
 
 ```
 C0015-detection-engineering-lab/
-├── README.md
-├── CREDITS.md
-├── LICENSE
-├── detections/
-│   ├── eql/                     rule that spans two stages
-│   └── README.md                index, field assumptions, upstream references
-├── docs/                        topology, run order, ATT&CK coverage
-├── gap/                         what the campaign does that this lab substitutes or omits
-├── killchain/                   the executed chain end to end, with telemetry and rule results
-├── infra/                       hosts, accounts, DNS design, C2 layout, Sysmon profiles
-│   ├── c2/                      listeners, nginx front, implant generation
-│   ├── dns/                     zone design
-│   ├── scripts/                 account and share provisioning
-│   └── sysmon/                  balanced and capture profiles
-├── techniques/
-│   ├── macro-document-delivery/
-│   │   ├── README.md            what the technique is and how the lab reproduces it
-│   │   ├── payload/             benign payload or surrogate source
-│   │   ├── tools/               launchers, wrappers, verification scripts
-│   │   └── telemetry/           expected events and fields
-│   ├── hta-proxy-execution/
-│   ├── regsvr32-module-execution/
-│   ├── bazar-svchost-stage/
-│   ├── winlogon-injection/
-│   ├── svchost-injection/
-│   ├── wmi-remote-process-creation/
-│   ├── lolbin-discovery/
-│   ├── share-enumeration/
-│   ├── rdp-lateral-movement/
-│   ├── anydesk-deployment/
-│   ├── processhacker-lsass-access/
-│   ├── rclone-exfiltration/
-│   └── conti-style-impact/
+├── README.md                    what the study is, the run it reports, how to check it
+├── detections/                  the rule package
+│   ├── catalog.json             source of truth: ids, hashes, roles, claims, deployment
+│   ├── INDEX.md                 generated table of shipped and retired rules
+│   ├── README.md                how the package is built and what a role means
+│   └── eql/                     one query per behaviour
+├── docs/
+│   ├── study/                   what is being reproduced
+│   │   ├── architecture.md      hosts, network, accounts, telemetry path
+│   │   ├── scenario-contract.md ordered execution of the scenario
+│   │   └── gaps.md              what the lab substitutes for the campaign
+│   ├── detection/               how the detections are reasoned about
+│   │   ├── attack-coverage.md   generated from the catalog
+│   │   └── sigma-reference.md   upstream rules read as prior art
+│   └── history/                 older iterations, kept as history
+│       └── killchain.md
+├── evidence/                    what the run produced
+│   ├── runs/<run-id>/           events, alerts and run metadata per run
+│   ├── legacy/                  earlier exports, labelled as projected
+│   └── schema/                  evidence export schema
+├── reports/                     the reference run report
+├── infra/                       hosts, accounts, DNS, C2 layout, Sysmon profiles
+├── techniques/                  one folder per behaviour
+├── tests/                       self-tests that do not need the lab
+└── tools/
+    ├── detections/              catalog check, engine check, Kibana bundle
+    ├── evidence/                export validator, run capture
+    ├── run/                     the reference runner
+    └── ci/                      link check
 ```
 
 Each folder under `techniques/` covers one behaviour rather than one tool, so the folder name still
@@ -390,44 +414,9 @@ standalone artifact keeps a short note explaining why instead of omitting the di
 
 ## Detection opportunities
 
-| Rule | Stage | Telemetry |
-|---|---|---|
-| [`01-office-spawns-script-host`](detections/eql/01-office-spawns-script-host.eql) | document to script host | process creation, parent image |
-| [`02-script-host-starts-loader`](detections/eql/02-script-host-starts-loader.eql) | HTA to proxy loader | process creation, parent image |
-| [`03-loader-loads-unsigned-module`](detections/eql/03-loader-loads-unsigned-module.eql) | loader to unsigned module | image load, signature status, path |
-| [`04-injection-into-system-process`](detections/eql/04-injection-into-system-process.eql) | injection | remote thread creation |
-| [`05-lsass-credential-access`](detections/eql/05-lsass-credential-access.eql) | credential access | process access, granted access |
-| [`06-wmi-remote-creation`](detections/eql/06-wmi-remote-creation.eql) | lateral movement, source side | command line |
-| [`07-wmi-hosted-loader`](detections/eql/07-wmi-hosted-loader.eql) | lateral movement, target side | process creation, parent image |
-| [`08-service-host-starts-loader`](detections/eql/08-service-host-starts-loader.eql) | service host to loader | process creation, path |
-| [`09-ntlm-logon-with-privileges`](detections/eql/09-ntlm-logon-with-privileges.eql) | credential use | logon and privilege events |
-| [`11-cloud-transfer`](detections/eql/11-cloud-transfer.eql) | exfiltration | command line |
-| [`12-ransom-note`](detections/eql/12-ransom-note.eql) | impact | file creation |
-| [`13-rdp-interactive-logon`](detections/eql/13-rdp-interactive-logon.eql) | interactive access | logon type 10 |
-| [`14-task-manager-from-shell`](detections/eql/14-task-manager-from-shell.eql) | operator habit | process creation, parent image |
-| [`15-password-spray`](detections/eql/15-password-spray.eql) | credential access | failed logons then success |
-| [`16-lsass-protection-removed`](detections/eql/16-lsass-protection-removed.eql) | defence evasion | registry write |
-Every rule is an EQL query for Elastic Security. The index, the field assumptions, and the two
-configuration dependencies (Sysmon 8 and the ImageLoad scope) are in
-[`detections/README.md`](detections/README.md). The upstream SigmaHQ rules that were read while
-writing these queries, with links, are listed in
-[`docs/sigma-reference.md`](docs/sigma-reference.md).
-
-The cheapest reliable signal in the whole chain is the parent edge. A shell whose parent is
-`winlogon.exe` has no legitimate cause on a workstation, and the rule that matches it does not depend
-on a module hash, a directory, or a tool name:
-
-```eql
-process where event.code == "1"
-  and process.parent.name == "winlogon.exe"
-  and process.name : ("cmd.exe", "powershell.exe", "rundll32.exe",
-                      "net.exe", "net1.exe", "nltest.exe", "whoami.exe", "wmic.exe")
-```
-
-Network detection is not part of the rule set here. The addresses change between runs, so a rule keyed
-on an IP or a JA3 value ages out; the durable network facts are the URI pair, the certificate subject,
-and the unresolved fallback name, all of which are recorded in `infra/c2/` and in the technique
-folders for use in proxy and TLS telemetry.
+The rule set and its claims live in [`detections/catalog.json`](detections/catalog.json); the index at
+[`detections/INDEX.md`](detections/INDEX.md) is generated from it. Roles separate finished alerts from
+building blocks and enrichment, and each entry records what it does not prove.
 
 ## How to run the lab
 
@@ -453,7 +442,7 @@ folders for use in proxy and TLS telemetry.
 
 ### Run order
 
-`docs/run-order.md` holds the ordered sequence with the check that confirms each step. The short form:
+`docs/study/scenario-contract.md` holds the ordered sequence with the check that confirms each step. The short form:
 delivery and proxy execution, stage hosting, injection into `winlogon.exe`, discovery, share
 enumeration, WMI pivot to the backup server, injection into the service host, RDP, two transfer rounds,
 and impact followed by a verified restore.
@@ -496,6 +485,12 @@ campaign hostnames are resolved by a local zone and never reach the internet. No
 for use outside an isolated environment that the operator owns.
 
 Licensed under the MIT licence. See [LICENSE](LICENSE).
+
+
+
+
+
+
 
 
 

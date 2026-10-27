@@ -1,7 +1,7 @@
 # Run order
 
 The chain is driven by the document. The operator opens it and watches; every other step is performed
-by the payload or by the lab weakness described in [`gap/README.md`](../gap/README.md).
+by the payload or by the lab weakness described in [`docs/study/gaps.md`](gaps.md).
 
 ## 0. Preconditions
 
@@ -56,4 +56,5 @@ Observable: `4624` type 10 for `helpdesk`, a `rdp-tcp` session, `taskmgr.exe` wi
 ## 4. After the run
 
 Collect the alerts for the window, compare them with the table in
-[`killchain/README.md`](../killchain/README.md), then restore the corpus and remove the staged files.
+[`docs/history/killchain.md`](../history/killchain.md), then restore the corpus and remove the staged files.
+

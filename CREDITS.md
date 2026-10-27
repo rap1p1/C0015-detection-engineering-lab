@@ -5,7 +5,7 @@
 | Source | Used for |
 |---|---|
 | The DFIR Report, *CONTInuing the Bazar Ransomware Story*, 29 November 2021 - <https://thedfirreport.com/2021/11/29/continuing-the-bazar-ransomware-story/> | Campaign narrative, process ancestry, command lines, Cobalt Strike configuration, indicator set |
-| MITRE ATT&CK campaign C0015 - <https://attack.mitre.org/campaigns/C0015/> | Technique identifiers used in the rules and in `docs/attack-coverage.md` |
+| MITRE ATT&CK campaign C0015 - <https://attack.mitre.org/campaigns/C0015/> | Technique identifiers used in the rules and in `docs/detection/attack-coverage.md` |
 
 The campaign description in this repository is a paraphrase of the source report. No sentence is
 quoted verbatim.

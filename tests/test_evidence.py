@@ -88,7 +88,9 @@ check("depth limited alert is partial", res["status"]["a6"]["state"] == "partial
 
 # --- bundle fixture helpers ------------------------------------------------------------------
 def write_bundle(root: Path, *, source_id: str = "e1", hits_count: int = 2,
-                 returned: int | None = None, docs_stat: int | None = None) -> Path:
+                 returned: int | None = None, docs_stat: int | None = None,
+                 hit_host: str = "h", hit_time: str = "2026-10-27T00:30:00Z",
+                 states: dict | None = None) -> Path:
     (root / "alerts").mkdir(parents=True)
     (root / "sources").mkdir()
     (root / "context").mkdir()
@@ -98,19 +100,32 @@ def write_bundle(root: Path, *, source_id: str = "e1", hits_count: int = 2,
     (root / "alerts" / "other_rules.json").write_text("[]", encoding="utf-8")
     (root / "sources" / "by_alert.json").write_text(
         json.dumps({"a1": [{"_index": "i", "_id": source_id, "kind": "event"}]}), encoding="utf-8")
-    (root / "sources" / "status.json").write_text(json.dumps({"a1": {"state": "resolved", "events": 1}}), encoding="utf-8")
+    default_states = {"a1": {"state": "resolved", "events": 1}}
+    (root / "sources" / "status.json").write_text(json.dumps(states or default_states), encoding="utf-8")
     (root / "sources" / "unresolved.json").write_text("[]", encoding="utf-8")
-    hits = [{"_index": "i", "_id": f"c{n}"} for n in range(hits_count)]
-    (root / "context" / "process_creation__h__t.json").write_text(json.dumps(
-        {"returned": returned if returned is not None else hits_count, "total": 10,
-         "truncated": True, "hits": hits}), encoding="utf-8")
+    hits = [{"_index": "i", "_id": f"c{n}", "query_index": 0,
+             "_source": {"@timestamp": hit_time, "host": {"name": hit_host},
+                         "process": {"entity_id": "e1"}}} for n in range(hits_count)]
+    window = {"start": "2026-10-27T00:00:00Z", "end": "2026-10-27T01:00:00Z"}
+    record = {"behaviour": "process_creation", "index": "i",
+              "identifier": {"field": "process.entity_id", "value": "e1", "host": "h"},
+              "alerts": ["a1"],
+              "queries": [{"query": {}, "window": window,
+                           "returned": returned if returned is not None else hits_count,
+                           "total": 10, "relation": "gte"}],
+              "returned": returned if returned is not None else hits_count,
+              "truncated": True, "sample": True, "hits": hits}
+    (root / "context" / "process_creation__abc.json").write_text(json.dumps(record), encoding="utf-8")
     run = {"schema": "c0015.evidence.run/3", "capture_id": "cap-1",
-           "window": {"start": "2026-10-27T00:00:00Z", "end": "2026-10-27T01:00:00Z"},
+           "window": window,
            "alerts": {"c0015": 1, "other": 0, "by_rule": {"C0015 | x": 1}},
            "sources": {"resolved_documents": docs_stat if docs_stat is not None else 1,
                        "alerts_with_source": 1, "states": {"resolved": 1}, "unresolved": 0},
-           "context": {"process_creation__h__t": {"returned": returned if returned is not None else hits_count,
-                                                  "total": 10, "truncated": True}}}
+           "context": {"process_creation__abc": {"behaviour": "process_creation",
+                                                 "identifier": record["identifier"],
+                                                 "alerts": ["a1"], "queries": record["queries"],
+                                                 "returned": record["returned"],
+                                                 "truncated": True, "sample": True}}}
     (root / "run.json").write_text(json.dumps(run), encoding="utf-8")
     manifest = {"schema": "c0015.evidence.manifest/2", "capture_id": "cap-1", "files": []}
     for path in root.rglob("*.json"):
@@ -178,6 +193,57 @@ with tempfile.TemporaryDirectory() as tmp:
     errors = validate_run.validate(bundle)
     check("event behind an alert ancestor is accepted",
           not any("ancestor path" in e for e in errors), str(errors))
+
+# --- redaction and search failure ------------------------------------------------------------
+check("arbitrary /password: value is redacted", "***" in capture_run.redact("/password:Hunter2!") and "Hunter2!" not in capture_run.redact("/password:Hunter2!"))
+check("arbitrary -Password value is redacted", "***" in capture_run.redact("-Password 'S3cret!'") and "S3cret!" not in capture_run.redact("-Password 'S3cret!'"))
+check("detection fields survive redaction", capture_run.redact({"command_line": "/password:x whoami"})["command_line"].startswith("/password:***"))
+
+
+class TimeoutElastic(capture_run.Elastic):
+    def __init__(self):
+        self.url = "http://example"
+        self.auth = "x"
+        import ssl as _ssl
+        self.ctx = _ssl._create_unverified_context()
+
+    def call(self, path, body=None, method="GET"):
+        return {"timed_out": True, "_shards": {"failed": 0}, "hits": {"hits": []}}
+
+
+try:
+    TimeoutElastic().search("i", {})
+    check("timeout raises", False, "no exception")
+except RuntimeError as exc:
+    check("timeout raises", "timed out" in str(exc), str(exc))
+
+with tempfile.TemporaryDirectory() as tmp:
+    bundle = write_bundle(Path(tmp) / "ctx-host", hit_host="another-host")
+    errors = validate_run.validate(bundle)
+    check("context hit on the wrong host fails", any("does not match the identifier host" in e for e in errors), str(errors))
+
+with tempfile.TemporaryDirectory() as tmp:
+    bundle = write_bundle(Path(tmp) / "ctx-window", hit_time="2026-10-27T05:00:00Z")
+    errors = validate_run.validate(bundle)
+    check("context hit outside the window fails", any("outside its query window" in e for e in errors), str(errors))
+
+with tempfile.TemporaryDirectory() as tmp:
+    bundle = write_bundle(Path(tmp) / "states", states={"a1": {"state": "resolved", "events": 0}})
+    errors = validate_run.validate(bundle)
+    check("state event count mismatch fails", any("status.events" in e for e in errors), str(errors))
+
+with tempfile.TemporaryDirectory() as tmp:
+    bundle = write_bundle(Path(tmp) / "reach")
+    (bundle / "sources" / "by_alert.json").write_text(json.dumps({"a1": [
+        {"_index": "i", "_id": "e1", "kind": "event"},
+        {"_index": "i", "_id": "other", "kind": "event"}]}), encoding="utf-8")
+    manifest = json.loads((bundle / "manifest.json").read_text(encoding="utf-8"))
+    for entry in manifest["files"]:
+        entry["sha256"] = validate_run.sha256_file(bundle / entry["path"])
+    (bundle / "manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
+    errors = validate_run.validate(bundle)
+    check("unreachable linked document fails", any("not on the alert's ancestor path" in e for e in errors), str(errors))
+
 
 print()
 if failures:

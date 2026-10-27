@@ -92,6 +92,10 @@ def main() -> int:
             results[rid] = {"matches": None, "error": str(exc)}
             print(f"{rid:12} ERROR {exc}")
 
+    errors = [rid for rid, res in results.items() if res["error"]]
+    if errors:
+        print(f"engine errors: {', '.join(errors)}")
+
     if args.write_catalog:
         for rule in catalog["rules"]:
             if rule["id"] not in results:
@@ -108,7 +112,7 @@ def main() -> int:
             }
         CATALOG.write_text(json.dumps(catalog, indent=2) + "\n", encoding="utf-8")
         print("catalog validation updated")
-    return 0
+    return 1 if errors else 0
 
 
 if __name__ == "__main__":

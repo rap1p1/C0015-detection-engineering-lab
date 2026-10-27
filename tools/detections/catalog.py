@@ -110,12 +110,20 @@ def check(data: dict) -> list[str]:
             errors.append(f"{rid}: {file_rel} is ignored by .gitignore")
 
         recorded = rule.get("sha256")
+        if not recorded:
+            errors.append(f"{rid}: shipped rule has no sha256")
         actual = sha256(path)
         if recorded and recorded != actual:
             errors.append(f"{rid}: sha256 drift for {file_rel}")
 
         if not rule.get("attck", {}).get("technique_id"):
             errors.append(f"{rid}: missing ATT&CK technique")
+        if not rule.get("revision"):
+            errors.append(f"{rid}: missing revision")
+        deployment = rule.get("deployment") or {}
+        for key in ("index", "timestamp_field", "interval", "lookback", "max_signals", "enabled"):
+            if key not in deployment:
+                errors.append(f"{rid}: deployment.{key} missing")
 
     on_disk = {str(p.relative_to(ROOT)).replace("\\", "/") for p in RULE_DIR.glob("*.eql")}
     for path in sorted(on_disk - set(referenced)):

@@ -1,0 +1,216 @@
+{
+  "behaviour": "process_creation",
+  "index": "logs-windows.sysmon_operational-*",
+  "identifier": {
+    "field": "process.entity_id",
+    "value": "{88E52A21-976C-6AE0-9E04-000000002600}",
+    "host": "ws01"
+  },
+  "alerts": [
+    "022fa9b857d4bc552e3b08e3b1a1d990a7e199a8ecfff901ab929a7abcefaeb7"
+  ],
+  "queries": [
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-10-27T12:19:04.000Z",
+                  "lte": "2026-10-27T12:25:04.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "ws01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "1"
+              }
+            },
+            {
+              "term": {
+                "process.entity_id": "{88E52A21-976C-6AE0-9E04-000000002600}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-10-27T12:19:04.000Z",
+        "end": "2026-10-27T12:25:04.000Z"
+      },
+      "returned": 1,
+      "total": 1,
+      "relation": "eq"
+    }
+  ],
+  "returned": 1,
+  "truncated": false,
+  "sample": false,
+  "hits": [
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9T4505TXapMGSnkEc",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\Windows\\System32\\rundll32.exe",
+            "C:\\Windows\\Temp\\c0015_d8b3.dll,DllRegisterServer"
+          ],
+          "parent": {
+            "args": [
+              "C:\\ProgramData\\C0015\\updater.exe"
+            ],
+            "name": "updater.exe",
+            "pid": 4020,
+            "args_count": 1,
+            "entity_id": "{88E52A21-9769-6AE0-9C04-000000002600}",
+            "executable": "C:\\ProgramData\\C0015\\updater.exe",
+            "command_line": "\"C:\\ProgramData\\C0015\\updater.exe\""
+          },
+          "pe": {
+            "file_version": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "4db27267734d1576d75c991dc70f68ac",
+            "description": "Windows host process (Rundll32)",
+            "original_file_name": "RUNDLL32.EXE",
+            "company": "Microsoft Corporation"
+          },
+          "name": "rundll32.exe",
+          "pid": 724,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 2,
+          "entity_id": "{88E52A21-976C-6AE0-9E04-000000002600}",
+          "hash": {
+            "sha256": "00be065f405e93233cc2f0012defdcbb1d6817b58969d5ffd9fd72fc4783c6f4"
+          },
+          "executable": "C:\\Windows\\System32\\rundll32.exe",
+          "command_line": "C:\\Windows\\System32\\rundll32.exe C:\\Windows\\Temp\\c0015_d8b3.dll,DllRegisterServer"
+        },
+        "winlog": {
+          "computer_name": "WS01.c0015.lab",
+          "record_id": "1227163",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "task": "Process Create (rule: ProcessCreate)",
+          "event_id": "1",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "Description": "Windows host process (Rundll32)",
+            "LogonGuid": "{88E52A21-7C25-6AE0-E703-000000000000}",
+            "TerminalSessionId": "0",
+            "IntegrityLevel": "System",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "ParentUser": "NT AUTHORITY\\SYSTEM",
+            "FileVersion": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "LogonId": "0x3e7"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "version": 5,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:22:04.810\nProcessGuid: {88E52A21-976C-6AE0-9E04-000000002600}\nProcessId: 724\nImage: C:\\Windows\\System32\\rundll32.exe\nFileVersion: 10.0.19041.3636 (WinBuild.160101.0800)\nDescription: Windows host process (Rundll32)\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: RUNDLL32.EXE\nCommandLine: C:\\Windows\\System32\\rundll32.exe C:\\Windows\\Temp\\c0015_d8b3.dll,DllRegisterServer\nCurrentDirectory: C:\\Windows\\system32\\\nUser: NT AUTHORITY\\SYSTEM\nLogonGuid: {88E52A21-7C25-6AE0-E703-000000000000}\nLogonId: 0x3e7\nTerminalSessionId: 0\nIntegrityLevel: System\nHashes: SHA256=00BE065F405E93233CC2F0012DEFDCBB1D6817B58969D5FFD9FD72FC4783C6F4,IMPHASH=4DB27267734D1576D75C991DC70F68AC\nParentProcessGuid: {88E52A21-9769-6AE0-9C04-000000002600}\nParentProcessId: 4020\nParentImage: C:\\ProgramData\\C0015\\updater.exe\nParentCommandLine: \"C:\\ProgramData\\C0015\\updater.exe\"\nParentUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:22:04.810Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ],
+          "hash": [
+            "00be065f405e93233cc2f0012defdcbb1d6817b58969d5ffd9fd72fc4783c6f4",
+            "4db27267734d1576d75c991dc70f68ac"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:22:09Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:22:06.095Z",
+          "kind": "event",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    }
+  ]
+}

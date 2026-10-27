@@ -1,0 +1,251 @@
+{
+  "behaviour": "remote_thread",
+  "index": "logs-windows.sysmon_operational-*",
+  "identifier": {
+    "field": "process.parent.entity_id",
+    "value": "{88E52A21-986F-6AE0-B904-000000002600}",
+    "host": "ws01"
+  },
+  "alerts": [
+    "e92165dd75a1f117a78e42909c894ca3d6100ef13d25fc695f1cdbdf86547c94",
+    "e32ab006b4be8c0fd9bb7c4f1e084d893a37df21e09e9485f8b77c9141977709",
+    "8aa1cb6d3d23a2bdf1d42ac0b49897e31d8897c4b97a55777a4be1aca8c4c19e",
+    "c7f5554f3ee5545015f1e37c09a5868467bdd67af04be474dda08112532337fa",
+    "2fa435563d6c2ada250fb581566f9dc7cb3421189d291ffa6d21a210960f8611",
+    "d67b149b447a26a0b3f308e47658d5bd20808de49fb7d33515b56cefc3591141"
+  ],
+  "queries": [
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-10-27T12:23:23.000Z",
+                  "lte": "2026-10-27T12:29:23.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "ws01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "8"
+              }
+            },
+            {
+              "term": {
+                "process.parent.entity_id": "{88E52A21-986F-6AE0-B904-000000002600}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-10-27T12:23:23.000Z",
+        "end": "2026-10-27T12:29:23.000Z"
+      },
+      "returned": 0,
+      "total": 0,
+      "relation": "eq"
+    },
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-10-27T12:23:23.000Z",
+                  "lte": "2026-10-27T12:29:23.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "ws01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "8"
+              }
+            },
+            {
+              "term": {
+                "process.parent.entity_id": "{88E52A21-986F-6AE0-B904-000000002600}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-10-27T12:23:23.000Z",
+        "end": "2026-10-27T12:29:23.000Z"
+      },
+      "returned": 0,
+      "total": 0,
+      "relation": "eq"
+    },
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-10-27T12:23:23.000Z",
+                  "lte": "2026-10-27T12:29:23.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "ws01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "8"
+              }
+            },
+            {
+              "term": {
+                "process.parent.entity_id": "{88E52A21-986F-6AE0-B904-000000002600}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-10-27T12:23:23.000Z",
+        "end": "2026-10-27T12:29:23.000Z"
+      },
+      "returned": 0,
+      "total": 0,
+      "relation": "eq"
+    },
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-10-27T12:23:45.000Z",
+                  "lte": "2026-10-27T12:29:45.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "ws01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "8"
+              }
+            },
+            {
+              "term": {
+                "process.parent.entity_id": "{88E52A21-986F-6AE0-B904-000000002600}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-10-27T12:23:45.000Z",
+        "end": "2026-10-27T12:29:45.000Z"
+      },
+      "returned": 0,
+      "total": 0,
+      "relation": "eq"
+    },
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-10-27T12:24:00.000Z",
+                  "lte": "2026-10-27T12:30:00.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "ws01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "8"
+              }
+            },
+            {
+              "term": {
+                "process.parent.entity_id": "{88E52A21-986F-6AE0-B904-000000002600}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-10-27T12:24:00.000Z",
+        "end": "2026-10-27T12:30:00.000Z"
+      },
+      "returned": 0,
+      "total": 0,
+      "relation": "eq"
+    },
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-10-27T12:24:00.000Z",
+                  "lte": "2026-10-27T12:30:00.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "ws01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "8"
+              }
+            },
+            {
+              "term": {
+                "process.parent.entity_id": "{88E52A21-986F-6AE0-B904-000000002600}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-10-27T12:24:00.000Z",
+        "end": "2026-10-27T12:30:00.000Z"
+      },
+      "returned": 0,
+      "total": 0,
+      "relation": "eq"
+    }
+  ],
+  "returned": 0,
+  "truncated": false,
+  "sample": false,
+  "hits": []
+}

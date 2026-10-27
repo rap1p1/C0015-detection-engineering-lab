@@ -1,0 +1,212 @@
+{
+  "behaviour": "remote_thread",
+  "index": "logs-windows.sysmon_operational-*",
+  "identifier": {
+    "field": "process.entity_id",
+    "value": "{88E52A21-98AC-6AE0-7302-000000001500}",
+    "host": "fs01"
+  },
+  "alerts": [
+    "276a8fafeb2754585e2752a8234a0267b5730e999a9a5f9064ac787c0fa71cc2",
+    "327f60037578c2cc0282cd24d97023c5e70e490c1d17490f200da5aee9841da1",
+    "e4360f9e3a0a08b3d77260c58335639423a04872ad08b92b5aceab7fc21d206c",
+    "c3972a4ff8de66a929f62fe7ef29e9998daebc451d1a2c79a7b50b36c6aad8ab",
+    "e7bbed5e398922b02ba593a83c7a4fa23b1ac5a353c25842906c5b7d7fbc8994"
+  ],
+  "queries": [
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-10-27T12:24:24.000Z",
+                  "lte": "2026-10-27T12:30:24.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "fs01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "8"
+              }
+            },
+            {
+              "term": {
+                "process.entity_id": "{88E52A21-98AC-6AE0-7302-000000001500}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-10-27T12:24:24.000Z",
+        "end": "2026-10-27T12:30:24.000Z"
+      },
+      "returned": 0,
+      "total": 0,
+      "relation": "eq"
+    },
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-10-27T12:24:24.000Z",
+                  "lte": "2026-10-27T12:30:24.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "fs01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "8"
+              }
+            },
+            {
+              "term": {
+                "process.entity_id": "{88E52A21-98AC-6AE0-7302-000000001500}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-10-27T12:24:24.000Z",
+        "end": "2026-10-27T12:30:24.000Z"
+      },
+      "returned": 0,
+      "total": 0,
+      "relation": "eq"
+    },
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-10-27T12:24:24.000Z",
+                  "lte": "2026-10-27T12:30:24.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "fs01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "8"
+              }
+            },
+            {
+              "term": {
+                "process.entity_id": "{88E52A21-98AC-6AE0-7302-000000001500}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-10-27T12:24:24.000Z",
+        "end": "2026-10-27T12:30:24.000Z"
+      },
+      "returned": 0,
+      "total": 0,
+      "relation": "eq"
+    },
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-10-27T12:24:24.000Z",
+                  "lte": "2026-10-27T12:30:24.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "fs01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "8"
+              }
+            },
+            {
+              "term": {
+                "process.entity_id": "{88E52A21-98AC-6AE0-7302-000000001500}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-10-27T12:24:24.000Z",
+        "end": "2026-10-27T12:30:24.000Z"
+      },
+      "returned": 0,
+      "total": 0,
+      "relation": "eq"
+    },
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-10-27T12:24:24.000Z",
+                  "lte": "2026-10-27T12:30:24.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "fs01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "8"
+              }
+            },
+            {
+              "term": {
+                "process.entity_id": "{88E52A21-98AC-6AE0-7302-000000001500}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-10-27T12:24:24.000Z",
+        "end": "2026-10-27T12:30:24.000Z"
+      },
+      "returned": 0,
+      "total": 0,
+      "relation": "eq"
+    }
+  ],
+  "returned": 0,
+  "truncated": false,
+  "sample": false,
+  "hits": []
+}

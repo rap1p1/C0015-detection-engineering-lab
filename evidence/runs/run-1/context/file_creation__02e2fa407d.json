@@ -1,0 +1,592 @@
+{
+  "behaviour": "file_creation",
+  "index": "logs-windows.sysmon_operational-*",
+  "identifier": {
+    "field": "process.entity_id",
+    "value": "{88E52A21-975C-6AE0-9A04-000000002600}",
+    "host": "ws01"
+  },
+  "alerts": [
+    "037457061001b963af4872cc31da6eb2b05269cc21a81a901a86080cb5fdc036",
+    "6d0d0b427690430fd6eaf4c8925584968400baee64d469aa8f51c2a64ffee0bd"
+  ],
+  "queries": [
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-10-27T12:18:48.000Z",
+                  "lte": "2026-10-27T12:24:48.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "ws01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "11"
+              }
+            },
+            {
+              "term": {
+                "process.entity_id": "{88E52A21-975C-6AE0-9A04-000000002600}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-10-27T12:18:48.000Z",
+        "end": "2026-10-27T12:24:48.000Z"
+      },
+      "returned": 2,
+      "total": 2,
+      "relation": "eq"
+    },
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-10-27T12:18:48.000Z",
+                  "lte": "2026-10-27T12:24:48.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "ws01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "11"
+              }
+            },
+            {
+              "term": {
+                "process.entity_id": "{88E52A21-975C-6AE0-9A04-000000002600}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-10-27T12:18:48.000Z",
+        "end": "2026-10-27T12:24:48.000Z"
+      },
+      "returned": 2,
+      "total": 2,
+      "relation": "eq"
+    }
+  ],
+  "returned": 4,
+  "truncated": false,
+  "sample": false,
+  "hits": [
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9T4505TXapMFqnWWW",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "type": "filebeat",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "version": "9.5.3"
+        },
+        "process": {
+          "name": "regsvr32.exe",
+          "pid": 7872,
+          "entity_id": "{88E52A21-975C-6AE0-9A04-000000002600}",
+          "executable": "C:\\Windows\\System32\\regsvr32.exe"
+        },
+        "winlog": {
+          "record_id": "1227070",
+          "computer_name": "WS01.c0015.lab",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "event_id": "11",
+          "task": "File created (rule: FileCreate)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "CreationUtcTime": "2026-10-27 12:21:48.815"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 2
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "File created:\nRuleName: -\nUtcTime: 2026-10-27 12:21:48.815\nProcessGuid: {88E52A21-975C-6AE0-9A04-000000002600}\nProcessId: 7872\nImage: C:\\Windows\\System32\\regsvr32.exe\nTargetFilename: C:\\ProgramData\\C0015\\loader.log\nCreationUtcTime: 2026-10-27 12:21:48.815\nUser: C0015\\duc.user",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:21:48.815Z",
+        "file": {
+          "path": "C:\\ProgramData\\C0015\\loader.log",
+          "extension": "log",
+          "name": "loader.log",
+          "directory": "C:\\ProgramData\\C0015"
+        },
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "duc.user"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:21:59Z",
+          "code": "11",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:21:50.052Z",
+          "kind": "event",
+          "action": "FileCreate",
+          "category": [
+            "file"
+          ],
+          "type": [
+            "creation"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "duc.user",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9T4505TXapMFqnWWY",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "name": "regsvr32.exe",
+          "pid": 7872,
+          "entity_id": "{88E52A21-975C-6AE0-9A04-000000002600}",
+          "executable": "C:\\Windows\\System32\\regsvr32.exe"
+        },
+        "winlog": {
+          "computer_name": "WS01.c0015.lab",
+          "record_id": "1227072",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "task": "File created (rule: FileCreate)",
+          "event_id": "11",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "CreationUtcTime": "2026-10-27 12:21:00.833"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 2
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "File created:\nRuleName: -\nUtcTime: 2026-10-27 12:21:48.939\nProcessGuid: {88E52A21-975C-6AE0-9A04-000000002600}\nProcessId: 7872\nImage: C:\\Windows\\System32\\regsvr32.exe\nTargetFilename: C:\\ProgramData\\C0015\\updater.exe\nCreationUtcTime: 2026-10-27 12:21:00.833\nUser: C0015\\duc.user",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:21:48.939Z",
+        "file": {
+          "path": "C:\\ProgramData\\C0015\\updater.exe",
+          "extension": "exe",
+          "name": "updater.exe",
+          "directory": "C:\\ProgramData\\C0015"
+        },
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "duc.user"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:21:59Z",
+          "code": "11",
+          "provider": "Microsoft-Windows-Sysmon",
+          "kind": "event",
+          "created": "2026-10-27T12:21:50.052Z",
+          "action": "FileCreate",
+          "category": [
+            "file"
+          ],
+          "type": [
+            "creation"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "duc.user",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9T4505TXapMFqnWWW",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "type": "filebeat",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "version": "9.5.3"
+        },
+        "process": {
+          "name": "regsvr32.exe",
+          "pid": 7872,
+          "entity_id": "{88E52A21-975C-6AE0-9A04-000000002600}",
+          "executable": "C:\\Windows\\System32\\regsvr32.exe"
+        },
+        "winlog": {
+          "record_id": "1227070",
+          "computer_name": "WS01.c0015.lab",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "event_id": "11",
+          "task": "File created (rule: FileCreate)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "CreationUtcTime": "2026-10-27 12:21:48.815"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 2
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "File created:\nRuleName: -\nUtcTime: 2026-10-27 12:21:48.815\nProcessGuid: {88E52A21-975C-6AE0-9A04-000000002600}\nProcessId: 7872\nImage: C:\\Windows\\System32\\regsvr32.exe\nTargetFilename: C:\\ProgramData\\C0015\\loader.log\nCreationUtcTime: 2026-10-27 12:21:48.815\nUser: C0015\\duc.user",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:21:48.815Z",
+        "file": {
+          "path": "C:\\ProgramData\\C0015\\loader.log",
+          "extension": "log",
+          "name": "loader.log",
+          "directory": "C:\\ProgramData\\C0015"
+        },
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "duc.user"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:21:59Z",
+          "code": "11",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:21:50.052Z",
+          "kind": "event",
+          "action": "FileCreate",
+          "category": [
+            "file"
+          ],
+          "type": [
+            "creation"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "duc.user",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 1
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9T4505TXapMFqnWWY",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "name": "regsvr32.exe",
+          "pid": 7872,
+          "entity_id": "{88E52A21-975C-6AE0-9A04-000000002600}",
+          "executable": "C:\\Windows\\System32\\regsvr32.exe"
+        },
+        "winlog": {
+          "computer_name": "WS01.c0015.lab",
+          "record_id": "1227072",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "task": "File created (rule: FileCreate)",
+          "event_id": "11",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "CreationUtcTime": "2026-10-27 12:21:00.833"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 2
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "File created:\nRuleName: -\nUtcTime: 2026-10-27 12:21:48.939\nProcessGuid: {88E52A21-975C-6AE0-9A04-000000002600}\nProcessId: 7872\nImage: C:\\Windows\\System32\\regsvr32.exe\nTargetFilename: C:\\ProgramData\\C0015\\updater.exe\nCreationUtcTime: 2026-10-27 12:21:00.833\nUser: C0015\\duc.user",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:21:48.939Z",
+        "file": {
+          "path": "C:\\ProgramData\\C0015\\updater.exe",
+          "extension": "exe",
+          "name": "updater.exe",
+          "directory": "C:\\ProgramData\\C0015"
+        },
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "duc.user"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:21:59Z",
+          "code": "11",
+          "provider": "Microsoft-Windows-Sysmon",
+          "kind": "event",
+          "created": "2026-10-27T12:21:50.052Z",
+          "action": "FileCreate",
+          "category": [
+            "file"
+          ],
+          "type": [
+            "creation"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "duc.user",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 1
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "behaviour": "module_load",
+  "index": "logs-windows.sysmon_operational-*",
+  "identifier": {
+    "field": "winlog.event_data.TargetProcessGUID",
+    "value": "{88E52A21-7C26-6AE0-0C00-000000001500}",
+    "host": "fs01"
+  },
+  "alerts": [
+    "fed6d3026ff5f301ab9884af1f1fd557084ccf4e0ec4c6be608c399d357bd873"
+  ],
+  "queries": [
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-10-27T12:24:19.000Z",
+                  "lte": "2026-10-27T12:30:19.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "fs01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "7"
+              }
+            },
+            {
+              "term": {
+                "winlog.event_data.TargetProcessGUID": "{88E52A21-7C26-6AE0-0C00-000000001500}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-10-27T12:24:19.000Z",
+        "end": "2026-10-27T12:30:19.000Z"
+      },
+      "returned": 0,
+      "total": 0,
+      "relation": "eq"
+    }
+  ],
+  "returned": 0,
+  "truncated": false,
+  "sample": false,
+  "hits": []
+}

@@ -94,6 +94,10 @@ static void walk(const wchar_t *dir)
         if (wcscmp(fd.cFileName, NOTE_NAME) == 0) {
             continue;
         }
+        if (wcscmp(fd.cFileName, L".c0015-sandbox") == 0) {
+            g_skipped++;
+            continue;
+        }
         join(full, MAX_PATH, dir, fd.cFileName);
 
         if (fd.dwFileAttributes & FILE_ATTRIBUTE_REPARSE_POINT) {
@@ -108,6 +112,13 @@ static void walk(const wchar_t *dir)
             continue;
         }
 
+        if (g_files >= MAX_FILES) {
+            return;
+        }
+        if (wcslen(full) + wcslen(SUFFIX) + 1 >= MAX_PATH) {
+            g_skipped++;
+            continue;
+        }
         wcscpy(target, full);
         wcscat(target, SUFFIX);
         if (MoveFileW(full, target)) {

@@ -1,0 +1,179 @@
+{
+  "behaviour": "file_creation",
+  "index": "logs-windows.sysmon_operational-*",
+  "identifier": {
+    "field": "process.entity_id",
+    "value": "{88E52A21-98A7-6AE0-6E02-000000001500}",
+    "host": "fs01"
+  },
+  "alerts": [
+    "d4c00f2a67bfd91daa78423b2e27add508ca319bf96122d51d057cc113a86827"
+  ],
+  "queries": [
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-10-27T12:24:19.000Z",
+                  "lte": "2026-10-27T12:30:19.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "fs01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "11"
+              }
+            },
+            {
+              "term": {
+                "process.entity_id": "{88E52A21-98A7-6AE0-6E02-000000001500}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-10-27T12:24:19.000Z",
+        "end": "2026-10-27T12:30:19.000Z"
+      },
+      "returned": 1,
+      "total": 1,
+      "relation": "eq"
+    }
+  ],
+  "returned": 1,
+  "truncated": false,
+  "sample": false,
+  "hits": [
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9VI505TXapMFlrcSl",
+      "_source": {
+        "agent": {
+          "name": "FS01",
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "type": "filebeat",
+          "ephemeral_id": "e87233a5-a8dd-40cf-9618-89f6cdee708d",
+          "version": "9.5.3"
+        },
+        "process": {
+          "name": "cmd.exe",
+          "pid": 7676,
+          "entity_id": "{88E52A21-98A7-6AE0-6E02-000000001500}",
+          "executable": "C:\\Windows\\system32\\cmd.exe"
+        },
+        "winlog": {
+          "record_id": "617365",
+          "computer_name": "FS01.c0015.lab",
+          "process": {
+            "pid": 2624,
+            "thread": {
+              "id": 4196
+            }
+          },
+          "task": "File created (rule: FileCreate)",
+          "event_id": "11",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "CreationUtcTime": "2026-10-27 12:27:19.163"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 2
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "File created:\nRuleName: -\nUtcTime: 2026-10-27 12:27:19.163\nProcessGuid: {88E52A21-98A7-6AE0-6E02-000000001500}\nProcessId: 7676\nImage: C:\\Windows\\system32\\cmd.exe\nTargetFilename: C:\\ProgramData\\dump.txt\nCreationUtcTime: 2026-10-27 12:27:19.163\nUser: C0015\\helpdesk",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:27:19.163Z",
+        "file": {
+          "path": "C:\\ProgramData\\dump.txt",
+          "extension": "txt",
+          "name": "dump.txt",
+          "directory": "C:\\ProgramData"
+        },
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "helpdesk"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "FS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "192.168.106.155",
+            "192.168.50.30"
+          ],
+          "name": "fs01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-3B-C6-18",
+            "00-0C-29-3B-C6-22"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:27:25Z",
+          "code": "11",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:27:20.341Z",
+          "kind": "event",
+          "action": "FileCreate",
+          "category": [
+            "file"
+          ],
+          "type": [
+            "creation"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "helpdesk",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    }
+  ]
+}

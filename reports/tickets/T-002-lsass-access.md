@@ -42,7 +42,7 @@ on the host that holds the backup corpus, in the same minute as WMI execution fr
 ## Unknowns
 
 - Whether a dump file was written (no file-creation event in the bundle).
-- How `mk.exe` arrived on the host and which process created it (no E1 for it in the bundle).
+- The command line of the `cmd.exe` that created `mk.exe`; the creation event itself is in the entity context (`AaF9VI505TXapMFlrcSm`).
 - Which privileges the account effectively used.
 
 ## Actions taken

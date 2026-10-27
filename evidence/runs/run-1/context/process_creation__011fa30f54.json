@@ -1,0 +1,988 @@
+{
+  "behaviour": "process_creation",
+  "index": "logs-windows.sysmon_operational-*",
+  "identifier": {
+    "field": "process.entity_id",
+    "value": "{88E52A21-98AC-6AE0-7302-000000001500}",
+    "host": "fs01"
+  },
+  "alerts": [
+    "276a8fafeb2754585e2752a8234a0267b5730e999a9a5f9064ac787c0fa71cc2",
+    "327f60037578c2cc0282cd24d97023c5e70e490c1d17490f200da5aee9841da1",
+    "e4360f9e3a0a08b3d77260c58335639423a04872ad08b92b5aceab7fc21d206c",
+    "c3972a4ff8de66a929f62fe7ef29e9998daebc451d1a2c79a7b50b36c6aad8ab",
+    "e7bbed5e398922b02ba593a83c7a4fa23b1ac5a353c25842906c5b7d7fbc8994"
+  ],
+  "queries": [
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-10-27T12:24:24.000Z",
+                  "lte": "2026-10-27T12:30:24.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "fs01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "1"
+              }
+            },
+            {
+              "term": {
+                "process.entity_id": "{88E52A21-98AC-6AE0-7302-000000001500}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-10-27T12:24:24.000Z",
+        "end": "2026-10-27T12:30:24.000Z"
+      },
+      "returned": 1,
+      "total": 1,
+      "relation": "eq"
+    },
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-10-27T12:24:24.000Z",
+                  "lte": "2026-10-27T12:30:24.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "fs01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "1"
+              }
+            },
+            {
+              "term": {
+                "process.entity_id": "{88E52A21-98AC-6AE0-7302-000000001500}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-10-27T12:24:24.000Z",
+        "end": "2026-10-27T12:30:24.000Z"
+      },
+      "returned": 1,
+      "total": 1,
+      "relation": "eq"
+    },
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-10-27T12:24:24.000Z",
+                  "lte": "2026-10-27T12:30:24.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "fs01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "1"
+              }
+            },
+            {
+              "term": {
+                "process.entity_id": "{88E52A21-98AC-6AE0-7302-000000001500}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-10-27T12:24:24.000Z",
+        "end": "2026-10-27T12:30:24.000Z"
+      },
+      "returned": 1,
+      "total": 1,
+      "relation": "eq"
+    },
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-10-27T12:24:24.000Z",
+                  "lte": "2026-10-27T12:30:24.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "fs01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "1"
+              }
+            },
+            {
+              "term": {
+                "process.entity_id": "{88E52A21-98AC-6AE0-7302-000000001500}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-10-27T12:24:24.000Z",
+        "end": "2026-10-27T12:30:24.000Z"
+      },
+      "returned": 1,
+      "total": 1,
+      "relation": "eq"
+    },
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-10-27T12:24:24.000Z",
+                  "lte": "2026-10-27T12:30:24.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "fs01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "1"
+              }
+            },
+            {
+              "term": {
+                "process.entity_id": "{88E52A21-98AC-6AE0-7302-000000001500}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-10-27T12:24:24.000Z",
+        "end": "2026-10-27T12:30:24.000Z"
+      },
+      "returned": 1,
+      "total": 1,
+      "relation": "eq"
+    }
+  ],
+  "returned": 5,
+  "truncated": false,
+  "sample": false,
+  "hits": [
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9VI505TXapMGMriKO",
+      "_source": {
+        "agent": {
+          "name": "FS01",
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "type": "filebeat",
+          "ephemeral_id": "e87233a5-a8dd-40cf-9618-89f6cdee708d",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\ProgramData\\locker.exe",
+            "-m",
+            "-net",
+            "-size",
+            "10",
+            "-nomutex",
+            "-p",
+            "\\\\FS01\\C$"
+          ],
+          "parent": {
+            "args": [
+              "cmd.exe",
+              "/c",
+              "C:\\locker.bat"
+            ],
+            "name": "cmd.exe",
+            "pid": 7176,
+            "args_count": 3,
+            "entity_id": "{88E52A21-98AC-6AE0-7102-000000001500}",
+            "executable": "C:\\Windows\\System32\\cmd.exe",
+            "command_line": "cmd.exe /c C:\\locker.bat"
+          },
+          "pe": {
+            "imphash": "9b1c32c8188bab095286168e66414a26"
+          },
+          "name": "locker.exe",
+          "pid": 2024,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 8,
+          "entity_id": "{88E52A21-98AC-6AE0-7302-000000001500}",
+          "hash": {
+            "sha256": "29eccb6d00856aa0245faae11a65fb406cef694b6b973dbba2f3a319e82c7052"
+          },
+          "executable": "C:\\ProgramData\\locker.exe",
+          "command_line": "C:\\ProgramData\\locker.exe  -m -net -size 10 -nomutex -p \\\\FS01\\C$"
+        },
+        "winlog": {
+          "record_id": "617413",
+          "computer_name": "FS01.c0015.lab",
+          "process": {
+            "pid": 2624,
+            "thread": {
+              "id": 4196
+            }
+          },
+          "event_id": "1",
+          "task": "Process Create (rule: ProcessCreate)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "LogonGuid": "{88E52A21-98AC-6AE0-3241-AE0000000000}",
+            "IntegrityLevel": "High",
+            "TerminalSessionId": "0",
+            "ParentUser": "C0015\\helpdesk",
+            "LogonId": "0xae4132"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 5
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:27:24.568\nProcessGuid: {88E52A21-98AC-6AE0-7302-000000001500}\nProcessId: 2024\nImage: C:\\ProgramData\\locker.exe\nFileVersion: -\nDescription: -\nProduct: -\nCompany: -\nOriginalFileName: -\nCommandLine: C:\\ProgramData\\locker.exe  -m -net -size 10 -nomutex -p \\\\FS01\\C$\nCurrentDirectory: C:\\Windows\\system32\\\nUser: C0015\\helpdesk\nLogonGuid: {88E52A21-98AC-6AE0-3241-AE0000000000}\nLogonId: 0xae4132\nTerminalSessionId: 0\nIntegrityLevel: High\nHashes: SHA256=29ECCB6D00856AA0245FAAE11A65FB406CEF694B6B973DBBA2F3A319E82C7052,IMPHASH=9B1C32C8188BAB095286168E66414A26\nParentProcessGuid: {88E52A21-98AC-6AE0-7102-000000001500}\nParentProcessId: 7176\nParentImage: C:\\Windows\\System32\\cmd.exe\nParentCommandLine: cmd.exe /c C:\\locker.bat\nParentUser: C0015\\helpdesk",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:27:24.568Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "helpdesk"
+          ],
+          "hash": [
+            "29eccb6d00856aa0245faae11a65fb406cef694b6b973dbba2f3a319e82c7052",
+            "9b1c32c8188bab095286168e66414a26"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "FS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "192.168.106.155",
+            "192.168.50.30"
+          ],
+          "name": "fs01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-3B-C6-18",
+            "00-0C-29-3B-C6-22"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:27:35Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:27:26.357Z",
+          "kind": "event",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "helpdesk"
+        }
+      },
+      "query_index": 0
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9VI505TXapMGMriKO",
+      "_source": {
+        "agent": {
+          "name": "FS01",
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "type": "filebeat",
+          "ephemeral_id": "e87233a5-a8dd-40cf-9618-89f6cdee708d",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\ProgramData\\locker.exe",
+            "-m",
+            "-net",
+            "-size",
+            "10",
+            "-nomutex",
+            "-p",
+            "\\\\FS01\\C$"
+          ],
+          "parent": {
+            "args": [
+              "cmd.exe",
+              "/c",
+              "C:\\locker.bat"
+            ],
+            "name": "cmd.exe",
+            "pid": 7176,
+            "args_count": 3,
+            "entity_id": "{88E52A21-98AC-6AE0-7102-000000001500}",
+            "executable": "C:\\Windows\\System32\\cmd.exe",
+            "command_line": "cmd.exe /c C:\\locker.bat"
+          },
+          "pe": {
+            "imphash": "9b1c32c8188bab095286168e66414a26"
+          },
+          "name": "locker.exe",
+          "pid": 2024,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 8,
+          "entity_id": "{88E52A21-98AC-6AE0-7302-000000001500}",
+          "hash": {
+            "sha256": "29eccb6d00856aa0245faae11a65fb406cef694b6b973dbba2f3a319e82c7052"
+          },
+          "executable": "C:\\ProgramData\\locker.exe",
+          "command_line": "C:\\ProgramData\\locker.exe  -m -net -size 10 -nomutex -p \\\\FS01\\C$"
+        },
+        "winlog": {
+          "record_id": "617413",
+          "computer_name": "FS01.c0015.lab",
+          "process": {
+            "pid": 2624,
+            "thread": {
+              "id": 4196
+            }
+          },
+          "event_id": "1",
+          "task": "Process Create (rule: ProcessCreate)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "LogonGuid": "{88E52A21-98AC-6AE0-3241-AE0000000000}",
+            "IntegrityLevel": "High",
+            "TerminalSessionId": "0",
+            "ParentUser": "C0015\\helpdesk",
+            "LogonId": "0xae4132"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 5
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:27:24.568\nProcessGuid: {88E52A21-98AC-6AE0-7302-000000001500}\nProcessId: 2024\nImage: C:\\ProgramData\\locker.exe\nFileVersion: -\nDescription: -\nProduct: -\nCompany: -\nOriginalFileName: -\nCommandLine: C:\\ProgramData\\locker.exe  -m -net -size 10 -nomutex -p \\\\FS01\\C$\nCurrentDirectory: C:\\Windows\\system32\\\nUser: C0015\\helpdesk\nLogonGuid: {88E52A21-98AC-6AE0-3241-AE0000000000}\nLogonId: 0xae4132\nTerminalSessionId: 0\nIntegrityLevel: High\nHashes: SHA256=29ECCB6D00856AA0245FAAE11A65FB406CEF694B6B973DBBA2F3A319E82C7052,IMPHASH=9B1C32C8188BAB095286168E66414A26\nParentProcessGuid: {88E52A21-98AC-6AE0-7102-000000001500}\nParentProcessId: 7176\nParentImage: C:\\Windows\\System32\\cmd.exe\nParentCommandLine: cmd.exe /c C:\\locker.bat\nParentUser: C0015\\helpdesk",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:27:24.568Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "helpdesk"
+          ],
+          "hash": [
+            "29eccb6d00856aa0245faae11a65fb406cef694b6b973dbba2f3a319e82c7052",
+            "9b1c32c8188bab095286168e66414a26"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "FS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "192.168.106.155",
+            "192.168.50.30"
+          ],
+          "name": "fs01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-3B-C6-18",
+            "00-0C-29-3B-C6-22"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:27:35Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:27:26.357Z",
+          "kind": "event",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "helpdesk"
+        }
+      },
+      "query_index": 1
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9VI505TXapMGMriKO",
+      "_source": {
+        "agent": {
+          "name": "FS01",
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "type": "filebeat",
+          "ephemeral_id": "e87233a5-a8dd-40cf-9618-89f6cdee708d",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\ProgramData\\locker.exe",
+            "-m",
+            "-net",
+            "-size",
+            "10",
+            "-nomutex",
+            "-p",
+            "\\\\FS01\\C$"
+          ],
+          "parent": {
+            "args": [
+              "cmd.exe",
+              "/c",
+              "C:\\locker.bat"
+            ],
+            "name": "cmd.exe",
+            "pid": 7176,
+            "args_count": 3,
+            "entity_id": "{88E52A21-98AC-6AE0-7102-000000001500}",
+            "executable": "C:\\Windows\\System32\\cmd.exe",
+            "command_line": "cmd.exe /c C:\\locker.bat"
+          },
+          "pe": {
+            "imphash": "9b1c32c8188bab095286168e66414a26"
+          },
+          "name": "locker.exe",
+          "pid": 2024,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 8,
+          "entity_id": "{88E52A21-98AC-6AE0-7302-000000001500}",
+          "hash": {
+            "sha256": "29eccb6d00856aa0245faae11a65fb406cef694b6b973dbba2f3a319e82c7052"
+          },
+          "executable": "C:\\ProgramData\\locker.exe",
+          "command_line": "C:\\ProgramData\\locker.exe  -m -net -size 10 -nomutex -p \\\\FS01\\C$"
+        },
+        "winlog": {
+          "record_id": "617413",
+          "computer_name": "FS01.c0015.lab",
+          "process": {
+            "pid": 2624,
+            "thread": {
+              "id": 4196
+            }
+          },
+          "event_id": "1",
+          "task": "Process Create (rule: ProcessCreate)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "LogonGuid": "{88E52A21-98AC-6AE0-3241-AE0000000000}",
+            "IntegrityLevel": "High",
+            "TerminalSessionId": "0",
+            "ParentUser": "C0015\\helpdesk",
+            "LogonId": "0xae4132"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 5
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:27:24.568\nProcessGuid: {88E52A21-98AC-6AE0-7302-000000001500}\nProcessId: 2024\nImage: C:\\ProgramData\\locker.exe\nFileVersion: -\nDescription: -\nProduct: -\nCompany: -\nOriginalFileName: -\nCommandLine: C:\\ProgramData\\locker.exe  -m -net -size 10 -nomutex -p \\\\FS01\\C$\nCurrentDirectory: C:\\Windows\\system32\\\nUser: C0015\\helpdesk\nLogonGuid: {88E52A21-98AC-6AE0-3241-AE0000000000}\nLogonId: 0xae4132\nTerminalSessionId: 0\nIntegrityLevel: High\nHashes: SHA256=29ECCB6D00856AA0245FAAE11A65FB406CEF694B6B973DBBA2F3A319E82C7052,IMPHASH=9B1C32C8188BAB095286168E66414A26\nParentProcessGuid: {88E52A21-98AC-6AE0-7102-000000001500}\nParentProcessId: 7176\nParentImage: C:\\Windows\\System32\\cmd.exe\nParentCommandLine: cmd.exe /c C:\\locker.bat\nParentUser: C0015\\helpdesk",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:27:24.568Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "helpdesk"
+          ],
+          "hash": [
+            "29eccb6d00856aa0245faae11a65fb406cef694b6b973dbba2f3a319e82c7052",
+            "9b1c32c8188bab095286168e66414a26"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "FS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "192.168.106.155",
+            "192.168.50.30"
+          ],
+          "name": "fs01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-3B-C6-18",
+            "00-0C-29-3B-C6-22"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:27:35Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:27:26.357Z",
+          "kind": "event",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "helpdesk"
+        }
+      },
+      "query_index": 2
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9VI505TXapMGMriKO",
+      "_source": {
+        "agent": {
+          "name": "FS01",
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "type": "filebeat",
+          "ephemeral_id": "e87233a5-a8dd-40cf-9618-89f6cdee708d",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\ProgramData\\locker.exe",
+            "-m",
+            "-net",
+            "-size",
+            "10",
+            "-nomutex",
+            "-p",
+            "\\\\FS01\\C$"
+          ],
+          "parent": {
+            "args": [
+              "cmd.exe",
+              "/c",
+              "C:\\locker.bat"
+            ],
+            "name": "cmd.exe",
+            "pid": 7176,
+            "args_count": 3,
+            "entity_id": "{88E52A21-98AC-6AE0-7102-000000001500}",
+            "executable": "C:\\Windows\\System32\\cmd.exe",
+            "command_line": "cmd.exe /c C:\\locker.bat"
+          },
+          "pe": {
+            "imphash": "9b1c32c8188bab095286168e66414a26"
+          },
+          "name": "locker.exe",
+          "pid": 2024,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 8,
+          "entity_id": "{88E52A21-98AC-6AE0-7302-000000001500}",
+          "hash": {
+            "sha256": "29eccb6d00856aa0245faae11a65fb406cef694b6b973dbba2f3a319e82c7052"
+          },
+          "executable": "C:\\ProgramData\\locker.exe",
+          "command_line": "C:\\ProgramData\\locker.exe  -m -net -size 10 -nomutex -p \\\\FS01\\C$"
+        },
+        "winlog": {
+          "record_id": "617413",
+          "computer_name": "FS01.c0015.lab",
+          "process": {
+            "pid": 2624,
+            "thread": {
+              "id": 4196
+            }
+          },
+          "event_id": "1",
+          "task": "Process Create (rule: ProcessCreate)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "LogonGuid": "{88E52A21-98AC-6AE0-3241-AE0000000000}",
+            "IntegrityLevel": "High",
+            "TerminalSessionId": "0",
+            "ParentUser": "C0015\\helpdesk",
+            "LogonId": "0xae4132"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 5
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:27:24.568\nProcessGuid: {88E52A21-98AC-6AE0-7302-000000001500}\nProcessId: 2024\nImage: C:\\ProgramData\\locker.exe\nFileVersion: -\nDescription: -\nProduct: -\nCompany: -\nOriginalFileName: -\nCommandLine: C:\\ProgramData\\locker.exe  -m -net -size 10 -nomutex -p \\\\FS01\\C$\nCurrentDirectory: C:\\Windows\\system32\\\nUser: C0015\\helpdesk\nLogonGuid: {88E52A21-98AC-6AE0-3241-AE0000000000}\nLogonId: 0xae4132\nTerminalSessionId: 0\nIntegrityLevel: High\nHashes: SHA256=29ECCB6D00856AA0245FAAE11A65FB406CEF694B6B973DBBA2F3A319E82C7052,IMPHASH=9B1C32C8188BAB095286168E66414A26\nParentProcessGuid: {88E52A21-98AC-6AE0-7102-000000001500}\nParentProcessId: 7176\nParentImage: C:\\Windows\\System32\\cmd.exe\nParentCommandLine: cmd.exe /c C:\\locker.bat\nParentUser: C0015\\helpdesk",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:27:24.568Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "helpdesk"
+          ],
+          "hash": [
+            "29eccb6d00856aa0245faae11a65fb406cef694b6b973dbba2f3a319e82c7052",
+            "9b1c32c8188bab095286168e66414a26"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "FS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "192.168.106.155",
+            "192.168.50.30"
+          ],
+          "name": "fs01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-3B-C6-18",
+            "00-0C-29-3B-C6-22"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:27:35Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:27:26.357Z",
+          "kind": "event",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "helpdesk"
+        }
+      },
+      "query_index": 3
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9VI505TXapMGMriKO",
+      "_source": {
+        "agent": {
+          "name": "FS01",
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "type": "filebeat",
+          "ephemeral_id": "e87233a5-a8dd-40cf-9618-89f6cdee708d",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\ProgramData\\locker.exe",
+            "-m",
+            "-net",
+            "-size",
+            "10",
+            "-nomutex",
+            "-p",
+            "\\\\FS01\\C$"
+          ],
+          "parent": {
+            "args": [
+              "cmd.exe",
+              "/c",
+              "C:\\locker.bat"
+            ],
+            "name": "cmd.exe",
+            "pid": 7176,
+            "args_count": 3,
+            "entity_id": "{88E52A21-98AC-6AE0-7102-000000001500}",
+            "executable": "C:\\Windows\\System32\\cmd.exe",
+            "command_line": "cmd.exe /c C:\\locker.bat"
+          },
+          "pe": {
+            "imphash": "9b1c32c8188bab095286168e66414a26"
+          },
+          "name": "locker.exe",
+          "pid": 2024,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 8,
+          "entity_id": "{88E52A21-98AC-6AE0-7302-000000001500}",
+          "hash": {
+            "sha256": "29eccb6d00856aa0245faae11a65fb406cef694b6b973dbba2f3a319e82c7052"
+          },
+          "executable": "C:\\ProgramData\\locker.exe",
+          "command_line": "C:\\ProgramData\\locker.exe  -m -net -size 10 -nomutex -p \\\\FS01\\C$"
+        },
+        "winlog": {
+          "record_id": "617413",
+          "computer_name": "FS01.c0015.lab",
+          "process": {
+            "pid": 2624,
+            "thread": {
+              "id": 4196
+            }
+          },
+          "event_id": "1",
+          "task": "Process Create (rule: ProcessCreate)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "LogonGuid": "{88E52A21-98AC-6AE0-3241-AE0000000000}",
+            "IntegrityLevel": "High",
+            "TerminalSessionId": "0",
+            "ParentUser": "C0015\\helpdesk",
+            "LogonId": "0xae4132"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 5
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:27:24.568\nProcessGuid: {88E52A21-98AC-6AE0-7302-000000001500}\nProcessId: 2024\nImage: C:\\ProgramData\\locker.exe\nFileVersion: -\nDescription: -\nProduct: -\nCompany: -\nOriginalFileName: -\nCommandLine: C:\\ProgramData\\locker.exe  -m -net -size 10 -nomutex -p \\\\FS01\\C$\nCurrentDirectory: C:\\Windows\\system32\\\nUser: C0015\\helpdesk\nLogonGuid: {88E52A21-98AC-6AE0-3241-AE0000000000}\nLogonId: 0xae4132\nTerminalSessionId: 0\nIntegrityLevel: High\nHashes: SHA256=29ECCB6D00856AA0245FAAE11A65FB406CEF694B6B973DBBA2F3A319E82C7052,IMPHASH=9B1C32C8188BAB095286168E66414A26\nParentProcessGuid: {88E52A21-98AC-6AE0-7102-000000001500}\nParentProcessId: 7176\nParentImage: C:\\Windows\\System32\\cmd.exe\nParentCommandLine: cmd.exe /c C:\\locker.bat\nParentUser: C0015\\helpdesk",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:27:24.568Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "helpdesk"
+          ],
+          "hash": [
+            "29eccb6d00856aa0245faae11a65fb406cef694b6b973dbba2f3a319e82c7052",
+            "9b1c32c8188bab095286168e66414a26"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "FS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "192.168.106.155",
+            "192.168.50.30"
+          ],
+          "name": "fs01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-3B-C6-18",
+            "00-0C-29-3B-C6-22"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:27:35Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:27:26.357Z",
+          "kind": "event",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "helpdesk"
+        }
+      },
+      "query_index": 4
+    }
+  ]
+}

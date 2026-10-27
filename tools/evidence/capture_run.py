@@ -37,8 +37,10 @@ SECURITY = "logs-system.security-*"
 ALERTS = ".internal.alerts-security.alerts-default*"
 ALERT_PAGE = 500
 
+SECRET_ARG = re.compile(r"(/(?:password|p)[:\s]+)(\S+)", re.IGNORECASE)
+SECRET_SWITCH = re.compile(r"(-Password\s+)(\S+)", re.IGNORECASE)
+SECRET_ASSIGN = re.compile(r"(password=)(\S+)", re.IGNORECASE)
 SECRET_VALUE = re.compile(r"(Summer2026!|Zq7!Kernel-Lab-2026#x|Password123!|Helpdesk2026!|Welcome1!)")
-SECRET_ARG = re.compile(r"(/(?:password|p)\s+)(\S+)", re.IGNORECASE)
 
 
 def get_field(document, path, default=None):
@@ -65,6 +67,8 @@ def redact(value):
         return [redact(v) for v in value]
     if isinstance(value, str):
         value = SECRET_ARG.sub(r"\1***", value)
+        value = SECRET_SWITCH.sub(r"\1***", value)
+        value = SECRET_ASSIGN.sub(r"\1***", value)
         value = SECRET_VALUE.sub("***", value)
     return value
 
@@ -89,6 +93,8 @@ class Elastic:
 
     def search(self, index: str, body: dict) -> dict:
         data = self.call(f"/{index}/_search", body, "POST")
+        if data.get("timed_out"):
+            raise RuntimeError(f"query timed out on {index}")
         failed = data.get("_shards", {}).get("failed", 0)
         if failed:
             failures = data.get("_shards", {}).get("failures", [])
@@ -215,8 +221,19 @@ def entity_values(document: dict) -> list[str]:
 
 
 def capture_entity_context(es: Elastic, alerts: list[dict], sources: dict, window: int, size: int) -> dict:
-    """Query by the identifiers the source events carry, so the context follows the case instead of the window."""
-    out: dict[str, dict] = {}
+    """One record per identifier and behaviour. Each record keeps every query it issued."""
+    records: dict[str, dict] = {}
+
+    def add(key, behaviour, index, identifier, query, start, end):
+        record = records.setdefault(key, {
+            "behaviour": behaviour, "index": index, "identifier": identifier,
+            "alerts": [], "queries": [], "hits": [],
+        })
+        record["queries"].append({"query": query, "window": {"start": start, "end": end}})
+        if query not in [q["query"] for q in record["queries"]][:-1]:
+            pass
+        return record
+
     for alert in alerts:
         for doc in sources.get(alert["_id"], []):
             if doc.get("kind") != "event":
@@ -225,68 +242,82 @@ def capture_entity_context(es: Elastic, alerts: list[dict], sources: dict, windo
             centre = datetime.fromisoformat(str(field(source, "@timestamp")).replace("Z", "+00:00"))
             start = (centre - timedelta(seconds=window)).strftime("%Y-%m-%dT%H:%M:%S.000Z")
             end = (centre + timedelta(seconds=window)).strftime("%Y-%m-%dT%H:%M:%S.000Z")
-            for value in entity_values(doc):
-                is_logon = value.startswith("0x")
-                if is_logon:
-                    index = SECURITY
+            host = field(source, "host.name")
+            for value, kind, id_field in identifiers(doc):
+                if kind == "logon":
                     query = {"bool": {"filter": [
                         {"range": {"@timestamp": {"gte": start, "lte": end}}},
+                        {"term": {"host.name": host}},
                         {"terms": {"event.code": ["4624", "4625"]}},
                         {"bool": {"should": [{"term": {f"winlog.event_data.{name}": value}} for name in LOGON_FIELDS],
                                   "minimum_should_match": 1}},
                     ]}}
-                    behaviour, code = "logon", "security"
-                    key = f"logon__{value}"
-                else:
-                    for behaviour, (index, code) in ENTITY_CODES.items():
-                        query = {"bool": {"filter": [
-                            {"range": {"@timestamp": {"gte": start, "lte": end}}},
-                            {"term": {"event.code": code}},
-                            {"term": {"process.entity_id": value}},
-                        ]}}
-                        key = f"{behaviour}__{value.strip('{}')[-8:]}"
-                        data = es.search(index, {"size": size, "sort": [{"@timestamp": "asc"}], "query": query})
-                        hits = data.get("hits", {}).get("hits", [])
-                        total = data.get("hits", {}).get("total", {}).get("value", 0)
-                        record = out.setdefault(key, {
-                            "behaviour": behaviour, "index": index,
-                            "identifier": {"field": "process.entity_id", "value": value},
-                            "query": query, "window": {"start": start, "end": end},
-                            "alerts": [], "returned": 0, "total": total,
-                            "truncated": False, "sample": False, "hits": [],
-                        })
+                    key = f"logon__{host}__{value.replace('0x', '')}"
+                    record = add(key, "logon", SECURITY,
+                                 {"field": id_field, "value": value, "host": host,
+                                  "fields": [f"winlog.event_data.{n}" for n in LOGON_FIELDS]},
+                                 query, start, end)
+                    data = es.search(SECURITY, {"size": size, "sort": [{"@timestamp": "asc"}], "query": query})
+                    harvested = data.get("hits", {}).get("hits", [])
+                    total = data.get("hits", {}).get("total", {})
+                    record["queries"][-1].update({"returned": len(harvested), "total": total.get("value"),
+                                                  "relation": total.get("relation")})
+                    for hit in harvested:
+                        record["hits"].append({"_index": hit["_index"], "_id": hit["_id"],
+                                               "_source": hit["_source"], "query_index": len(record["queries"]) - 1})
+                    if alert["_id"] not in record["alerts"]:
                         record["alerts"].append(alert["_id"])
-                        seen = {(h["_index"], h["_id"]) for h in record["hits"]}
-                        for hit in hits:
-                            if (hit["_index"], hit["_id"]) not in seen:
-                                record["hits"].append(hit)
-                                seen.add((hit["_index"], hit["_id"]))
-                        record["returned"] = len(record["hits"])
-                        record["total"] = max(record["total"], record["returned"], total)
-                        record["truncated"] = record["returned"] < record["total"]
-                        record["sample"] = record["truncated"]
                     continue
-                data = es.search(index, {"size": size, "sort": [{"@timestamp": "asc"}], "query": query})
-                hits = data.get("hits", {}).get("hits", [])
-                total = data.get("hits", {}).get("total", {}).get("value", 0)
-                record = out.setdefault(key, {
-                    "behaviour": behaviour, "index": index,
-                    "identifier": {"field": "logon id", "value": value},
-                    "query": query, "window": {"start": start, "end": end},
-                    "alerts": [], "returned": 0, "total": total,
-                    "truncated": False, "sample": False, "hits": [],
-                })
-                record["alerts"].append(alert["_id"])
-                seen = {(h["_index"], h["_id"]) for h in record["hits"]}
-                for hit in hits:
-                    if (hit["_index"], hit["_id"]) not in seen:
-                        record["hits"].append(hit)
-                        seen.add((hit["_index"], hit["_id"]))
-                record["returned"] = len(record["hits"])
-                record["total"] = max(record["total"], record["returned"], total)
-                record["truncated"] = record["returned"] < record["total"]
-                record["sample"] = record["truncated"]
+
+                for behaviour, (index, code) in ENTITY_CODES.items():
+                    query = {"bool": {"filter": [
+                        {"range": {"@timestamp": {"gte": start, "lte": end}}},
+                        {"term": {"host.name": host}},
+                        {"term": {"event.code": code}},
+                        {"term": {id_field: value}},
+                    ]}}
+                    digest = hashlib.sha1(f"{host}|{id_field}|{value}".encode()).hexdigest()[:10]
+                    key = f"{behaviour}__{digest}"
+                    record = add(key, behaviour, index, {"field": id_field, "value": value, "host": host},
+                                 query, start, end)
+                    data = es.search(index, {"size": size, "sort": [{"@timestamp": "asc"}], "query": query})
+                    harvested = data.get("hits", {}).get("hits", [])
+                    total = data.get("hits", {}).get("total", {})
+                    record["queries"][-1].update({"returned": len(harvested), "total": total.get("value"),
+                                                  "relation": total.get("relation")})
+                    for hit in harvested:
+                        record["hits"].append({"_index": hit["_index"], "_id": hit["_id"],
+                                               "_source": hit["_source"], "query_index": len(record["queries"]) - 1})
+                    if alert["_id"] not in record["alerts"]:
+                        record["alerts"].append(alert["_id"])
+
+    out = {}
+    for key, record in records.items():
+        returned = len(record["hits"])
+        truncated = any(q.get("returned", 0) < (q.get("total") or 0) for q in record["queries"])
+        out[key] = {
+            "behaviour": record["behaviour"], "index": record["index"],
+            "identifier": record["identifier"], "alerts": record["alerts"],
+            "queries": record["queries"], "returned": returned,
+            "truncated": truncated, "sample": truncated, "hits": record["hits"],
+        }
     return out
+
+
+def identifiers(document: dict) -> list[tuple[str, str, str]]:
+    """Typed identifiers carried by an event: (value, kind, field)."""
+    source = document.get("_source", {})
+    found = []
+    for name in ("process.entity_id", "process.parent.entity_id", "winlog.event_data.TargetProcessGUID"):
+        value = field(source, name)
+        if isinstance(value, str) and value:
+            found.append((value, "process", name))
+    data = field(source, "winlog.event_data") or {}
+    for name in LOGON_FIELDS:
+        value = data.get(name)
+        if isinstance(value, str) and value:
+            found.append((value, "logon", name))
+    return found
 
 
 def write_json(path: Path, payload) -> None:
@@ -362,9 +393,9 @@ def main() -> int:
             "unresolved": len(resolved["unresolved"]),
         },
         "context": {name: {"behaviour": c["behaviour"], "identifier": c["identifier"],
-                           "window": c["window"], "alerts": c["alerts"],
-                           "returned": c["returned"], "total": c["total"],
-                           "truncated": c["truncated"], "sample": c["sample"]}
+                           "alerts": c["alerts"], "queries": c["queries"],
+                           "returned": c["returned"], "truncated": c["truncated"],
+                           "sample": c["sample"]}
                     for name, c in context.items()},
         "query_size": args.size,
         "context_window_seconds": args.context_window,

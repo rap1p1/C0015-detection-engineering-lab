@@ -1,0 +1,180 @@
+{
+  "behaviour": "file_creation",
+  "index": "logs-windows.sysmon_operational-*",
+  "identifier": {
+    "field": "process.entity_id",
+    "value": "{88E52A21-98AA-6AE0-D504-000000002600}",
+    "host": "ws01"
+  },
+  "alerts": [
+    "3d55443559f106a9d61eb3fe83cb556e2b3d9525d751cb4306e634d6644541ac"
+  ],
+  "queries": [
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-10-27T12:24:22.000Z",
+                  "lte": "2026-10-27T12:30:22.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "ws01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "11"
+              }
+            },
+            {
+              "term": {
+                "process.entity_id": "{88E52A21-98AA-6AE0-D504-000000002600}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-10-27T12:24:22.000Z",
+        "end": "2026-10-27T12:30:22.000Z"
+      },
+      "returned": 1,
+      "total": 1,
+      "relation": "eq"
+    }
+  ],
+  "returned": 1,
+  "truncated": false,
+  "sample": false,
+  "hits": [
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9VI505TXapMFyrsIx",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "type": "filebeat",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "version": "9.5.3"
+        },
+        "process": {
+          "name": "rclone.exe",
+          "pid": 7800,
+          "entity_id": "{88E52A21-98AA-6AE0-D504-000000002600}",
+          "executable": "C:\\ProgramData\\C0015\\rclone.exe"
+        },
+        "winlog": {
+          "computer_name": "WS01.c0015.lab",
+          "record_id": "1228919",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "event_id": "11",
+          "task": "File created (rule: FileCreate)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "CreationUtcTime": "2026-10-27 12:27:24.417"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 2
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "File created:\nRuleName: -\nUtcTime: 2026-10-27 12:27:24.417\nProcessGuid: {88E52A21-98AA-6AE0-D504-000000002600}\nProcessId: 7800\nImage: C:\\ProgramData\\C0015\\rclone.exe\nTargetFilename: C:\\Windows\\Temp\\rclone1847727875\nCreationUtcTime: 2026-10-27 12:27:24.417\nUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:27:24.417Z",
+        "file": {
+          "path": "C:\\Windows\\Temp\\rclone1847727875",
+          "name": "rclone1847727875",
+          "directory": "C:\\Windows\\Temp"
+        },
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:27:28Z",
+          "code": "11",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:27:25.710Z",
+          "kind": "event",
+          "action": "FileCreate",
+          "category": [
+            "file"
+          ],
+          "type": [
+            "creation"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    }
+  ]
+}

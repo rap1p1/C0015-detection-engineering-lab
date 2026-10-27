@@ -43,3 +43,17 @@ Passwords are not stored in the repository. The provisioning script prompts for 
 sequence supplies them through the operating system credential store on the operator host. The
 `stage/` directory, which is excluded from version control, may hold exported credentials for the
 duration of a run.
+
+
+## Current model
+
+The reference run uses two identities and nothing else:
+
+| Account | Type | Rights used |
+|---|---|---|
+| `C0015\duc.user` | standard domain user, member of `Remote Desktop Users` on WS01 | opens the document; no local admin |
+| `C0015\helpdesk` | domain user, member of `IT-Support` | local administrator on WS01 and FS01 through group membership; used for WMI execution and the injected session |
+
+`bk.admin`, `WS01$` and the earlier console-session workflow belong to previous iterations. They are kept
+in the history only; the provisioning script and the [attack playbook](../attack-playbook/README.md)
+describe the current model.

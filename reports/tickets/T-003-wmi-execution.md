@@ -33,6 +33,7 @@ backup server within twenty-one seconds.
 | Event | Locator |
 |---|---|
 | Source invocation 1-5 | `AaF9VI505TXapMElq26Z`, `...MElq27j`, `...MFMrXYV`, `...MFyrcL7`, `...MFyrsI5` |
+| Target logon | `AaF9VI505TXapMEVq_ob` (4624 type 3, `TargetLogonId 0xad3a88`) |
 | Target execution 1-5 | `AaF9VI505TXapMEVqvrh`, `...MFBrF1u`, `...MFBrF2t`, `...MFlrcSd`, `...MGMriKM` |
 
 ## Findings
@@ -42,7 +43,7 @@ backup server within twenty-one seconds.
 
 ## Unknowns
 
-- The WMI logon type on `fs01` is not in the bundle.
+- The target logon is confirmed (`4624`, type 3, Kerberos, logon id `0xad3a88`); the source-side record of that session is not in the bundle.
 - Whether the impact batch completed encryption is not shown; it renames and writes a note.
 
 ## Actions taken

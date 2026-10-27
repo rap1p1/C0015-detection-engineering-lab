@@ -1,0 +1,172 @@
+{
+  "behaviour": "remote_thread",
+  "index": "logs-windows.sysmon_operational-*",
+  "identifier": {
+    "field": "process.entity_id",
+    "value": "{88E52A21-989E-6AE0-6B02-000000001500}",
+    "host": "fs01"
+  },
+  "alerts": [
+    "f336cc897c2fe1f1c5aef9fedc5c72d2a5db9960c88104234b4b677819423188"
+  ],
+  "queries": [
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-10-27T12:24:10.000Z",
+                  "lte": "2026-10-27T12:30:10.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "fs01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "8"
+              }
+            },
+            {
+              "term": {
+                "process.entity_id": "{88E52A21-989E-6AE0-6B02-000000001500}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-10-27T12:24:10.000Z",
+        "end": "2026-10-27T12:30:10.000Z"
+      },
+      "returned": 1,
+      "total": 1,
+      "relation": "eq"
+    }
+  ],
+  "returned": 1,
+  "truncated": false,
+  "sample": false,
+  "hits": [
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9VI505TXapMFBrF25",
+      "_source": {
+        "agent": {
+          "name": "FS01",
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "type": "filebeat",
+          "ephemeral_id": "e87233a5-a8dd-40cf-9618-89f6cdee708d",
+          "version": "9.5.3"
+        },
+        "process": {
+          "name": "rundll32.exe",
+          "pid": 960,
+          "entity_id": "{88E52A21-989E-6AE0-6B02-000000001500}",
+          "executable": "C:\\Windows\\System32\\rundll32.exe"
+        },
+        "winlog": {
+          "record_id": "617289",
+          "computer_name": "FS01.c0015.lab",
+          "process": {
+            "pid": 2624,
+            "thread": {
+              "id": 4196
+            }
+          },
+          "task": "CreateRemoteThread detected (rule: CreateRemoteThread)",
+          "event_id": "8",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "NewThreadId": "7000",
+            "StartAddress": "0x000001E1D5000000",
+            "TargetUser": "NT AUTHORITY\\SYSTEM",
+            "TargetProcessId": "876",
+            "SourceUser": "C0015\\helpdesk",
+            "TargetImage": "C:\\Windows\\System32\\svchost.exe",
+            "TargetProcessGUID": "{88E52A21-80B9-6AE0-0901-000000001500}"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 2
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "CreateRemoteThread detected:\nRuleName: -\nUtcTime: 2026-10-27 12:27:10.059\nSourceProcessGuid: {88E52A21-989E-6AE0-6B02-000000001500}\nSourceProcessId: 960\nSourceImage: C:\\Windows\\System32\\rundll32.exe\nTargetProcessGuid: {88E52A21-80B9-6AE0-0901-000000001500}\nTargetProcessId: 876\nTargetImage: C:\\Windows\\System32\\svchost.exe\nNewThreadId: 7000\nStartAddress: 0x000001E1D5000000\nStartModule: -\nStartFunction: -\nSourceUser: C0015\\helpdesk\nTargetUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:27:10.059Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "FS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "192.168.106.155",
+            "192.168.50.30"
+          ],
+          "name": "fs01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-3B-C6-18",
+            "00-0C-29-3B-C6-22"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:27:16Z",
+          "code": "8",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:27:11.057Z",
+          "kind": "event",
+          "action": "CreateRemoteThread",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "change"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    }
+  ]
+}

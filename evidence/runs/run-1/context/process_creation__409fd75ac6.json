@@ -1,0 +1,219 @@
+{
+  "behaviour": "process_creation",
+  "index": "logs-windows.sysmon_operational-*",
+  "identifier": {
+    "field": "process.entity_id",
+    "value": "{88E52A21-989A-6AE0-6602-000000001500}",
+    "host": "fs01"
+  },
+  "alerts": [
+    "2c90461e24db6310320d89191874674b77d43a812c7969cc4dc315a7b50232d1"
+  ],
+  "queries": [
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-10-27T12:24:06.000Z",
+                  "lte": "2026-10-27T12:30:06.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "fs01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "1"
+              }
+            },
+            {
+              "term": {
+                "process.entity_id": "{88E52A21-989A-6AE0-6602-000000001500}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-10-27T12:24:06.000Z",
+        "end": "2026-10-27T12:30:06.000Z"
+      },
+      "returned": 1,
+      "total": 1,
+      "relation": "eq"
+    }
+  ],
+  "returned": 1,
+  "truncated": false,
+  "sample": false,
+  "hits": [
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9VI505TXapMFBrF1u",
+      "_source": {
+        "agent": {
+          "name": "FS01",
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "type": "filebeat",
+          "ephemeral_id": "e87233a5-a8dd-40cf-9618-89f6cdee708d",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "powershell.exe",
+            "-NoProfile",
+            "-Command",
+            "Set-MpPreference",
+            "-DisableRealtimeMonitoring",
+            "$true"
+          ],
+          "parent": {
+            "args": [
+              "C:\\Windows\\system32\\wbem\\wmiprvse.exe",
+              "-secured",
+              "-Embedding"
+            ],
+            "name": "WmiPrvSE.exe",
+            "pid": 3600,
+            "args_count": 3,
+            "entity_id": "{88E52A21-7C2B-6AE0-4300-000000001500}",
+            "executable": "C:\\Windows\\System32\\wbem\\WmiPrvSE.exe",
+            "command_line": "C:\\Windows\\system32\\wbem\\wmiprvse.exe -secured -Embedding"
+          },
+          "pe": {
+            "file_version": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "e3007c8e0098d06abf617eee6f0c5abd",
+            "description": "Windows PowerShell",
+            "original_file_name": "PowerShell.EXE",
+            "company": "Microsoft Corporation"
+          },
+          "name": "powershell.exe",
+          "pid": 7664,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 6,
+          "entity_id": "{88E52A21-989A-6AE0-6602-000000001500}",
+          "hash": {
+            "sha256": "64dd55e1c2373deed25c2776f553c632e58c45e56a0e4639dfd54ee97eab9c19"
+          },
+          "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "command_line": "powershell.exe -NoProfile -Command Set-MpPreference -DisableRealtimeMonitoring $true"
+        },
+        "winlog": {
+          "record_id": "617230",
+          "computer_name": "FS01.c0015.lab",
+          "process": {
+            "pid": 2624,
+            "thread": {
+              "id": 4196
+            }
+          },
+          "task": "Process Create (rule: ProcessCreate)",
+          "event_id": "1",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "Description": "Windows PowerShell",
+            "LogonGuid": "{88E52A21-989A-6AE0-B171-AD0000000000}",
+            "IntegrityLevel": "High",
+            "TerminalSessionId": "0",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "ParentUser": "NT AUTHORITY\\NETWORK SERVICE",
+            "FileVersion": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "LogonId": "0xad71b1"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 5
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:27:06.571\nProcessGuid: {88E52A21-989A-6AE0-6602-000000001500}\nProcessId: 7664\nImage: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\nFileVersion: 10.0.19041.3636 (WinBuild.160101.0800)\nDescription: Windows PowerShell\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: PowerShell.EXE\nCommandLine: powershell.exe -NoProfile -Command Set-MpPreference -DisableRealtimeMonitoring $true\nCurrentDirectory: C:\\Windows\\system32\\\nUser: C0015\\helpdesk\nLogonGuid: {88E52A21-989A-6AE0-B171-AD0000000000}\nLogonId: 0xad71b1\nTerminalSessionId: 0\nIntegrityLevel: High\nHashes: SHA256=64DD55E1C2373DEED25C2776F553C632E58C45E56A0E4639DFD54EE97EAB9C19,IMPHASH=E3007C8E0098D06ABF617EEE6F0C5ABD\nParentProcessGuid: {88E52A21-7C2B-6AE0-4300-000000001500}\nParentProcessId: 3600\nParentImage: C:\\Windows\\System32\\wbem\\WmiPrvSE.exe\nParentCommandLine: C:\\Windows\\system32\\wbem\\wmiprvse.exe -secured -Embedding\nParentUser: NT AUTHORITY\\NETWORK SERVICE",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:27:06.571Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "helpdesk"
+          ],
+          "hash": [
+            "64dd55e1c2373deed25c2776f553c632e58c45e56a0e4639dfd54ee97eab9c19",
+            "e3007c8e0098d06abf617eee6f0c5abd"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "FS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "192.168.106.155",
+            "192.168.50.30"
+          ],
+          "name": "fs01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-3B-C6-18",
+            "00-0C-29-3B-C6-22"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:27:16Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:27:07.789Z",
+          "kind": "event",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "helpdesk"
+        }
+      },
+      "query_index": 0
+    }
+  ]
+}

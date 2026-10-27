@@ -1,0 +1,230 @@
+{
+  "behaviour": "module_load",
+  "index": "logs-windows.sysmon_operational-*",
+  "identifier": {
+    "field": "process.entity_id",
+    "value": "{88E52A21-98A7-6AE0-7002-000000001500}",
+    "host": "fs01"
+  },
+  "alerts": [
+    "fed6d3026ff5f301ab9884af1f1fd557084ccf4e0ec4c6be608c399d357bd873"
+  ],
+  "queries": [
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-10-27T12:24:19.000Z",
+                  "lte": "2026-10-27T12:30:19.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "fs01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "7"
+              }
+            },
+            {
+              "term": {
+                "process.entity_id": "{88E52A21-98A7-6AE0-7002-000000001500}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-10-27T12:24:19.000Z",
+        "end": "2026-10-27T12:30:19.000Z"
+      },
+      "returned": 1,
+      "total": 1,
+      "relation": "eq"
+    }
+  ],
+  "returned": 1,
+  "truncated": false,
+  "sample": false,
+  "hits": [
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9VI505TXapMFlrcSn",
+      "_source": {
+        "agent": {
+          "name": "FS01",
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "type": "filebeat",
+          "ephemeral_id": "e87233a5-a8dd-40cf-9618-89f6cdee708d",
+          "version": "9.5.3"
+        },
+        "process": {
+          "name": "mk.exe",
+          "pid": 6364,
+          "entity_id": "{88E52A21-98A7-6AE0-7002-000000001500}",
+          "executable": "C:\\ProgramData\\mk.exe"
+        },
+        "winlog": {
+          "record_id": "617367",
+          "computer_name": "FS01.c0015.lab",
+          "process": {
+            "pid": 2624,
+            "thread": {
+              "id": 4196
+            }
+          },
+          "task": "Image loaded (rule: ImageLoad)",
+          "event_id": "7",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "SignatureStatus": "Valid",
+            "Company": "gentilkiwi (Benjamin DELPY)",
+            "Description": "mimikatz for Windows",
+            "Signed": "true",
+            "Product": "mimikatz",
+            "Signature": "Open Source Developer, Benjamin Delpy",
+            "FileVersion": "2.2.0.0"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "version": 3,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "dll": {
+          "path": "C:\\ProgramData\\mk.exe",
+          "code_signature": {
+            "trusted": true,
+            "subject_name": "Open Source Developer, Benjamin Delpy",
+            "status": "trusted"
+          },
+          "pe": {
+            "imphash": "1355327f6ca3430b3ddbe6e0acda71ea",
+            "original_file_name": "mimikatz.exe"
+          },
+          "name": "mk.exe",
+          "hash": {
+            "sha256": "92804faaab2175dc501d73e814663058c78c0a042675a8937266357bcfb96c50"
+          }
+        },
+        "elastic_agent": {
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "rule": {
+          "name": "C0015-BALANCED"
+        },
+        "message": "Image loaded:\nRuleName: C0015-BALANCED\nUtcTime: 2026-10-27 12:27:19.178\nProcessGuid: {88E52A21-98A7-6AE0-7002-000000001500}\nProcessId: 6364\nImage: C:\\ProgramData\\mk.exe\nImageLoaded: C:\\ProgramData\\mk.exe\nFileVersion: 2.2.0.0\nDescription: mimikatz for Windows\nProduct: mimikatz\nCompany: gentilkiwi (Benjamin DELPY)\nOriginalFileName: mimikatz.exe\nHashes: SHA256=92804FAAAB2175DC501D73E814663058C78C0A042675A8937266357BCFB96C50,IMPHASH=1355327F6CA3430B3DDBE6E0ACDA71EA\nSigned: true\nSignature: Open Source Developer, Benjamin Delpy\nSignatureStatus: Valid\nUser: C0015\\helpdesk",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:27:19.178Z",
+        "file": {
+          "path": "C:\\ProgramData\\mk.exe",
+          "extension": "exe",
+          "code_signature": {
+            "valid": true,
+            "trusted": true,
+            "subject_name": "Open Source Developer, Benjamin Delpy",
+            "status": "Valid"
+          },
+          "pe": {
+            "file_version": "2.2.0.0",
+            "product": "mimikatz",
+            "imphash": "1355327f6ca3430b3ddbe6e0acda71ea",
+            "description": "mimikatz for Windows",
+            "original_file_name": "mimikatz.exe",
+            "company": "gentilkiwi (Benjamin DELPY)"
+          },
+          "name": "mk.exe",
+          "directory": "C:\\ProgramData",
+          "hash": {
+            "sha256": "92804faaab2175dc501d73e814663058c78c0a042675a8937266357bcfb96c50"
+          }
+        },
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "helpdesk"
+          ],
+          "hash": [
+            "92804faaab2175dc501d73e814663058c78c0a042675a8937266357bcfb96c50",
+            "1355327f6ca3430b3ddbe6e0acda71ea"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "FS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "192.168.106.155",
+            "192.168.50.30"
+          ],
+          "name": "fs01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-3B-C6-18",
+            "00-0C-29-3B-C6-22"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:27:25Z",
+          "code": "7",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:27:20.341Z",
+          "kind": "event",
+          "action": [
+            "Image loaded",
+            "load"
+          ],
+          "category": [
+            "process",
+            "library"
+          ],
+          "type": [
+            "change",
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "helpdesk",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    }
+  ]
+}

@@ -1,0 +1,1296 @@
+{
+  "behaviour": "file_creation",
+  "index": "logs-windows.sysmon_operational-*",
+  "identifier": {
+    "field": "process.entity_id",
+    "value": "{88E52A21-9771-6AE0-9F04-000000002600}",
+    "host": "ws01"
+  },
+  "alerts": [
+    "bed2223ac49b7ad0d8f64d9569f550fc9c598d2cee36a68efe50ed5374f7a367"
+  ],
+  "queries": [
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-10-27T12:22:58.000Z",
+                  "lte": "2026-10-27T12:28:58.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "ws01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "11"
+              }
+            },
+            {
+              "term": {
+                "process.entity_id": "{88E52A21-9771-6AE0-9F04-000000002600}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-10-27T12:22:58.000Z",
+        "end": "2026-10-27T12:28:58.000Z"
+      },
+      "returned": 10,
+      "total": 10,
+      "relation": "eq"
+    }
+  ],
+  "returned": 10,
+  "truncated": false,
+  "sample": false,
+  "hits": [
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9UI505TXapMGCoD2E",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "name": "powershell.exe",
+          "pid": 5912,
+          "entity_id": "{88E52A21-9771-6AE0-9F04-000000002600}",
+          "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+        },
+        "winlog": {
+          "record_id": "1227461",
+          "computer_name": "WS01.c0015.lab",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "task": "File created (rule: FileCreate)",
+          "event_id": "11",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "CreationUtcTime": "2026-10-27 12:23:06.593"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "version": 2,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "File created:\nRuleName: -\nUtcTime: 2026-10-27 12:23:06.593\nProcessGuid: {88E52A21-9771-6AE0-9F04-000000002600}\nProcessId: 5912\nImage: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\nTargetFilename: C:\\ProgramData\\C0015\\mk.exe\nCreationUtcTime: 2026-10-27 12:23:06.593\nUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:23:06.593Z",
+        "file": {
+          "path": "C:\\ProgramData\\C0015\\mk.exe",
+          "extension": "exe",
+          "name": "mk.exe",
+          "directory": "C:\\ProgramData\\C0015"
+        },
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:23:10Z",
+          "code": "11",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:23:07.207Z",
+          "kind": "event",
+          "action": "FileCreate",
+          "category": [
+            "file"
+          ],
+          "type": [
+            "creation"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9UI505TXapMGCoD2O",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "name": "powershell.exe",
+          "pid": 5912,
+          "entity_id": "{88E52A21-9771-6AE0-9F04-000000002600}",
+          "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+        },
+        "winlog": {
+          "record_id": "1227471",
+          "computer_name": "WS01.c0015.lab",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "event_id": "11",
+          "task": "File created (rule: FileCreate)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "CreationUtcTime": "2026-10-27 12:23:08.300"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 2
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "File created:\nRuleName: -\nUtcTime: 2026-10-27 12:23:08.300\nProcessGuid: {88E52A21-9771-6AE0-9F04-000000002600}\nProcessId: 5912\nImage: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\nTargetFilename: C:\\ProgramData\\C0015\\rclone.exe\nCreationUtcTime: 2026-10-27 12:23:08.300\nUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:23:08.300Z",
+        "file": {
+          "path": "C:\\ProgramData\\C0015\\rclone.exe",
+          "extension": "exe",
+          "name": "rclone.exe",
+          "directory": "C:\\ProgramData\\C0015"
+        },
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:23:10Z",
+          "code": "11",
+          "provider": "Microsoft-Windows-Sysmon",
+          "kind": "event",
+          "created": "2026-10-27T12:23:09.211Z",
+          "action": "FileCreate",
+          "category": [
+            "file"
+          ],
+          "type": [
+            "creation"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9Uo505TXapMFGpMcX",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "type": "filebeat",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "version": "9.5.3"
+        },
+        "process": {
+          "name": "powershell.exe",
+          "pid": 5912,
+          "entity_id": "{88E52A21-9771-6AE0-9F04-000000002600}",
+          "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+        },
+        "winlog": {
+          "record_id": "1227847",
+          "computer_name": "WS01.c0015.lab",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "event_id": "11",
+          "task": "File created (rule: FileCreate)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "CreationUtcTime": "2026-10-27 12:24:58.229"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 2
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "File created:\nRuleName: -\nUtcTime: 2026-10-27 12:24:58.229\nProcessGuid: {88E52A21-9771-6AE0-9F04-000000002600}\nProcessId: 5912\nImage: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\nTargetFilename: C:\\ProgramData\\C0015\\rclone.conf\nCreationUtcTime: 2026-10-27 12:24:58.229\nUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:24:58.229Z",
+        "file": {
+          "path": "C:\\ProgramData\\C0015\\rclone.conf",
+          "extension": "conf",
+          "name": "rclone.conf",
+          "directory": "C:\\ProgramData\\C0015"
+        },
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:25:06Z",
+          "code": "11",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:24:59.385Z",
+          "kind": "event",
+          "action": "FileCreate",
+          "category": [
+            "file"
+          ],
+          "type": [
+            "creation"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9Uo505TXapMFGpMcY",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "type": "filebeat",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "version": "9.5.3"
+        },
+        "process": {
+          "name": "powershell.exe",
+          "pid": 5912,
+          "entity_id": "{88E52A21-9771-6AE0-9F04-000000002600}",
+          "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+        },
+        "winlog": {
+          "record_id": "1227848",
+          "computer_name": "WS01.c0015.lab",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "event_id": "11",
+          "task": "File created (rule: FileCreate)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "CreationUtcTime": "2026-10-27 12:24:58.245"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "version": 2,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "File created:\nRuleName: -\nUtcTime: 2026-10-27 12:24:58.245\nProcessGuid: {88E52A21-9771-6AE0-9F04-000000002600}\nProcessId: 5912\nImage: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\nTargetFilename: C:\\ProgramData\\C0015\\143.dll\nCreationUtcTime: 2026-10-27 12:24:58.245\nUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:24:58.245Z",
+        "file": {
+          "path": "C:\\ProgramData\\C0015\\143.dll",
+          "extension": "dll",
+          "name": "143.dll",
+          "directory": "C:\\ProgramData\\C0015"
+        },
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:25:06Z",
+          "code": "11",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:24:59.385Z",
+          "kind": "event",
+          "action": "FileCreate",
+          "category": [
+            "file"
+          ],
+          "type": [
+            "creation"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9U4505TXapME1p-x2",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "name": "powershell.exe",
+          "pid": 5912,
+          "entity_id": "{88E52A21-9771-6AE0-9F04-000000002600}",
+          "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+        },
+        "winlog": {
+          "computer_name": "WS01.c0015.lab",
+          "record_id": "1228175",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "event_id": "11",
+          "task": "File created (rule: FileCreate)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "CreationUtcTime": "2026-10-27 12:25:58.035"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 2
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "File created:\nRuleName: -\nUtcTime: 2026-10-27 12:25:58.035\nProcessGuid: {88E52A21-9771-6AE0-9F04-000000002600}\nProcessId: 5912\nImage: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\nTargetFilename: C:\\ProgramData\\C0015\\locker.exe\nCreationUtcTime: 2026-10-27 12:25:58.035\nUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:25:58.035Z",
+        "file": {
+          "path": "C:\\ProgramData\\C0015\\locker.exe",
+          "extension": "exe",
+          "name": "locker.exe",
+          "directory": "C:\\ProgramData\\C0015"
+        },
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:26:07Z",
+          "code": "11",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:25:59.501Z",
+          "kind": "event",
+          "action": "FileCreate",
+          "category": [
+            "file"
+          ],
+          "type": [
+            "creation"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9U4505TXapME1p-x4",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "name": "powershell.exe",
+          "pid": 5912,
+          "entity_id": "{88E52A21-9771-6AE0-9F04-000000002600}",
+          "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+        },
+        "winlog": {
+          "record_id": "1228177",
+          "computer_name": "WS01.c0015.lab",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "event_id": "11",
+          "task": "File created (rule: FileCreate)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "CreationUtcTime": "2026-10-27 12:25:58.321"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "version": 2,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "File created:\nRuleName: -\nUtcTime: 2026-10-27 12:25:58.321\nProcessGuid: {88E52A21-9771-6AE0-9F04-000000002600}\nProcessId: 5912\nImage: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\nTargetFilename: C:\\ProgramData\\C0015\\readme.txt\nCreationUtcTime: 2026-10-27 12:25:58.321\nUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:25:58.321Z",
+        "file": {
+          "path": "C:\\ProgramData\\C0015\\readme.txt",
+          "extension": "txt",
+          "name": "readme.txt",
+          "directory": "C:\\ProgramData\\C0015"
+        },
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:26:07Z",
+          "code": "11",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:25:59.501Z",
+          "kind": "event",
+          "action": "FileCreate",
+          "category": [
+            "file"
+          ],
+          "type": [
+            "creation"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9U4505TXapME1p-x5",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "type": "filebeat",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "version": "9.5.3"
+        },
+        "process": {
+          "name": "powershell.exe",
+          "pid": 5912,
+          "entity_id": "{88E52A21-9771-6AE0-9F04-000000002600}",
+          "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+        },
+        "winlog": {
+          "record_id": "1228178",
+          "computer_name": "WS01.c0015.lab",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "event_id": "11",
+          "task": "File created (rule: FileCreate)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "CreationUtcTime": "2026-10-27 12:25:58.354"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 2
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "File created:\nRuleName: -\nUtcTime: 2026-10-27 12:25:58.354\nProcessGuid: {88E52A21-9771-6AE0-9F04-000000002600}\nProcessId: 5912\nImage: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\nTargetFilename: C:\\ProgramData\\C0015\\PowerView.ps1\nCreationUtcTime: 2026-10-27 12:25:58.354\nUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:25:58.354Z",
+        "file": {
+          "path": "C:\\ProgramData\\C0015\\PowerView.ps1",
+          "extension": "ps1",
+          "name": "PowerView.ps1",
+          "directory": "C:\\ProgramData\\C0015"
+        },
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:26:07Z",
+          "code": "11",
+          "provider": "Microsoft-Windows-Sysmon",
+          "kind": "event",
+          "created": "2026-10-27T12:25:59.501Z",
+          "action": "FileCreate",
+          "category": [
+            "file"
+          ],
+          "type": [
+            "creation"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9U4505TXapMGDqOrb",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "type": "filebeat",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "version": "9.5.3"
+        },
+        "process": {
+          "name": "powershell.exe",
+          "pid": 5912,
+          "entity_id": "{88E52A21-9771-6AE0-9F04-000000002600}",
+          "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+        },
+        "winlog": {
+          "computer_name": "WS01.c0015.lab",
+          "record_id": "1228383",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "task": "File created (rule: FileCreate)",
+          "event_id": "11",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "CreationUtcTime": "2026-10-27 12:26:23.256"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "version": 2,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "File created:\nRuleName: -\nUtcTime: 2026-10-27 12:26:23.256\nProcessGuid: {88E52A21-9771-6AE0-9F04-000000002600}\nProcessId: 5912\nImage: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\nTargetFilename: C:\\ProgramData\\C0015\\disc.cmd\nCreationUtcTime: 2026-10-27 12:26:23.256\nUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:26:23.256Z",
+        "file": {
+          "path": "C:\\ProgramData\\C0015\\disc.cmd",
+          "extension": "cmd",
+          "name": "disc.cmd",
+          "directory": "C:\\ProgramData\\C0015"
+        },
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:26:27Z",
+          "code": "11",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:26:24.568Z",
+          "kind": "event",
+          "action": "FileCreate",
+          "category": [
+            "file"
+          ],
+          "type": [
+            "creation"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9VI505TXapMElq25Z",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "name": "powershell.exe",
+          "pid": 5912,
+          "entity_id": "{88E52A21-9771-6AE0-9F04-000000002600}",
+          "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+        },
+        "winlog": {
+          "record_id": "1228607",
+          "computer_name": "WS01.c0015.lab",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "event_id": "11",
+          "task": "File created (rule: FileCreate)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "CreationUtcTime": "2026-10-27 12:27:02.027"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "version": 2,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "File created:\nRuleName: -\nUtcTime: 2026-10-27 12:27:02.027\nProcessGuid: {88E52A21-9771-6AE0-9F04-000000002600}\nProcessId: 5912\nImage: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\nTargetFilename: C:\\ProgramData\\C0015\\sharefind.out\nCreationUtcTime: 2026-10-27 12:27:02.027\nUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:27:02.027Z",
+        "file": {
+          "path": "C:\\ProgramData\\C0015\\sharefind.out",
+          "extension": "out",
+          "name": "sharefind.out",
+          "directory": "C:\\ProgramData\\C0015"
+        },
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:27:09Z",
+          "code": "11",
+          "provider": "Microsoft-Windows-Sysmon",
+          "kind": "event",
+          "created": "2026-10-27T12:27:02.643Z",
+          "action": "FileCreate",
+          "category": [
+            "file"
+          ],
+          "type": [
+            "creation"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9VI505TXapMGZrm75",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "type": "filebeat",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "version": "9.5.3"
+        },
+        "process": {
+          "name": "powershell.exe",
+          "pid": 5912,
+          "entity_id": "{88E52A21-9771-6AE0-9F04-000000002600}",
+          "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+        },
+        "winlog": {
+          "computer_name": "WS01.c0015.lab",
+          "record_id": "1229004",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "event_id": "11",
+          "task": "File created (rule: FileCreate)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "CreationUtcTime": "2026-09-10 11:35:23.116"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 2
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "File created:\nRuleName: -\nUtcTime: 2026-10-27 12:27:27.531\nProcessGuid: {88E52A21-9771-6AE0-9F04-000000002600}\nProcessId: 5912\nImage: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\nTargetFilename: C:\\Windows\\System32\\config\\systemprofile\\AppData\\Local\\Microsoft\\Windows\\PowerShell\\StartupProfileData-NonInteractive\nCreationUtcTime: 2026-09-10 11:35:23.116\nUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:27:27.531Z",
+        "file": {
+          "path": "C:\\Windows\\System32\\config\\systemprofile\\AppData\\Local\\Microsoft\\Windows\\PowerShell\\StartupProfileData-NonInteractive",
+          "name": "StartupProfileData-NonInteractive",
+          "directory": "C:\\Windows\\System32\\config\\systemprofile\\AppData\\Local\\Microsoft\\Windows\\PowerShell"
+        },
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:27:38Z",
+          "code": "11",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:27:28.720Z",
+          "kind": "event",
+          "action": "FileCreate",
+          "category": [
+            "file"
+          ],
+          "type": [
+            "creation"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    }
+  ]
+}

@@ -1,0 +1,216 @@
+{
+  "behaviour": "module_load",
+  "index": "logs-windows.sysmon_operational-*",
+  "identifier": {
+    "field": "process.entity_id",
+    "value": "{88E52A21-989E-6AE0-6B02-000000001500}",
+    "host": "fs01"
+  },
+  "alerts": [
+    "f336cc897c2fe1f1c5aef9fedc5c72d2a5db9960c88104234b4b677819423188"
+  ],
+  "queries": [
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-10-27T12:24:10.000Z",
+                  "lte": "2026-10-27T12:30:10.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "fs01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "7"
+              }
+            },
+            {
+              "term": {
+                "process.entity_id": "{88E52A21-989E-6AE0-6B02-000000001500}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-10-27T12:24:10.000Z",
+        "end": "2026-10-27T12:30:10.000Z"
+      },
+      "returned": 1,
+      "total": 1,
+      "relation": "eq"
+    }
+  ],
+  "returned": 1,
+  "truncated": false,
+  "sample": false,
+  "hits": [
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9VI505TXapMFBrF22",
+      "_source": {
+        "agent": {
+          "name": "FS01",
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "type": "filebeat",
+          "ephemeral_id": "e87233a5-a8dd-40cf-9618-89f6cdee708d",
+          "version": "9.5.3"
+        },
+        "process": {
+          "name": "rundll32.exe",
+          "pid": 960,
+          "entity_id": "{88E52A21-989E-6AE0-6B02-000000001500}",
+          "executable": "C:\\Windows\\System32\\rundll32.exe"
+        },
+        "winlog": {
+          "computer_name": "FS01.c0015.lab",
+          "record_id": "617286",
+          "process": {
+            "pid": 2624,
+            "thread": {
+              "id": 4196
+            }
+          },
+          "event_id": "7",
+          "task": "Image loaded (rule: ImageLoad)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "SignatureStatus": "Unavailable",
+            "Signed": "false"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "version": 3,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "dll": {
+          "path": "C:\\ProgramData\\inj.dll",
+          "code_signature": {
+            "trusted": false,
+            "status": "Unavailable"
+          },
+          "pe": {
+            "imphash": "667ca6b6afa3d9759d2cdd6b2dfc644e"
+          },
+          "name": "inj.dll",
+          "hash": {
+            "sha256": "8b6423c1912b9a94f5af55fe3507bf203476b1956ae9247dad3404e188f4b491"
+          }
+        },
+        "elastic_agent": {
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "rule": {
+          "name": "C0015-BALANCED"
+        },
+        "message": "Image loaded:\nRuleName: C0015-BALANCED\nUtcTime: 2026-10-27 12:27:10.024\nProcessGuid: {88E52A21-989E-6AE0-6B02-000000001500}\nProcessId: 960\nImage: C:\\Windows\\System32\\rundll32.exe\nImageLoaded: C:\\ProgramData\\inj.dll\nFileVersion: -\nDescription: -\nProduct: -\nCompany: -\nOriginalFileName: -\nHashes: SHA256=8B6423C1912B9A94F5AF55FE3507BF203476B1956AE9247DAD3404E188F4B491,IMPHASH=667CA6B6AFA3D9759D2CDD6B2DFC644E\nSigned: false\nSignature: -\nSignatureStatus: Unavailable\nUser: C0015\\helpdesk",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:27:10.024Z",
+        "file": {
+          "path": "C:\\ProgramData\\inj.dll",
+          "extension": "dll",
+          "code_signature": {
+            "trusted": false,
+            "status": "Unavailable"
+          },
+          "pe": {
+            "imphash": "667ca6b6afa3d9759d2cdd6b2dfc644e"
+          },
+          "name": "inj.dll",
+          "directory": "C:\\ProgramData",
+          "hash": {
+            "sha256": "8b6423c1912b9a94f5af55fe3507bf203476b1956ae9247dad3404e188f4b491"
+          }
+        },
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "helpdesk"
+          ],
+          "hash": [
+            "8b6423c1912b9a94f5af55fe3507bf203476b1956ae9247dad3404e188f4b491",
+            "667ca6b6afa3d9759d2cdd6b2dfc644e"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "FS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "192.168.106.155",
+            "192.168.50.30"
+          ],
+          "name": "fs01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-3B-C6-18",
+            "00-0C-29-3B-C6-22"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:27:16Z",
+          "code": "7",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:27:11.057Z",
+          "kind": "event",
+          "action": [
+            "Image loaded",
+            "load"
+          ],
+          "category": [
+            "process",
+            "library"
+          ],
+          "type": [
+            "change",
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "helpdesk",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    }
+  ]
+}

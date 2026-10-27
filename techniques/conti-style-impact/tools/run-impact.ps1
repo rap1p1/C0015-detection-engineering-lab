@@ -119,6 +119,14 @@ switch ($Action) {
         if (-not (Test-Path -LiteralPath $inventoryPath)) { Fail 'run Prepare first' }
         if (-not $Locker) { Fail '-Locker is required for Execute' }
         if (-not (Test-Path -LiteralPath $Locker)) { Fail "locker not found: $Locker" }
+        if (Test-Path -LiteralPath $journalPath) {
+            $existing = Get-Content -LiteralPath $journalPath -Raw | ConvertFrom-Json
+            if ($existing -and @($existing).Count -gt 0) { Fail 'a previous run has not been rolled back' }
+        }
+        $plan = Get-Plan
+        if ($plan.Count -gt $MaxFiles) { Fail "plan has $($plan.Count) operations, quota is $MaxFiles" }
+        $bytes = (Get-ChildItem -LiteralPath $corpusPath -Recurse -File | Measure-Object Length -Sum).Sum
+        if ($bytes -gt $MaxBytes) { Fail "corpus is $bytes bytes, quota is $MaxBytes" }
 
         $before = Get-Inventory
         # the simulator reads its root from the environment; the wrapper binds it to this corpus
@@ -146,6 +154,8 @@ switch ($Action) {
         foreach ($rel in $beforeMap.Keys) {
             if (-not $afterMap.ContainsKey($rel)) {
                 $journal.Add([pscustomobject]@{ action = 'removed'; path = $rel; sha256_before = $beforeMap[$rel].sha256 })
+            } elseif ($afterMap[$rel].sha256 -ne $beforeMap[$rel].sha256) {
+                $journal.Add([pscustomobject]@{ action = 'modified'; path = $rel; sha256_before = $beforeMap[$rel].sha256 })
             }
         }
         if ($journal.Count -gt $MaxFiles) { Fail "run changed $($journal.Count) paths, quota is $MaxFiles" }
@@ -162,8 +172,15 @@ switch ($Action) {
         foreach ($entry in $journal) {
             $full = Join-Path $corpusPath $entry.path
             switch ($entry.action) {
-                'rename' { if (-not (Test-Path -LiteralPath ($full + $suffix))) { Write-Host "[x] missing rename: $($entry.path)$suffix"; $failures++ } }
-                'note'   { if (-not (Test-Path -LiteralPath $full)) { Write-Host "[x] missing note: $($entry.path)"; $failures++ } }
+                'added'   { if (-not (Test-Path -LiteralPath $full)) { Write-Host "[x] missing added file: $($entry.path)"; $failures++ } }
+                'removed' { if (Test-Path -LiteralPath $full) { Write-Host "[x] removed file still present: $($entry.path)"; $failures++ } }
+                'modified' {
+                    if (-not (Test-Path -LiteralPath $full)) { Write-Host "[x] modified file missing: $($entry.path)"; $failures++ }
+                    elseif ((Get-FileHash -LiteralPath $full -Algorithm SHA256).Hash -eq $entry.sha256_before) {
+                        Write-Host "[x] modified file unchanged: $($entry.path)"; $failures++
+                    }
+                }
+                default { Write-Host "[x] unknown journal action: $($entry.action)"; $failures++ }
             }
         }
         if ($failures) { Fail "$failures journal entries not reflected on disk" }
@@ -186,8 +203,6 @@ switch ($Action) {
                 }
             }
         }
-        '[]' | Set-Content -LiteralPath $journalPath -Encoding UTF8
-
         $expected = Get-Content -LiteralPath $inventoryPath -Raw | ConvertFrom-Json
         $actual = Get-Inventory
         $expectedSet = $expected | ForEach-Object { "$($_.relative)|$($_.sha256)" }
@@ -198,6 +213,8 @@ switch ($Action) {
             $diff | Format-Table | Out-String | Write-Host
             exit 1
         }
+        '[]' | Set-Content -LiteralPath $journalPath -Encoding UTF8
+        if (-not (Test-Path -LiteralPath $sentinel)) { Fail 'rollback removed the sentinel' }
         Info "rollback verified: $($actual.Count) files match the baseline"
     }
 }

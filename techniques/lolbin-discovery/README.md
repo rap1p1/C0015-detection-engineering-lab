@@ -43,4 +43,10 @@ per run, which is the input for the target-selection step.
 
 The rule for this behaviour lives in [`detections/eql/`](../../detections/eql/) and is listed in the index at [`detections/README.md`](../../detections/README.md). The field assumptions the rule depends on are recorded there.
 
+## Evidence
+
+![Captured detection evidence](../../docs/evidence/run-2/discovery-alert.jpg)
+
+![Captured telemetry evidence](../../docs/evidence/run-2/discovery-event.jpg)
+
 

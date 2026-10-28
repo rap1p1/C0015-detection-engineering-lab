@@ -67,3 +67,7 @@ that should not be performing it.
 - The target logon is confirmed (`4624`, type 3, Kerberos); the source-side record of that session is not in the bundle.
 - The password is redacted in the export; the original document retains it in the lab only.
 
+## Evidence
+
+![WMI child process carries the target logon id](../../docs/evidence/run-2/d4-process-logonid.jpg)
+

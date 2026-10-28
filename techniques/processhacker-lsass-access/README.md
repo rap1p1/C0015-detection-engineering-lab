@@ -36,6 +36,14 @@ the run.
 
 The rule for this behaviour lives in [`detections/eql/`](../../detections/eql/) and is listed in the index at [`detections/README.md`](../../detections/README.md). The field assumptions the rule depends on are recorded there.
 
+## Evidence
+
+![R05 LSASS access alerts](../../docs/evidence/run-2/c1-r05-alerts.jpg)
+
+![CMD to mk process-chain correlation](../../docs/evidence/run-2/c3-cmd-mk-discover.jpg)
+
+![Selected LSASS access fields](../../docs/evidence/run-2/lsass-fields.jpg)
+
 
 
 ## Credential path used for the pivot

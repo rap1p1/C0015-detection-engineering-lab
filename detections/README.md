@@ -85,3 +85,34 @@ their own limitations.
   confirmed against a captured document from the target stack.
 
 
+## Captured evidence
+
+![R01 office spawns script host](../docs/evidence/run-2/rule-r01.jpg)
+
+![R02 script host starts loader](../docs/evidence/run-2/rule-r02.jpg)
+
+![R03 loader loads unsigned module](../docs/evidence/run-2/rule-r03.jpg)
+
+![R04 injection into system process](../docs/evidence/run-2/rule-r04.jpg)
+
+![R05 lsass credential access](../docs/evidence/run-2/rule-r05.jpg)
+
+![R06 wmi remote creation](../docs/evidence/run-2/rule-r06.jpg)
+
+![R07 wmi loader execution](../docs/evidence/run-2/rule-r07.jpg)
+
+![R08 service host starts loader, no match in run-2](../docs/evidence/run-2/rule-r08-zero.jpg)
+
+![R11 rclone transfer intent](../docs/evidence/run-2/rule-r11.jpg)
+
+![R12 note creation, including staging-note rows](../docs/evidence/run-2/rule-r12.jpg)
+
+![R13 interactive logon](../docs/evidence/run-2/rule-r13.jpg)
+
+![R15 repeated failures then success, no matching sequence in run-2](../docs/evidence/run-2/rule-r15-zero.jpg)
+
+![R16 RunAsPPL registry modification](../docs/evidence/run-2/rule-r16.jpg)
+
+![R17 discovery command](../docs/evidence/run-2/rule-r17.jpg)
+
+![R18 WMI shell execution](../docs/evidence/run-2/rule-r18.jpg)

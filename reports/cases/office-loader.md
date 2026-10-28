@@ -82,3 +82,9 @@ network event from `ws01` around 12:22Z.
 The lab builds this chain from a document macro; the operator knows the HTA path and that the `.jpg` is a
 loader stub. None of that is in the events above, and the case is written to stand without it.
 
+## Evidence
+
+![Office chain: cmd, mshta and regsvr32 by entity id](../../docs/evidence/run-2/b2-office-chain-e1.jpg)
+
+![updater.exe started rundll32, which loaded the Temp DLL](../../docs/evidence/run-2/b4-updater-rundll32.jpg)
+

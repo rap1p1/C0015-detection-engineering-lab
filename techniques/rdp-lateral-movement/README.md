@@ -49,3 +49,8 @@ The next attempt should use a raw TCP pivot rather than the in-band SOCKS proxy,
 same requirement: the process that owns the 3389 socket must be the implant, and the logon on the
 target must be type 10 with a workstation name that is not an estate member.
 
+## Evidence
+
+![Captured detection evidence](../../docs/evidence/run-2/rdp-alert.jpg)
+
+![Captured telemetry evidence](../../docs/evidence/run-2/rdp-event.jpg)

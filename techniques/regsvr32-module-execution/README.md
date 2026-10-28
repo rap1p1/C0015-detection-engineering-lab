@@ -37,4 +37,10 @@ being unsigned and loaded from a user-writable path.
 
 The rule for this behaviour lives in [`detections/eql/`](../../detections/eql/) and is listed in the index at [`detections/README.md`](../../detections/README.md). The field assumptions the rule depends on are recorded there.
 
+## Evidence
+
+![Captured detection evidence](../../docs/evidence/run-2/b1-r03-alerts.jpg)
+
+![Captured telemetry evidence](../../docs/evidence/run-2/b3-e7-regsvr32-discover.jpg)
+
 

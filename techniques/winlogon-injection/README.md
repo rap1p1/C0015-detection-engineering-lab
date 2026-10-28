@@ -57,3 +57,9 @@ process is the logon process.
 
 The injector reads its target PID and payload path from files next to the module, so the same build
 serves the winlogon stage and the service-host stage.
+
+## Evidence
+
+![R04 alert, svchost target](../../docs/evidence/run-2/winlogon-alert.jpg)
+
+![Captured telemetry evidence](../../docs/evidence/run-2/winlogon-zero-result.jpg)

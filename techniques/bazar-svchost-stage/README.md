@@ -68,4 +68,8 @@ without rebuilding the DLL.
 The loader module is 46 MB. That is the size of a Go build and it is not a defect to be tuned away:
 rules for this stage key on the load path, the signature state, and the parent image.
 
+## Evidence
+
+![Captured telemetry evidence](../../docs/evidence/run-2/bazar-event.jpg)
+
 

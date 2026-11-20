@@ -1,4 +1,3 @@
 process where event.code == "1"
-  and process.parent.name : ("WINWORD.EXE", "EXCEL.EXE", "POWERPNT.EXE")
-  and process.name : ("cmd.exe", "powershell.exe", "mshta.exe", "wscript.exe",
-                      "cscript.exe", "regsvr32.exe", "rundll32.exe")
+  and process.parent.name in ("WINWORD.EXE", "EXCEL.EXE", "POWERPNT.EXE", "OUTLOOK.EXE")
+  and process.name in ("mshta.exe", "cmd.exe", "wscript.exe", "cscript.exe", "powershell.exe")

@@ -6,7 +6,7 @@
 | Account | SYSTEM |
 | What happens | mimikatz reads the LSA secrets of the backup service and recovers C0015\Administrator |
 | Telemetry | Sysmon 1, Security 4688, 4672 |
-| Detection | R23 (planned) |
+| Detection | R05 |
 | Payload / tooling | mimikatz (tools/mimikatz) |
 
 ## How the lab reproduces it

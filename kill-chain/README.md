@@ -32,10 +32,10 @@ FS01  SYSTEM (beacon)
 | 1 | Document and macro | [`techniques/delivery-macro-document`](techniques/delivery-macro-document/README.md) | duc.user | Sysmon 1 | R01 |
 | 2 | HTA proxy execution | [`techniques/hta-proxy-execution`](techniques/hta-proxy-execution/README.md) | duc.user | Sysmon 1 | R02 |
 | 3 | Loader and unsigned module | [`techniques/regsvr32-loader`](techniques/regsvr32-loader/README.md) | duc.user | Sysmon 1, 7 | R03 |
-| 4 | Agent privilege escalation | [`techniques/agent-privilege-escalation`](techniques/agent-privilege-escalation/README.md) | duc.user -> SYSTEM | Sysmon 1, 11 | R22 (planned) |
-| 5 | Credential access from LSA secrets | [`techniques/credential-access-lsa-secrets`](techniques/credential-access-lsa-secrets/README.md) | SYSTEM | Sysmon 1, Security 4688 | R23 (planned) |
-| 6 | WMI lateral movement | [`techniques/wmi-lateral-movement`](techniques/wmi-lateral-movement/README.md) | Administrator -> SYSTEM | Security 4624/4672, Sysmon 1 | R19 (planned) |
-| 7 | Beacon service persistence | [`techniques/beacon-service-persistence`](techniques/beacon-service-persistence/README.md) | SYSTEM | Security 7045, Sysmon 1 | R21 (planned) |
+| 4 | Agent privilege escalation | [`techniques/agent-privilege-escalation`](techniques/agent-privilege-escalation/README.md) | duc.user -> SYSTEM | Sysmon 1, 11 | R04 |
+| 5 | Credential access from LSA secrets | [`techniques/credential-access-lsa-secrets`](techniques/credential-access-lsa-secrets/README.md) | SYSTEM | Sysmon 1, Security 4688 | R05 |
+| 6 | WMI lateral movement | [`techniques/wmi-lateral-movement`](techniques/wmi-lateral-movement/README.md) | Administrator -> SYSTEM | Security 4624/4672, Sysmon 1 | R07 / R08 |
+| 7 | Beacon service persistence | [`techniques/beacon-service-persistence`](techniques/beacon-service-persistence/README.md) | SYSTEM | Security 7045, Sysmon 1 | R09 |
 | 8 | Discovery | [`techniques/discovery`](techniques/discovery/README.md) | SYSTEM | Sysmon 1 | R17 |
 | 9 | Exfiltration | [`techniques/rclone-exfiltration`](techniques/rclone-exfiltration/README.md) | SYSTEM | Sysmon 1 | R11 |
 | 10 | Ransomware | [`techniques/conti-ransomware`](techniques/conti-ransomware/README.md) | SYSTEM | Sysmon 1, 11 | R12 |
@@ -62,7 +62,6 @@ corresponding documents exist.
 
 ## Rules
 
-The rule set in `detections/` still reflects the previous chain. R06, R08, R13 and R15 lose their subject
-under this design; R19, R21, R22 and R23 are the new ones. The catalog is the place to record that change,
-and no rule result from the earlier runs applies to this chain.
+The thirteen rules in `detections/` cover this chain from the document edge to the locker and were
+validated against the 2026-11-20 run. The catalog records each rule's role, ATT&CK mapping and match count.
 

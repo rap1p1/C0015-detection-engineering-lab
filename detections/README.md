@@ -54,33 +54,38 @@ Two things must stay true when the rules are imported into a stack:
 Neither is proven by a query parsing. See the evidence schema in
 [`evidence/schema/export-v1.schema.json`](../evidence/schema/export-v1.schema.json)
 for the fields an export must carry to be checkable.
-
 ## Validation status
 
-Every shipped entry records `validation.kind = engine_run` from
-`tools/detections/engine_check.py` against Elasticsearch 9.5.3 over the window
-`2026-09-12 -> now`, using the index patterns in each entry's `deployment` block. The run proves that
-each query parses and that the fields it names exist in this pipeline; it does **not** classify the
-matches as true or false positives, and it does **not** prove that a scheduled rule alerts.
+All thirteen rules were run with `detections/tools/engine_check.py` against Elasticsearch 9.5.3 on the
+window `2026-11-20T11:30Z -> 2026-11-20T12:10Z`, the run that exercised the current chain. Every query
+parsed and every field it names exists in this pipeline; the matches are in each catalog entry.
 
-`C0015-R17` returned the 2000 result cap and is marked `truncated: true`; its match count is a floor,
-not a total.
+| Rule | Matches | Meaning |
+|---|---|---|
+| R01 | 2 | Word started mshta through cmd |
+| R02 | 2 | mshta started regsvr32 on the staged `.jpg` |
+| R03 | 2 | regsvr32 loaded the unsigned module |
+| R04 | 1 | HealthMonitor ran the planted script as SYSTEM |
+| R05 | 3 | mimikatz read LSA secrets |
+| R06 | 0 | no LSASS access in this chain; the rule stays for the technique |
+| R07 | 1 | wmic created a process on FS01 |
+| R08 | 1 | the WMI provider host started PowerShell on FS01 |
+| R09 | 1 | the beacon was installed as a service from ProgramData |
+| R10 | 1 | shadow copies deleted |
+| R11 | 1 | rclone copied the corpus to a remote |
+| R12 | 1 | the locker started with its deployment flags |
+| R13 | 6 | service binaries ran from user paths (context) |
 
-Scheduled execution, suppression and lookback are configured in Kibana and are not exercised by the
-repository's checks; the deployment block records the values in use.
+A match is not a verdict: the engine check proves the query and the fields, not precision. R13 is a
+building block; R06 has no match in this run because the chain reads LSA secrets instead of LSASS.
 
-## Retired
+## Field notes
 
-`C0015-R09` (NTLM network logon followed by a privileged token) is retired. The reason is in the
-catalog: EQL can join per clause, but the pair does not prove pass-the-hash, and the single-event form
-matches every NTLM network logon in a domain. Credential use is covered by `R05`, `R13` and `R15` with
-their own limitations.
-
-## Field notes that are still open
-
-- `E7` module loads carry the loading process identity, which is what `R03` joins on. Whether the
-  pipeline populates `process.entity_id` on `E7` must be confirmed on the target stack before the rule
-  is called deployable.
-- `E13` DWORD representation (`registry.data.strings : "0"`) is asserted by the rule and has not been
-  confirmed against a captured document from the target stack.
-
+- `E7` carries the module in `dll.path` and the trust verdict in `dll.code_signature.trusted`, not in
+  `winlog.event_data.ImageLoaded`.
+- `7045` carries `winlog.event_data.ImagePath`, `ServiceName`, `StartType` and `AccountName`; R09 keys on
+  the image path.
+- The note file is not visible in `E11` with the current Sysmon profile, which is why R12 keys on the
+  locker command line instead of the note.
+- `E10` `GrantedAccess` is a string such as `0x1010`; the rule lists the masks and excludes the security
+  and hypervisor agents that read LSASS legitimately.

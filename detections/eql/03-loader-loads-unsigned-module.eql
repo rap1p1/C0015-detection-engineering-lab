@@ -1,6 +1,4 @@
-any where event.code == "7"
-  and winlog.event_data.Signed : "false"
-  and process.name : ("rundll32.exe", "regsvr32.exe")
-  and file.path : ("*\\Users\\Public\\*", "*\\ProgramData\\C0015\\*",
-                   "*\\Users\\*\\Downloads\\*", "*\\Windows\\Temp\\*")
-  and not file.path : ("*\\ProgramData\\Microsoft\\*", "*\\ProgramData\\Package Cache\\*")
+process where event.code == "7"
+  and process.name == "regsvr32.exe"
+  and dll.code_signature.trusted == false
+  and (dll.path : "*.jpg" or dll.path : "*\\Users\\Public\\*" or dll.path : "*\\AppData\\*")

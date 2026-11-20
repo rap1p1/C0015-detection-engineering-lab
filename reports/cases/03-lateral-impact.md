@@ -6,8 +6,8 @@
 
 | Rule | What it should show |
 |---|---|
-| R19 (planned) | `WmiPrvSE.exe` child on FS01, `cmd /Q /c` with the `ADMIN$` redirect |
-| R21 (planned) | 7045 service installation and the service binary |
+| R08 | `WmiPrvSE.exe` child on FS01, `cmd /Q /c` with the `ADMIN$` redirect |
+| R09 | 7045 service installation and the service binary |
 | R11 | `rclone.exe` copy to `Mega:DATA` |
 | R12 | `readme.txt` creation and the `.c0015` churn |
 

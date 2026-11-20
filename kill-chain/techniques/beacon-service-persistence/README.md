@@ -6,7 +6,7 @@
 | Account | SYSTEM |
 | What happens | the beacon is installed as an auto-start service so it survives reboot |
 | Telemetry | Security 7045, Sysmon 1 |
-| Detection | R21 (planned) |
+| Detection | R09 |
 | Payload / tooling | service install command (attack-playbook) |
 
 ## How the lab reproduces it

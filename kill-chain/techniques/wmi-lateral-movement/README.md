@@ -6,7 +6,7 @@
 | Account | Administrator |
 | What happens | WMI with the recovered credential disables Defender on FS01, then delivers the beacon |
 | Telemetry | Security 4624 type 3, 4672, Sysmon 1 under WmiPrvSE |
-| Detection | R19 (planned) |
+| Detection | R07 / R08 |
 | Payload / tooling | none; operator action |
 
 ## How the lab reproduces it

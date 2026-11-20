@@ -6,8 +6,8 @@
 
 | Rule | What it should show |
 |---|---|
-| R22 (planned) agent child | `HealthMonitor.exe` (SYSTEM) starts `powershell.exe -File ...checks\update.ps1` |
-| R23 (planned) mimikatz | `mimikatz.exe` with `privilege::debug` and `lsadump::secrets` |
+| R04 agent child | `HealthMonitor.exe` (SYSTEM) starts `powershell.exe -File ...checks\update.ps1` |
+| R05 mimikatz | `mimikatz.exe` with `privilege::debug` and `lsadump::secrets` |
 
 ## Investigation
 

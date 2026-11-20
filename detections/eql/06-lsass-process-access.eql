@@ -1,0 +1,4 @@
+process where event.code == "10"
+  and winlog.event_data.TargetImage : "*\\lsass.exe"
+  and winlog.event_data.GrantedAccess in ("0x1010", "0x1038", "0x1410", "0x1438", "0x1fffff", "0x40")
+  and not process.name in ("MsMpEng.exe", "Sysmon64.exe", "vmtoolsd.exe", "csrss.exe", "wininit.exe", "services.exe", "wmiprvse.exe")

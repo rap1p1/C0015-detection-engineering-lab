@@ -1,3 +1,0 @@
-process where event.code == "1"
-  and process.parent.name : "WmiPrvSE.exe"
-  and process.name : ("rundll32.exe", "regsvr32.exe")

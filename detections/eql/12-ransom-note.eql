@@ -1,2 +1,3 @@
-file where event.code == "11"
-  and file.name : "readme.txt"
+process where event.code == "1"
+  and (process.name in ("locker.exe", "ransomware-sim.exe")
+       or (process.command_line : "*-m *" and process.command_line : "*-net*" and process.command_line : "*-p *"))

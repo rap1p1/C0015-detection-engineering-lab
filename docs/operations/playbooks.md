@@ -9,7 +9,7 @@
 5. Close when the module is signed and the chain matches a known deployment.
 6. Insufficient information when no ancestry is recorded: keep open, record the gap.
 
-## P2 - Agent escalation and credential access (R22, R23)
+## P2 - Agent escalation and credential access (R04, R05)
 
 1. Confirm the child process of `HealthMonitor.exe` and the script it ran.
 2. Identify what the script wrote and where it downloaded from.
@@ -18,7 +18,7 @@
 5. Close only with a documented change ticket that explains the script.
 6. Insufficient information when the agent log is missing; treat the absence as telemetry loss.
 
-## P3 - Lateral movement, exfiltration and impact (R19, R21, R11, R12)
+## P3 - Lateral movement, exfiltration and impact (R07, R08, R09, R11, R12)
 
 1. Confirm the network logon on the target and the WMI child process.
 2. Confirm service installation (7045) and the service binary.

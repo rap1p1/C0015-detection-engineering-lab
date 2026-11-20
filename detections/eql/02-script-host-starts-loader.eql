@@ -1,3 +1,4 @@
 process where event.code == "1"
-  and process.parent.name : ("mshta.exe", "wscript.exe", "cscript.exe")
-  and process.name : ("regsvr32.exe", "rundll32.exe")
+  and process.parent.name in ("mshta.exe", "cmd.exe", "wscript.exe", "cscript.exe")
+  and process.name == "regsvr32.exe"
+  and (process.command_line : "*.jpg*" or process.command_line : "*\\Users\\Public\\*" or process.command_line : "*\\AppData\\*")

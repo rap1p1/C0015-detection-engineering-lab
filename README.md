@@ -48,8 +48,8 @@ evidence/              bundle schema and capture/validation tooling (runs land h
 
 - The chain was redesigned in November 2026; the earlier runs and their screenshots were removed, and the
   case files now describe the new chain with evidence marked pending.
-- The rule set still reflects the previous chain. R19 (WMI execution), R21 (service install), R22 (agent
-  child) and R23 (mimikatz / LSA secrets) are the planned replacements for R06, R08, R13 and R15.
+- The rule set is rebuilt for this chain: thirteen rules, from the document edge to the locker, validated
+  against the 2026-11-20 run with the engine check. The catalog is the source of truth.
 - No claim in `reports/` is backed by a capture of this chain yet.
 
 ## Checks

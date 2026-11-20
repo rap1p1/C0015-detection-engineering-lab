@@ -1,0 +1,3 @@
+process where event.code == "1"
+  and process.name in ("vssadmin.exe", "wmic.exe")
+  and process.command_line : ("*delete shadows*", "*shadowcopy delete*")

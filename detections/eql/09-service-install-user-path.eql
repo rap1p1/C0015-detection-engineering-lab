@@ -1,0 +1,2 @@
+any where event.code == "7045"
+  and winlog.event_data.ImagePath : ("*\\ProgramData\\*", "*\\Users\\Public\\*", "*\\Temp\\*", "*\\AppData\\*")

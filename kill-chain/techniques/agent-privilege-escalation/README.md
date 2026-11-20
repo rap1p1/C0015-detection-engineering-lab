@@ -6,7 +6,7 @@
 | Account | duc.user -> SYSTEM |
 | What happens | HealthMonitor runs scripts from a user-writable directory; the planted script executes as SYSTEM |
 | Telemetry | Sysmon 1 (child of HealthMonitor), Sysmon 11 (script written) |
-| Detection | R22 (planned) |
+| Detection | R04 |
 | Payload / tooling | agent-update.ps1, install-healthmonitor.ps1 |
 
 ## How the lab reproduces it

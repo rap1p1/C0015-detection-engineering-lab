@@ -1,0 +1,6 @@
+sequence by host.id with maxspan=5m
+  [network where event.code == "22" and dns.question.name : "*checkauj.com"]
+  [network where event.code == "3"
+     and process.name : "svchost.exe"
+     and destination.ip == "192.168.50.100"
+     and destination.port == 443]

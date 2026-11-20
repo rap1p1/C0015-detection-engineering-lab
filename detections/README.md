@@ -58,7 +58,7 @@ for the fields an export must carry to be checkable.
 
 Per-hit classification and provenance: [`validation.md`](validation.md).
 
-All fourteen shipped rules were run with `detections/tools/engine_check.py` against Elasticsearch 9.5.3 on the
+All sixteen shipped rules were run with `detections/tools/engine_check.py` against Elasticsearch 9.5.3 on the
 window `2026-11-20T15:40Z -> 2026-11-20T16:00Z`, the single run that exercised the current chain (document, agent, injection, WMI, exfiltration, impact). Every query
 parsed and every field it names exists in this pipeline; the matches are in each catalog entry.
 
@@ -78,6 +78,8 @@ parsed and every field it names exists in this pipeline; the matches are in each
 | R13 | 1 | script written into agent checks |
 | R14 | 4 | remote thread into service host |
 | R15 | 5 | module loaded from user path |
+| R16 | 1 | dns query for campaign domain |
+| R17 | 1 | dns lookup then beacon connection |
 
 A match is not a verdict: the engine check proves the query and the fields, not precision. Every rule
 fires on this chain and every rule is an alert.

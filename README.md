@@ -389,10 +389,11 @@ and each entry records what it does not prove.
 | R13 | script written into agent checks | alert | T1574.010 | 1 |
 | R14 | remote thread into service host | alert | T1055 | 4 |
 | R15 | module loaded from user path | building_block | T1574 | 5 |
+| R16 | dns query for campaign domain | alert | T1071.004 | 1 |
+| R17 | dns lookup then beacon connection | alert | T1071.001 | 1 |
 
 A match is not a verdict. The engine check proves the query parses and the fields exist; precision is
-measured against the run, not assumed. All counts come from one window, `15:40Z -> 16:00Z`, the run that
-went from the document to the impact; the 42 matches are the 42 alerts of that run.
+measured against the run, not assumed. Counts for R01-R15 come from the run window `15:40Z -> 16:00Z` (42 matches = 42 alerts); R16 and R17 were verified on a separate network run in `16:30Z -> 16:45Z` and are marked in [`detections/validation.md`](detections/validation.md).
 
 ## How to run the lab
 

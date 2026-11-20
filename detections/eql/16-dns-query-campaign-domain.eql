@@ -1,0 +1,2 @@
+network where event.code == "22"
+  and dns.question.name : "*checkauj.com"

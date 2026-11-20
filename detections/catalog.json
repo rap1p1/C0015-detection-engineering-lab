@@ -662,6 +662,95 @@
         "error": null,
         "note": "Query parse and field existence only; matches are not classified as true or false positives."
       }
+    },
+    {
+      "id": "C0015-R16",
+      "revision": 1,
+      "name": "dns query for campaign domain",
+      "file": "detections/eql/16-dns-query-campaign-domain.eql",
+      "sha256": "30ef331c66c78b0134e3e963731e8c1990bda9a41b051da1dab087f0a210c66f",
+      "status": "shipped",
+      "role": "alert",
+      "severity": "medium",
+      "risk_score": 47,
+      "attck": {
+        "tactic_id": "TA0011",
+        "tactic_name": "Command and Control",
+        "technique_id": "T1071.004",
+        "technique_name": "Application Layer Protocol: DNS"
+      },
+      "description": "A host resolves the campaign domain used by the C2 listener.",
+      "limitations": "Domain-specific; a rotated domain or a direct-IP implant is missed. A DNS query alone does not prove a tunnel.",
+      "prerequisites": [
+        "Sysmon 22"
+      ],
+      "deployment": {
+        "index": [
+          "logs-windows.sysmon_operational-*"
+        ],
+        "timestamp_field": "@timestamp",
+        "interval": "1m",
+        "lookback": "now-3m",
+        "max_signals": 100,
+        "enabled": true
+      },
+      "validation": {
+        "kind": "engine_run",
+        "engine": "elasticsearch 9.5.3",
+        "window": {
+          "start": "2026-11-20T16:30:00Z",
+          "end": "2026-11-20T16:45:00Z"
+        },
+        "matches": 1,
+        "truncated": false,
+        "error": null,
+        "note": "Separate verification run for the network rules."
+      }
+    },
+    {
+      "id": "C0015-R17",
+      "revision": 1,
+      "name": "dns lookup then beacon connection",
+      "file": "detections/eql/17-dns-then-beacon-connection.eql",
+      "sha256": "88e2bff49577c7ca2243b4850652722303a17ba3560bced7207202bff4bd38da",
+      "status": "shipped",
+      "role": "alert",
+      "severity": "high",
+      "risk_score": 73,
+      "attck": {
+        "tactic_id": "TA0011",
+        "tactic_name": "Command and Control",
+        "technique_id": "T1071.001",
+        "technique_name": "Application Layer Protocol: Web Protocols"
+      },
+      "description": "svchost resolves the campaign domain and then connects to the listener on 443 within five minutes.",
+      "limitations": "Lab-specific listener address; in production replace the address with the destination range or the domain resolution result.",
+      "prerequisites": [
+        "Sysmon 3",
+        "Sysmon 22"
+      ],
+      "deployment": {
+        "index": [
+          "logs-windows.sysmon_operational-*"
+        ],
+        "timestamp_field": "@timestamp",
+        "interval": "1m",
+        "lookback": "now-3m",
+        "max_signals": 100,
+        "enabled": true
+      },
+      "validation": {
+        "kind": "engine_run",
+        "engine": "elasticsearch 9.5.3",
+        "window": {
+          "start": "2026-11-20T16:30:00Z",
+          "end": "2026-11-20T16:45:00Z"
+        },
+        "matches": 1,
+        "truncated": false,
+        "error": null,
+        "note": "Separate verification run for the network rules."
+      }
     }
   ]
 }

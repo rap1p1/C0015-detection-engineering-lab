@@ -52,3 +52,16 @@ alert, so keep the two numbers separate in future runs.
 - E7 includes all of `C:\ProgramData\`; the `c0015` entry is inside that broader include, not the reason
   the path is visible.
 - No network event (E3) or receiver-side evidence is part of this validation.
+
+## Network rules - separate run
+
+R16 and R17 were verified on a second short run after the beacon was generated with the domain instead
+of the IP literal, `2026-11-20T16:30Z - 16:45Z`:
+
+| Event | Count | Example |
+|---|---|---|
+| E22 `checkauj.com` from `svchost.exe` (R16) | 1 | 16:37:05 on WS01 |
+| E3 `svchost.exe -> 192.168.50.100:443` after the lookup (R17) | 1 sequence | 16:37:05 lookup, 16:37:08 first connect |
+
+The direct-IP beacon used in the main run produced no DNS event at all; the domain beacon does. This is
+why the two runs are kept apart in the catalog.

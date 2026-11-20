@@ -1,59 +1,29 @@
 # Account model
 
-The source report does not establish where the credentials for the WMI pivot came from. No credential
-dump precedes it, and the Domain Controller is never touched. The lab therefore provisions the
-credential explicitly rather than pretending to recover one, and keeps the provisioning step outside
-the attack timeline so the detection surface is still complete.
+The scenario uses two identities and nothing else.
 
-| Account | Scope | Purpose |
-|---|---|---|
-| `C0015\duc.user` | Local administrator on WS01 | Interactive victim. Opens the document, enables the macro, owns the entry chain |
-| `C0015\bk.admin` | Local administrator on FS01 | Backup server administrator. Used for the WMI pivot and the RDP session |
-| `C0015\it.admin` | Domain administrator | Lab administration, DC-side changes, snapshot and restore work |
-| `C0015\svc_backup` | Log on as a service on FS01 | Backup agent context, present so the backup server has a plausible service identity |
-| `C0015\WS01$` | Member of local Administrators on FS01 | Machine account. Lets a SYSTEM context on WS01 reach FS01 without an explicit credential |
+| Account | Type | Rights used | Role |
+|---|---|---|---|
+| `C0015\duc.user` | domain user, standard | member of `Remote Desktop Users` on WS01; **no** local admin | opens the document, runs the loader |
+| `C0015\Administrator` | domain administrator (RID 500, built-in) | full domain admin | recovered from LSA secrets, then used for WMI and the FS01 beacon |
 
-## Why these names
+Local `SYSTEM` runs the agent service, the beacon and the ransomware; its network identity is the machine
+account (`WS01$`, `FS01$`).
 
-`duc.user` is the interactive victim from the original lab. `bk.admin` is new: a backup server in an
-estate of this size has a dedicated administrator, and the pivot needs an account with administrative
-rights on that host. Using it keeps the pivot attributable to a real identity instead of a domain
-administrator, which is what the campaign implies by reaching a single high-value server.
+## What is deliberately not provisioned
 
-`WS01$` is added to the local Administrators group on FS01 so that a SYSTEM context on the workstation
-can create a process on the backup server through the machine account. This path exists in most
-estates and requires no credential material on the host. The lab uses `bk.admin` for the documented
-path and keeps the machine account as an alternative that needs no provisioning in the run.
+`helpdesk`, `IT-Support`, `it.admin`, `bk.admin`, `svc_backup` and the `WS01$` local-admin grant are gone.
+The earlier design used them to make the lateral movement work; the current chain does not need a second
+intermediate identity.
 
-`it.admin` is not used by the simulated operator. It exists for lab administration; its use during a
-run would be an operator error and is recorded as such.
+## Where the administrator password comes from
+
+The one-time maintenance task runs as `C0015\Administrator`. Task Scheduler stores the password as an LSA
+secret, and the attacker reads it with `mimikatz lsadump::secrets` after the agent gives them SYSTEM. The
+lab does not place the password on disk in plaintext.
 
 ## Provisioning
 
-`scripts/New-LabAccounts.ps1` creates the accounts, sets the group memberships, and creates the shares.
-It is idempotent and takes the DC as a parameter.
-
-```powershell
-.\scripts\New-LabAccounts.ps1 -DomainController DC01 -BackupServer FS01
-```
-
-## Password handling
-
-Passwords are not stored in the repository. The provisioning script prompts for them, and the run
-sequence supplies them through the operating system credential store on the operator host. The
-`stage/` directory, which is excluded from version control, may hold exported credentials for the
-duration of a run.
-
-
-## Current model
-
-The reference run uses two identities and nothing else:
-
-| Account | Type | Rights used |
-|---|---|---|
-| `C0015\duc.user` | standard domain user, member of `Remote Desktop Users` on WS01 | opens the document; no local admin |
-| `C0015\helpdesk` | domain user, member of `IT-Support` | local administrator on WS01 and FS01 through group membership; used for WMI execution and the injected session |
-
-`bk.admin`, `WS01$` and the earlier console-session workflow belong to previous iterations. They are kept
-in the history only; the provisioning script and the [attack playbook](../attack-playbook/README.md)
-describe the current model.
+[`scripts/New-LabAccounts.ps1`](scripts/New-LabAccounts.ps1) creates `duc.user`, adds it to the workstation
+`Remote Desktop Users` group and sets the password. `Administrator` exists with the domain; its password is
+set during domain creation and is entered interactively when the maintenance task is created.

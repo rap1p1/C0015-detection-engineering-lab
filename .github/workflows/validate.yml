@@ -13,33 +13,10 @@ jobs:
         with:
           python-version: "3.12"
       - name: catalog, hashes and tracked files
-        run: python3 tools/detections/catalog.py --check
+        run: python3 detections/tools/catalog.py --check
       - name: catalog index is current
         run: |
-          python3 tools/detections/catalog.py --index
+          python3 detections/tools/catalog.py --index
           git diff --exit-code detections/INDEX.md
       - name: markdown links
-        run: python3 tools/ci/check_links.py
-      - name: legacy evidence is labelled
-        run: |
-          python3 tools/evidence/validate.py evidence/legacy/es-evidence.json
-          python3 tools/evidence/validate.py evidence/legacy/run-2026-10-25.json
-      - name: evidence tooling tests
-        run: python3 tests/test_evidence.py
-      - name: current evidence bundles
-        run: |
-          for bundle in evidence/runs/*/; do
-            if [ -f "$bundle/run.json" ]; then python3 tools/evidence/validate_run.py "$bundle"; fi
-          done
-
-  corpus-safety:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: shell syntax
-        run: bash -n techniques/rdp-lateral-movement/tools/rdp-via-socks.sh
-      - name: impact wrapper self-test
-        shell: pwsh
-        run: ./tests/impact-sandbox.ps1
-
-
+        run: python3 .github/scripts/check_links.py

@@ -8,7 +8,7 @@ page is the operator view: what to set up once, what to run, what to check after
 | Weakness | Where | Script |
 |---|---|---|
 | HealthMonitor agent runs `checks\*.ps1` as LocalSystem and the directory is writable by Users | WS01 | [`setup/install-healthmonitor.ps1`](setup/install-healthmonitor.ps1) |
-| Maintenance task runs as `C0015\Administrator`, so its password sits in LSA secrets | WS01 | [`setup/create-maintenance-task.ps1`](setup/create-maintenance-task.ps1) |
+| Backup service runs as `C0015\Administrator`, so its password sits in LSA secrets | WS01 | [`setup/create-backup-service.ps1`](setup/create-backup-service.ps1) |
 | Defender real-time off, Tamper Protection off | WS01 | manual, image build |
 | A data corpus and a MEGA remote | FS01 / Kali | existing lab data, [`tools/rclone`](../tools/rclone/README.md) |
 

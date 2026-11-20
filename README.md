@@ -29,7 +29,7 @@ FS01 beacon: discovery, rclone exfil to MEGA, shadow copies deleted, ransomware
 
 The privilege escalation does not rely on anything the attacker pre-creates: the lab has one environment
 weakness (an agent that executes scripts from a user-writable directory) and one operational weakness (a
-maintenance task that runs as the domain administrator, so its password sits in LSA secrets).
+backup service that runs as the domain administrator, so its password sits in LSA secrets).
 
 ## Layout
 

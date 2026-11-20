@@ -11,13 +11,13 @@
 ## Summary
 
 The HealthMonitor agent executed a script planted by a standard user and ran it as SYSTEM. A beacon
-started, and mimikatz read the LSA secret of the maintenance task, which holds the domain administrator
+started, and mimikatz read the LSA secret of the backup service, which holds the domain administrator
 password.
 
 ## Findings
 
 - `checks` directory is writable by Users; the service runs as LocalSystem.
-- The maintenance task runs as `C0015\Administrator`.
+- The backup service runs as `C0015\Administrator`.
 - The secret was read with `lsadump::secrets`, not from LSASS.
 
 ## Unknowns

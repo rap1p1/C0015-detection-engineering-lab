@@ -25,7 +25,7 @@ No `helpdesk`, no `IT-Support`, no `it.admin`, no `bk.admin`.
 | Component | Runs as | Weakness |
 |---|---|---|
 | `HealthMonitor` | LocalSystem | executes every `C:\ProgramData\HealthMonitor\checks\*.ps1`; that directory is writable by Users |
-| `C0015Maintenance` scheduled task | `C0015\Administrator` | the password is stored in LSA secrets, readable by SYSTEM |
+| `C0015Backup` service | `C0015\Administrator` | the password is stored in LSA secrets, readable by SYSTEM |
 | Defender on WS01 | - | real-time protection off, Tamper Protection off (lab precondition) |
 
 ## Telemetry path
@@ -33,3 +33,4 @@ No `helpdesk`, no `IT-Support`, no `it.admin`, no `bk.admin`.
 Sysmon (1, 3, 7, 8, 10, 11, 13) and the Security channel ship through Elastic Agent to Elasticsearch;
 Kibana is the analysis surface. Data views: `logs-windows.sysmon_operational-*`,
 `logs-system.security-*`; alerts live in `.internal.alerts-security.alerts-default*`.
+

@@ -4,7 +4,7 @@
 |---|---|
 | Chain phase | Credential access from LSA secrets |
 | Account | SYSTEM |
-| What happens | mimikatz reads the LSA secrets of the maintenance task and recovers C0015\Administrator |
+| What happens | mimikatz reads the LSA secrets of the backup service and recovers C0015\Administrator |
 | Telemetry | Sysmon 1, Security 4688, 4672 |
 | Detection | R23 (planned) |
 | Payload / tooling | mimikatz (tools/mimikatz) |

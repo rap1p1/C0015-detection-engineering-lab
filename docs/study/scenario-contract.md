@@ -5,7 +5,7 @@
 | Step | Script | Result |
 |---|---|---|
 | Agent weakness | [`attack-playbook/setup/install-healthmonitor.ps1`](../../attack-playbook/setup/install-healthmonitor.ps1) | service `HealthMonitor` as LocalSystem, `checks` writable by Users |
-| Maintenance task | [`attack-playbook/setup/create-maintenance-task.ps1`](../../attack-playbook/setup/create-maintenance-task.ps1) | task runs as `C0015\Administrator`; password in LSA secrets |
+| Backup service | [`attack-playbook/setup/create-backup-service.ps1`](../../attack-playbook/setup/create-backup-service.ps1) | task runs as `C0015\Administrator`; password in LSA secrets |
 | Defender | manual | WS01 real-time off, Tamper Protection off |
 | Corpus | existing lab data | `C:\C0015\corpus` with baseline inventory |
 

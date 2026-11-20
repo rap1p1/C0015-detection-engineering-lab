@@ -13,7 +13,7 @@ mimikatz.exe "privilege::debug" "lsadump::secrets" exit
 ```
 
 `lsadump::secrets` reads the LSA secrets, where Windows stores the password of accounts used by services
-and scheduled tasks. The lab maintenance task runs as `C0015\Administrator`, so the recovered secret is
+and scheduled tasks. The lab backup service runs as `C0015\Administrator`, so the recovered secret is
 the domain administrator password.
 
 ## Telemetry

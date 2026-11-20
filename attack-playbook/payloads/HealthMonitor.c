@@ -21,7 +21,7 @@ static volatile int g_stop = 0;
 static void logline(const wchar_t *msg)
 {
     FILE *f = _wfopen(LOG_PATH, L"a, ccs=UTF-8");
-    if (f) { fwprintf(f, L"%s\n", msg); fclose(f); }
+    if (f) { fwprintf(f, L"%ls\n", msg); fclose(f); }
 }
 
 static void run_script(const wchar_t *path)
@@ -49,7 +49,7 @@ static void scan_once(void)
     do {
         wchar_t full[MAX_PATH], done[MAX_PATH], msg[MAX_PATH + 64];
         _snwprintf(full, MAX_PATH, L"%s\\%s", CHECK_DIR, fd.cFileName);
-        _snwprintf(msg, MAX_PATH + 64, L"running %s", fd.cFileName);
+        _snwprintf(msg, MAX_PATH + 64, L"running %ls", fd.cFileName);
         logline(msg);
         run_script(full);
         _snwprintf(done, MAX_PATH, L"%s\\%s", DONE_DIR, fd.cFileName);

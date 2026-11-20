@@ -18,7 +18,7 @@ intermediate identity.
 
 ## Where the administrator password comes from
 
-The one-time maintenance task runs as `C0015\Administrator`. Task Scheduler stores the password as an LSA
+The one-time backup service runs as `C0015\Administrator`. Task Scheduler stores the password as an LSA
 secret, and the attacker reads it with `mimikatz lsadump::secrets` after the agent gives them SYSTEM. The
 lab does not place the password on disk in plaintext.
 
@@ -26,4 +26,4 @@ lab does not place the password on disk in plaintext.
 
 [`scripts/New-LabAccounts.ps1`](scripts/New-LabAccounts.ps1) creates `duc.user`, adds it to the workstation
 `Remote Desktop Users` group and sets the password. `Administrator` exists with the domain; its password is
-set during domain creation and is entered interactively when the maintenance task is created.
+set during domain creation and is entered interactively when the backup service is created.

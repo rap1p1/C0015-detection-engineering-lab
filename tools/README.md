@@ -5,7 +5,7 @@ used in the chain and the telemetry it leaves behind.
 
 | Tool | Folder | Used in phase | Notes |
 |---|---|---|---|
-| Mimikatz | [`mimikatz/`](mimikatz/README.md) | credential access | reads LSA secrets of the maintenance task |
+| Mimikatz | [`mimikatz/`](mimikatz/README.md) | credential access | reads LSA secrets of the backup service |
 | Sliver | [`sliver/`](sliver/README.md) | beacon on WS01 and FS01 | HTTPS listener 443, `persist` not available in this build |
 | rclone | [`rclone/`](rclone/README.md) | exfiltration | config with the MEGA remote, uploaded at run time |
 | Impacket | [`impacket/`](impacket/README.md) | lateral movement | `wmiexec`/`psexec` with `-hashes` |

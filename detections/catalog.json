@@ -36,10 +36,10 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T15:20:00Z",
-          "end": "2026-11-20T15:45:00Z"
+          "start": "2026-11-20T15:40:00Z",
+          "end": "2026-11-20T16:00:00Z"
         },
-        "matches": 0,
+        "matches": 1,
         "truncated": false,
         "error": null,
         "note": "Query parse and field existence only; matches are not classified as true or false positives."
@@ -80,10 +80,10 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T15:20:00Z",
-          "end": "2026-11-20T15:45:00Z"
+          "start": "2026-11-20T15:40:00Z",
+          "end": "2026-11-20T16:00:00Z"
         },
-        "matches": 0,
+        "matches": 1,
         "truncated": false,
         "error": null,
         "note": "Query parse and field existence only; matches are not classified as true or false positives."
@@ -124,10 +124,10 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T15:20:00Z",
-          "end": "2026-11-20T15:45:00Z"
+          "start": "2026-11-20T15:40:00Z",
+          "end": "2026-11-20T16:00:00Z"
         },
-        "matches": 0,
+        "matches": 1,
         "truncated": false,
         "error": null,
         "note": "Query parse and field existence only; matches are not classified as true or false positives."
@@ -168,8 +168,8 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T15:20:00Z",
-          "end": "2026-11-20T15:45:00Z"
+          "start": "2026-11-20T15:40:00Z",
+          "end": "2026-11-20T16:00:00Z"
         },
         "matches": 1,
         "truncated": false,
@@ -185,8 +185,8 @@
       "sha256": "6dc7c2ebf7c0fa16a05208c8e5e52ca5ae2686dce1baf18d9f1a036a5e120c5e",
       "status": "shipped",
       "role": "alert",
-      "severity": "critical",
-      "risk_score": 90,
+      "severity": "high",
+      "risk_score": 73,
       "attck": {
         "tactic_id": "TA0006",
         "tactic_name": "Credential Access",
@@ -212,10 +212,10 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T15:20:00Z",
-          "end": "2026-11-20T15:45:00Z"
+          "start": "2026-11-20T15:40:00Z",
+          "end": "2026-11-20T16:00:00Z"
         },
-        "matches": 0,
+        "matches": 1,
         "truncated": false,
         "error": null,
         "note": "Query parse and field existence only; matches are not classified as true or false positives."
@@ -224,7 +224,7 @@
     {
       "id": "C0015-R06",
       "revision": 1,
-      "name": "defender real-time protection disabled",
+      "name": "defender real-time protection disable requested",
       "file": "detections/eql/06-defender-settings-weakened.eql",
       "sha256": "3cc8adb529795a29ed733b371523bc00a5c328287b5671f84dc6c739e638a463",
       "status": "shipped",
@@ -256,8 +256,8 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T15:20:00Z",
-          "end": "2026-11-20T15:45:00Z"
+          "start": "2026-11-20T15:40:00Z",
+          "end": "2026-11-20T16:00:00Z"
         },
         "matches": 1,
         "truncated": false,
@@ -281,7 +281,7 @@
         "technique_id": "T1047",
         "technique_name": "Windows Management Instrumentation"
       },
-      "description": "wmic creates a process on another host with an explicit credential.",
+      "description": "wmic is asked to create a process on another host; `/node:` is required, `/user:` and `/password:` are enrichment.",
       "limitations": "Source-side only; the command line carries the credential and must be redacted in evidence.",
       "prerequisites": [
         "Sysmon 1"
@@ -300,10 +300,10 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T15:20:00Z",
-          "end": "2026-11-20T15:45:00Z"
+          "start": "2026-11-20T15:40:00Z",
+          "end": "2026-11-20T16:00:00Z"
         },
-        "matches": 5,
+        "matches": 7,
         "truncated": false,
         "error": null,
         "note": "Query parse and field existence only; matches are not classified as true or false positives."
@@ -316,7 +316,7 @@
       "file": "detections/eql/08-wmi-hosted-child-process.eql",
       "sha256": "586855af5b50a6f168a6083ceac14727371521a69d43ade02114cd2316c14389",
       "status": "shipped",
-      "role": "alert",
+      "role": "building_block",
       "severity": "medium",
       "risk_score": 47,
       "attck": {
@@ -325,7 +325,7 @@
         "technique_id": "T1047",
         "technique_name": "Windows Management Instrumentation"
       },
-      "description": "The WMI provider host starts a shell or script host; context for the action that follows.",
+      "description": "The WMI provider host starts a shell or script host; context for the action, not an alert on its own.",
       "limitations": "Management tooling creates processes through WMI; treat as context, not as proof of intent.",
       "prerequisites": [
         "Sysmon 1"
@@ -344,13 +344,59 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T15:20:00Z",
-          "end": "2026-11-20T15:45:00Z"
+          "start": "2026-11-20T15:40:00Z",
+          "end": "2026-11-20T16:00:00Z"
         },
-        "matches": 2,
+        "matches": 6,
         "truncated": false,
         "error": null,
         "note": "Query parse and field existence only; matches are not classified as true or false positives."
+      }
+    },
+    {
+      "id": "C0015-R09",
+      "revision": 1,
+      "name": "service installed from user path",
+      "status": "retired",
+      "role": "alert",
+      "severity": "high",
+      "risk_score": 73,
+      "attck": {
+        "tactic_id": "TA0003",
+        "tactic_name": "Persistence",
+        "technique_id": "T1543.003",
+        "technique_name": "Create or Modify System Process: Windows Service"
+      },
+      "description": "Retired with the injection chain: the scenario no longer installs a service, so the rule has no subject and its validation is historical.",
+      "limitations": "Retained for the record only; do not enable.",
+      "prerequisites": [
+        "Service Control Manager 7045"
+      ],
+      "deployment": {
+        "index": [
+          "logs-system.system-*"
+        ],
+        "timestamp_field": "@timestamp",
+        "interval": "1m",
+        "lookback": "now-3m",
+        "max_signals": 100,
+        "enabled": false
+      },
+      "validation": {
+        "kind": "engine_run",
+        "engine": "elasticsearch 9.5.3",
+        "window": {
+          "start": "2026-11-20T15:40:00Z",
+          "end": "2026-11-20T16:00:00Z"
+        },
+        "matches": 0,
+        "truncated": false,
+        "error": null,
+        "note": "Retired; no engine run."
+      },
+      "retirement": {
+        "reason": "The injection chain does not install a service; the rule has no subject.",
+        "date": "2026-11-20"
       }
     },
     {
@@ -388,10 +434,10 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T15:20:00Z",
-          "end": "2026-11-20T15:45:00Z"
+          "start": "2026-11-20T15:40:00Z",
+          "end": "2026-11-20T16:00:00Z"
         },
-        "matches": 0,
+        "matches": 5,
         "truncated": false,
         "error": null,
         "note": "Query parse and field existence only; matches are not classified as true or false positives."
@@ -400,7 +446,7 @@
     {
       "id": "C0015-R11",
       "revision": 1,
-      "name": "cloud transfer with rclone",
+      "name": "rclone transfer invocation",
       "file": "detections/eql/11-cloud-transfer.eql",
       "sha256": "263c731da2ad680343a66f6d0bc21dfc4a5e2d7c4716da555d9ba16359a2b2b9",
       "status": "shipped",
@@ -414,7 +460,7 @@
         "technique_name": "Exfiltration Over Web Service: Exfiltration to Cloud Storage"
       },
       "description": "rclone copies or syncs data to a remote destination.",
-      "limitations": "Exit code is not proof of transfer; there is no receiver inventory in endpoint telemetry.",
+      "limitations": "Matches the transfer subcommand in the command line; the direction (local copy, upload, download) is not proven by E1 alone.",
       "prerequisites": [
         "Sysmon 1"
       ],
@@ -432,10 +478,10 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T15:20:00Z",
-          "end": "2026-11-20T15:45:00Z"
+          "start": "2026-11-20T15:40:00Z",
+          "end": "2026-11-20T16:00:00Z"
         },
-        "matches": 0,
+        "matches": 3,
         "truncated": false,
         "error": null,
         "note": "Query parse and field existence only; matches are not classified as true or false positives."
@@ -445,8 +491,8 @@
       "id": "C0015-R12",
       "revision": 1,
       "name": "locker simulator invocation",
-      "file": "detections/eql/12-ransom-note.eql",
-      "sha256": "f015afab7887c710c864002dd4df389e05d8046a0abbf592aeb542ee6f77d733",
+      "file": "detections/eql/12-locker-invocation.eql",
+      "sha256": "8beae69d5fbbd60d8ed0d77b98780c079a6b1f65fc2c1cc6aa60ce006c35a084",
       "status": "shipped",
       "role": "alert",
       "severity": "high",
@@ -476,10 +522,10 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T15:20:00Z",
-          "end": "2026-11-20T15:45:00Z"
+          "start": "2026-11-20T15:40:00Z",
+          "end": "2026-11-20T16:00:00Z"
         },
-        "matches": 0,
+        "matches": 5,
         "truncated": false,
         "error": null,
         "note": "Query parse and field existence only; matches are not classified as true or false positives."
@@ -520,10 +566,10 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T15:20:00Z",
-          "end": "2026-11-20T15:45:00Z"
+          "start": "2026-11-20T15:40:00Z",
+          "end": "2026-11-20T16:00:00Z"
         },
-        "matches": 0,
+        "matches": 1,
         "truncated": false,
         "error": null,
         "note": "Query parse and field existence only; matches are not classified as true or false positives."
@@ -564,10 +610,10 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T15:20:00Z",
-          "end": "2026-11-20T15:45:00Z"
+          "start": "2026-11-20T15:40:00Z",
+          "end": "2026-11-20T16:00:00Z"
         },
-        "matches": 6,
+        "matches": 4,
         "truncated": false,
         "error": null,
         "note": "Query parse and field existence only; matches are not classified as true or false positives."
@@ -580,16 +626,16 @@
       "file": "detections/eql/15-module-from-user-path.eql",
       "sha256": "26688c95c0c5afbb2f1454fc1e930dbca3dd2398716ab40a5f637d89a88f2736",
       "status": "shipped",
-      "role": "alert",
-      "severity": "high",
-      "risk_score": 73,
+      "role": "building_block",
+      "severity": "low",
+      "risk_score": 30,
       "attck": {
         "tactic_id": "TA0005",
         "tactic_name": "Defense Evasion",
         "technique_id": "T1574",
         "technique_name": "Hijack Execution Flow"
       },
-      "description": "A DLL is loaded from the staging directory under ProgramData.",
+      "description": "A module is loaded from the staging directory; the loading process decides which behaviour this is.",
       "limitations": "The directory is lab-specific; in a real estate the rule needs the writable path that the service uses.",
       "prerequisites": [
         "Sysmon 7"
@@ -608,10 +654,10 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T15:20:00Z",
-          "end": "2026-11-20T15:45:00Z"
+          "start": "2026-11-20T15:40:00Z",
+          "end": "2026-11-20T16:00:00Z"
         },
-        "matches": 7,
+        "matches": 5,
         "truncated": false,
         "error": null,
         "note": "Query parse and field existence only; matches are not classified as true or false positives."

@@ -20,8 +20,9 @@
 
 - Proves, by source: the loader wrote `update.ps1` into the checks directory (E11, `regsvr32.exe`), the
   agent log records the run, and the PowerShell E1 carries `user.name = SYSTEM` together with that script
-  path. The secret was requested with `lsadump::secrets`.
-- Does not prove: process ancestry from the agent to PowerShell - the E1 in this run has no parent populated,
+  path. The command line shows that LSA secret extraction was requested with `lsadump::secrets`; the
+  recovered value is recorded separately and redacted in the evidence.
+- Does not prove: that the secret was used after extraction, or process ancestry from the agent to PowerShell - the E1 in this run has no parent populated,
   so the link comes from the service configuration and the agent log, not from the event graph. It also does
   not prove that LSASS was touched; `lsadump::secrets` is not `sekurlsa`, and an E10-only rule would not see it.
 

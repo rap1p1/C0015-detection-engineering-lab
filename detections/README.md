@@ -56,25 +56,28 @@ Neither is proven by a query parsing. See the evidence schema in
 for the fields an export must carry to be checkable.
 ## Validation status
 
-All thirteen rules were run with `detections/tools/engine_check.py` against Elasticsearch 9.5.3 on the
-window `2026-11-20T11:30Z -> 2026-11-20T12:10Z`, the run that exercised the current chain. Every query
+Per-hit classification and provenance: [`validation.md`](validation.md).
+
+All fourteen shipped rules were run with `detections/tools/engine_check.py` against Elasticsearch 9.5.3 on the
+window `2026-11-20T15:40Z -> 2026-11-20T16:00Z`, the single run that exercised the current chain (document, agent, injection, WMI, exfiltration, impact). Every query
 parsed and every field it names exists in this pipeline; the matches are in each catalog entry.
 
 | Rule | Matches | Behaviour |
 |---|---|---|
-| R01 | 2 | office spawns script host |
-| R02 | 2 | script host starts loader |
-| R03 | 2 | loader loads untrusted module |
+| R01 | 1 | office spawns script host |
+| R02 | 1 | script host starts loader |
+| R03 | 1 | loader loads untrusted module |
 | R04 | 1 | agent executes planted script |
-| R05 | 3 | LSA secrets requested |
-| R06 | 1 | defender real-time protection disabled |
-| R07 | 1 | wmi remote process creation |
-| R08 | 1 | wmi hosted child process |
-| R09 | 1 | service installed with binary in user path |
-| R10 | 1 | shadow copy deletion requested |
-| R11 | 1 | cloud transfer with rclone |
-| R12 | 1 | locker simulator invocation |
-| R13 | 2 | script written into agent checks |
+| R05 | 1 | LSA secrets requested |
+| R06 | 1 | defender real-time protection disable requested |
+| R07 | 7 | wmi remote process creation |
+| R08 | 6 | wmi hosted child process |
+| R10 | 5 | shadow copy deletion requested |
+| R11 | 3 | rclone transfer invocation |
+| R12 | 5 | locker simulator invocation |
+| R13 | 1 | script written into agent checks |
+| R14 | 4 | remote thread into service host |
+| R15 | 5 | module loaded from user path |
 
 A match is not a verdict: the engine check proves the query and the fields, not precision. Every rule
 fires on this chain and every rule is an alert.

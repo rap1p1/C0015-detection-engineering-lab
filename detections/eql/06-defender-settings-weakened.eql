@@ -1,0 +1,5 @@
+process where event.code == "1"
+  and process.name in ("powershell.exe", "pwsh.exe", "MpCmdRun.exe")
+  and process.command_line : ("*DisableRealtimeMonitoring*", "*DisableIOAVProtection*",
+                              "*DisableBehaviorMonitoring*", "*DisableAntiSpyware*",
+                              "*ExclusionPath*", "*ExclusionProcess*")

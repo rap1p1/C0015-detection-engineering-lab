@@ -224,21 +224,21 @@
     {
       "id": "C0015-R06",
       "revision": 1,
-      "name": "lsass process access",
-      "file": "detections/eql/06-lsass-process-access.eql",
-      "sha256": "95a7e716d48a7a6ff23ac3fbecb00578b1f92e322dd4e21bd3eca370735fb5d4",
+      "name": "defender settings weakened",
+      "file": "detections/eql/06-defender-settings-weakened.eql",
+      "sha256": "51c32047ec3dc6a236b1abb22a2361d9b2927201f816b1162841183f92083405",
       "status": "shipped",
       "role": "alert",
       "severity": "high",
       "risk_score": 73,
       "attck": {
-        "tactic_id": "TA0006",
-        "tactic_name": "Credential Access",
-        "technique_id": "T1003.001",
-        "technique_name": "OS Credential Dumping: LSASS Memory"
+        "tactic_id": "TA0005",
+        "tactic_name": "Defense Evasion",
+        "technique_id": "T1562.001",
+        "technique_name": "Impair Defenses: Disable or Modify Tools"
       },
-      "description": "A process opens lsass with a credential-dumping access mask, excluding known security and hypervisor agents.",
-      "limitations": "Exclusions are per-lab; EDR and backup products legitimately read LSASS and must be added locally.",
+      "description": "PowerShell or the platform tool weakens Defender: real-time, IOAV, behaviour monitoring, or exclusions.",
+      "limitations": "Administrators legitimately change these settings; the parent process and the host role decide.",
       "prerequisites": [
         "Sysmon 1"
       ],
@@ -259,7 +259,7 @@
           "start": "2026-11-20T11:30:00Z",
           "end": "2026-11-20T12:10:00Z"
         },
-        "matches": 0,
+        "matches": 1,
         "truncated": false,
         "error": null,
         "note": "Query parse and field existence only; matches are not classified as true or false positives."

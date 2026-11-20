@@ -373,7 +373,7 @@ building blocks, and each entry records what it does not prove.
 | R03 | loader loads an unsigned module | alert | T1218.010 | 2 |
 | R04 | agent runs a planted script as SYSTEM | alert | T1059.001 | 1 |
 | R05 | credential tool reads LSA secrets | alert | T1003.004 | 3 |
-| R06 | LSASS process access | alert | T1003.001 | 0 (not this chain) |
+| R06 | Defender settings weakened | alert | T1562.001 | 1 |
 | R07 | WMI remote process creation | alert | T1047 | 1 |
 | R08 | WMI-hosted child process | alert | T1047 | 1 |
 | R09 | service installed from a user path | alert | T1543.003 | 1 |
@@ -383,8 +383,8 @@ building blocks, and each entry records what it does not prove.
 | R13 | service binary runs from a user path | building block | T1543.003 | 6 |
 
 A match is not a verdict. The engine check proves the query parses and the fields exist; precision is
-measured against the run, not assumed. R06 is kept because the technique is part of the campaign even
-though this chain reads a stored secret instead of LSASS memory.
+measured against the run, not assumed. Every rule fires on this chain; nothing is carried for coverage
+of a technique the lab does not perform.
 
 ## How to run the lab
 

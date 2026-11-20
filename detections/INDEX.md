@@ -13,7 +13,7 @@ Generated from [`catalog.json`](catalog.json) by `tools/detections/catalog.py`. 
 | C0015-R03 | loader loads unsigned module | alert | high | T1218.010 System Binary Proxy Execution: Regsvr32 | [`03-loader-loads-unsigned-module.eql`](eql/03-loader-loads-unsigned-module.eql) |
 | C0015-R04 | agent executes planted script | alert | high | T1059.001 Command and Scripting Interpreter: PowerShell | [`04-agent-executes-script.eql`](eql/04-agent-executes-script.eql) |
 | C0015-R05 | credential tool reads LSA secrets | alert | critical | T1003.004 OS Credential Dumping: LSA Secrets | [`05-credential-tool-lsa-secrets.eql`](eql/05-credential-tool-lsa-secrets.eql) |
-| C0015-R06 | lsass process access | alert | high | T1003.001 OS Credential Dumping: LSASS Memory | [`06-lsass-process-access.eql`](eql/06-lsass-process-access.eql) |
+| C0015-R06 | defender settings weakened | alert | high | T1562.001 Impair Defenses: Disable or Modify Tools | [`06-defender-settings-weakened.eql`](eql/06-defender-settings-weakened.eql) |
 | C0015-R07 | wmi remote process creation | alert | high | T1047 Windows Management Instrumentation | [`07-wmi-remote-execution-source.eql`](eql/07-wmi-remote-execution-source.eql) |
 | C0015-R08 | wmi hosted child process | alert | high | T1047 Windows Management Instrumentation | [`08-wmi-hosted-child-process.eql`](eql/08-wmi-hosted-child-process.eql) |
 | C0015-R09 | service installed from user path | alert | high | T1543.003 Create or Modify System Process: Windows Service | [`09-service-install-user-path.eql`](eql/09-service-install-user-path.eql) |

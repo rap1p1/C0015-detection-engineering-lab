@@ -6,6 +6,7 @@
 
 | Rule | What it should show |
 |---|---|
+| R06 | Defender real-time protection disabled on FS01 |
 | R08 | `WmiPrvSE.exe` child on FS01, `cmd /Q /c` with the `ADMIN$` redirect |
 | R09 | 7045 service installation and the service binary |
 | R11 | `rclone.exe` copy to `Mega:DATA` |

@@ -67,7 +67,7 @@ parsed and every field it names exists in this pipeline; the matches are in each
 | R03 | 2 | regsvr32 loaded the unsigned module |
 | R04 | 1 | HealthMonitor ran the planted script as SYSTEM |
 | R05 | 3 | mimikatz read LSA secrets |
-| R06 | 0 | no LSASS access in this chain; the rule stays for the technique |
+| R06 | 1 | Defender real-time protection disabled over WMI |
 | R07 | 1 | wmic created a process on FS01 |
 | R08 | 1 | the WMI provider host started PowerShell on FS01 |
 | R09 | 1 | the beacon was installed as a service from ProgramData |
@@ -77,7 +77,7 @@ parsed and every field it names exists in this pipeline; the matches are in each
 | R13 | 6 | service binaries ran from user paths (context) |
 
 A match is not a verdict: the engine check proves the query and the fields, not precision. R13 is a
-building block; R06 has no match in this run because the chain reads LSA secrets instead of LSASS.
+building block; every other rule fires on this chain.
 
 ## Field notes
 

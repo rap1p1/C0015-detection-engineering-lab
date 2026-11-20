@@ -1,0 +1,382 @@
+{
+  "behaviour": "process_creation",
+  "index": "logs-windows.sysmon_operational-*",
+  "identifier": {
+    "field": "process.parent.entity_id",
+    "value": "{88E52A21-7B3E-6B00-DB00-000000003200}",
+    "host": "ws01"
+  },
+  "alerts": [
+    "a1e7e6b4e34c4e25adceb872338b6acb8dcd2ad5a7ad8abbc57702683cc9ece5"
+  ],
+  "queries": [
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-11-20T16:51:22.000Z",
+                  "lte": "2026-11-20T16:57:22.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "ws01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "1"
+              }
+            },
+            {
+              "term": {
+                "process.parent.entity_id": "{88E52A21-7B3E-6B00-DB00-000000003200}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-11-20T16:51:22.000Z",
+        "end": "2026-11-20T16:57:22.000Z"
+      },
+      "returned": 2,
+      "total": 2,
+      "relation": "eq"
+    }
+  ],
+  "returned": 2,
+  "truncated": false,
+  "sample": false,
+  "hits": [
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaH54ZKtksj2Z06SA00Z",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "type": "filebeat",
+          "ephemeral_id": "467b35df-55a6-4eff-a2bf-a940c71ec25a",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "\\??\\C:\\Windows\\system32\\conhost.exe",
+            "0xffffffff",
+            "-ForceV1"
+          ],
+          "parent": {
+            "args": [
+              "C:\\Windows\\SYSTEM32\\cmd.exe",
+              "/c",
+              "C:\\ProgramData\\mimi.cmd"
+            ],
+            "name": "cmd.exe",
+            "pid": 8044,
+            "args_count": 3,
+            "entity_id": "{88E52A21-7B3E-6B00-DB00-000000003200}",
+            "executable": "C:\\Windows\\System32\\cmd.exe",
+            "command_line": "C:\\Windows\\SYSTEM32\\cmd.exe /c \"\"C:\\ProgramData\\mimi.cmd\"\""
+          },
+          "pe": {
+            "file_version": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "0f64302d3280de299f4c51a78746f606",
+            "description": "Console Window Host",
+            "original_file_name": "CONHOST.EXE",
+            "company": "Microsoft Corporation"
+          },
+          "name": "conhost.exe",
+          "pid": 8048,
+          "working_directory": "C:\\Windows",
+          "args_count": 3,
+          "entity_id": "{88E52A21-7B3E-6B00-DC00-000000003200}",
+          "hash": {
+            "sha256": "c43cf46192da061dd6169e55aac4d2d08a6c33c039a7dac0d88aa897661cbc87"
+          },
+          "executable": "C:\\Windows\\System32\\conhost.exe",
+          "command_line": "\\??\\C:\\Windows\\system32\\conhost.exe 0xffffffff -ForceV1"
+        },
+        "winlog": {
+          "record_id": "1468878",
+          "computer_name": "WS01.c0015.lab",
+          "process": {
+            "pid": 2532,
+            "thread": {
+              "id": 3688
+            }
+          },
+          "task": "Process Create (rule: ProcessCreate)",
+          "event_id": "1",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "LogonGuid": "{88E52A21-7A5D-6B00-E703-000000000000}",
+            "Description": "Console Window Host",
+            "TerminalSessionId": "0",
+            "IntegrityLevel": "System",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "ParentUser": "NT AUTHORITY\\SYSTEM",
+            "FileVersion": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "LogonId": "0x3e7"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "version": 5,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-11-20 16:54:22.535\nProcessGuid: {88E52A21-7B3E-6B00-DC00-000000003200}\nProcessId: 8048\nImage: C:\\Windows\\System32\\conhost.exe\nFileVersion: 10.0.19041.3636 (WinBuild.160101.0800)\nDescription: Console Window Host\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: CONHOST.EXE\nCommandLine: \\??\\C:\\Windows\\system32\\conhost.exe 0xffffffff -ForceV1\nCurrentDirectory: C:\\Windows\nUser: NT AUTHORITY\\SYSTEM\nLogonGuid: {88E52A21-7A5D-6B00-E703-000000000000}\nLogonId: 0x3e7\nTerminalSessionId: 0\nIntegrityLevel: System\nHashes: SHA256=C43CF46192DA061DD6169E55AAC4D2D08A6C33C039A7DAC0D88AA897661CBC87,IMPHASH=0F64302D3280DE299F4C51A78746F606\nParentProcessGuid: {88E52A21-7B3E-6B00-DB00-000000003200}\nParentProcessId: 8044\nParentImage: C:\\Windows\\System32\\cmd.exe\nParentCommandLine: C:\\Windows\\SYSTEM32\\cmd.exe /c \"\"C:\\ProgramData\\mimi.cmd\"\"\nParentUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-11-20T16:54:22.535Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ],
+          "hash": [
+            "c43cf46192da061dd6169e55aac4d2d08a6c33c039a7dac0d88aa897661cbc87",
+            "0f64302d3280de299f4c51a78746f606"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-11-20T16:54:32Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "kind": "event",
+          "created": "2026-11-20T16:54:24.146Z",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaH54ZKtksj2Z06SA00d",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "ephemeral_id": "467b35df-55a6-4eff-a2bf-a940c71ec25a",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\ProgramData\\c0015\\mimi.exe",
+            "privilege::debug",
+            "lsadump::secrets",
+            "exit"
+          ],
+          "parent": {
+            "args": [
+              "C:\\Windows\\SYSTEM32\\cmd.exe",
+              "/c",
+              "C:\\ProgramData\\mimi.cmd"
+            ],
+            "name": "cmd.exe",
+            "pid": 8044,
+            "args_count": 3,
+            "entity_id": "{88E52A21-7B3E-6B00-DB00-000000003200}",
+            "executable": "C:\\Windows\\System32\\cmd.exe",
+            "command_line": "C:\\Windows\\SYSTEM32\\cmd.exe /c \"\"C:\\ProgramData\\mimi.cmd\"\""
+          },
+          "pe": {
+            "file_version": "2.2.0.0",
+            "product": "mimikatz",
+            "imphash": "1355327f6ca3430b3ddbe6e0acda71ea",
+            "description": "mimikatz for Windows",
+            "original_file_name": "mimikatz.exe",
+            "company": "gentilkiwi (Benjamin DELPY)"
+          },
+          "name": "mimi.exe",
+          "pid": 3780,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 4,
+          "entity_id": "{88E52A21-7B3E-6B00-DD00-000000003200}",
+          "hash": {
+            "sha256": "92804faaab2175dc501d73e814663058c78c0a042675a8937266357bcfb96c50"
+          },
+          "executable": "C:\\ProgramData\\c0015\\mimi.exe",
+          "command_line": "\"C:\\ProgramData\\c0015\\mimi.exe\"  \"privilege::debug\" \"lsadump::secrets\" exit "
+        },
+        "winlog": {
+          "record_id": "1468882",
+          "computer_name": "WS01.c0015.lab",
+          "process": {
+            "pid": 2532,
+            "thread": {
+              "id": 3688
+            }
+          },
+          "task": "Process Create (rule: ProcessCreate)",
+          "event_id": "1",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "gentilkiwi (Benjamin DELPY)",
+            "LogonGuid": "{88E52A21-7A5D-6B00-E703-000000000000}",
+            "Description": "mimikatz for Windows",
+            "IntegrityLevel": "System",
+            "TerminalSessionId": "0",
+            "ParentUser": "NT AUTHORITY\\SYSTEM",
+            "Product": "mimikatz",
+            "FileVersion": "2.2.0.0",
+            "LogonId": "0x3e7"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 5
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-11-20 16:54:22.572\nProcessGuid: {88E52A21-7B3E-6B00-DD00-000000003200}\nProcessId: 3780\nImage: C:\\ProgramData\\c0015\\mimi.exe\nFileVersion: 2.2.0.0\nDescription: mimikatz for Windows\nProduct: mimikatz\nCompany: gentilkiwi (Benjamin DELPY)\nOriginalFileName: mimikatz.exe\nCommandLine: \"C:\\ProgramData\\c0015\\mimi.exe\"  \"privilege::debug\" \"lsadump::secrets\" exit \nCurrentDirectory: C:\\Windows\\system32\\\nUser: NT AUTHORITY\\SYSTEM\nLogonGuid: {88E52A21-7A5D-6B00-E703-000000000000}\nLogonId: 0x3e7\nTerminalSessionId: 0\nIntegrityLevel: System\nHashes: SHA256=92804FAAAB2175DC501D73E814663058C78C0A042675A8937266357BCFB96C50,IMPHASH=1355327F6CA3430B3DDBE6E0ACDA71EA\nParentProcessGuid: {88E52A21-7B3E-6B00-DB00-000000003200}\nParentProcessId: 8044\nParentImage: C:\\Windows\\System32\\cmd.exe\nParentCommandLine: C:\\Windows\\SYSTEM32\\cmd.exe /c \"\"C:\\ProgramData\\mimi.cmd\"\"\nParentUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-11-20T16:54:22.572Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ],
+          "hash": [
+            "92804faaab2175dc501d73e814663058c78c0a042675a8937266357bcfb96c50",
+            "1355327f6ca3430b3ddbe6e0acda71ea"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-11-20T16:54:32Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-11-20T16:54:24.146Z",
+          "kind": "event",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    }
+  ]
+}

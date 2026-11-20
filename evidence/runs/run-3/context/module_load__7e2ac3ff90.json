@@ -1,0 +1,1205 @@
+{
+  "behaviour": "module_load",
+  "index": "logs-windows.sysmon_operational-*",
+  "identifier": {
+    "field": "process.entity_id",
+    "value": "{88E52A21-6F73-6B00-0D00-000000001B00}",
+    "host": "fs01"
+  },
+  "alerts": [
+    "f6bab8964d482af20ca0b690527fafaf374b88a6dc9cad3d1341cb3d5895eec2",
+    "c2399e739bc0805e23a34301643855855d25ce0605fa878c35a5285be8df8d4c",
+    "0aceeb9fe748257e3a4b5db5a498fedfeef22b8a1c34f5a1731be33c6918dab1",
+    "1bf30b1585e0a747e492f03fe9897c9419c192eb27e99b47baa4ab534318f06c",
+    "5c2424525e0cbb2b792097e823745d05a90ea35ee5e49c694b7cc17dc07b50ea"
+  ],
+  "queries": [
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-11-20T16:52:44.000Z",
+                  "lte": "2026-11-20T16:58:44.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "fs01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "7"
+              }
+            },
+            {
+              "term": {
+                "process.entity_id": "{88E52A21-6F73-6B00-0D00-000000001B00}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-11-20T16:52:44.000Z",
+        "end": "2026-11-20T16:58:44.000Z"
+      },
+      "returned": 1,
+      "total": 1,
+      "relation": "eq"
+    },
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-11-20T16:52:44.000Z",
+                  "lte": "2026-11-20T16:58:44.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "fs01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "7"
+              }
+            },
+            {
+              "term": {
+                "process.entity_id": "{88E52A21-6F73-6B00-0D00-000000001B00}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-11-20T16:52:44.000Z",
+        "end": "2026-11-20T16:58:44.000Z"
+      },
+      "returned": 1,
+      "total": 1,
+      "relation": "eq"
+    },
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-11-20T16:52:44.000Z",
+                  "lte": "2026-11-20T16:58:44.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "fs01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "7"
+              }
+            },
+            {
+              "term": {
+                "process.entity_id": "{88E52A21-6F73-6B00-0D00-000000001B00}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-11-20T16:52:44.000Z",
+        "end": "2026-11-20T16:58:44.000Z"
+      },
+      "returned": 1,
+      "total": 1,
+      "relation": "eq"
+    },
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-11-20T16:52:47.000Z",
+                  "lte": "2026-11-20T16:58:47.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "fs01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "7"
+              }
+            },
+            {
+              "term": {
+                "process.entity_id": "{88E52A21-6F73-6B00-0D00-000000001B00}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-11-20T16:52:47.000Z",
+        "end": "2026-11-20T16:58:47.000Z"
+      },
+      "returned": 1,
+      "total": 1,
+      "relation": "eq"
+    },
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-11-20T16:52:44.000Z",
+                  "lte": "2026-11-20T16:58:44.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "fs01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "7"
+              }
+            },
+            {
+              "term": {
+                "process.entity_id": "{88E52A21-6F73-6B00-0D00-000000001B00}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-11-20T16:52:44.000Z",
+        "end": "2026-11-20T16:58:44.000Z"
+      },
+      "returned": 1,
+      "total": 1,
+      "relation": "eq"
+    },
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-11-20T16:52:47.000Z",
+                  "lte": "2026-11-20T16:58:47.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "fs01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "7"
+              }
+            },
+            {
+              "term": {
+                "process.entity_id": "{88E52A21-6F73-6B00-0D00-000000001B00}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-11-20T16:52:47.000Z",
+        "end": "2026-11-20T16:58:47.000Z"
+      },
+      "returned": 1,
+      "total": 1,
+      "relation": "eq"
+    }
+  ],
+  "returned": 6,
+  "truncated": false,
+  "sample": false,
+  "hits": [
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaH54pKtksj2Z07XB7ik",
+      "_source": {
+        "agent": {
+          "name": "FS01",
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "type": "filebeat",
+          "ephemeral_id": "9ccb04c6-8035-42d0-88f6-1c82a8bcf049",
+          "version": "9.5.3"
+        },
+        "process": {
+          "name": "svchost.exe",
+          "pid": 776,
+          "entity_id": "{88E52A21-6F73-6B00-0D00-000000001B00}",
+          "executable": "C:\\Windows\\System32\\svchost.exe"
+        },
+        "winlog": {
+          "record_id": "799674",
+          "computer_name": "FS01.c0015.lab",
+          "process": {
+            "pid": 2460,
+            "thread": {
+              "id": 1340
+            }
+          },
+          "task": "Image loaded (rule: ImageLoad)",
+          "event_id": "7",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "SignatureStatus": "Unavailable",
+            "Signed": "false"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "version": 3,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "dll": {
+          "path": "C:\\ProgramData\\beacon.dll",
+          "code_signature": {
+            "trusted": false,
+            "status": "Unavailable"
+          },
+          "pe": {
+            "imphash": "a932b2196fb8f937e20a13df0715af7f"
+          },
+          "name": "beacon.dll",
+          "hash": {
+            "sha256": "410646c1ed13086238895727d99fa426e97db558ed9aba4a4632ea2316a6ebf1"
+          }
+        },
+        "elastic_agent": {
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "rule": {
+          "name": "C0015-BALANCED"
+        },
+        "message": "Image loaded:\nRuleName: C0015-BALANCED\nUtcTime: 2026-11-20 16:55:44.592\nProcessGuid: {88E52A21-6F73-6B00-0D00-000000001B00}\nProcessId: 776\nImage: C:\\Windows\\System32\\svchost.exe\nImageLoaded: C:\\ProgramData\\beacon.dll\nFileVersion: -\nDescription: -\nProduct: -\nCompany: -\nOriginalFileName: -\nHashes: SHA256=410646C1ED13086238895727D99FA426E97DB558ED9ABA4A4632EA2316A6EBF1,IMPHASH=A932B2196FB8F937E20A13DF0715AF7F\nSigned: false\nSignature: -\nSignatureStatus: Unavailable\nUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-11-20T16:55:44.592Z",
+        "file": {
+          "path": "C:\\ProgramData\\beacon.dll",
+          "extension": "dll",
+          "code_signature": {
+            "trusted": false,
+            "status": "Unavailable"
+          },
+          "pe": {
+            "imphash": "a932b2196fb8f937e20a13df0715af7f"
+          },
+          "name": "beacon.dll",
+          "directory": "C:\\ProgramData",
+          "hash": {
+            "sha256": "410646c1ed13086238895727d99fa426e97db558ed9aba4a4632ea2316a6ebf1"
+          }
+        },
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ],
+          "hash": [
+            "410646c1ed13086238895727d99fa426e97db558ed9aba4a4632ea2316a6ebf1",
+            "a932b2196fb8f937e20a13df0715af7f"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "FS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "192.168.106.155",
+            "192.168.50.30"
+          ],
+          "name": "fs01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-3B-C6-18",
+            "00-0C-29-3B-C6-22"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-11-20T16:55:55Z",
+          "code": "7",
+          "provider": "Microsoft-Windows-Sysmon",
+          "kind": "event",
+          "created": "2026-11-20T16:55:46.171Z",
+          "action": [
+            "Image loaded",
+            "load"
+          ],
+          "category": [
+            "process",
+            "library"
+          ],
+          "type": [
+            "change",
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaH54pKtksj2Z07XB7ik",
+      "_source": {
+        "agent": {
+          "name": "FS01",
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "type": "filebeat",
+          "ephemeral_id": "9ccb04c6-8035-42d0-88f6-1c82a8bcf049",
+          "version": "9.5.3"
+        },
+        "process": {
+          "name": "svchost.exe",
+          "pid": 776,
+          "entity_id": "{88E52A21-6F73-6B00-0D00-000000001B00}",
+          "executable": "C:\\Windows\\System32\\svchost.exe"
+        },
+        "winlog": {
+          "record_id": "799674",
+          "computer_name": "FS01.c0015.lab",
+          "process": {
+            "pid": 2460,
+            "thread": {
+              "id": 1340
+            }
+          },
+          "task": "Image loaded (rule: ImageLoad)",
+          "event_id": "7",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "SignatureStatus": "Unavailable",
+            "Signed": "false"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "version": 3,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "dll": {
+          "path": "C:\\ProgramData\\beacon.dll",
+          "code_signature": {
+            "trusted": false,
+            "status": "Unavailable"
+          },
+          "pe": {
+            "imphash": "a932b2196fb8f937e20a13df0715af7f"
+          },
+          "name": "beacon.dll",
+          "hash": {
+            "sha256": "410646c1ed13086238895727d99fa426e97db558ed9aba4a4632ea2316a6ebf1"
+          }
+        },
+        "elastic_agent": {
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "rule": {
+          "name": "C0015-BALANCED"
+        },
+        "message": "Image loaded:\nRuleName: C0015-BALANCED\nUtcTime: 2026-11-20 16:55:44.592\nProcessGuid: {88E52A21-6F73-6B00-0D00-000000001B00}\nProcessId: 776\nImage: C:\\Windows\\System32\\svchost.exe\nImageLoaded: C:\\ProgramData\\beacon.dll\nFileVersion: -\nDescription: -\nProduct: -\nCompany: -\nOriginalFileName: -\nHashes: SHA256=410646C1ED13086238895727D99FA426E97DB558ED9ABA4A4632EA2316A6EBF1,IMPHASH=A932B2196FB8F937E20A13DF0715AF7F\nSigned: false\nSignature: -\nSignatureStatus: Unavailable\nUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-11-20T16:55:44.592Z",
+        "file": {
+          "path": "C:\\ProgramData\\beacon.dll",
+          "extension": "dll",
+          "code_signature": {
+            "trusted": false,
+            "status": "Unavailable"
+          },
+          "pe": {
+            "imphash": "a932b2196fb8f937e20a13df0715af7f"
+          },
+          "name": "beacon.dll",
+          "directory": "C:\\ProgramData",
+          "hash": {
+            "sha256": "410646c1ed13086238895727d99fa426e97db558ed9aba4a4632ea2316a6ebf1"
+          }
+        },
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ],
+          "hash": [
+            "410646c1ed13086238895727d99fa426e97db558ed9aba4a4632ea2316a6ebf1",
+            "a932b2196fb8f937e20a13df0715af7f"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "FS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "192.168.106.155",
+            "192.168.50.30"
+          ],
+          "name": "fs01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-3B-C6-18",
+            "00-0C-29-3B-C6-22"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-11-20T16:55:55Z",
+          "code": "7",
+          "provider": "Microsoft-Windows-Sysmon",
+          "kind": "event",
+          "created": "2026-11-20T16:55:46.171Z",
+          "action": [
+            "Image loaded",
+            "load"
+          ],
+          "category": [
+            "process",
+            "library"
+          ],
+          "type": [
+            "change",
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 1
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaH54pKtksj2Z07XB7ik",
+      "_source": {
+        "agent": {
+          "name": "FS01",
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "type": "filebeat",
+          "ephemeral_id": "9ccb04c6-8035-42d0-88f6-1c82a8bcf049",
+          "version": "9.5.3"
+        },
+        "process": {
+          "name": "svchost.exe",
+          "pid": 776,
+          "entity_id": "{88E52A21-6F73-6B00-0D00-000000001B00}",
+          "executable": "C:\\Windows\\System32\\svchost.exe"
+        },
+        "winlog": {
+          "record_id": "799674",
+          "computer_name": "FS01.c0015.lab",
+          "process": {
+            "pid": 2460,
+            "thread": {
+              "id": 1340
+            }
+          },
+          "task": "Image loaded (rule: ImageLoad)",
+          "event_id": "7",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "SignatureStatus": "Unavailable",
+            "Signed": "false"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "version": 3,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "dll": {
+          "path": "C:\\ProgramData\\beacon.dll",
+          "code_signature": {
+            "trusted": false,
+            "status": "Unavailable"
+          },
+          "pe": {
+            "imphash": "a932b2196fb8f937e20a13df0715af7f"
+          },
+          "name": "beacon.dll",
+          "hash": {
+            "sha256": "410646c1ed13086238895727d99fa426e97db558ed9aba4a4632ea2316a6ebf1"
+          }
+        },
+        "elastic_agent": {
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "rule": {
+          "name": "C0015-BALANCED"
+        },
+        "message": "Image loaded:\nRuleName: C0015-BALANCED\nUtcTime: 2026-11-20 16:55:44.592\nProcessGuid: {88E52A21-6F73-6B00-0D00-000000001B00}\nProcessId: 776\nImage: C:\\Windows\\System32\\svchost.exe\nImageLoaded: C:\\ProgramData\\beacon.dll\nFileVersion: -\nDescription: -\nProduct: -\nCompany: -\nOriginalFileName: -\nHashes: SHA256=410646C1ED13086238895727D99FA426E97DB558ED9ABA4A4632EA2316A6EBF1,IMPHASH=A932B2196FB8F937E20A13DF0715AF7F\nSigned: false\nSignature: -\nSignatureStatus: Unavailable\nUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-11-20T16:55:44.592Z",
+        "file": {
+          "path": "C:\\ProgramData\\beacon.dll",
+          "extension": "dll",
+          "code_signature": {
+            "trusted": false,
+            "status": "Unavailable"
+          },
+          "pe": {
+            "imphash": "a932b2196fb8f937e20a13df0715af7f"
+          },
+          "name": "beacon.dll",
+          "directory": "C:\\ProgramData",
+          "hash": {
+            "sha256": "410646c1ed13086238895727d99fa426e97db558ed9aba4a4632ea2316a6ebf1"
+          }
+        },
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ],
+          "hash": [
+            "410646c1ed13086238895727d99fa426e97db558ed9aba4a4632ea2316a6ebf1",
+            "a932b2196fb8f937e20a13df0715af7f"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "FS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "192.168.106.155",
+            "192.168.50.30"
+          ],
+          "name": "fs01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-3B-C6-18",
+            "00-0C-29-3B-C6-22"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-11-20T16:55:55Z",
+          "code": "7",
+          "provider": "Microsoft-Windows-Sysmon",
+          "kind": "event",
+          "created": "2026-11-20T16:55:46.171Z",
+          "action": [
+            "Image loaded",
+            "load"
+          ],
+          "category": [
+            "process",
+            "library"
+          ],
+          "type": [
+            "change",
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 2
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaH54pKtksj2Z07XB7ik",
+      "_source": {
+        "agent": {
+          "name": "FS01",
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "type": "filebeat",
+          "ephemeral_id": "9ccb04c6-8035-42d0-88f6-1c82a8bcf049",
+          "version": "9.5.3"
+        },
+        "process": {
+          "name": "svchost.exe",
+          "pid": 776,
+          "entity_id": "{88E52A21-6F73-6B00-0D00-000000001B00}",
+          "executable": "C:\\Windows\\System32\\svchost.exe"
+        },
+        "winlog": {
+          "record_id": "799674",
+          "computer_name": "FS01.c0015.lab",
+          "process": {
+            "pid": 2460,
+            "thread": {
+              "id": 1340
+            }
+          },
+          "task": "Image loaded (rule: ImageLoad)",
+          "event_id": "7",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "SignatureStatus": "Unavailable",
+            "Signed": "false"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "version": 3,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "dll": {
+          "path": "C:\\ProgramData\\beacon.dll",
+          "code_signature": {
+            "trusted": false,
+            "status": "Unavailable"
+          },
+          "pe": {
+            "imphash": "a932b2196fb8f937e20a13df0715af7f"
+          },
+          "name": "beacon.dll",
+          "hash": {
+            "sha256": "410646c1ed13086238895727d99fa426e97db558ed9aba4a4632ea2316a6ebf1"
+          }
+        },
+        "elastic_agent": {
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "rule": {
+          "name": "C0015-BALANCED"
+        },
+        "message": "Image loaded:\nRuleName: C0015-BALANCED\nUtcTime: 2026-11-20 16:55:44.592\nProcessGuid: {88E52A21-6F73-6B00-0D00-000000001B00}\nProcessId: 776\nImage: C:\\Windows\\System32\\svchost.exe\nImageLoaded: C:\\ProgramData\\beacon.dll\nFileVersion: -\nDescription: -\nProduct: -\nCompany: -\nOriginalFileName: -\nHashes: SHA256=410646C1ED13086238895727D99FA426E97DB558ED9ABA4A4632EA2316A6EBF1,IMPHASH=A932B2196FB8F937E20A13DF0715AF7F\nSigned: false\nSignature: -\nSignatureStatus: Unavailable\nUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-11-20T16:55:44.592Z",
+        "file": {
+          "path": "C:\\ProgramData\\beacon.dll",
+          "extension": "dll",
+          "code_signature": {
+            "trusted": false,
+            "status": "Unavailable"
+          },
+          "pe": {
+            "imphash": "a932b2196fb8f937e20a13df0715af7f"
+          },
+          "name": "beacon.dll",
+          "directory": "C:\\ProgramData",
+          "hash": {
+            "sha256": "410646c1ed13086238895727d99fa426e97db558ed9aba4a4632ea2316a6ebf1"
+          }
+        },
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ],
+          "hash": [
+            "410646c1ed13086238895727d99fa426e97db558ed9aba4a4632ea2316a6ebf1",
+            "a932b2196fb8f937e20a13df0715af7f"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "FS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "192.168.106.155",
+            "192.168.50.30"
+          ],
+          "name": "fs01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-3B-C6-18",
+            "00-0C-29-3B-C6-22"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-11-20T16:55:55Z",
+          "code": "7",
+          "provider": "Microsoft-Windows-Sysmon",
+          "kind": "event",
+          "created": "2026-11-20T16:55:46.171Z",
+          "action": [
+            "Image loaded",
+            "load"
+          ],
+          "category": [
+            "process",
+            "library"
+          ],
+          "type": [
+            "change",
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 3
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaH54pKtksj2Z07XB7ik",
+      "_source": {
+        "agent": {
+          "name": "FS01",
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "type": "filebeat",
+          "ephemeral_id": "9ccb04c6-8035-42d0-88f6-1c82a8bcf049",
+          "version": "9.5.3"
+        },
+        "process": {
+          "name": "svchost.exe",
+          "pid": 776,
+          "entity_id": "{88E52A21-6F73-6B00-0D00-000000001B00}",
+          "executable": "C:\\Windows\\System32\\svchost.exe"
+        },
+        "winlog": {
+          "record_id": "799674",
+          "computer_name": "FS01.c0015.lab",
+          "process": {
+            "pid": 2460,
+            "thread": {
+              "id": 1340
+            }
+          },
+          "task": "Image loaded (rule: ImageLoad)",
+          "event_id": "7",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "SignatureStatus": "Unavailable",
+            "Signed": "false"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "version": 3,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "dll": {
+          "path": "C:\\ProgramData\\beacon.dll",
+          "code_signature": {
+            "trusted": false,
+            "status": "Unavailable"
+          },
+          "pe": {
+            "imphash": "a932b2196fb8f937e20a13df0715af7f"
+          },
+          "name": "beacon.dll",
+          "hash": {
+            "sha256": "410646c1ed13086238895727d99fa426e97db558ed9aba4a4632ea2316a6ebf1"
+          }
+        },
+        "elastic_agent": {
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "rule": {
+          "name": "C0015-BALANCED"
+        },
+        "message": "Image loaded:\nRuleName: C0015-BALANCED\nUtcTime: 2026-11-20 16:55:44.592\nProcessGuid: {88E52A21-6F73-6B00-0D00-000000001B00}\nProcessId: 776\nImage: C:\\Windows\\System32\\svchost.exe\nImageLoaded: C:\\ProgramData\\beacon.dll\nFileVersion: -\nDescription: -\nProduct: -\nCompany: -\nOriginalFileName: -\nHashes: SHA256=410646C1ED13086238895727D99FA426E97DB558ED9ABA4A4632EA2316A6EBF1,IMPHASH=A932B2196FB8F937E20A13DF0715AF7F\nSigned: false\nSignature: -\nSignatureStatus: Unavailable\nUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-11-20T16:55:44.592Z",
+        "file": {
+          "path": "C:\\ProgramData\\beacon.dll",
+          "extension": "dll",
+          "code_signature": {
+            "trusted": false,
+            "status": "Unavailable"
+          },
+          "pe": {
+            "imphash": "a932b2196fb8f937e20a13df0715af7f"
+          },
+          "name": "beacon.dll",
+          "directory": "C:\\ProgramData",
+          "hash": {
+            "sha256": "410646c1ed13086238895727d99fa426e97db558ed9aba4a4632ea2316a6ebf1"
+          }
+        },
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ],
+          "hash": [
+            "410646c1ed13086238895727d99fa426e97db558ed9aba4a4632ea2316a6ebf1",
+            "a932b2196fb8f937e20a13df0715af7f"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "FS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "192.168.106.155",
+            "192.168.50.30"
+          ],
+          "name": "fs01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-3B-C6-18",
+            "00-0C-29-3B-C6-22"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-11-20T16:55:55Z",
+          "code": "7",
+          "provider": "Microsoft-Windows-Sysmon",
+          "kind": "event",
+          "created": "2026-11-20T16:55:46.171Z",
+          "action": [
+            "Image loaded",
+            "load"
+          ],
+          "category": [
+            "process",
+            "library"
+          ],
+          "type": [
+            "change",
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 4
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaH54pKtksj2Z07XB7ik",
+      "_source": {
+        "agent": {
+          "name": "FS01",
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "type": "filebeat",
+          "ephemeral_id": "9ccb04c6-8035-42d0-88f6-1c82a8bcf049",
+          "version": "9.5.3"
+        },
+        "process": {
+          "name": "svchost.exe",
+          "pid": 776,
+          "entity_id": "{88E52A21-6F73-6B00-0D00-000000001B00}",
+          "executable": "C:\\Windows\\System32\\svchost.exe"
+        },
+        "winlog": {
+          "record_id": "799674",
+          "computer_name": "FS01.c0015.lab",
+          "process": {
+            "pid": 2460,
+            "thread": {
+              "id": 1340
+            }
+          },
+          "task": "Image loaded (rule: ImageLoad)",
+          "event_id": "7",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "SignatureStatus": "Unavailable",
+            "Signed": "false"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "version": 3,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "dll": {
+          "path": "C:\\ProgramData\\beacon.dll",
+          "code_signature": {
+            "trusted": false,
+            "status": "Unavailable"
+          },
+          "pe": {
+            "imphash": "a932b2196fb8f937e20a13df0715af7f"
+          },
+          "name": "beacon.dll",
+          "hash": {
+            "sha256": "410646c1ed13086238895727d99fa426e97db558ed9aba4a4632ea2316a6ebf1"
+          }
+        },
+        "elastic_agent": {
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "rule": {
+          "name": "C0015-BALANCED"
+        },
+        "message": "Image loaded:\nRuleName: C0015-BALANCED\nUtcTime: 2026-11-20 16:55:44.592\nProcessGuid: {88E52A21-6F73-6B00-0D00-000000001B00}\nProcessId: 776\nImage: C:\\Windows\\System32\\svchost.exe\nImageLoaded: C:\\ProgramData\\beacon.dll\nFileVersion: -\nDescription: -\nProduct: -\nCompany: -\nOriginalFileName: -\nHashes: SHA256=410646C1ED13086238895727D99FA426E97DB558ED9ABA4A4632EA2316A6EBF1,IMPHASH=A932B2196FB8F937E20A13DF0715AF7F\nSigned: false\nSignature: -\nSignatureStatus: Unavailable\nUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-11-20T16:55:44.592Z",
+        "file": {
+          "path": "C:\\ProgramData\\beacon.dll",
+          "extension": "dll",
+          "code_signature": {
+            "trusted": false,
+            "status": "Unavailable"
+          },
+          "pe": {
+            "imphash": "a932b2196fb8f937e20a13df0715af7f"
+          },
+          "name": "beacon.dll",
+          "directory": "C:\\ProgramData",
+          "hash": {
+            "sha256": "410646c1ed13086238895727d99fa426e97db558ed9aba4a4632ea2316a6ebf1"
+          }
+        },
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ],
+          "hash": [
+            "410646c1ed13086238895727d99fa426e97db558ed9aba4a4632ea2316a6ebf1",
+            "a932b2196fb8f937e20a13df0715af7f"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "FS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "192.168.106.155",
+            "192.168.50.30"
+          ],
+          "name": "fs01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-3B-C6-18",
+            "00-0C-29-3B-C6-22"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-11-20T16:55:55Z",
+          "code": "7",
+          "provider": "Microsoft-Windows-Sysmon",
+          "kind": "event",
+          "created": "2026-11-20T16:55:46.171Z",
+          "action": [
+            "Image loaded",
+            "load"
+          ],
+          "category": [
+            "process",
+            "library"
+          ],
+          "type": [
+            "change",
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 5
+    }
+  ]
+}

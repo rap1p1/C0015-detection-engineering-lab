@@ -1,0 +1,95 @@
+{
+  "behaviour": "file_creation",
+  "index": "logs-windows.sysmon_operational-*",
+  "identifier": {
+    "field": "winlog.event_data.TargetProcessGUID",
+    "value": "{88E52A21-7A5E-6B00-0D00-000000003200}",
+    "host": "ws01"
+  },
+  "alerts": [
+    "d9c5a3bf93c8f158b52e70609e30bb7ae02cfa8486c29f81239935b93a31d2b7",
+    "a106951ab27bffad5455dd715b392b35fb0e2aff496f9df487a1b8698dca22a8"
+  ],
+  "queries": [
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-11-20T16:49:37.000Z",
+                  "lte": "2026-11-20T16:55:37.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "ws01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "11"
+              }
+            },
+            {
+              "term": {
+                "winlog.event_data.TargetProcessGUID": "{88E52A21-7A5E-6B00-0D00-000000003200}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-11-20T16:49:37.000Z",
+        "end": "2026-11-20T16:55:37.000Z"
+      },
+      "returned": 0,
+      "total": 0,
+      "relation": "eq"
+    },
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-11-20T16:49:37.000Z",
+                  "lte": "2026-11-20T16:55:37.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "ws01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "11"
+              }
+            },
+            {
+              "term": {
+                "winlog.event_data.TargetProcessGUID": "{88E52A21-7A5E-6B00-0D00-000000003200}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-11-20T16:49:37.000Z",
+        "end": "2026-11-20T16:55:37.000Z"
+      },
+      "returned": 0,
+      "total": 0,
+      "relation": "eq"
+    }
+  ],
+  "returned": 0,
+  "truncated": false,
+  "sample": false,
+  "hits": []
+}

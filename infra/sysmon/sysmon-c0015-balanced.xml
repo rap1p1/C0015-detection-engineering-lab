@@ -56,6 +56,7 @@
       <!-- E7: module load, scoped to lab staging/tooling paths only -->
       <ImageLoad onmatch="include">
         <ImageLoaded condition="contains">C:\Users\Public\</ImageLoaded>
+        <ImageLoaded condition="contains">C:\ProgramData\c0015\</ImageLoaded>
         <ImageLoaded condition="contains">C:\C0015\</ImageLoaded>
         <ImageLoaded condition="contains">C:\Tools\</ImageLoaded>
         <ImageLoaded condition="contains">C:\Windows\Temp\</ImageLoaded>
@@ -63,7 +64,9 @@
       </ImageLoad>
 
       <!-- E8: cross-process thread creation -->
-      <CreateRemoteThread onmatch="exclude" />
+      <CreateRemoteThread onmatch="include">
+        <TargetImage condition="contains">\svchost.exe</TargetImage>
+      </CreateRemoteThread>
 
       <!-- E9: raw device reads -->
       <RawAccessRead onmatch="exclude" />

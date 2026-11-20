@@ -1,0 +1,2 @@
+process where event.code == "7"
+  and dll.path : ("*\\ProgramData\\c0015\\*.dll", "*\\ProgramData\\beacon.dll")

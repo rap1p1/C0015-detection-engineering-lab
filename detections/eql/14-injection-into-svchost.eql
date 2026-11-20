@@ -1,0 +1,3 @@
+process where event.code == "8"
+  and process.name : "rundll32.exe"
+  and winlog.event_data.TargetImage : "*\\svchost.exe"

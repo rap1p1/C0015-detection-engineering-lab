@@ -216,8 +216,9 @@ server, where a second beacon is installed as a service, then the transfer and t
 ### Delivery and proxy execution
 
 `decree-08.03.2021.docm` sits on the desktop of `duc.user`, a standard domain user. Opening it runs
-the macro in `macro-payload.vba`, which reads `C:\Users\Public\C0015\config.ini` and starts
-`mshta.exe` on `C:\Users\Public\C0015\compareforfor.hta`. The HTA downloads
+the macro in `macro-payload.vba`. The document is the only file delivered: on open the macro writes
+`C:\Users\Public\C0015\config.ini` and `C:\Users\Public\C0015\compareforfor.hta` from base64
+blobs it carries, then starts `mshta.exe` on the HTA. The HTA downloads
 `C:\Users\Public\compareForfor.jpg` from the staging server and runs it with `regsvr32.exe`.
 
 The module is `loader-regsvr32.c`: a DLL whose `DllRegisterServer` downloads `agent-update.ps1` and

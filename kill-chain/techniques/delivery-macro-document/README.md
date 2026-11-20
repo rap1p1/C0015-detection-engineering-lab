@@ -4,10 +4,10 @@
 |---|---|
 | Chain phase | Document and macro |
 | Account | duc.user |
-| What happens | WINWORD.EXE starts cmd.exe /c mshta on the user profile |
+| What happens | WINWORD.EXE runs the macro, which writes config.ini and compareforfor.hta into %PUBLIC%\C0015 and starts mshta on the HTA |
 | Telemetry | Sysmon 1 (process create), Office macro telemetry |
 | Detection | R01 |
-| Payload / tooling | macro-payload.vba, macro-install-docm.ps1, macro-build-embedded.ps1 |
+| Payload / tooling | macro-payload.vba (carries the HTA and config as base64), macro-install-docm.ps1 |
 
 ## How the lab reproduces it
 

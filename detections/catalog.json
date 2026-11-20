@@ -36,10 +36,10 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T11:30:00Z",
-          "end": "2026-11-20T12:10:00Z"
+          "start": "2026-11-20T15:20:00Z",
+          "end": "2026-11-20T15:45:00Z"
         },
-        "matches": 2,
+        "matches": 0,
         "truncated": false,
         "error": null,
         "note": "Query parse and field existence only; matches are not classified as true or false positives."
@@ -80,10 +80,10 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T11:30:00Z",
-          "end": "2026-11-20T12:10:00Z"
+          "start": "2026-11-20T15:20:00Z",
+          "end": "2026-11-20T15:45:00Z"
         },
-        "matches": 2,
+        "matches": 0,
         "truncated": false,
         "error": null,
         "note": "Query parse and field existence only; matches are not classified as true or false positives."
@@ -124,10 +124,10 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T11:30:00Z",
-          "end": "2026-11-20T12:10:00Z"
+          "start": "2026-11-20T15:20:00Z",
+          "end": "2026-11-20T15:45:00Z"
         },
-        "matches": 2,
+        "matches": 0,
         "truncated": false,
         "error": null,
         "note": "Query parse and field existence only; matches are not classified as true or false positives."
@@ -168,8 +168,8 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T11:30:00Z",
-          "end": "2026-11-20T12:10:00Z"
+          "start": "2026-11-20T15:20:00Z",
+          "end": "2026-11-20T15:45:00Z"
         },
         "matches": 1,
         "truncated": false,
@@ -212,10 +212,10 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T11:30:00Z",
-          "end": "2026-11-20T12:10:00Z"
+          "start": "2026-11-20T15:20:00Z",
+          "end": "2026-11-20T15:45:00Z"
         },
-        "matches": 3,
+        "matches": 0,
         "truncated": false,
         "error": null,
         "note": "Query parse and field existence only; matches are not classified as true or false positives."
@@ -256,8 +256,8 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T11:30:00Z",
-          "end": "2026-11-20T12:10:00Z"
+          "start": "2026-11-20T15:20:00Z",
+          "end": "2026-11-20T15:45:00Z"
         },
         "matches": 1,
         "truncated": false,
@@ -300,10 +300,10 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T11:30:00Z",
-          "end": "2026-11-20T12:10:00Z"
+          "start": "2026-11-20T15:20:00Z",
+          "end": "2026-11-20T15:45:00Z"
         },
-        "matches": 1,
+        "matches": 5,
         "truncated": false,
         "error": null,
         "note": "Query parse and field existence only; matches are not classified as true or false positives."
@@ -344,54 +344,10 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T11:30:00Z",
-          "end": "2026-11-20T12:10:00Z"
+          "start": "2026-11-20T15:20:00Z",
+          "end": "2026-11-20T15:45:00Z"
         },
-        "matches": 1,
-        "truncated": false,
-        "error": null,
-        "note": "Query parse and field existence only; matches are not classified as true or false positives."
-      }
-    },
-    {
-      "id": "C0015-R09",
-      "revision": 1,
-      "name": "service installed with binary in user path",
-      "file": "detections/eql/09-service-install-user-path.eql",
-      "sha256": "1a948a3151d75e0917647a60004112359972d820d8a2909a713472f4b29cef0d",
-      "status": "shipped",
-      "role": "alert",
-      "severity": "high",
-      "risk_score": 73,
-      "attck": {
-        "tactic_id": "TA0003",
-        "tactic_name": "Persistence",
-        "technique_id": "T1543.003",
-        "technique_name": "Create or Modify System Process: Windows Service"
-      },
-      "description": "A service is installed whose ImagePath names a binary in ProgramData, Public, Temp or AppData.",
-      "limitations": "ImagePath can carry arguments; a service binary in Program Files with a config path in ProgramData matches the wildcard.",
-      "prerequisites": [
-        "Service Control Manager 7045"
-      ],
-      "deployment": {
-        "index": [
-          "logs-system.system-*"
-        ],
-        "timestamp_field": "@timestamp",
-        "interval": "1m",
-        "lookback": "now-3m",
-        "max_signals": 100,
-        "enabled": true
-      },
-      "validation": {
-        "kind": "engine_run",
-        "engine": "elasticsearch 9.5.3",
-        "window": {
-          "start": "2026-11-20T11:30:00Z",
-          "end": "2026-11-20T12:10:00Z"
-        },
-        "matches": 1,
+        "matches": 2,
         "truncated": false,
         "error": null,
         "note": "Query parse and field existence only; matches are not classified as true or false positives."
@@ -432,10 +388,10 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T11:30:00Z",
-          "end": "2026-11-20T12:10:00Z"
+          "start": "2026-11-20T15:20:00Z",
+          "end": "2026-11-20T15:45:00Z"
         },
-        "matches": 1,
+        "matches": 0,
         "truncated": false,
         "error": null,
         "note": "Query parse and field existence only; matches are not classified as true or false positives."
@@ -476,10 +432,10 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T11:30:00Z",
-          "end": "2026-11-20T12:10:00Z"
+          "start": "2026-11-20T15:20:00Z",
+          "end": "2026-11-20T15:45:00Z"
         },
-        "matches": 1,
+        "matches": 0,
         "truncated": false,
         "error": null,
         "note": "Query parse and field existence only; matches are not classified as true or false positives."
@@ -520,10 +476,10 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T11:30:00Z",
-          "end": "2026-11-20T12:10:00Z"
+          "start": "2026-11-20T15:20:00Z",
+          "end": "2026-11-20T15:45:00Z"
         },
-        "matches": 1,
+        "matches": 0,
         "truncated": false,
         "error": null,
         "note": "Query parse and field existence only; matches are not classified as true or false positives."
@@ -564,10 +520,98 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T11:30:00Z",
-          "end": "2026-11-20T12:10:00Z"
+          "start": "2026-11-20T15:20:00Z",
+          "end": "2026-11-20T15:45:00Z"
         },
-        "matches": 2,
+        "matches": 0,
+        "truncated": false,
+        "error": null,
+        "note": "Query parse and field existence only; matches are not classified as true or false positives."
+      }
+    },
+    {
+      "id": "C0015-R14",
+      "revision": 1,
+      "name": "remote thread into service host",
+      "file": "detections/eql/14-injection-into-svchost.eql",
+      "sha256": "ebad3252b2d1ab86b8ac384207c89a68d21dfba4c47554920f4ad6043a4374f1",
+      "status": "shipped",
+      "role": "alert",
+      "severity": "high",
+      "risk_score": 73,
+      "attck": {
+        "tactic_id": "TA0005",
+        "tactic_name": "Defense Evasion",
+        "technique_id": "T1055",
+        "technique_name": "Process Injection"
+      },
+      "description": "rundll32 creates a remote thread inside a svchost process.",
+      "limitations": "Legitimate instrumentation and accessibility tools also create remote threads; the source image and the module loaded decide.",
+      "prerequisites": [
+        "Sysmon 8"
+      ],
+      "deployment": {
+        "index": [
+          "logs-windows.sysmon_operational-*"
+        ],
+        "timestamp_field": "@timestamp",
+        "interval": "1m",
+        "lookback": "now-3m",
+        "max_signals": 100,
+        "enabled": true
+      },
+      "validation": {
+        "kind": "engine_run",
+        "engine": "elasticsearch 9.5.3",
+        "window": {
+          "start": "2026-11-20T15:20:00Z",
+          "end": "2026-11-20T15:45:00Z"
+        },
+        "matches": 6,
+        "truncated": false,
+        "error": null,
+        "note": "Query parse and field existence only; matches are not classified as true or false positives."
+      }
+    },
+    {
+      "id": "C0015-R15",
+      "revision": 1,
+      "name": "module loaded from user path",
+      "file": "detections/eql/15-module-from-user-path.eql",
+      "sha256": "26688c95c0c5afbb2f1454fc1e930dbca3dd2398716ab40a5f637d89a88f2736",
+      "status": "shipped",
+      "role": "alert",
+      "severity": "high",
+      "risk_score": 73,
+      "attck": {
+        "tactic_id": "TA0005",
+        "tactic_name": "Defense Evasion",
+        "technique_id": "T1574",
+        "technique_name": "Hijack Execution Flow"
+      },
+      "description": "A DLL is loaded from the staging directory under ProgramData.",
+      "limitations": "The directory is lab-specific; in a real estate the rule needs the writable path that the service uses.",
+      "prerequisites": [
+        "Sysmon 7"
+      ],
+      "deployment": {
+        "index": [
+          "logs-windows.sysmon_operational-*"
+        ],
+        "timestamp_field": "@timestamp",
+        "interval": "1m",
+        "lookback": "now-3m",
+        "max_signals": 100,
+        "enabled": true
+      },
+      "validation": {
+        "kind": "engine_run",
+        "engine": "elasticsearch 9.5.3",
+        "window": {
+          "start": "2026-11-20T15:20:00Z",
+          "end": "2026-11-20T15:45:00Z"
+        },
+        "matches": 7,
         "truncated": false,
         "error": null,
         "note": "Query parse and field existence only; matches are not classified as true or false positives."

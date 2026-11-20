@@ -9,7 +9,7 @@
 | R08 | `WmiPrvSE.exe` child on FS01, `cmd /Q /c` with the `ADMIN$` redirect |
 | R09 | 7045 service installation and the service binary |
 | R11 | `rclone.exe` copy to `Mega:DATA` |
-| R12 | `readme.txt` creation and the `.c0015` churn |
+| R12 | the locker starts with `-m -net -size 10 -nomutex` and the note follows |
 
 ## Investigation
 
@@ -28,3 +28,4 @@
 ## Evidence to capture
 
 - 4624 type 3 with the administrator account, 7045, rclone command line, note and rename counts.
+

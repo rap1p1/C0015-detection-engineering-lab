@@ -2,9 +2,9 @@
 
 Generated from [`catalog.json`](catalog.json) by `tools/detections/catalog.py`. Do not edit.
 
-- shipped rules: **16**
+- shipped rules: **17**
 - retired rules: **1**
-- roles: alert 14, building_block 2
+- roles: alert 15, building_block 2
 
 | ID | Rule | Role | Severity | ATT&CK | Query |
 |---|---|---|---|---|---|
@@ -24,6 +24,7 @@ Generated from [`catalog.json`](catalog.json) by `tools/detections/catalog.py`. 
 | C0015-R15 | module loaded from user path | building_block | low | T1574 Hijack Execution Flow | [`15-module-from-user-path.eql`](eql/15-module-from-user-path.eql) |
 | C0015-R16 | dns query for campaign domain | alert | medium | T1071.004 Application Layer Protocol: DNS | [`16-dns-query-campaign-domain.eql`](eql/16-dns-query-campaign-domain.eql) |
 | C0015-R17 | dns lookup then beacon connection | alert | high | T1071.001 Application Layer Protocol: Web Protocols | [`17-dns-then-beacon-connection.eql`](eql/17-dns-then-beacon-connection.eql) |
+| C0015-R18 | domain and trust discovery | alert | medium | T1087.002 Account Discovery: Domain Account | [`18-discovery-commands.eql`](eql/18-discovery-commands.eql) |
 
 ## Retired
 

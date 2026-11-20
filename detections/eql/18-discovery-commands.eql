@@ -1,0 +1,6 @@
+process where event.code == "1"
+  and process.name in ("net.exe", "net1.exe", "nltest.exe")
+  and (process.command_line : "*domain_trusts*"
+       or process.command_line : "*view /all /domain*"
+       or process.command_line : "*\"domain admins\"*"
+       or process.command_line : "*localgroup \"administrator\"*")

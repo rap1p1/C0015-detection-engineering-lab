@@ -1,67 +1,63 @@
 # Validation - one run, one window
 
-Supersedes the earlier split between a delivery window (`11:30Z-12:10Z`) and an injection-only window
-(`15:20Z-15:45Z`). The numbers below come from `detections/tools/engine_check.py` against the single run
-that went from the document to the impact.
+The whole chain was exercised once, with the beacon generated against the campaign domain, and every
+shipped rule was checked inside that single window.
 
 | | |
 |---|---|
-| Window | `2026-11-20T15:40:00Z` - `2026-11-20T16:00:00Z` |
+| Window | `2026-11-20T16:45:00Z` - `2026-11-20T17:05:00Z` |
 | Stack | Elasticsearch 9.5.3, Sysmon profile `infra/sysmon/sysmon-c0015-balanced.xml` |
-| Rule set | 14 shipped, 1 retired (R09) |
-| Matches | 42, equal to the 42 alerts created by the Kibana scheduler in the same window |
+| Rule set | 17 shipped, 1 retired (R09) |
+| Matches | 33 |
+| Kibana alerts | 35 in `16:45-17:10Z` (the scheduler window runs past the engine window) |
 
-Per-rule counts are in `detections/catalog.json` and the table in `detections/README.md`.
+What the run contains:
 
-## R14 - the four matches are two injections
+- document open on WS01, macro writes `config.ini` and the HTA, `mshta`, `regsvr32`, loader drops
+  `update.ps1`;
+- HealthMonitor runs the script as SYSTEM, downloads `injector.dll` and `beacon.dll`, starts
+  `rundll32 injector.dll,Run`; the injector puts the beacon into a SYSTEM `svchost.exe`;
+- discovery from the SYSTEM context: `net group "domain admins" /dom`, `net localgroup administrator`,
+  `nltest /domain_trusts /all_trusts`, `net view /all /domain`, `tasklist /s FS01`, `ping`;
+- `mimikatz lsadump::secrets` returns the `_SC_C0015Backup` secret for `C0015\Administrator`;
+- WMI from WS01 disables Defender on FS01, then runs `143.dll` (the injector) and the beacon lands in a
+  SYSTEM `svchost.exe` on FS01;
+- `fs01-task.ps1`: defences pass, injection pass, `rclone` exit 0, `vssadmin delete shadows`, locker
+  `renamed=40; notes=4`.
 
-Each injection starts two remote threads (the `LoadLibraryA` call and the `StartW` call), so the rule
-counts two events per attempt.
+## Injection hits
 
-| Host | Time (UTC) | Threads | Locator |
-|---|---|---|---|
-| WS01 | 15:45:37 | 1976, 7880 | `AaH5opKtksj2Z02HQScP`, `AaH5opKtksj2Z02HQScR` |
-| FS01 | 15:51:23 | 4228, 4232 | `AaH5p5Ktksj2Z03TT7WS`, `AaH5p5Ktksj2Z03TT7WT` |
+Each injection starts two remote threads, so R14 counts two events per attempt.
 
-Do not read "4 matches" as four injections. The event carries `TargetImage` but not a target process
-GUID in this pipeline, so the correlation with R15 is by host and timestamp, not by identity.
+| Host | Threads | Count |
+|---|---|---|
+| WS01 | LoadLibrary + StartW | 2 |
+| FS01 | LoadLibrary + StartW | 2 |
 
-## R15 - five matches, only two are the service host
+R15 has five matches:
 
-| Host | Process | Path | Meaning |
-|---|---|---|---|
-| WS01 | `svchost.exe` | `C:\ProgramData\c0015\beacon.dll` | the injected module in the target (evidence for R14) |
-| WS01 | `rundll32.exe` | `C:\ProgramData\c0015\beacon.dll` | the injector's local mapping before the remote call (source-side noise) |
-| WS01 | `rundll32.exe` | `C:\ProgramData\c0015\injector.dll` | the injector itself, loaded by rundll32 |
-| FS01 | `svchost.exe` | `C:\ProgramData\beacon.dll` | the injected module in the target |
-| FS01 | `rundll32.exe` | `C:\ProgramData\beacon.dll` | the injector's local mapping |
+- `svchost.exe` loads `beacon.dll` on WS01 and on FS01: the target side of the injection;
+- `rundll32.exe` loads `beacon.dll` on both hosts: the injector's own local mapping;
+- `rundll32.exe` loads `injector.dll`: the injector itself.
 
-Two of the five confirm the service-host load; the other three are the source side. That is why R15 is a
-building block and not an alert.
+Two of the five confirm the service-host load; the others are the source side. That is why R15 is a
+building block.
 
-## Relationship to the alert count
+## Network and discovery hits
 
-The engine counts query matches; the Kibana scheduler counts alerts. In this window both are 42. They
-are the same events, but a rule with `building_block` role can still add a match without producing an
-alert, so keep the two numbers separate in future runs.
+| Rule | Count | What it saw |
+|---|---|---|
+| R16 | 2 | `svchost.exe` resolves `checkauj.com` on WS01 and FS01 |
+| R17 | 2 | the lookup is followed by `svchost -> 192.168.50.100:443` within five minutes |
+| R18 | 4 | the discovery commands above, from the SYSTEM context |
+
+The IP-based beacon from earlier runs produced no DNS event at all. This run uses the domain, so E22 and
+E3 are both present, and the two network rules no longer need a separate run.
 
 ## Limits
 
-- E8 is collected only for `svchost.exe` targets (profile filter), so the rule does not cover injection
-  into other processes.
-- E7 includes all of `C:\ProgramData\`; the `c0015` entry is inside that broader include, not the reason
-  the path is visible.
-- No network event (E3) or receiver-side evidence is part of this validation.
-
-## Network rules - separate run
-
-R16 and R17 were verified on a second short run after the beacon was generated with the domain instead
-of the IP literal, `2026-11-20T16:30Z - 16:45Z`:
-
-| Event | Count | Example |
-|---|---|---|
-| E22 `checkauj.com` from `svchost.exe` (R16) | 1 | 16:37:05 on WS01 |
-| E3 `svchost.exe -> 192.168.50.100:443` after the lookup (R17) | 1 sequence | 16:37:05 lookup, 16:37:08 first connect |
-
-The direct-IP beacon used in the main run produced no DNS event at all; the domain beacon does. This is
-why the two runs are kept apart in the catalog.
+- E8 is collected only for `svchost.exe` targets (profile filter); injection into other processes is out
+  of scope for R14.
+- E7 includes all of `C:\ProgramData\`; the `c0015` entry sits inside that broader include.
+- There is no receiver-side evidence for the exfiltration; R11 proves the invocation, not the delivery.
+- A match is not a verdict: the engine proves the query and the fields, not precision.

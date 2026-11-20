@@ -381,19 +381,20 @@ and each entry records what it does not prove.
 | R04 | agent executes planted script | alert | T1059.001 | 1 |
 | R05 | LSA secrets requested | alert | T1003.004 | 1 |
 | R06 | defender real-time protection disable requested | alert | T1562.001 | 1 |
-| R07 | wmi remote process creation | alert | T1047 | 7 |
-| R08 | wmi hosted child process | building_block | T1047 | 6 |
-| R10 | shadow copy deletion requested | alert | T1490 | 5 |
-| R11 | rclone transfer invocation | alert | T1567.002 | 3 |
-| R12 | locker simulator invocation | alert | T1486 | 5 |
+| R07 | wmi remote process creation | alert | T1047 | 3 |
+| R08 | wmi hosted child process | building_block | T1047 | 3 |
+| R10 | shadow copy deletion requested | alert | T1490 | 1 |
+| R11 | rclone transfer invocation | alert | T1567.002 | 1 |
+| R12 | locker simulator invocation | alert | T1486 | 1 |
 | R13 | script written into agent checks | alert | T1574.010 | 1 |
 | R14 | remote thread into service host | alert | T1055 | 4 |
 | R15 | module loaded from user path | building_block | T1574 | 5 |
-| R16 | dns query for campaign domain | alert | T1071.004 | 1 |
-| R17 | dns lookup then beacon connection | alert | T1071.001 | 1 |
+| R16 | dns query for campaign domain | alert | T1071.004 | 2 |
+| R17 | dns lookup then beacon connection | alert | T1071.001 | 2 |
+| R18 | domain and trust discovery | alert | T1087.002 | 4 |
 
 A match is not a verdict. The engine check proves the query parses and the fields exist; precision is
-measured against the run, not assumed. Counts for R01-R15 come from the run window `15:40Z -> 16:00Z` (42 matches = 42 alerts); R16 and R17 were verified on a separate network run in `16:30Z -> 16:45Z` and are marked in [`detections/validation.md`](detections/validation.md).
+measured against the run, not assumed. All counts come from one run window, `16:45Z -> 17:05Z`: the document, the injection, the discovery, the WMI pivot, the exfiltration and the impact. The per-hit notes are in [`detections/validation.md`](detections/validation.md).
 
 ## How to run the lab
 

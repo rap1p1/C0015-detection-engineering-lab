@@ -22,6 +22,7 @@ campaign achieved.
 | Defense Evasion | T1574 Hijack Execution Flow | C0015-R15 | building_block | A module is loaded from the staging directory; the loading process decides which behaviour this is. | The directory is lab-specific; in a real estate the rule needs the writable path that the service uses. |
 | Command and Control | T1071.004 Application Layer Protocol: DNS | C0015-R16 | alert | A host resolves the campaign domain used by the C2 listener. | Domain-specific; a rotated domain or a direct-IP implant is missed. A DNS query alone does not prove a tunnel. |
 | Command and Control | T1071.001 Application Layer Protocol: Web Protocols | C0015-R17 | alert | svchost resolves the campaign domain and then connects to the listener on 443 within five minutes. | Lab-specific listener address; in production replace the address with the destination range or the domain resolution result. |
+| Discovery | T1087.002 Account Discovery: Domain Account | C0015-R18 | alert | net or nltest enumerates domain admins, local administrators, trusts or the domain computer list. | Administrators run the same commands; correlate with the session that spawned them and the host role. |
 
 ## Not covered by a rule
 

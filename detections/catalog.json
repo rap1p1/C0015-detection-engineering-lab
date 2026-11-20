@@ -36,8 +36,8 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T15:40:00Z",
-          "end": "2026-11-20T16:00:00Z"
+          "start": "2026-11-20T16:45:00Z",
+          "end": "2026-11-20T17:05:00Z"
         },
         "matches": 1,
         "truncated": false,
@@ -80,8 +80,8 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T15:40:00Z",
-          "end": "2026-11-20T16:00:00Z"
+          "start": "2026-11-20T16:45:00Z",
+          "end": "2026-11-20T17:05:00Z"
         },
         "matches": 1,
         "truncated": false,
@@ -124,8 +124,8 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T15:40:00Z",
-          "end": "2026-11-20T16:00:00Z"
+          "start": "2026-11-20T16:45:00Z",
+          "end": "2026-11-20T17:05:00Z"
         },
         "matches": 1,
         "truncated": false,
@@ -168,8 +168,8 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T15:40:00Z",
-          "end": "2026-11-20T16:00:00Z"
+          "start": "2026-11-20T16:45:00Z",
+          "end": "2026-11-20T17:05:00Z"
         },
         "matches": 1,
         "truncated": false,
@@ -212,8 +212,8 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T15:40:00Z",
-          "end": "2026-11-20T16:00:00Z"
+          "start": "2026-11-20T16:45:00Z",
+          "end": "2026-11-20T17:05:00Z"
         },
         "matches": 1,
         "truncated": false,
@@ -256,8 +256,8 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T15:40:00Z",
-          "end": "2026-11-20T16:00:00Z"
+          "start": "2026-11-20T16:45:00Z",
+          "end": "2026-11-20T17:05:00Z"
         },
         "matches": 1,
         "truncated": false,
@@ -300,10 +300,10 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T15:40:00Z",
-          "end": "2026-11-20T16:00:00Z"
+          "start": "2026-11-20T16:45:00Z",
+          "end": "2026-11-20T17:05:00Z"
         },
-        "matches": 7,
+        "matches": 3,
         "truncated": false,
         "error": null,
         "note": "Query parse and field existence only; matches are not classified as true or false positives."
@@ -344,10 +344,10 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T15:40:00Z",
-          "end": "2026-11-20T16:00:00Z"
+          "start": "2026-11-20T16:45:00Z",
+          "end": "2026-11-20T17:05:00Z"
         },
-        "matches": 6,
+        "matches": 3,
         "truncated": false,
         "error": null,
         "note": "Query parse and field existence only; matches are not classified as true or false positives."
@@ -434,10 +434,10 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T15:40:00Z",
-          "end": "2026-11-20T16:00:00Z"
+          "start": "2026-11-20T16:45:00Z",
+          "end": "2026-11-20T17:05:00Z"
         },
-        "matches": 5,
+        "matches": 1,
         "truncated": false,
         "error": null,
         "note": "Query parse and field existence only; matches are not classified as true or false positives."
@@ -478,10 +478,10 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T15:40:00Z",
-          "end": "2026-11-20T16:00:00Z"
+          "start": "2026-11-20T16:45:00Z",
+          "end": "2026-11-20T17:05:00Z"
         },
-        "matches": 3,
+        "matches": 1,
         "truncated": false,
         "error": null,
         "note": "Query parse and field existence only; matches are not classified as true or false positives."
@@ -522,10 +522,10 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T15:40:00Z",
-          "end": "2026-11-20T16:00:00Z"
+          "start": "2026-11-20T16:45:00Z",
+          "end": "2026-11-20T17:05:00Z"
         },
-        "matches": 5,
+        "matches": 1,
         "truncated": false,
         "error": null,
         "note": "Query parse and field existence only; matches are not classified as true or false positives."
@@ -566,8 +566,8 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T15:40:00Z",
-          "end": "2026-11-20T16:00:00Z"
+          "start": "2026-11-20T16:45:00Z",
+          "end": "2026-11-20T17:05:00Z"
         },
         "matches": 1,
         "truncated": false,
@@ -610,8 +610,8 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T15:40:00Z",
-          "end": "2026-11-20T16:00:00Z"
+          "start": "2026-11-20T16:45:00Z",
+          "end": "2026-11-20T17:05:00Z"
         },
         "matches": 4,
         "truncated": false,
@@ -654,8 +654,8 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T15:40:00Z",
-          "end": "2026-11-20T16:00:00Z"
+          "start": "2026-11-20T16:45:00Z",
+          "end": "2026-11-20T17:05:00Z"
         },
         "matches": 5,
         "truncated": false,
@@ -698,13 +698,13 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T16:30:00Z",
-          "end": "2026-11-20T16:45:00Z"
+          "start": "2026-11-20T16:45:00Z",
+          "end": "2026-11-20T17:05:00Z"
         },
-        "matches": 1,
+        "matches": 2,
         "truncated": false,
         "error": null,
-        "note": "Separate verification run for the network rules."
+        "note": "Query parse and field existence only; matches are not classified as true or false positives."
       }
     },
     {
@@ -743,13 +743,57 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T16:30:00Z",
-          "end": "2026-11-20T16:45:00Z"
+          "start": "2026-11-20T16:45:00Z",
+          "end": "2026-11-20T17:05:00Z"
         },
-        "matches": 1,
+        "matches": 2,
         "truncated": false,
         "error": null,
-        "note": "Separate verification run for the network rules."
+        "note": "Query parse and field existence only; matches are not classified as true or false positives."
+      }
+    },
+    {
+      "id": "C0015-R18",
+      "revision": 1,
+      "name": "domain and trust discovery",
+      "file": "detections/eql/18-discovery-commands.eql",
+      "sha256": "b989173660ba4d902f2589e54518902a7a6ec249be93f16acb4114f76f41922d",
+      "status": "shipped",
+      "role": "alert",
+      "severity": "medium",
+      "risk_score": 47,
+      "attck": {
+        "tactic_id": "TA0007",
+        "tactic_name": "Discovery",
+        "technique_id": "T1087.002",
+        "technique_name": "Account Discovery: Domain Account"
+      },
+      "description": "net or nltest enumerates domain admins, local administrators, trusts or the domain computer list.",
+      "limitations": "Administrators run the same commands; correlate with the session that spawned them and the host role.",
+      "prerequisites": [
+        "Sysmon 1"
+      ],
+      "deployment": {
+        "index": [
+          "logs-windows.sysmon_operational-*"
+        ],
+        "timestamp_field": "@timestamp",
+        "interval": "1m",
+        "lookback": "now-3m",
+        "max_signals": 100,
+        "enabled": true
+      },
+      "validation": {
+        "kind": "engine_run",
+        "engine": "elasticsearch 9.5.3",
+        "window": {
+          "start": "2026-11-20T16:45:00Z",
+          "end": "2026-11-20T17:05:00Z"
+        },
+        "matches": 4,
+        "truncated": false,
+        "error": null,
+        "note": "Query parse and field existence only; matches are not classified as true or false positives."
       }
     }
   ]

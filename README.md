@@ -364,7 +364,7 @@ name still describes the activity after a tool substitution. The executable arte
 
 The rule set and its claims live in [`detections/catalog.json`](detections/catalog.json); the index at
 [`detections/INDEX.md`](detections/INDEX.md) is generated from it. Roles separate finished alerts from
-building blocks, and each entry records what it does not prove.
+and each entry records what it does not prove.
 
 | Rule | Behaviour | Role | ATT&CK | Matches on the 2026-11-20 run |
 |---|---|---|---|---|
@@ -380,11 +380,10 @@ building blocks, and each entry records what it does not prove.
 | R10 | shadow copies deleted | alert | T1490 | 1 |
 | R11 | cloud transfer with rclone | alert | T1567.002 | 1 |
 | R12 | locker command line | alert | T1486 | 1 |
-| R13 | service binary runs from a user path | building block | T1543.003 | 6 |
 
 A match is not a verdict. The engine check proves the query parses and the fields exist; precision is
-measured against the run, not assumed. Every rule fires on this chain; nothing is carried for coverage
-of a technique the lab does not perform.
+measured against the run, not assumed. Every rule fires on this chain, every rule is an alert, and
+nothing is carried for coverage of a technique the lab does not perform.
 
 ## How to run the lab
 

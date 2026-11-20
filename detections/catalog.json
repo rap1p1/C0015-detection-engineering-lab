@@ -528,50 +528,6 @@
         "error": null,
         "note": "Query parse and field existence only; matches are not classified as true or false positives."
       }
-    },
-    {
-      "id": "C0015-R13",
-      "revision": 1,
-      "name": "service binary from user path runs",
-      "file": "detections/eql/13-service-binary-user-path.eql",
-      "sha256": "267cdd522522c0172486b6f4292c746e260c776c2b5c62721a328140d248757d",
-      "status": "shipped",
-      "role": "building_block",
-      "severity": "low",
-      "risk_score": 30,
-      "attck": {
-        "tactic_id": "TA0003",
-        "tactic_name": "Persistence",
-        "technique_id": "T1543.003",
-        "technique_name": "Create or Modify System Process: Windows Service"
-      },
-      "description": "A process started by the service manager lives in a user-writable directory.",
-      "limitations": "Context for R09; not proof of persistence by itself.",
-      "prerequisites": [
-        "Sysmon 1"
-      ],
-      "deployment": {
-        "index": [
-          "logs-windows.sysmon_operational-*"
-        ],
-        "timestamp_field": "@timestamp",
-        "interval": "1m",
-        "lookback": "now-3m",
-        "max_signals": 100,
-        "enabled": true
-      },
-      "validation": {
-        "kind": "engine_run",
-        "engine": "elasticsearch 9.5.3",
-        "window": {
-          "start": "2026-11-20T11:30:00Z",
-          "end": "2026-11-20T12:10:00Z"
-        },
-        "matches": 6,
-        "truncated": false,
-        "error": null,
-        "note": "Query parse and field existence only; matches are not classified as true or false positives."
-      }
     }
   ]
 }

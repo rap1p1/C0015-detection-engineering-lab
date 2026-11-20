@@ -56,7 +56,7 @@ Neither is proven by a query parsing. See the evidence schema in
 for the fields an export must carry to be checkable.
 ## Validation status
 
-All thirteen rules were run with `detections/tools/engine_check.py` against Elasticsearch 9.5.3 on the
+All twelve rules were run with `detections/tools/engine_check.py` against Elasticsearch 9.5.3 on the
 window `2026-11-20T11:30Z -> 2026-11-20T12:10Z`, the run that exercised the current chain. Every query
 parsed and every field it names exists in this pipeline; the matches are in each catalog entry.
 
@@ -74,10 +74,9 @@ parsed and every field it names exists in this pipeline; the matches are in each
 | R10 | 1 | shadow copies deleted |
 | R11 | 1 | rclone copied the corpus to a remote |
 | R12 | 1 | the locker started with its deployment flags |
-| R13 | 6 | service binaries ran from user paths (context) |
 
-A match is not a verdict: the engine check proves the query and the fields, not precision. R13 is a
-building block; every other rule fires on this chain.
+A match is not a verdict: the engine check proves the query and the fields, not precision. Every rule
+fires on this chain and every rule is an alert.
 
 ## Field notes
 

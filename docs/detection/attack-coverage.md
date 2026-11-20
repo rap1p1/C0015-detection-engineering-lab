@@ -18,7 +18,6 @@ campaign achieved.
 | Impact | T1490 Inhibit System Recovery | C0015-R10 | alert | vssadmin or wmic deletes volume shadow copies. | Backup software also manages shadows; correlate with the note and the rename burst. |
 | Exfiltration | T1567.002 Exfiltration Over Web Service: Exfiltration to Cloud Storage | C0015-R11 | alert | rclone copies or syncs data to a remote destination. | Exit code is not proof of transfer; there is no receiver inventory in endpoint telemetry. |
 | Impact | T1486 Data Encrypted for Impact | C0015-R12 | alert | The Conti-style locker is started with its deployment flag set: mode, network, size and target path. | Keys on the documented argument shape of this family; a repacked locker with different flags is missed. |
-| Persistence | T1543.003 Create or Modify System Process: Windows Service | C0015-R13 | building_block | A process started by the service manager lives in a user-writable directory. | Context for R09; not proof of persistence by itself. |
 
 ## Not covered by a rule
 

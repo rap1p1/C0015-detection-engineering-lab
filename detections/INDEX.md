@@ -2,9 +2,9 @@
 
 Generated from [`catalog.json`](catalog.json) by `tools/detections/catalog.py`. Do not edit.
 
-- shipped rules: **13**
+- shipped rules: **12**
 - retired rules: **0**
-- roles: alert 12, building_block 1
+- roles: alert 12
 
 | ID | Rule | Role | Severity | ATT&CK | Query |
 |---|---|---|---|---|---|
@@ -20,4 +20,3 @@ Generated from [`catalog.json`](catalog.json) by `tools/detections/catalog.py`. 
 | C0015-R10 | shadow copies deleted | alert | high | T1490 Inhibit System Recovery | [`10-shadow-copy-deletion.eql`](eql/10-shadow-copy-deletion.eql) |
 | C0015-R11 | cloud transfer with rclone | alert | high | T1567.002 Exfiltration Over Web Service: Exfiltration to Cloud Storage | [`11-cloud-transfer.eql`](eql/11-cloud-transfer.eql) |
 | C0015-R12 | locker command line | alert | critical | T1486 Data Encrypted for Impact | [`12-ransom-note.eql`](eql/12-ransom-note.eql) |
-| C0015-R13 | service binary from user path runs | building_block | low | T1543.003 Create or Modify System Process: Windows Service | [`13-service-binary-user-path.eql`](eql/13-service-binary-user-path.eql) |

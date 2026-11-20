@@ -1,3 +1,0 @@
-process where event.code == "1"
-  and process.parent.name == "services.exe"
-  and process.executable : ("*\\ProgramData\\*", "*\\Users\\Public\\*", "*\\Temp\\*")

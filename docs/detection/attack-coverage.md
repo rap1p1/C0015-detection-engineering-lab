@@ -14,11 +14,12 @@ campaign achieved.
 | Defense Evasion | T1562.001 Impair Defenses: Disable or Modify Tools | C0015-R06 | alert | PowerShell disables Defender real-time protection with Set-MpPreference. | A maintenance window produces the same event; the approval and the host role decide. |
 | Execution | T1047 Windows Management Instrumentation | C0015-R07 | alert | wmic creates a process on another host with an explicit credential. | Source-side only; the command line carries the credential and must be redacted in evidence. |
 | Execution | T1047 Windows Management Instrumentation | C0015-R08 | alert | The WMI provider host starts a shell or script host; context for the action that follows. | Management tooling creates processes through WMI; treat as context, not as proof of intent. |
-| Persistence | T1543.003 Create or Modify System Process: Windows Service | C0015-R09 | alert | A service is installed whose ImagePath names a binary in ProgramData, Public, Temp or AppData. | ImagePath can carry arguments; a service binary in Program Files with a config path in ProgramData matches the wildcard. |
 | Impact | T1490 Inhibit System Recovery | C0015-R10 | alert | vssadmin or wmic is asked to delete volume shadow copies. | The event is the request, not the result; backup software also manages shadows. |
 | Exfiltration | T1567.002 Exfiltration Over Web Service: Exfiltration to Cloud Storage | C0015-R11 | alert | rclone copies or syncs data to a remote destination. | Exit code is not proof of transfer; there is no receiver inventory in endpoint telemetry. |
 | Impact | T1486 Data Encrypted for Impact | C0015-R12 | alert | The Conti-style locker is started with its deployment flag set. | Keys on this family argument shape and on the simulator name; a repacked locker is missed. |
 | Persistence | T1574.010 Hijack Execution Flow: Services File Permissions Weakness | C0015-R13 | alert | regsvr32 writes a .ps1 into the directory the HealthMonitor service executes as LocalSystem. | Bounded to the documented writer; another process planting a script in the same directory is not covered. |
+| Defense Evasion | T1055 Process Injection | C0015-R14 | alert | rundll32 creates a remote thread inside a svchost process. | Legitimate instrumentation and accessibility tools also create remote threads; the source image and the module loaded decide. |
+| Defense Evasion | T1574 Hijack Execution Flow | C0015-R15 | alert | A DLL is loaded from the staging directory under ProgramData. | The directory is lab-specific; in a real estate the rule needs the writable path that the service uses. |
 
 ## Not covered by a rule
 

@@ -8,7 +8,8 @@
 |---|---|
 | R06 | Defender real-time protection disabled on FS01 |
 | R08 | `WmiPrvSE.exe` child on FS01, `cmd /Q /c` with the `ADMIN$` redirect |
-| R09 | 7045 service installation and the service binary |
+| R14 | remote thread into `svchost.exe` |
+| R15 | `beacon.dll` loaded from `C:\ProgramData` |
 | R11 | `rclone.exe` copy to `Mega:DATA` |
 | R12 | the locker starts with `-m -net -size 10 -nomutex` and the note follows |
 
@@ -28,5 +29,5 @@
 
 ## Evidence to capture
 
-- 4624 type 3 with the administrator account, 7045, rclone command line, note and rename counts.
+- 4624 type 3 with the administrator account, the E8 remote thread, the E7 module load, rclone command line, note and rename counts.
 

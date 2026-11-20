@@ -20,8 +20,9 @@ page is the operator view: what to set up once, what to run, what to check after
    HealthMonitor executes it as SYSTEM, the beacon starts.
 4. On Kali, take the WS01 session and recover the administrator secret:
    `mimikatz.exe "privilege::debug" "lsadump::secrets" exit`.
-5. Move to FS01: WMI with the recovered credential to disable Defender/ASR, then upload the beacon and
-   install it as a service.
+5. Move to FS01: WMI with the recovered credential to disable Defender/ASR, stage `143.dll` (the
+   injector) and `beacon.dll`, then run `rundll32 143.dll,Run` through WMI. The beacon lands inside a
+   SYSTEM svchost.
 6. On the FS01 beacon, run `fs01-task.ps1` and follow its gate.
 
 ## 2. Step checks
@@ -32,8 +33,8 @@ page is the operator view: what to set up once, what to run, what to check after
 | Beacon on WS01 | `sessions` on Kali | a session as `NT AUTHORITY\SYSTEM` |
 | Administrator secret | mimikatz output | a `User Name : Administrator` block |
 | Defender off on FS01 | `(Get-MpComputerStatus).RealTimeProtectionEnabled` | `False` |
-| Beacon on FS01 | `sessions` | a session on FS01 |
-| Service persistence | `sc query C0015Svc` | `RUNNING`, start type auto |
+| Beacon on FS01 | `sessions` | a session on FS01 whose process is `svchost.exe` |
+| Injection | `C:\ProgramData\c0015\inject.log` | last line `=== injector done ===` |
 | Exfil | rclone exit code | `0`, no `ERROR` in the log |
 | Impact | file counts | `readme.txt` present, `.c0015` files created |
 
@@ -43,6 +44,6 @@ All payloads are in [`payloads/`](payloads/README.md), named after the phase the
 
 ## 4. Clean up
 
-Stop and delete the service, delete the beacon files, restore the corpus from its baseline, remove the
+Delete the injector and beacon files, restore the corpus from its baseline, remove the
 planted checks, and leave the one-time weaknesses in place (they are lab infrastructure, not artefacts of
 the run).

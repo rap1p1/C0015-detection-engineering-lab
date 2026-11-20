@@ -2,9 +2,9 @@
 
 Generated from [`catalog.json`](catalog.json) by `tools/detections/catalog.py`. Do not edit.
 
-- shipped rules: **13**
+- shipped rules: **14**
 - retired rules: **0**
-- roles: alert 13
+- roles: alert 14
 
 | ID | Rule | Role | Severity | ATT&CK | Query |
 |---|---|---|---|---|---|
@@ -16,8 +16,9 @@ Generated from [`catalog.json`](catalog.json) by `tools/detections/catalog.py`. 
 | C0015-R06 | defender real-time protection disabled | alert | high | T1562.001 Impair Defenses: Disable or Modify Tools | [`06-defender-settings-weakened.eql`](eql/06-defender-settings-weakened.eql) |
 | C0015-R07 | wmi remote process creation | alert | high | T1047 Windows Management Instrumentation | [`07-wmi-remote-execution-source.eql`](eql/07-wmi-remote-execution-source.eql) |
 | C0015-R08 | wmi hosted child process | alert | medium | T1047 Windows Management Instrumentation | [`08-wmi-hosted-child-process.eql`](eql/08-wmi-hosted-child-process.eql) |
-| C0015-R09 | service installed with binary in user path | alert | high | T1543.003 Create or Modify System Process: Windows Service | [`09-service-install-user-path.eql`](eql/09-service-install-user-path.eql) |
 | C0015-R10 | shadow copy deletion requested | alert | high | T1490 Inhibit System Recovery | [`10-shadow-copy-deletion.eql`](eql/10-shadow-copy-deletion.eql) |
 | C0015-R11 | cloud transfer with rclone | alert | high | T1567.002 Exfiltration Over Web Service: Exfiltration to Cloud Storage | [`11-cloud-transfer.eql`](eql/11-cloud-transfer.eql) |
 | C0015-R12 | locker simulator invocation | alert | high | T1486 Data Encrypted for Impact | [`12-ransom-note.eql`](eql/12-ransom-note.eql) |
 | C0015-R13 | script written into agent checks | alert | high | T1574.010 Hijack Execution Flow: Services File Permissions Weakness | [`13-agent-checks-write.eql`](eql/13-agent-checks-write.eql) |
+| C0015-R14 | remote thread into service host | alert | high | T1055 Process Injection | [`14-injection-into-svchost.eql`](eql/14-injection-into-svchost.eql) |
+| C0015-R15 | module loaded from user path | alert | high | T1574 Hijack Execution Flow | [`15-module-from-user-path.eql`](eql/15-module-from-user-path.eql) |

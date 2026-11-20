@@ -29,16 +29,16 @@ FS01  SYSTEM (beacon)
 
 | # | Phase | Folder | Account | Primary telemetry | Rule |
 |---|---|---|---|---|---|
-| 1 | Document and macro | [`techniques/delivery-macro-document`](techniques/delivery-macro-document/README.md) | duc.user | Sysmon 1 | R01 |
+| 1 | Document and macro | [`techniques/delivery-macro-document`](techniques/delivery-macro-document/README.md) | duc.user | Sysmon 1, 11 | R01 |
 | 2 | HTA proxy execution | [`techniques/hta-proxy-execution`](techniques/hta-proxy-execution/README.md) | duc.user | Sysmon 1 | R02 |
-| 3 | Loader and unsigned module | [`techniques/regsvr32-loader`](techniques/regsvr32-loader/README.md) | duc.user | Sysmon 1, 7 | R03 |
-| 4 | Agent privilege escalation | [`techniques/agent-privilege-escalation`](techniques/agent-privilege-escalation/README.md) | duc.user -> SYSTEM | Sysmon 1, 11 | R04 |
-| 5 | Credential access from LSA secrets | [`techniques/credential-access-lsa-secrets`](techniques/credential-access-lsa-secrets/README.md) | SYSTEM | Sysmon 1, Security 4688 | R05 |
-| 6 | WMI lateral movement | [`techniques/wmi-lateral-movement`](techniques/wmi-lateral-movement/README.md) | Administrator -> SYSTEM | Security 4624/4672, Sysmon 1 | R07 / R08 |
-| 7 | Beacon service persistence | [`techniques/beacon-service-persistence`](techniques/beacon-service-persistence/README.md) | SYSTEM | Security 7045, Sysmon 1 | R09 |
-| 8 | Discovery | [`techniques/discovery`](techniques/discovery/README.md) | SYSTEM | Sysmon 1 | R17 |
+| 3 | Loader and untrusted module | [`techniques/regsvr32-loader`](techniques/regsvr32-loader/README.md) | duc.user | Sysmon 1, 7 | R03 |
+| 4 | Agent privilege escalation | [`techniques/agent-privilege-escalation`](techniques/agent-privilege-escalation/README.md) | duc.user -> SYSTEM | Sysmon 1, 11 | R04, R13 |
+| 5 | Credential access from LSA secrets | [`techniques/credential-access-lsa-secrets`](techniques/credential-access-lsa-secrets/README.md) | SYSTEM | Sysmon 1 | R05 |
+| 6 | WMI lateral movement | [`techniques/wmi-lateral-movement`](techniques/wmi-lateral-movement/README.md) | Administrator -> SYSTEM | Security 4624, Sysmon 1, 8 | R06, R07, R08 |
+| 7 | Injection into the service host | [`techniques/process-injection`](techniques/process-injection/README.md) | SYSTEM | Sysmon 7, 8 | R14, R15 |
+| 8 | Discovery | [`techniques/discovery`](techniques/discovery/README.md) | SYSTEM | Sysmon 1 | (operator step) |
 | 9 | Exfiltration | [`techniques/rclone-exfiltration`](techniques/rclone-exfiltration/README.md) | SYSTEM | Sysmon 1 | R11 |
-| 10 | Ransomware | [`techniques/conti-ransomware`](techniques/conti-ransomware/README.md) | SYSTEM | Sysmon 1, 11 | R12 |
+| 10 | Ransomware | [`techniques/conti-ransomware`](techniques/conti-ransomware/README.md) | SYSTEM | Sysmon 1 | R10, R12 |
 
 ## Accounts
 
@@ -46,7 +46,7 @@ FS01  SYSTEM (beacon)
 |---|---|---|
 | `C0015\duc.user` | standard user, `Remote Desktop Users` on WS01 | opens the document, runs the loader |
 | `C0015\Administrator` | domain administrator (RID 500) | credential recovered from LSA secrets |
-| `NT AUTHORITY\SYSTEM` / machine account | local system | agent child, beacon, service, impact |
+| `NT AUTHORITY\SYSTEM` / machine account | local system | agent child, injector, beacon inside svchost, impact |
 
 `helpdesk`, `IT-Support`, `it.admin` and `bk.admin` are not part of this chain.
 
@@ -62,6 +62,7 @@ corresponding documents exist.
 
 ## Rules
 
-The thirteen rules in `detections/` cover this chain from the document edge to the locker and were
-validated against the 2026-11-20 run. The catalog records each rule's role, ATT&CK mapping and match count.
+The fourteen rules in `detections/` cover this chain from the document edge to the locker. The catalog
+records each rule's role, ATT&CK mapping and match count; R14 and R15 were validated on the injection test,
+the delivery rules on the earlier document run.
 

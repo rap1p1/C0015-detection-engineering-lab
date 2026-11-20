@@ -18,10 +18,10 @@
 5. Close only with a documented change ticket that explains the script.
 6. Insufficient information when the agent log is missing; treat the absence as telemetry loss.
 
-## P3 - Lateral movement, exfiltration and impact (R06, R07, R08, R09, R11, R12)
+## P3 - Lateral movement, injection, exfiltration and impact (R06, R07, R08, R14, R15, R11, R12)
 
 1. Confirm the network logon on the target, the Defender change and the WMI child process.
-2. Confirm service installation (7045) and the service binary.
+2. Confirm the remote thread into svchost (E8) and the module loaded from ProgramData (E7).
 3. Confirm rclone execution and its command line; there is no receiver proof.
 4. Escalate to incident response once a service or a note is confirmed.
 5. Close only after the host is rebuilt and the corpus restored from baseline.

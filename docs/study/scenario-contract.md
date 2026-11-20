@@ -15,7 +15,7 @@
 2. WS01: log in as `duc.user`, confirm the document on the Desktop.
 3. Open the document. The chain runs to the SYSTEM beacon without further operator action.
 4. Kali: `sessions`, then mimikatz `lsadump::secrets` on the WS01 beacon.
-5. WMI with `C0015\Administrator`: disable Defender on FS01, verify, upload the beacon, install the service.
+5. WMI with `C0015\Administrator`: disable Defender on FS01, verify, stage `143.dll` and `beacon.dll`, run `rundll32 143.dll,Run`.
 6. On the FS01 beacon: run `fs01-task.ps1`; each step verifies before the next.
 7. Capture the alerts and events, then clean up.
 
@@ -27,6 +27,6 @@
 | beacon WS01 | Sliver `sessions` | session as SYSTEM |
 | credential | mimikatz output | `Administrator` secret recovered |
 | Defender FS01 | `Get-MpComputerStatus` | `RealTimeProtectionEnabled : False` |
-| service | `sc query C0015Svc` | `RUNNING`, auto start |
+| injection | `C:\ProgramData\c0015\inject.log` | last line `=== injector done ===` |
 | exfil | rclone exit code | `0` |
 | impact | corpus counts | `readme.txt` present, `.c0015` files created |

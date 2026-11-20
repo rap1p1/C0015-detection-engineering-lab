@@ -263,24 +263,30 @@ The operator uses the recovered password with WMI:
 wmic /node:FS01 /user:C0015\Administrator /password:<pw> process call create "powershell -Command Set-MpPreference -DisableRealtimeMonitoring $true"
 ```
 
-The first call disables Defender on FS01 and confirms `RealTimeProtectionEnabled : False`. The second
-delivers the service binary, and the third installs it:
+The first call disables Defender on FS01 and confirms `RealTimeProtectionEnabled : False`. The operator
+then stages the injector as `143.dll` and the beacon as `beacon.dll`, and starts the injector:
 
 ```
-sc create C0015Svc binPath= C:\ProgramData\c0015\svc.exe start= auto obj= LocalSystem
-sc start C0015Svc
+wmic /node:FS01 /user:C0015\Administrator /password:<pw> process call create "rundll32.exe C:\ProgramData\143.dll,Run"
 ```
 
-On the target, `WmiPrvSE.exe` creates the shell that changes Defender, and `services.exe` starts the
-beacon binary from `ProgramData`. Both are remote-execution observables; neither is WMI event
-subscription.
+On the target, `WmiPrvSE.exe` creates the shell that changes Defender and the shell that runs the
+injector; the injector writes `beacon.dll` into a SYSTEM `svchost.exe` and starts its `StartW` export.
+Both are remote-execution observables; neither is WMI event subscription.
 
-### Persistence as a service
+### Injection into the service host
 
-`C0015Svc` is an auto-start service with a binary in `ProgramData`. The beacon survives a reboot
-because the service manager starts it again; the lab verified this by rebooting FS01 and checking that
-a new session appeared. The repository deliberately does not call this "persistence" until the reboot
-check passes.
+The agent does not run a beacon of its own. It stages two files, `injector.dll` and `beacon.dll`, and
+starts `rundll32.exe injector.dll,Run`. The injector enables `SeDebugPrivilege`, finds a `svchost.exe`
+whose token is `S-1-5-18`, writes the beacon path into that process and calls the DLL's `StartW` export
+with a remote thread. The beacon therefore lives inside the service host, under the SYSTEM token, which
+is the behaviour the campaign shows after the loader stage.
+
+On FS01 the same injector is dropped as `143.dll` and started over WMI. The target is again a SYSTEM
+`svchost.exe`; the source of the remote thread is `rundll32.exe`, which is what R14 keys on.
+
+Sysmon records the remote thread only if the profile includes event 8 for `svchost` targets; the lab
+profile now does, and R15 covers the module load from the staging directory.
 
 ### Collection, exfiltration and impact
 
@@ -309,14 +315,14 @@ flowchart TD
     A --> P["powershell.exe<br/>agent-update.ps1"]
     P --> B1["beacon.exe<br/>SYSTEM on WS01"]
 
+    A --> RJ["rundll32.exe<br/>injector.dll,Run"]
+    RJ --> B1["svchost.exe<br/>beacon (SYSTEM) on WS01"]
     B1 --> M["mimi.exe<br/>lsadump::secrets"]
     M --> WM["wmic.exe<br/>/node:FS01"]
     WM -->|"remote create"| WP["WmiPrvSE.exe<br/>on FS01"]
     WP --> M2["powershell.exe<br/>Set-MpPreference"]
-    WP --> SC["sc.exe create/start"]
-
-    SC --> S["services.exe"]
-    S --> B2["svc.exe<br/>SYSTEM on FS01"]
+    WP --> R2["rundll32.exe<br/>143.dll,Run"]
+    R2 --> B2["svchost.exe<br/>beacon (SYSTEM) on FS01"]
     B2 --> T["fs01-task.ps1"]
     T --> RC["rclone.exe<br/>Mega:DATA"]
     T --> V["vssadmin.exe<br/>delete shadows"]
@@ -377,7 +383,8 @@ and each entry records what it does not prove.
 | R06 | defender real-time protection disabled | alert | T1562.001 | 1 |
 | R07 | wmi remote process creation | alert | T1047 | 1 |
 | R08 | wmi hosted child process | alert | T1047 | 1 |
-| R09 | service installed with binary in user path | alert | T1543.003 | 1 |
+| R14 | remote thread into service host | alert | T1055 | 4 |
+| R15 | module loaded from user path | alert | T1574 | 5 |
 | R10 | shadow copy deletion requested | alert | T1490 | 1 |
 | R11 | cloud transfer with rclone | alert | T1567.002 | 1 |
 | R12 | locker simulator invocation | alert | T1486 | 1 |
@@ -425,7 +432,7 @@ install the beacon as a service, then run `fs01-task.ps1` and follow its gates.
 | Masqueraded module | `C:\Users\Public\compareForfor.jpg` |
 | Planted agent script | `C:\ProgramData\HealthMonitor\checks\update.ps1` |
 | Agent and loader logs | `C:\ProgramData\HealthMonitor\agent.log`, `checks\loader.log` |
-| Beacon on FS01 | `C:\ProgramData\c0015\svc.exe`, service `C0015Svc` |
+| Beacon on FS01 | `C:\ProgramData\beacon.dll` loaded into a SYSTEM `svchost.exe` |
 | Ransom note | `readme.txt` in the corpus directories, removed by the restore |
 | Renamed corpus | `.c0015` suffix, removed by the restore |
 

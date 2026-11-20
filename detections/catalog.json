@@ -92,7 +92,7 @@
     {
       "id": "C0015-R03",
       "revision": 1,
-      "name": "loader loads unsigned module",
+      "name": "loader loads untrusted module",
       "file": "detections/eql/03-loader-loads-unsigned-module.eql",
       "sha256": "2087e41717788b2034af43f61586b20e79a4110e0a54196c17984ce9e15b30e3",
       "status": "shipped",
@@ -105,8 +105,8 @@
         "technique_id": "T1218.010",
         "technique_name": "System Binary Proxy Execution: Regsvr32"
       },
-      "description": "regsvr32 loads an unsigned module from a user-writable path or a file with an image extension.",
-      "limitations": "Unsigned is common for in-house modules; the loading process and path make it a loader.",
+      "description": "regsvr32 loads a module whose signature is not trusted, from a user-writable path or an image extension.",
+      "limitations": "The field is a trust verdict, not a signature check; in-house modules without a signature match as well.",
       "prerequisites": [
         "Service Control Manager 7045"
       ],
@@ -138,19 +138,19 @@
       "revision": 1,
       "name": "agent executes planted script",
       "file": "detections/eql/04-agent-executes-script.eql",
-      "sha256": "f0363c627f326b2a36c0e0849e8cbbea235d13993cc6585a2289a407b851ac4b",
+      "sha256": "e3122c002dda748431988ba43f580fb1b6dee14f28e6a80c15c85f9a7c5d29d6",
       "status": "shipped",
       "role": "alert",
-      "severity": "high",
-      "risk_score": 73,
+      "severity": "medium",
+      "risk_score": 47,
       "attck": {
         "tactic_id": "TA0002",
         "tactic_name": "Execution",
         "technique_id": "T1059.001",
         "technique_name": "Command and Scripting Interpreter: PowerShell"
       },
-      "description": "The monitoring agent starts a PowerShell script from its own checks directory, which users can write to.",
-      "limitations": "The agent is lab infrastructure; in an estate the same rule would key on the specific agent name.",
+      "description": "PowerShell runs a .ps1 from the agent checks directory, the directory the service executes from.",
+      "limitations": "A legitimate health check can run the same command; correlate with the file write and the account.",
       "prerequisites": [
         "Sysmon 1"
       ],
@@ -180,9 +180,9 @@
     {
       "id": "C0015-R05",
       "revision": 1,
-      "name": "credential tool reads LSA secrets",
+      "name": "LSA secrets requested",
       "file": "detections/eql/05-credential-tool-lsa-secrets.eql",
-      "sha256": "4ef75ccb716bc2b5e9787a858633f0cb92483a90d9ebf93bc7fbee74aca090da",
+      "sha256": "6dc7c2ebf7c0fa16a05208c8e5e52ca5ae2686dce1baf18d9f1a036a5e120c5e",
       "status": "shipped",
       "role": "alert",
       "severity": "critical",
@@ -193,8 +193,8 @@
         "technique_id": "T1003.004",
         "technique_name": "OS Credential Dumping: LSA Secrets"
       },
-      "description": "A credential dumping tool runs with LSA secrets or LSASS module arguments.",
-      "limitations": "Command-line based; an obfuscated tool or a renamed binary without arguments is missed.",
+      "description": "A command line asks mimikatz for LSA secrets.",
+      "limitations": "String match: a renamed tool that assembles the argument at runtime is missed; the string can appear as data.",
       "prerequisites": [
         "Sysmon 1"
       ],
@@ -224,9 +224,9 @@
     {
       "id": "C0015-R06",
       "revision": 1,
-      "name": "defender settings weakened",
+      "name": "defender real-time protection disabled",
       "file": "detections/eql/06-defender-settings-weakened.eql",
-      "sha256": "51c32047ec3dc6a236b1abb22a2361d9b2927201f816b1162841183f92083405",
+      "sha256": "3cc8adb529795a29ed733b371523bc00a5c328287b5671f84dc6c739e638a463",
       "status": "shipped",
       "role": "alert",
       "severity": "high",
@@ -237,8 +237,8 @@
         "technique_id": "T1562.001",
         "technique_name": "Impair Defenses: Disable or Modify Tools"
       },
-      "description": "PowerShell or the platform tool weakens Defender: real-time, IOAV, behaviour monitoring, or exclusions.",
-      "limitations": "Administrators legitimately change these settings; the parent process and the host role decide.",
+      "description": "PowerShell disables Defender real-time protection with Set-MpPreference.",
+      "limitations": "A maintenance window produces the same event; the approval and the host role decide.",
       "prerequisites": [
         "Sysmon 1"
       ],
@@ -317,16 +317,16 @@
       "sha256": "586855af5b50a6f168a6083ceac14727371521a69d43ade02114cd2316c14389",
       "status": "shipped",
       "role": "alert",
-      "severity": "high",
-      "risk_score": 73,
+      "severity": "medium",
+      "risk_score": 47,
       "attck": {
         "tactic_id": "TA0002",
         "tactic_name": "Execution",
         "technique_id": "T1047",
         "technique_name": "Windows Management Instrumentation"
       },
-      "description": "The WMI provider host starts a shell, script host or loader on the target.",
-      "limitations": "Management tooling also creates processes through WMI; the child image and its arguments decide.",
+      "description": "The WMI provider host starts a shell or script host; context for the action that follows.",
+      "limitations": "Management tooling creates processes through WMI; treat as context, not as proof of intent.",
       "prerequisites": [
         "Sysmon 1"
       ],
@@ -356,7 +356,7 @@
     {
       "id": "C0015-R09",
       "revision": 1,
-      "name": "service installed from user path",
+      "name": "service installed with binary in user path",
       "file": "detections/eql/09-service-install-user-path.eql",
       "sha256": "1a948a3151d75e0917647a60004112359972d820d8a2909a713472f4b29cef0d",
       "status": "shipped",
@@ -369,8 +369,8 @@
         "technique_id": "T1543.003",
         "technique_name": "Create or Modify System Process: Windows Service"
       },
-      "description": "A service is installed whose binary lives in ProgramData, Public, Temp or AppData.",
-      "limitations": "Some installers place services there; the service name and binary signature decide.",
+      "description": "A service is installed whose ImagePath names a binary in ProgramData, Public, Temp or AppData.",
+      "limitations": "ImagePath can carry arguments; a service binary in Program Files with a config path in ProgramData matches the wildcard.",
       "prerequisites": [
         "Service Control Manager 7045"
       ],
@@ -400,7 +400,7 @@
     {
       "id": "C0015-R10",
       "revision": 1,
-      "name": "shadow copies deleted",
+      "name": "shadow copy deletion requested",
       "file": "detections/eql/10-shadow-copy-deletion.eql",
       "sha256": "a6cfb11d84f73718fc612c39f5880b35076d77872fd5d0225fcdf261f2766edf",
       "status": "shipped",
@@ -413,8 +413,8 @@
         "technique_id": "T1490",
         "technique_name": "Inhibit System Recovery"
       },
-      "description": "vssadmin or wmic deletes volume shadow copies.",
-      "limitations": "Backup software also manages shadows; correlate with the note and the rename burst.",
+      "description": "vssadmin or wmic is asked to delete volume shadow copies.",
+      "limitations": "The event is the request, not the result; backup software also manages shadows.",
       "prerequisites": [
         "Sysmon 1"
       ],
@@ -488,21 +488,21 @@
     {
       "id": "C0015-R12",
       "revision": 1,
-      "name": "locker command line",
+      "name": "locker simulator invocation",
       "file": "detections/eql/12-ransom-note.eql",
-      "sha256": "f914b70d3cf16c46819369961e06bf109e7de16f1543ad1239fcdc039fb60f5b",
+      "sha256": "f015afab7887c710c864002dd4df389e05d8046a0abbf592aeb542ee6f77d733",
       "status": "shipped",
       "role": "alert",
-      "severity": "critical",
-      "risk_score": 90,
+      "severity": "high",
+      "risk_score": 73,
       "attck": {
         "tactic_id": "TA0040",
         "tactic_name": "Impact",
         "technique_id": "T1486",
         "technique_name": "Data Encrypted for Impact"
       },
-      "description": "The Conti-style locker is started with its deployment flag set: mode, network, size and target path.",
-      "limitations": "Keys on the documented argument shape of this family; a repacked locker with different flags is missed.",
+      "description": "The Conti-style locker is started with its deployment flag set.",
+      "limitations": "Keys on this family argument shape and on the simulator name; a repacked locker is missed.",
       "prerequisites": [
         "Sysmon 11"
       ],
@@ -524,6 +524,50 @@
           "end": "2026-11-20T12:10:00Z"
         },
         "matches": 1,
+        "truncated": false,
+        "error": null,
+        "note": "Query parse and field existence only; matches are not classified as true or false positives."
+      }
+    },
+    {
+      "id": "C0015-R13",
+      "revision": 1,
+      "name": "script written into agent checks",
+      "file": "detections/eql/13-agent-checks-write.eql",
+      "sha256": "f8e00b261ce84def375703ccf2383c65240a67950e00b4250f43ed9d9cabb6e4",
+      "status": "shipped",
+      "role": "alert",
+      "severity": "high",
+      "risk_score": 73,
+      "attck": {
+        "tactic_id": "TA0003",
+        "tactic_name": "Persistence",
+        "technique_id": "T1574.010",
+        "technique_name": "Hijack Execution Flow: Services File Permissions Weakness"
+      },
+      "description": "regsvr32 writes a .ps1 into the directory the HealthMonitor service executes as LocalSystem.",
+      "limitations": "Bounded to the documented writer; another process planting a script in the same directory is not covered.",
+      "prerequisites": [
+        "Sysmon 11"
+      ],
+      "deployment": {
+        "index": [
+          "logs-windows.sysmon_operational-*"
+        ],
+        "timestamp_field": "@timestamp",
+        "interval": "1m",
+        "lookback": "now-3m",
+        "max_signals": 100,
+        "enabled": true
+      },
+      "validation": {
+        "kind": "engine_run",
+        "engine": "elasticsearch 9.5.3",
+        "window": {
+          "start": "2026-11-20T11:30:00Z",
+          "end": "2026-11-20T12:10:00Z"
+        },
+        "matches": 2,
         "truncated": false,
         "error": null,
         "note": "Query parse and field existence only; matches are not classified as true or false positives."

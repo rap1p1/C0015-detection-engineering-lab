@@ -368,22 +368,23 @@ and each entry records what it does not prove.
 
 | Rule | Behaviour | Role | ATT&CK | Matches on the 2026-11-20 run |
 |---|---|---|---|---|
-| R01 | Office starts a script host | alert | T1204.002 | 2 |
-| R02 | script host starts the loader | alert | T1218.010 | 2 |
-| R03 | loader loads an unsigned module | alert | T1218.010 | 2 |
-| R04 | agent runs a planted script as SYSTEM | alert | T1059.001 | 1 |
-| R05 | credential tool reads LSA secrets | alert | T1003.004 | 3 |
-| R06 | Defender settings weakened | alert | T1562.001 | 1 |
-| R07 | WMI remote process creation | alert | T1047 | 1 |
-| R08 | WMI-hosted child process | alert | T1047 | 1 |
-| R09 | service installed from a user path | alert | T1543.003 | 1 |
-| R10 | shadow copies deleted | alert | T1490 | 1 |
+| R01 | office spawns script host | alert | T1204.002 | 2 |
+| R02 | script host starts loader | alert | T1218.010 | 2 |
+| R03 | loader loads untrusted module | alert | T1218.010 | 2 |
+| R04 | agent executes planted script | alert | T1059.001 | 1 |
+| R05 | LSA secrets requested | alert | T1003.004 | 3 |
+| R06 | defender real-time protection disabled | alert | T1562.001 | 1 |
+| R07 | wmi remote process creation | alert | T1047 | 1 |
+| R08 | wmi hosted child process | alert | T1047 | 1 |
+| R09 | service installed with binary in user path | alert | T1543.003 | 1 |
+| R10 | shadow copy deletion requested | alert | T1490 | 1 |
 | R11 | cloud transfer with rclone | alert | T1567.002 | 1 |
-| R12 | locker command line | alert | T1486 | 1 |
+| R12 | locker simulator invocation | alert | T1486 | 1 |
+| R13 | script written into agent checks | alert | T1574.010 | 2 |
 
 A match is not a verdict. The engine check proves the query parses and the fields exist; precision is
-measured against the run, not assumed. Every rule fires on this chain, every rule is an alert, and
-nothing is carried for coverage of a technique the lab does not perform.
+measured against the run, not assumed. Every rule fires on this chain and nothing is carried for
+coverage of a technique the lab does not perform.
 
 ## How to run the lab
 

@@ -18,11 +18,14 @@
 
 ## What the chain proves and does not
 
-- Proves: a standard user reached SYSTEM through a misconfigured agent, then read a stored administrator
-  secret.
-- Does not prove: that the administrator logged on to WS01, or that LSASS was touched. `lsadump::secrets`
-  is not `sekurlsa`, so an E10-only rule will not see it.
+- Proves, by source: the loader wrote `update.ps1` into the checks directory (E11, `regsvr32.exe`), the
+  agent log records the run, and the PowerShell E1 carries `user.name = SYSTEM` together with that script
+  path. The secret was requested with `lsadump::secrets`.
+- Does not prove: process ancestry from the agent to PowerShell - the E1 in this run has no parent populated,
+  so the link comes from the service configuration and the agent log, not from the event graph. It also does
+  not prove that LSASS was touched; `lsadump::secrets` is not `sekurlsa`, and an E10-only rule would not see it.
 
 ## Evidence to capture
 
-- `agent.log` line for `update.ps1`, the SYSTEM child process event, the mimikatz command line.
+- `agent.log` line for `update.ps1`, the E11 write of the script, the PowerShell E1 with `user.name = SYSTEM`, the mimikatz command line, and the recovered `_SC_C0015Backup` secret.
+

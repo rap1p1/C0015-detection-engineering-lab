@@ -1,3 +1,4 @@
 process where event.code == "1"
-  and (process.parent.name == "HealthMonitor.exe"
-       or process.command_line : "*\\HealthMonitor\\checks\\*")
+  and process.name in ("powershell.exe", "pwsh.exe")
+  and process.command_line : "*-File *"
+  and process.command_line : "*\\HealthMonitor\\checks\\*.ps1*"

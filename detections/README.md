@@ -56,24 +56,25 @@ Neither is proven by a query parsing. See the evidence schema in
 for the fields an export must carry to be checkable.
 ## Validation status
 
-All twelve rules were run with `detections/tools/engine_check.py` against Elasticsearch 9.5.3 on the
+All thirteen rules were run with `detections/tools/engine_check.py` against Elasticsearch 9.5.3 on the
 window `2026-11-20T11:30Z -> 2026-11-20T12:10Z`, the run that exercised the current chain. Every query
 parsed and every field it names exists in this pipeline; the matches are in each catalog entry.
 
-| Rule | Matches | Meaning |
+| Rule | Matches | Behaviour |
 |---|---|---|
-| R01 | 2 | Word started mshta through cmd |
-| R02 | 2 | mshta started regsvr32 on the staged `.jpg` |
-| R03 | 2 | regsvr32 loaded the unsigned module |
-| R04 | 1 | HealthMonitor ran the planted script as SYSTEM |
-| R05 | 3 | mimikatz read LSA secrets |
-| R06 | 1 | Defender real-time protection disabled over WMI |
-| R07 | 1 | wmic created a process on FS01 |
-| R08 | 1 | the WMI provider host started PowerShell on FS01 |
-| R09 | 1 | the beacon was installed as a service from ProgramData |
-| R10 | 1 | shadow copies deleted |
-| R11 | 1 | rclone copied the corpus to a remote |
-| R12 | 1 | the locker started with its deployment flags |
+| R01 | 2 | office spawns script host |
+| R02 | 2 | script host starts loader |
+| R03 | 2 | loader loads untrusted module |
+| R04 | 1 | agent executes planted script |
+| R05 | 3 | LSA secrets requested |
+| R06 | 1 | defender real-time protection disabled |
+| R07 | 1 | wmi remote process creation |
+| R08 | 1 | wmi hosted child process |
+| R09 | 1 | service installed with binary in user path |
+| R10 | 1 | shadow copy deletion requested |
+| R11 | 1 | cloud transfer with rclone |
+| R12 | 1 | locker simulator invocation |
+| R13 | 2 | script written into agent checks |
 
 A match is not a verdict: the engine check proves the query and the fields, not precision. Every rule
 fires on this chain and every rule is an alert.
@@ -84,7 +85,8 @@ fires on this chain and every rule is an alert.
   `winlog.event_data.ImageLoaded`.
 - `7045` carries `winlog.event_data.ImagePath`, `ServiceName`, `StartType` and `AccountName`; R09 keys on
   the image path.
-- The note file is not visible in `E11` with the current Sysmon profile, which is why R12 keys on the
-  locker command line instead of the note.
-- `E10` `GrantedAccess` is a string such as `0x1010`; the rule lists the masks and excludes the security
-  and hypervisor agents that read LSASS legitimately.
+- The captured run produced no `E11` document for the corpus note or for the renamed files, which is why R12
+  keys on the locker command line. Whether the profile filtered them or they never reached ingest was not
+  established; do not attribute it to the profile without checking FS01.
+- `E11` for the planted script carries `file.path` and `process.name` (`regsvr32.exe`), which is what R13
+  joins on; the same document repeated, so a hit count is not a write count.

@@ -17,6 +17,10 @@ second remote thread. The beacon lives in the service host, not in a process of 
 
 ## Evidence
 
+![alert burst for one injection](../../../docs/evidence/run-6/injection/01-alert-burst.png)
+![FS01 inject.log](../../../docs/evidence/run-6/injection/02-fs01-inject-log.png)
+
+
 ![Alert burst for one injection](elastic-alert-burst.png)
 
 Kibana, WS01, 2026-11-21 17:05. One injection produced ten alert documents, and that is the expected

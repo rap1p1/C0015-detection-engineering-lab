@@ -17,6 +17,10 @@ commands and the checks after each step. Anything this phase writes is listed in
 
 ## Evidence
 
+![group and trust discovery](../../../docs/evidence/run-6/discovery/02-net-nltest.png)
+![R18 alerts](../../../docs/evidence/run-6/discovery/04-r18-alerts.png)
+
+
 <!-- Elastic capture for this phase: elastic-discovery.png -->
 <!-- Manual capture for this phase: manual-discovery.png -->
 

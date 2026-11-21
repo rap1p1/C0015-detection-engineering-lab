@@ -95,3 +95,5 @@ fires on this chain and every rule is an alert.
   established; do not attribute it to the profile without checking FS01.
 - `E11` for the planted script carries `file.path` and `process.name` (`regsvr32.exe`), which is what R13
   joins on; the same document repeated, so a hit count is not a write count.
+
+Screenshots from the run: [`docs/evidence/run-6/README.md`](../docs/evidence/run-6/README.md).

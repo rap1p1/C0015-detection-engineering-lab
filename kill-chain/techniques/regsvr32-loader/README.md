@@ -17,6 +17,10 @@ commands and the checks after each step. Anything this phase writes is listed in
 
 ## Evidence
 
+![Word after the loader was registered](../../../docs/evidence/run-6/delivery/02-regsvr32-dialog.png)
+![loader.log](../../../docs/evidence/run-6/delivery/04-loader-log.png)
+
+
 <!-- Elastic capture for this phase: elastic-regsvr32-loader.png -->
 <!-- Manual capture for this phase: manual-regsvr32-loader.png -->
 

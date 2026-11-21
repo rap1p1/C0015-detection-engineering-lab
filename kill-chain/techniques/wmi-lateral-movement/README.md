@@ -17,6 +17,11 @@ commands and the checks after each step. Anything this phase writes is listed in
 
 ## Evidence
 
+![credential check](../../../docs/evidence/run-6/lateral/01-impacket-whoami.png)
+![staged on FS01](../../../docs/evidence/run-6/lateral/04-staged-files-fs01.png)
+![R06 and R08](../../../docs/evidence/run-6/lateral/03-r06-r08-alerts.png)
+
+
 <!-- Elastic capture for this phase: elastic-wmi-lateral-movement.png -->
 <!-- Manual capture for this phase: manual-wmi-lateral-movement.png -->
 

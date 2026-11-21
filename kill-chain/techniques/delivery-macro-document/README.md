@@ -17,6 +17,10 @@ commands and the checks after each step. Anything this phase writes is listed in
 
 ## Evidence
 
+![Document downloaded on WS01](../../../docs/evidence/run-6/delivery/01-docm-download.png)
+![Delivery alerts](../../../docs/evidence/run-6/delivery/05-delivery-alerts.png)
+
+
 <!-- Elastic capture for this phase: elastic-delivery-macro-document.png -->
 <!-- Manual capture for this phase: manual-delivery-macro-document.png -->
 

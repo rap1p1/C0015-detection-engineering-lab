@@ -17,6 +17,10 @@ commands and the checks after each step. Anything this phase writes is listed in
 
 ## Evidence
 
+![agent.log](../../../docs/evidence/run-6/agent/01-agent-log.png)
+![SYSTEM session](../../../docs/evidence/run-6/agent/02-system-session.png)
+
+
 <!-- Elastic capture for this phase: elastic-agent-privilege-escalation.png -->
 <!-- Manual capture for this phase: manual-agent-privilege-escalation.png -->
 

@@ -17,6 +17,10 @@ commands and the checks after each step. Anything this phase writes is listed in
 
 ## Evidence
 
+![lsadump::secrets (password cropped)](../../../docs/evidence/run-6/credential/01-mimikatz-secret.png)
+![R05 alert](../../../docs/evidence/run-6/credential/02-r05-alert.png)
+
+
 <!-- Elastic capture for this phase: elastic-credential-access-lsa-secrets.png -->
 <!-- Manual capture for this phase: manual-credential-access-lsa-secrets.png -->
 

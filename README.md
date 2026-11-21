@@ -380,7 +380,7 @@ The rule set and its claims live in [`detections/catalog.json`](detections/catal
 [`detections/INDEX.md`](detections/INDEX.md) is generated from it. Roles separate finished alerts from
 and each entry records what it does not prove.
 
-| Rule | Behaviour | Role | ATT&CK | Matches on the last run |
+| Rule | Behaviour | Role | ATT&CK | Matches (run-4) |
 |---|---|---|---|---|
 | R01 | office spawns script host | alert | T1204.002 | 2 |
 | R02 | script host starts loader | alert | T1218.010 | 1 |
@@ -399,7 +399,7 @@ and each entry records what it does not prove.
 | R16 | campaign-domain lookup | alert | T1071.004 | 3 |
 | R17 | same process resolves the domain then connects | alert | T1071.001 | 3 |
 | R18 | domain and trust discovery | alert | T1087.002 | 0 |
-| R19 | boot persistence task created | alert | T1053.005 | 1 |
+| R19 | boot task creation requested | alert | T1053.005 | 1 |
 
 A match is not a verdict. The engine check proves the query parses and the fields exist; precision is
 measured against the run, not assumed. Counts come from the two captured runs; the table below is run-4 (`16:45Z` is run-3): the document, the injection, the discovery, the WMI pivot, the exfiltration and the impact. The per-hit notes are in [`detections/validation.md`](detections/validation.md).

@@ -29,5 +29,4 @@ Survival of task deletion, receiver-side delivery of the exfiltration, reversibl
 
 ## Note
 
-This is a scheduled task created by the payload, not an auto-start service. R09 is retired and is not
-part of this case.
+This is a scheduled task created by the payload, not an auto-start service.

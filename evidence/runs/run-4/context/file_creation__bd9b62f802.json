@@ -1,0 +1,801 @@
+{
+  "behaviour": "file_creation",
+  "index": "logs-windows.sysmon_operational-*",
+  "identifier": {
+    "field": "process.entity_id",
+    "value": "{88E52A21-25EE-6B01-9500-000000003500}",
+    "host": "ws01"
+  },
+  "alerts": [
+    "338d776a58300a09aca5643fe8a56f26127eee5cfabd38e618872c22008263c8"
+  ],
+  "queries": [
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-11-21T04:59:38.000Z",
+                  "lte": "2026-11-21T05:05:38.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "ws01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "11"
+              }
+            },
+            {
+              "term": {
+                "process.entity_id": "{88E52A21-25EE-6B01-9500-000000003500}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-11-21T04:59:38.000Z",
+        "end": "2026-11-21T05:05:38.000Z"
+      },
+      "returned": 6,
+      "total": 6,
+      "relation": "eq"
+    }
+  ],
+  "returned": 6,
+  "truncated": false,
+  "sample": false,
+  "hits": [
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaH8fO2TxY-KOm1Pbsjn",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "type": "filebeat",
+          "ephemeral_id": "df411f77-27c6-45c8-9e26-51f80870b71a",
+          "version": "9.5.3"
+        },
+        "process": {
+          "name": "mshta.exe",
+          "pid": 7520,
+          "entity_id": "{88E52A21-25EE-6B01-9500-000000003500}",
+          "executable": "C:\\Windows\\System32\\mshta.exe"
+        },
+        "winlog": {
+          "record_id": "1483633",
+          "computer_name": "WS01.c0015.lab",
+          "process": {
+            "pid": 2584,
+            "thread": {
+              "id": 5456
+            }
+          },
+          "task": "File created (rule: FileCreate)",
+          "event_id": "11",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "CreationUtcTime": "2026-11-21 05:02:41.029"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "version": 2,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "File created:\nRuleName: -\nUtcTime: 2026-11-21 05:02:41.029\nProcessGuid: {88E52A21-25EE-6B01-9500-000000003500}\nProcessId: 7520\nImage: C:\\Windows\\System32\\mshta.exe\nTargetFilename: C:\\Users\\duc.user\\AppData\\Local\\Microsoft\\Windows\\INetCache\\IE\\AS4U8FE5\\error[1]\nCreationUtcTime: 2026-11-21 05:02:41.029\nUser: C0015\\duc.user",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-11-21T05:02:41.029Z",
+        "file": {
+          "path": "C:\\Users\\duc.user\\AppData\\Local\\Microsoft\\Windows\\INetCache\\IE\\AS4U8FE5\\error[1]",
+          "extension": "user\\AppData\\Local\\Microsoft\\Windows\\INetCache\\IE\\AS4U8FE5\\error[1]",
+          "name": "error[1]",
+          "directory": "C:\\Users\\duc.user\\AppData\\Local\\Microsoft\\Windows\\INetCache\\IE\\AS4U8FE5"
+        },
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "duc.user"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-11-21T05:02:47Z",
+          "code": "11",
+          "provider": "Microsoft-Windows-Sysmon",
+          "kind": "event",
+          "created": "2026-11-21T05:02:41.910Z",
+          "action": "FileCreate",
+          "category": [
+            "file"
+          ],
+          "type": [
+            "creation"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "duc.user",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaH8fO2TxY-KOm1Pbsjp",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "ephemeral_id": "df411f77-27c6-45c8-9e26-51f80870b71a",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "name": "mshta.exe",
+          "pid": 7520,
+          "entity_id": "{88E52A21-25EE-6B01-9500-000000003500}",
+          "executable": "C:\\Windows\\System32\\mshta.exe"
+        },
+        "winlog": {
+          "computer_name": "WS01.c0015.lab",
+          "record_id": "1483635",
+          "process": {
+            "pid": 2584,
+            "thread": {
+              "id": 5456
+            }
+          },
+          "task": "File created (rule: FileCreate)",
+          "event_id": "11",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "CreationUtcTime": "2026-11-21 05:02:41.029"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "version": 2,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "File created:\nRuleName: -\nUtcTime: 2026-11-21 05:02:41.029\nProcessGuid: {88E52A21-25EE-6B01-9500-000000003500}\nProcessId: 7520\nImage: C:\\Windows\\System32\\mshta.exe\nTargetFilename: C:\\Users\\duc.user\\AppData\\Local\\Microsoft\\Windows\\INetCache\\IE\\AS4U8FE5\\error[1]\nCreationUtcTime: 2026-11-21 05:02:41.029\nUser: C0015\\duc.user",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-11-21T05:02:41.029Z",
+        "file": {
+          "path": "C:\\Users\\duc.user\\AppData\\Local\\Microsoft\\Windows\\INetCache\\IE\\AS4U8FE5\\error[1]",
+          "extension": "user\\AppData\\Local\\Microsoft\\Windows\\INetCache\\IE\\AS4U8FE5\\error[1]",
+          "name": "error[1]",
+          "directory": "C:\\Users\\duc.user\\AppData\\Local\\Microsoft\\Windows\\INetCache\\IE\\AS4U8FE5"
+        },
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "duc.user"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-11-21T05:02:47Z",
+          "code": "11",
+          "provider": "Microsoft-Windows-Sysmon",
+          "kind": "event",
+          "created": "2026-11-21T05:02:41.910Z",
+          "action": "FileCreate",
+          "category": [
+            "file"
+          ],
+          "type": [
+            "creation"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "duc.user",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaH8fO2TxY-KOm1Pbsjq",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "type": "filebeat",
+          "ephemeral_id": "df411f77-27c6-45c8-9e26-51f80870b71a",
+          "version": "9.5.3"
+        },
+        "process": {
+          "name": "mshta.exe",
+          "pid": 7520,
+          "entity_id": "{88E52A21-25EE-6B01-9500-000000003500}",
+          "executable": "C:\\Windows\\System32\\mshta.exe"
+        },
+        "winlog": {
+          "record_id": "1483636",
+          "computer_name": "WS01.c0015.lab",
+          "process": {
+            "pid": 2584,
+            "thread": {
+              "id": 5456
+            }
+          },
+          "task": "File created (rule: FileCreate)",
+          "event_id": "11",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "CreationUtcTime": "2026-11-21 05:02:41.091"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "version": 2,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "File created:\nRuleName: -\nUtcTime: 2026-11-21 05:02:41.091\nProcessGuid: {88E52A21-25EE-6B01-9500-000000003500}\nProcessId: 7520\nImage: C:\\Windows\\System32\\mshta.exe\nTargetFilename: C:\\Users\\duc.user\\AppData\\Local\\Microsoft\\Windows\\INetCache\\IE\\8N4UZY3W\\error[1]\nCreationUtcTime: 2026-11-21 05:02:41.091\nUser: C0015\\duc.user",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-11-21T05:02:41.091Z",
+        "file": {
+          "path": "C:\\Users\\duc.user\\AppData\\Local\\Microsoft\\Windows\\INetCache\\IE\\8N4UZY3W\\error[1]",
+          "extension": "user\\AppData\\Local\\Microsoft\\Windows\\INetCache\\IE\\8N4UZY3W\\error[1]",
+          "name": "error[1]",
+          "directory": "C:\\Users\\duc.user\\AppData\\Local\\Microsoft\\Windows\\INetCache\\IE\\8N4UZY3W"
+        },
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "duc.user"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-11-21T05:02:47Z",
+          "code": "11",
+          "provider": "Microsoft-Windows-Sysmon",
+          "kind": "event",
+          "created": "2026-11-21T05:02:41.910Z",
+          "action": "FileCreate",
+          "category": [
+            "file"
+          ],
+          "type": [
+            "creation"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "duc.user",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaH8fO2TxY-KOm1Pbsjv",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "type": "filebeat",
+          "ephemeral_id": "df411f77-27c6-45c8-9e26-51f80870b71a",
+          "version": "9.5.3"
+        },
+        "process": {
+          "name": "mshta.exe",
+          "pid": 7520,
+          "entity_id": "{88E52A21-25EE-6B01-9500-000000003500}",
+          "executable": "C:\\Windows\\System32\\mshta.exe"
+        },
+        "winlog": {
+          "record_id": "1483641",
+          "computer_name": "WS01.c0015.lab",
+          "process": {
+            "pid": 2584,
+            "thread": {
+              "id": 5456
+            }
+          },
+          "task": "File created (rule: FileCreate)",
+          "event_id": "11",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "CreationUtcTime": "2026-11-21 05:02:41.091"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "version": 2,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "File created:\nRuleName: -\nUtcTime: 2026-11-21 05:02:41.091\nProcessGuid: {88E52A21-25EE-6B01-9500-000000003500}\nProcessId: 7520\nImage: C:\\Windows\\System32\\mshta.exe\nTargetFilename: C:\\Users\\duc.user\\AppData\\Local\\Microsoft\\Windows\\INetCache\\IE\\8N4UZY3W\\error[1]\nCreationUtcTime: 2026-11-21 05:02:41.091\nUser: C0015\\duc.user",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-11-21T05:02:41.091Z",
+        "file": {
+          "path": "C:\\Users\\duc.user\\AppData\\Local\\Microsoft\\Windows\\INetCache\\IE\\8N4UZY3W\\error[1]",
+          "extension": "user\\AppData\\Local\\Microsoft\\Windows\\INetCache\\IE\\8N4UZY3W\\error[1]",
+          "name": "error[1]",
+          "directory": "C:\\Users\\duc.user\\AppData\\Local\\Microsoft\\Windows\\INetCache\\IE\\8N4UZY3W"
+        },
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "duc.user"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-11-21T05:02:47Z",
+          "code": "11",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-11-21T05:02:41.910Z",
+          "kind": "event",
+          "action": "FileCreate",
+          "category": [
+            "file"
+          ],
+          "type": [
+            "creation"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "duc.user",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaH8fO2TxY-KOm1Pbsjw",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "ephemeral_id": "df411f77-27c6-45c8-9e26-51f80870b71a",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "name": "mshta.exe",
+          "pid": 7520,
+          "entity_id": "{88E52A21-25EE-6B01-9500-000000003500}",
+          "executable": "C:\\Windows\\System32\\mshta.exe"
+        },
+        "winlog": {
+          "record_id": "1483642",
+          "computer_name": "WS01.c0015.lab",
+          "process": {
+            "pid": 2584,
+            "thread": {
+              "id": 5456
+            }
+          },
+          "task": "File created (rule: FileCreate)",
+          "event_id": "11",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "CreationUtcTime": "2026-11-21 05:02:41.107"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "version": 2,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "File created:\nRuleName: -\nUtcTime: 2026-11-21 05:02:41.107\nProcessGuid: {88E52A21-25EE-6B01-9500-000000003500}\nProcessId: 7520\nImage: C:\\Windows\\System32\\mshta.exe\nTargetFilename: C:\\Users\\duc.user\\AppData\\Local\\Microsoft\\Windows\\INetCache\\IE\\AS4U8FE5\\warning[1]\nCreationUtcTime: 2026-11-21 05:02:41.107\nUser: C0015\\duc.user",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-11-21T05:02:41.107Z",
+        "file": {
+          "path": "C:\\Users\\duc.user\\AppData\\Local\\Microsoft\\Windows\\INetCache\\IE\\AS4U8FE5\\warning[1]",
+          "extension": "user\\AppData\\Local\\Microsoft\\Windows\\INetCache\\IE\\AS4U8FE5\\warning[1]",
+          "name": "warning[1]",
+          "directory": "C:\\Users\\duc.user\\AppData\\Local\\Microsoft\\Windows\\INetCache\\IE\\AS4U8FE5"
+        },
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "duc.user"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-11-21T05:02:47Z",
+          "code": "11",
+          "provider": "Microsoft-Windows-Sysmon",
+          "kind": "event",
+          "created": "2026-11-21T05:02:42.915Z",
+          "action": "FileCreate",
+          "category": [
+            "file"
+          ],
+          "type": [
+            "creation"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "duc.user",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaH8fO2TxY-KOm1Pbsjy",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "type": "filebeat",
+          "ephemeral_id": "df411f77-27c6-45c8-9e26-51f80870b71a",
+          "version": "9.5.3"
+        },
+        "process": {
+          "name": "mshta.exe",
+          "pid": 7520,
+          "entity_id": "{88E52A21-25EE-6B01-9500-000000003500}",
+          "executable": "C:\\Windows\\System32\\mshta.exe"
+        },
+        "winlog": {
+          "computer_name": "WS01.c0015.lab",
+          "record_id": "1483644",
+          "process": {
+            "pid": 2584,
+            "thread": {
+              "id": 5456
+            }
+          },
+          "task": "File created (rule: FileCreate)",
+          "event_id": "11",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "CreationUtcTime": "2026-11-21 05:02:41.107"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 2
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "File created:\nRuleName: -\nUtcTime: 2026-11-21 05:02:41.122\nProcessGuid: {88E52A21-25EE-6B01-9500-000000003500}\nProcessId: 7520\nImage: C:\\Windows\\System32\\mshta.exe\nTargetFilename: C:\\Users\\duc.user\\AppData\\Local\\Microsoft\\Windows\\INetCache\\IE\\AS4U8FE5\\warning[1]\nCreationUtcTime: 2026-11-21 05:02:41.107\nUser: C0015\\duc.user",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-11-21T05:02:41.122Z",
+        "file": {
+          "path": "C:\\Users\\duc.user\\AppData\\Local\\Microsoft\\Windows\\INetCache\\IE\\AS4U8FE5\\warning[1]",
+          "extension": "user\\AppData\\Local\\Microsoft\\Windows\\INetCache\\IE\\AS4U8FE5\\warning[1]",
+          "name": "warning[1]",
+          "directory": "C:\\Users\\duc.user\\AppData\\Local\\Microsoft\\Windows\\INetCache\\IE\\AS4U8FE5"
+        },
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "duc.user"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-11-21T05:02:47Z",
+          "code": "11",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-11-21T05:02:42.915Z",
+          "kind": "event",
+          "action": "FileCreate",
+          "category": [
+            "file"
+          ],
+          "type": [
+            "creation"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "duc.user",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    }
+  ]
+}

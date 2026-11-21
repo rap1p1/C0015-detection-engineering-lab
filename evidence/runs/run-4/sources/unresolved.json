@@ -1,0 +1,68 @@
+[
+  {
+    "alert": "1388e22f1ce037412f1aeefd27c5c92b7cc1184d8d37c716a203b8828f8418fe",
+    "ancestor": {
+      "id": "e6eb947956719685d70948c9e0d22e06287f55ca3b2a667b6e81cb3cb0929511",
+      "type": "signal",
+      "index": "",
+      "depth": 1,
+      "rule": "6e4cb853-8ef4-47bd-9ed8-0616bc6b1fae"
+    },
+    "reason": "missing locator"
+  },
+  {
+    "alert": "1388e22f1ce037412f1aeefd27c5c92b7cc1184d8d37c716a203b8828f8418fe",
+    "ancestor": {
+      "id": "2afdb5e04e80dadb538ad6f3cbbba54f04519a6bf50991b395e19edb87f606bf",
+      "type": "signal",
+      "index": "",
+      "depth": 1,
+      "rule": "6e4cb853-8ef4-47bd-9ed8-0616bc6b1fae"
+    },
+    "reason": "missing locator"
+  },
+  {
+    "alert": "fdf3cf8901750a32feab730f3581f53d0576b7990a073a534d696022387cee8e",
+    "ancestor": {
+      "id": "aae3c2f5385cdc9ffea9a24e6d67b7e6a4d2724a822f2e7df89c0c4699a784fd",
+      "type": "signal",
+      "index": "",
+      "depth": 1,
+      "rule": "6e4cb853-8ef4-47bd-9ed8-0616bc6b1fae"
+    },
+    "reason": "missing locator"
+  },
+  {
+    "alert": "fdf3cf8901750a32feab730f3581f53d0576b7990a073a534d696022387cee8e",
+    "ancestor": {
+      "id": "019e958bceadf4eab39cbd79a19a2ae24dd44e27fc513a30a89d8edc3fd0eb21",
+      "type": "signal",
+      "index": "",
+      "depth": 1,
+      "rule": "6e4cb853-8ef4-47bd-9ed8-0616bc6b1fae"
+    },
+    "reason": "missing locator"
+  },
+  {
+    "alert": "1e9bba008987a2428e7b2655d21de401f59b2bd93c6224892e6a5094eab3d7cd",
+    "ancestor": {
+      "id": "ed48923d7c61e4e1e0183888f2e137a9e1284b0ad8adf311f08ebcde6b7d655e",
+      "type": "signal",
+      "index": "",
+      "depth": 1,
+      "rule": "6e4cb853-8ef4-47bd-9ed8-0616bc6b1fae"
+    },
+    "reason": "missing locator"
+  },
+  {
+    "alert": "1e9bba008987a2428e7b2655d21de401f59b2bd93c6224892e6a5094eab3d7cd",
+    "ancestor": {
+      "id": "79b1b83c2ccce5fd34b040c290169c614cd66061adef3f75858bd735ee4eb3f9",
+      "type": "signal",
+      "index": "",
+      "depth": 1,
+      "rule": "6e4cb853-8ef4-47bd-9ed8-0616bc6b1fae"
+    },
+    "reason": "missing locator"
+  }
+]

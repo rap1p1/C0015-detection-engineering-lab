@@ -1,0 +1,861 @@
+{
+  "behaviour": "lsass_access",
+  "index": "logs-windows.sysmon_operational-*",
+  "identifier": {
+    "field": "process.entity_id",
+    "value": "{88E52A21-2A21-6B01-C400-000000001D00}",
+    "host": "fs01"
+  },
+  "alerts": [
+    "d9aee7ee297366d8c1ca90a541d0804ef278ba71151171761940f8b5a8bfcf02",
+    "177de78c26fc18dabb21c83415ff6a63781023a1f39f5580fa434122d72261b0",
+    "34e4ab91d7c6b7a74682dc99f7a58512c10698f62d190f5fd16a80e00a185a24"
+  ],
+  "queries": [
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-11-21T05:17:33.000Z",
+                  "lte": "2026-11-21T05:23:33.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "fs01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "10"
+              }
+            },
+            {
+              "term": {
+                "process.entity_id": "{88E52A21-2A21-6B01-C400-000000001D00}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-11-21T05:17:33.000Z",
+        "end": "2026-11-21T05:23:33.000Z"
+      },
+      "returned": 2,
+      "total": 2,
+      "relation": "eq"
+    },
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-11-21T05:17:33.000Z",
+                  "lte": "2026-11-21T05:23:33.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "fs01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "10"
+              }
+            },
+            {
+              "term": {
+                "process.entity_id": "{88E52A21-2A21-6B01-C400-000000001D00}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-11-21T05:17:33.000Z",
+        "end": "2026-11-21T05:23:33.000Z"
+      },
+      "returned": 2,
+      "total": 2,
+      "relation": "eq"
+    },
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-11-21T05:17:33.000Z",
+                  "lte": "2026-11-21T05:23:33.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "fs01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "10"
+              }
+            },
+            {
+              "term": {
+                "process.entity_id": "{88E52A21-2A21-6B01-C400-000000001D00}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-11-21T05:17:33.000Z",
+        "end": "2026-11-21T05:23:33.000Z"
+      },
+      "returned": 2,
+      "total": 2,
+      "relation": "eq"
+    }
+  ],
+  "returned": 6,
+  "truncated": false,
+  "sample": false,
+  "hits": [
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaH8jO2TxY-KOm24rObR",
+      "_source": {
+        "agent": {
+          "name": "FS01",
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "ephemeral_id": "c18e3482-64f9-4b53-98df-5d8615982922",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "name": "rundll32.exe",
+          "pid": 1872,
+          "thread": {
+            "id": 1236
+          },
+          "entity_id": "{88E52A21-2A21-6B01-C400-000000001D00}",
+          "executable": "C:\\Windows\\system32\\rundll32.exe"
+        },
+        "winlog": {
+          "record_id": "811709",
+          "computer_name": "FS01.c0015.lab",
+          "process": {
+            "pid": 2368,
+            "thread": {
+              "id": 3744
+            }
+          },
+          "task": "Process accessed (rule: ProcessAccess)",
+          "event_id": "10",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "GrantedAccess": "0x1000",
+            "TargetUser": "NT AUTHORITY\\SYSTEM",
+            "TargetProcessId": "772",
+            "SourceUser": "C0015\\Administrator",
+            "TargetImage": "C:\\Windows\\system32\\svchost.exe",
+            "CallTrace": "C:\\Windows\\SYSTEM32\\ntdll.dll+9d4a4|C:\\Windows\\System32\\KERNELBASE.dll+308ee|C:\\ProgramData\\143.dll+1408|C:\\ProgramData\\143.dll+171a|C:\\Windows\\system32\\rundll32.exe+42eb|C:\\Windows\\system32\\rundll32.exe+67e9|C:\\Windows\\System32\\KERNEL32.DLL+17344|C:\\Windows\\SYSTEM32\\ntdll.dll+526b1",
+            "TargetProcessGUID": "{88E52A21-2187-6B01-0D00-000000001D00}"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 3
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "rule": {
+          "name": "C0015-BALANCED"
+        },
+        "message": "Process accessed:\nRuleName: C0015-BALANCED\nUtcTime: 2026-11-21 05:20:33.636\nSourceProcessGUID: {88E52A21-2A21-6B01-C400-000000001D00}\nSourceProcessId: 1872\nSourceThreadId: 1236\nSourceImage: C:\\Windows\\system32\\rundll32.exe\nTargetProcessGUID: {88E52A21-2187-6B01-0D00-000000001D00}\nTargetProcessId: 772\nTargetImage: C:\\Windows\\system32\\svchost.exe\nGrantedAccess: 0x1000\nCallTrace: C:\\Windows\\SYSTEM32\\ntdll.dll+9d4a4|C:\\Windows\\System32\\KERNELBASE.dll+308ee|C:\\ProgramData\\143.dll+1408|C:\\ProgramData\\143.dll+171a|C:\\Windows\\system32\\rundll32.exe+42eb|C:\\Windows\\system32\\rundll32.exe+67e9|C:\\Windows\\System32\\KERNEL32.DLL+17344|C:\\Windows\\SYSTEM32\\ntdll.dll+526b1\nSourceUser: C0015\\Administrator\nTargetUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-11-21T05:20:33.636Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "FS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "192.168.106.155",
+            "192.168.50.30"
+          ],
+          "name": "fs01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-3B-C6-18",
+            "00-0C-29-3B-C6-22"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-11-21T05:20:43Z",
+          "code": "10",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-11-21T05:20:34.326Z",
+          "kind": "event",
+          "action": "ProcessAccess",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "access"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaH8jO2TxY-KOm24rObS",
+      "_source": {
+        "agent": {
+          "name": "FS01",
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "type": "filebeat",
+          "ephemeral_id": "c18e3482-64f9-4b53-98df-5d8615982922",
+          "version": "9.5.3"
+        },
+        "process": {
+          "name": "rundll32.exe",
+          "pid": 1872,
+          "thread": {
+            "id": 1236
+          },
+          "entity_id": "{88E52A21-2A21-6B01-C400-000000001D00}",
+          "executable": "C:\\Windows\\system32\\rundll32.exe"
+        },
+        "winlog": {
+          "computer_name": "FS01.c0015.lab",
+          "record_id": "811710",
+          "process": {
+            "pid": 2368,
+            "thread": {
+              "id": 3744
+            }
+          },
+          "event_id": "10",
+          "task": "Process accessed (rule: ProcessAccess)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "GrantedAccess": "0x1fffff",
+            "TargetUser": "NT AUTHORITY\\SYSTEM",
+            "TargetProcessId": "772",
+            "SourceUser": "C0015\\Administrator",
+            "TargetImage": "C:\\Windows\\system32\\svchost.exe",
+            "CallTrace": "C:\\Windows\\SYSTEM32\\ntdll.dll+9d4a4|C:\\Windows\\System32\\KERNELBASE.dll+308ee|C:\\ProgramData\\143.dll+1750|C:\\Windows\\system32\\rundll32.exe+42eb|C:\\Windows\\system32\\rundll32.exe+67e9|C:\\Windows\\System32\\KERNEL32.DLL+17344|C:\\Windows\\SYSTEM32\\ntdll.dll+526b1",
+            "TargetProcessGUID": "{88E52A21-2187-6B01-0D00-000000001D00}"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "version": 3,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "rule": {
+          "name": "C0015-BALANCED"
+        },
+        "message": "Process accessed:\nRuleName: C0015-BALANCED\nUtcTime: 2026-11-21 05:20:33.636\nSourceProcessGUID: {88E52A21-2A21-6B01-C400-000000001D00}\nSourceProcessId: 1872\nSourceThreadId: 1236\nSourceImage: C:\\Windows\\system32\\rundll32.exe\nTargetProcessGUID: {88E52A21-2187-6B01-0D00-000000001D00}\nTargetProcessId: 772\nTargetImage: C:\\Windows\\system32\\svchost.exe\nGrantedAccess: 0x1fffff\nCallTrace: C:\\Windows\\SYSTEM32\\ntdll.dll+9d4a4|C:\\Windows\\System32\\KERNELBASE.dll+308ee|C:\\ProgramData\\143.dll+1750|C:\\Windows\\system32\\rundll32.exe+42eb|C:\\Windows\\system32\\rundll32.exe+67e9|C:\\Windows\\System32\\KERNEL32.DLL+17344|C:\\Windows\\SYSTEM32\\ntdll.dll+526b1\nSourceUser: C0015\\Administrator\nTargetUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-11-21T05:20:33.636Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "FS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "192.168.106.155",
+            "192.168.50.30"
+          ],
+          "name": "fs01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-3B-C6-18",
+            "00-0C-29-3B-C6-22"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-11-21T05:20:43Z",
+          "code": "10",
+          "provider": "Microsoft-Windows-Sysmon",
+          "kind": "event",
+          "created": "2026-11-21T05:20:34.326Z",
+          "action": "ProcessAccess",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "access"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaH8jO2TxY-KOm24rObR",
+      "_source": {
+        "agent": {
+          "name": "FS01",
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "ephemeral_id": "c18e3482-64f9-4b53-98df-5d8615982922",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "name": "rundll32.exe",
+          "pid": 1872,
+          "thread": {
+            "id": 1236
+          },
+          "entity_id": "{88E52A21-2A21-6B01-C400-000000001D00}",
+          "executable": "C:\\Windows\\system32\\rundll32.exe"
+        },
+        "winlog": {
+          "record_id": "811709",
+          "computer_name": "FS01.c0015.lab",
+          "process": {
+            "pid": 2368,
+            "thread": {
+              "id": 3744
+            }
+          },
+          "task": "Process accessed (rule: ProcessAccess)",
+          "event_id": "10",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "GrantedAccess": "0x1000",
+            "TargetUser": "NT AUTHORITY\\SYSTEM",
+            "TargetProcessId": "772",
+            "SourceUser": "C0015\\Administrator",
+            "TargetImage": "C:\\Windows\\system32\\svchost.exe",
+            "CallTrace": "C:\\Windows\\SYSTEM32\\ntdll.dll+9d4a4|C:\\Windows\\System32\\KERNELBASE.dll+308ee|C:\\ProgramData\\143.dll+1408|C:\\ProgramData\\143.dll+171a|C:\\Windows\\system32\\rundll32.exe+42eb|C:\\Windows\\system32\\rundll32.exe+67e9|C:\\Windows\\System32\\KERNEL32.DLL+17344|C:\\Windows\\SYSTEM32\\ntdll.dll+526b1",
+            "TargetProcessGUID": "{88E52A21-2187-6B01-0D00-000000001D00}"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 3
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "rule": {
+          "name": "C0015-BALANCED"
+        },
+        "message": "Process accessed:\nRuleName: C0015-BALANCED\nUtcTime: 2026-11-21 05:20:33.636\nSourceProcessGUID: {88E52A21-2A21-6B01-C400-000000001D00}\nSourceProcessId: 1872\nSourceThreadId: 1236\nSourceImage: C:\\Windows\\system32\\rundll32.exe\nTargetProcessGUID: {88E52A21-2187-6B01-0D00-000000001D00}\nTargetProcessId: 772\nTargetImage: C:\\Windows\\system32\\svchost.exe\nGrantedAccess: 0x1000\nCallTrace: C:\\Windows\\SYSTEM32\\ntdll.dll+9d4a4|C:\\Windows\\System32\\KERNELBASE.dll+308ee|C:\\ProgramData\\143.dll+1408|C:\\ProgramData\\143.dll+171a|C:\\Windows\\system32\\rundll32.exe+42eb|C:\\Windows\\system32\\rundll32.exe+67e9|C:\\Windows\\System32\\KERNEL32.DLL+17344|C:\\Windows\\SYSTEM32\\ntdll.dll+526b1\nSourceUser: C0015\\Administrator\nTargetUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-11-21T05:20:33.636Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "FS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "192.168.106.155",
+            "192.168.50.30"
+          ],
+          "name": "fs01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-3B-C6-18",
+            "00-0C-29-3B-C6-22"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-11-21T05:20:43Z",
+          "code": "10",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-11-21T05:20:34.326Z",
+          "kind": "event",
+          "action": "ProcessAccess",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "access"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 1
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaH8jO2TxY-KOm24rObS",
+      "_source": {
+        "agent": {
+          "name": "FS01",
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "type": "filebeat",
+          "ephemeral_id": "c18e3482-64f9-4b53-98df-5d8615982922",
+          "version": "9.5.3"
+        },
+        "process": {
+          "name": "rundll32.exe",
+          "pid": 1872,
+          "thread": {
+            "id": 1236
+          },
+          "entity_id": "{88E52A21-2A21-6B01-C400-000000001D00}",
+          "executable": "C:\\Windows\\system32\\rundll32.exe"
+        },
+        "winlog": {
+          "computer_name": "FS01.c0015.lab",
+          "record_id": "811710",
+          "process": {
+            "pid": 2368,
+            "thread": {
+              "id": 3744
+            }
+          },
+          "event_id": "10",
+          "task": "Process accessed (rule: ProcessAccess)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "GrantedAccess": "0x1fffff",
+            "TargetUser": "NT AUTHORITY\\SYSTEM",
+            "TargetProcessId": "772",
+            "SourceUser": "C0015\\Administrator",
+            "TargetImage": "C:\\Windows\\system32\\svchost.exe",
+            "CallTrace": "C:\\Windows\\SYSTEM32\\ntdll.dll+9d4a4|C:\\Windows\\System32\\KERNELBASE.dll+308ee|C:\\ProgramData\\143.dll+1750|C:\\Windows\\system32\\rundll32.exe+42eb|C:\\Windows\\system32\\rundll32.exe+67e9|C:\\Windows\\System32\\KERNEL32.DLL+17344|C:\\Windows\\SYSTEM32\\ntdll.dll+526b1",
+            "TargetProcessGUID": "{88E52A21-2187-6B01-0D00-000000001D00}"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "version": 3,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "rule": {
+          "name": "C0015-BALANCED"
+        },
+        "message": "Process accessed:\nRuleName: C0015-BALANCED\nUtcTime: 2026-11-21 05:20:33.636\nSourceProcessGUID: {88E52A21-2A21-6B01-C400-000000001D00}\nSourceProcessId: 1872\nSourceThreadId: 1236\nSourceImage: C:\\Windows\\system32\\rundll32.exe\nTargetProcessGUID: {88E52A21-2187-6B01-0D00-000000001D00}\nTargetProcessId: 772\nTargetImage: C:\\Windows\\system32\\svchost.exe\nGrantedAccess: 0x1fffff\nCallTrace: C:\\Windows\\SYSTEM32\\ntdll.dll+9d4a4|C:\\Windows\\System32\\KERNELBASE.dll+308ee|C:\\ProgramData\\143.dll+1750|C:\\Windows\\system32\\rundll32.exe+42eb|C:\\Windows\\system32\\rundll32.exe+67e9|C:\\Windows\\System32\\KERNEL32.DLL+17344|C:\\Windows\\SYSTEM32\\ntdll.dll+526b1\nSourceUser: C0015\\Administrator\nTargetUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-11-21T05:20:33.636Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "FS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "192.168.106.155",
+            "192.168.50.30"
+          ],
+          "name": "fs01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-3B-C6-18",
+            "00-0C-29-3B-C6-22"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-11-21T05:20:43Z",
+          "code": "10",
+          "provider": "Microsoft-Windows-Sysmon",
+          "kind": "event",
+          "created": "2026-11-21T05:20:34.326Z",
+          "action": "ProcessAccess",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "access"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 1
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaH8jO2TxY-KOm24rObR",
+      "_source": {
+        "agent": {
+          "name": "FS01",
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "ephemeral_id": "c18e3482-64f9-4b53-98df-5d8615982922",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "name": "rundll32.exe",
+          "pid": 1872,
+          "thread": {
+            "id": 1236
+          },
+          "entity_id": "{88E52A21-2A21-6B01-C400-000000001D00}",
+          "executable": "C:\\Windows\\system32\\rundll32.exe"
+        },
+        "winlog": {
+          "record_id": "811709",
+          "computer_name": "FS01.c0015.lab",
+          "process": {
+            "pid": 2368,
+            "thread": {
+              "id": 3744
+            }
+          },
+          "task": "Process accessed (rule: ProcessAccess)",
+          "event_id": "10",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "GrantedAccess": "0x1000",
+            "TargetUser": "NT AUTHORITY\\SYSTEM",
+            "TargetProcessId": "772",
+            "SourceUser": "C0015\\Administrator",
+            "TargetImage": "C:\\Windows\\system32\\svchost.exe",
+            "CallTrace": "C:\\Windows\\SYSTEM32\\ntdll.dll+9d4a4|C:\\Windows\\System32\\KERNELBASE.dll+308ee|C:\\ProgramData\\143.dll+1408|C:\\ProgramData\\143.dll+171a|C:\\Windows\\system32\\rundll32.exe+42eb|C:\\Windows\\system32\\rundll32.exe+67e9|C:\\Windows\\System32\\KERNEL32.DLL+17344|C:\\Windows\\SYSTEM32\\ntdll.dll+526b1",
+            "TargetProcessGUID": "{88E52A21-2187-6B01-0D00-000000001D00}"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 3
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "rule": {
+          "name": "C0015-BALANCED"
+        },
+        "message": "Process accessed:\nRuleName: C0015-BALANCED\nUtcTime: 2026-11-21 05:20:33.636\nSourceProcessGUID: {88E52A21-2A21-6B01-C400-000000001D00}\nSourceProcessId: 1872\nSourceThreadId: 1236\nSourceImage: C:\\Windows\\system32\\rundll32.exe\nTargetProcessGUID: {88E52A21-2187-6B01-0D00-000000001D00}\nTargetProcessId: 772\nTargetImage: C:\\Windows\\system32\\svchost.exe\nGrantedAccess: 0x1000\nCallTrace: C:\\Windows\\SYSTEM32\\ntdll.dll+9d4a4|C:\\Windows\\System32\\KERNELBASE.dll+308ee|C:\\ProgramData\\143.dll+1408|C:\\ProgramData\\143.dll+171a|C:\\Windows\\system32\\rundll32.exe+42eb|C:\\Windows\\system32\\rundll32.exe+67e9|C:\\Windows\\System32\\KERNEL32.DLL+17344|C:\\Windows\\SYSTEM32\\ntdll.dll+526b1\nSourceUser: C0015\\Administrator\nTargetUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-11-21T05:20:33.636Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "FS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "192.168.106.155",
+            "192.168.50.30"
+          ],
+          "name": "fs01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-3B-C6-18",
+            "00-0C-29-3B-C6-22"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-11-21T05:20:43Z",
+          "code": "10",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-11-21T05:20:34.326Z",
+          "kind": "event",
+          "action": "ProcessAccess",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "access"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 2
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaH8jO2TxY-KOm24rObS",
+      "_source": {
+        "agent": {
+          "name": "FS01",
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "type": "filebeat",
+          "ephemeral_id": "c18e3482-64f9-4b53-98df-5d8615982922",
+          "version": "9.5.3"
+        },
+        "process": {
+          "name": "rundll32.exe",
+          "pid": 1872,
+          "thread": {
+            "id": 1236
+          },
+          "entity_id": "{88E52A21-2A21-6B01-C400-000000001D00}",
+          "executable": "C:\\Windows\\system32\\rundll32.exe"
+        },
+        "winlog": {
+          "computer_name": "FS01.c0015.lab",
+          "record_id": "811710",
+          "process": {
+            "pid": 2368,
+            "thread": {
+              "id": 3744
+            }
+          },
+          "event_id": "10",
+          "task": "Process accessed (rule: ProcessAccess)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "GrantedAccess": "0x1fffff",
+            "TargetUser": "NT AUTHORITY\\SYSTEM",
+            "TargetProcessId": "772",
+            "SourceUser": "C0015\\Administrator",
+            "TargetImage": "C:\\Windows\\system32\\svchost.exe",
+            "CallTrace": "C:\\Windows\\SYSTEM32\\ntdll.dll+9d4a4|C:\\Windows\\System32\\KERNELBASE.dll+308ee|C:\\ProgramData\\143.dll+1750|C:\\Windows\\system32\\rundll32.exe+42eb|C:\\Windows\\system32\\rundll32.exe+67e9|C:\\Windows\\System32\\KERNEL32.DLL+17344|C:\\Windows\\SYSTEM32\\ntdll.dll+526b1",
+            "TargetProcessGUID": "{88E52A21-2187-6B01-0D00-000000001D00}"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "version": 3,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "rule": {
+          "name": "C0015-BALANCED"
+        },
+        "message": "Process accessed:\nRuleName: C0015-BALANCED\nUtcTime: 2026-11-21 05:20:33.636\nSourceProcessGUID: {88E52A21-2A21-6B01-C400-000000001D00}\nSourceProcessId: 1872\nSourceThreadId: 1236\nSourceImage: C:\\Windows\\system32\\rundll32.exe\nTargetProcessGUID: {88E52A21-2187-6B01-0D00-000000001D00}\nTargetProcessId: 772\nTargetImage: C:\\Windows\\system32\\svchost.exe\nGrantedAccess: 0x1fffff\nCallTrace: C:\\Windows\\SYSTEM32\\ntdll.dll+9d4a4|C:\\Windows\\System32\\KERNELBASE.dll+308ee|C:\\ProgramData\\143.dll+1750|C:\\Windows\\system32\\rundll32.exe+42eb|C:\\Windows\\system32\\rundll32.exe+67e9|C:\\Windows\\System32\\KERNEL32.DLL+17344|C:\\Windows\\SYSTEM32\\ntdll.dll+526b1\nSourceUser: C0015\\Administrator\nTargetUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-11-21T05:20:33.636Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "FS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "192.168.106.155",
+            "192.168.50.30"
+          ],
+          "name": "fs01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-3B-C6-18",
+            "00-0C-29-3B-C6-22"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-11-21T05:20:43Z",
+          "code": "10",
+          "provider": "Microsoft-Windows-Sysmon",
+          "kind": "event",
+          "created": "2026-11-21T05:20:34.326Z",
+          "action": "ProcessAccess",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "access"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 2
+    }
+  ]
+}

@@ -1,0 +1,618 @@
+{
+  "behaviour": "module_load",
+  "index": "logs-windows.sysmon_operational-*",
+  "identifier": {
+    "field": "process.entity_id",
+    "value": "{88E52A21-27AD-6B01-9000-000000003600}",
+    "host": "ws01"
+  },
+  "alerts": [
+    "c3df8a9622a48c10e9c615d4ce5088da52b4e9b15ee7122aaae1b888a39bedee",
+    "a86247f22e72d2c576b78c1e2e18a081c4ad84112938b76be661641f0d7fb786",
+    "da6ebc91a6e996bd8f94aaefa3379f66cad66311a42b8c1712ac3729e7681363"
+  ],
+  "queries": [
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-11-21T05:07:05.000Z",
+                  "lte": "2026-11-21T05:13:05.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "ws01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "7"
+              }
+            },
+            {
+              "term": {
+                "process.entity_id": "{88E52A21-27AD-6B01-9000-000000003600}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-11-21T05:07:05.000Z",
+        "end": "2026-11-21T05:13:05.000Z"
+      },
+      "returned": 1,
+      "total": 1,
+      "relation": "eq"
+    },
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-11-21T05:07:05.000Z",
+                  "lte": "2026-11-21T05:13:05.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "ws01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "7"
+              }
+            },
+            {
+              "term": {
+                "process.entity_id": "{88E52A21-27AD-6B01-9000-000000003600}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-11-21T05:07:05.000Z",
+        "end": "2026-11-21T05:13:05.000Z"
+      },
+      "returned": 1,
+      "total": 1,
+      "relation": "eq"
+    },
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-11-21T05:07:05.000Z",
+                  "lte": "2026-11-21T05:13:05.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "ws01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "7"
+              }
+            },
+            {
+              "term": {
+                "process.entity_id": "{88E52A21-27AD-6B01-9000-000000003600}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-11-21T05:07:05.000Z",
+        "end": "2026-11-21T05:13:05.000Z"
+      },
+      "returned": 1,
+      "total": 1,
+      "relation": "eq"
+    }
+  ],
+  "returned": 3,
+  "truncated": false,
+  "sample": false,
+  "hits": [
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaH8g-2TxY-KOm0gigBw",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "type": "filebeat",
+          "ephemeral_id": "b430f1e8-d52d-477c-8c21-8fbc5be0ee7b",
+          "version": "9.5.3"
+        },
+        "process": {
+          "name": "regsvr32.exe",
+          "pid": 2844,
+          "entity_id": "{88E52A21-27AD-6B01-9000-000000003600}",
+          "executable": "C:\\Windows\\System32\\regsvr32.exe"
+        },
+        "winlog": {
+          "computer_name": "WS01.c0015.lab",
+          "record_id": "1487792",
+          "process": {
+            "pid": 2408,
+            "thread": {
+              "id": 4212
+            }
+          },
+          "event_id": "7",
+          "task": "Image loaded (rule: ImageLoad)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "SignatureStatus": "Unavailable",
+            "Signed": "false"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "version": 3,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "dll": {
+          "path": "C:\\Users\\Public\\compareForfor.jpg",
+          "code_signature": {
+            "trusted": false,
+            "status": "Unavailable"
+          },
+          "pe": {
+            "imphash": "93a8925eab684dd7a9185fb2fd300e4f"
+          },
+          "name": "compareForfor.jpg",
+          "hash": {
+            "sha256": "26a33c08132522afb472337e37c2be0e5bf6af0da49944feef9cc68fa29af5d3"
+          }
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "rule": {
+          "name": "C0015-BALANCED"
+        },
+        "message": "Image loaded:\nRuleName: C0015-BALANCED\nUtcTime: 2026-11-21 05:10:05.285\nProcessGuid: {88E52A21-27AD-6B01-9000-000000003600}\nProcessId: 2844\nImage: C:\\Windows\\System32\\regsvr32.exe\nImageLoaded: C:\\Users\\Public\\compareForfor.jpg\nFileVersion: -\nDescription: -\nProduct: -\nCompany: -\nOriginalFileName: -\nHashes: SHA256=26A33C08132522AFB472337E37C2BE0E5BF6AF0DA49944FEEF9CC68FA29AF5D3,IMPHASH=93A8925EAB684DD7A9185FB2FD300E4F\nSigned: false\nSignature: -\nSignatureStatus: Unavailable\nUser: C0015\\duc.user",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-11-21T05:10:05.285Z",
+        "file": {
+          "path": "C:\\Users\\Public\\compareForfor.jpg",
+          "extension": "jpg",
+          "code_signature": {
+            "trusted": false,
+            "status": "Unavailable"
+          },
+          "pe": {
+            "imphash": "93a8925eab684dd7a9185fb2fd300e4f"
+          },
+          "name": "compareForfor.jpg",
+          "directory": "C:\\Users\\Public",
+          "hash": {
+            "sha256": "26a33c08132522afb472337e37c2be0e5bf6af0da49944feef9cc68fa29af5d3"
+          }
+        },
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "duc.user"
+          ],
+          "hash": [
+            "26a33c08132522afb472337e37c2be0e5bf6af0da49944feef9cc68fa29af5d3",
+            "93a8925eab684dd7a9185fb2fd300e4f"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-11-21T05:10:14Z",
+          "code": "7",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-11-21T05:10:06.966Z",
+          "kind": "event",
+          "action": [
+            "Image loaded",
+            "load"
+          ],
+          "category": [
+            "process",
+            "library"
+          ],
+          "type": [
+            "change",
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "duc.user",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaH8g-2TxY-KOm0gigBw",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "type": "filebeat",
+          "ephemeral_id": "b430f1e8-d52d-477c-8c21-8fbc5be0ee7b",
+          "version": "9.5.3"
+        },
+        "process": {
+          "name": "regsvr32.exe",
+          "pid": 2844,
+          "entity_id": "{88E52A21-27AD-6B01-9000-000000003600}",
+          "executable": "C:\\Windows\\System32\\regsvr32.exe"
+        },
+        "winlog": {
+          "computer_name": "WS01.c0015.lab",
+          "record_id": "1487792",
+          "process": {
+            "pid": 2408,
+            "thread": {
+              "id": 4212
+            }
+          },
+          "event_id": "7",
+          "task": "Image loaded (rule: ImageLoad)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "SignatureStatus": "Unavailable",
+            "Signed": "false"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "version": 3,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "dll": {
+          "path": "C:\\Users\\Public\\compareForfor.jpg",
+          "code_signature": {
+            "trusted": false,
+            "status": "Unavailable"
+          },
+          "pe": {
+            "imphash": "93a8925eab684dd7a9185fb2fd300e4f"
+          },
+          "name": "compareForfor.jpg",
+          "hash": {
+            "sha256": "26a33c08132522afb472337e37c2be0e5bf6af0da49944feef9cc68fa29af5d3"
+          }
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "rule": {
+          "name": "C0015-BALANCED"
+        },
+        "message": "Image loaded:\nRuleName: C0015-BALANCED\nUtcTime: 2026-11-21 05:10:05.285\nProcessGuid: {88E52A21-27AD-6B01-9000-000000003600}\nProcessId: 2844\nImage: C:\\Windows\\System32\\regsvr32.exe\nImageLoaded: C:\\Users\\Public\\compareForfor.jpg\nFileVersion: -\nDescription: -\nProduct: -\nCompany: -\nOriginalFileName: -\nHashes: SHA256=26A33C08132522AFB472337E37C2BE0E5BF6AF0DA49944FEEF9CC68FA29AF5D3,IMPHASH=93A8925EAB684DD7A9185FB2FD300E4F\nSigned: false\nSignature: -\nSignatureStatus: Unavailable\nUser: C0015\\duc.user",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-11-21T05:10:05.285Z",
+        "file": {
+          "path": "C:\\Users\\Public\\compareForfor.jpg",
+          "extension": "jpg",
+          "code_signature": {
+            "trusted": false,
+            "status": "Unavailable"
+          },
+          "pe": {
+            "imphash": "93a8925eab684dd7a9185fb2fd300e4f"
+          },
+          "name": "compareForfor.jpg",
+          "directory": "C:\\Users\\Public",
+          "hash": {
+            "sha256": "26a33c08132522afb472337e37c2be0e5bf6af0da49944feef9cc68fa29af5d3"
+          }
+        },
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "duc.user"
+          ],
+          "hash": [
+            "26a33c08132522afb472337e37c2be0e5bf6af0da49944feef9cc68fa29af5d3",
+            "93a8925eab684dd7a9185fb2fd300e4f"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-11-21T05:10:14Z",
+          "code": "7",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-11-21T05:10:06.966Z",
+          "kind": "event",
+          "action": [
+            "Image loaded",
+            "load"
+          ],
+          "category": [
+            "process",
+            "library"
+          ],
+          "type": [
+            "change",
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "duc.user",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 1
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaH8g-2TxY-KOm0gigBw",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "type": "filebeat",
+          "ephemeral_id": "b430f1e8-d52d-477c-8c21-8fbc5be0ee7b",
+          "version": "9.5.3"
+        },
+        "process": {
+          "name": "regsvr32.exe",
+          "pid": 2844,
+          "entity_id": "{88E52A21-27AD-6B01-9000-000000003600}",
+          "executable": "C:\\Windows\\System32\\regsvr32.exe"
+        },
+        "winlog": {
+          "computer_name": "WS01.c0015.lab",
+          "record_id": "1487792",
+          "process": {
+            "pid": 2408,
+            "thread": {
+              "id": 4212
+            }
+          },
+          "event_id": "7",
+          "task": "Image loaded (rule: ImageLoad)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "SignatureStatus": "Unavailable",
+            "Signed": "false"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "version": 3,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "dll": {
+          "path": "C:\\Users\\Public\\compareForfor.jpg",
+          "code_signature": {
+            "trusted": false,
+            "status": "Unavailable"
+          },
+          "pe": {
+            "imphash": "93a8925eab684dd7a9185fb2fd300e4f"
+          },
+          "name": "compareForfor.jpg",
+          "hash": {
+            "sha256": "26a33c08132522afb472337e37c2be0e5bf6af0da49944feef9cc68fa29af5d3"
+          }
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "rule": {
+          "name": "C0015-BALANCED"
+        },
+        "message": "Image loaded:\nRuleName: C0015-BALANCED\nUtcTime: 2026-11-21 05:10:05.285\nProcessGuid: {88E52A21-27AD-6B01-9000-000000003600}\nProcessId: 2844\nImage: C:\\Windows\\System32\\regsvr32.exe\nImageLoaded: C:\\Users\\Public\\compareForfor.jpg\nFileVersion: -\nDescription: -\nProduct: -\nCompany: -\nOriginalFileName: -\nHashes: SHA256=26A33C08132522AFB472337E37C2BE0E5BF6AF0DA49944FEEF9CC68FA29AF5D3,IMPHASH=93A8925EAB684DD7A9185FB2FD300E4F\nSigned: false\nSignature: -\nSignatureStatus: Unavailable\nUser: C0015\\duc.user",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-11-21T05:10:05.285Z",
+        "file": {
+          "path": "C:\\Users\\Public\\compareForfor.jpg",
+          "extension": "jpg",
+          "code_signature": {
+            "trusted": false,
+            "status": "Unavailable"
+          },
+          "pe": {
+            "imphash": "93a8925eab684dd7a9185fb2fd300e4f"
+          },
+          "name": "compareForfor.jpg",
+          "directory": "C:\\Users\\Public",
+          "hash": {
+            "sha256": "26a33c08132522afb472337e37c2be0e5bf6af0da49944feef9cc68fa29af5d3"
+          }
+        },
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "duc.user"
+          ],
+          "hash": [
+            "26a33c08132522afb472337e37c2be0e5bf6af0da49944feef9cc68fa29af5d3",
+            "93a8925eab684dd7a9185fb2fd300e4f"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-11-21T05:10:14Z",
+          "code": "7",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-11-21T05:10:06.966Z",
+          "kind": "event",
+          "action": [
+            "Image loaded",
+            "load"
+          ],
+          "category": [
+            "process",
+            "library"
+          ],
+          "type": [
+            "change",
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "duc.user",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 2
+    }
+  ]
+}

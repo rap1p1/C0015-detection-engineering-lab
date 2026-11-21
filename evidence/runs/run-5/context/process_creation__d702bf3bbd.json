@@ -1,0 +1,225 @@
+{
+  "behaviour": "process_creation",
+  "index": "logs-windows.sysmon_operational-*",
+  "identifier": {
+    "field": "process.entity_id",
+    "value": "{88E52A21-805F-6B01-EF00-000000003B00}",
+    "host": "ws01"
+  },
+  "alerts": [
+    "ef7f5d50c0384cfd3d3489f8d1581ce49d2f983a350d6cbc53a8c1f2d04ba83a"
+  ],
+  "queries": [
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-11-21T11:25:31.000Z",
+                  "lte": "2026-11-21T11:31:31.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "ws01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "1"
+              }
+            },
+            {
+              "term": {
+                "process.entity_id": "{88E52A21-805F-6B01-EF00-000000003B00}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-11-21T11:25:31.000Z",
+        "end": "2026-11-21T11:31:31.000Z"
+      },
+      "returned": 1,
+      "total": 1,
+      "relation": "eq"
+    }
+  ],
+  "returned": 1,
+  "truncated": false,
+  "sample": false,
+  "hits": [
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaH93e2TxY-KOnCR5KAZ",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "ephemeral_id": "e2cc1c8a-f840-45c1-a9df-e06829f24199",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "wmic",
+            "/node:FS01",
+            "/user:C0015\\Administrator",
+            "/password:***",
+            "process",
+            "call",
+            "create",
+            "cmd /c C:\\ProgramData\\run-def.cmd"
+          ],
+          "parent": {
+            "args": [
+              "C:\\Windows\\system32\\cmd.exe",
+              "/c",
+              "wmic /node:FS01 /user:C0015\\Administrator /password:*** process call create cmd",
+              "/c",
+              "C:\\ProgramData\\run-def.cmd"
+            ],
+            "name": "cmd.exe",
+            "pid": 6320,
+            "args_count": 5,
+            "entity_id": "{88E52A21-805F-6B01-ED00-000000003B00}",
+            "executable": "C:\\Windows\\System32\\cmd.exe",
+            "command_line": "\"C:\\Windows\\system32\\cmd.exe\" /c \"wmic /node:FS01 /user:C0015\\Administrator /password:*** process call create \"cmd /c C:\\ProgramData\\run-def.cmd\"\""
+          },
+          "pe": {
+            "file_version": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "527c7c66cdd13d72d793bca3a417bcbe",
+            "description": "WMI Commandline Utility",
+            "original_file_name": "wmic.exe",
+            "company": "Microsoft Corporation"
+          },
+          "name": "WMIC.exe",
+          "pid": 5908,
+          "working_directory": "C:\\Users\\Administrator\\Documents\\",
+          "args_count": 8,
+          "entity_id": "{88E52A21-805F-6B01-EF00-000000003B00}",
+          "hash": {
+            "sha256": "cd7ab08d987f6a2bfc7affa1c43c461cc483d8fbf40bca0b31a6c6194ea9abd4"
+          },
+          "executable": "C:\\Windows\\System32\\wbem\\WMIC.exe",
+          "command_line": "wmic  /node:FS01 /user:C0015\\Administrator /password:*** process call create \"cmd /c C:\\ProgramData\\run-def.cmd\""
+        },
+        "winlog": {
+          "computer_name": "WS01.c0015.lab",
+          "record_id": "1580062",
+          "process": {
+            "pid": 2416,
+            "thread": {
+              "id": 5368
+            }
+          },
+          "task": "Process Create (rule: ProcessCreate)",
+          "event_id": "1",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "LogonGuid": "{88E52A21-805F-6B01-8452-3D0000000000}",
+            "Description": "WMI Commandline Utility",
+            "TerminalSessionId": "0",
+            "IntegrityLevel": "High",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "ParentUser": "C0015\\Administrator",
+            "FileVersion": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "LogonId": "0x3d5284"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 5
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-11-21 11:28:31.832\nProcessGuid: {88E52A21-805F-6B01-EF00-000000003B00}\nProcessId: 5908\nImage: C:\\Windows\\System32\\wbem\\WMIC.exe\nFileVersion: 10.0.19041.3636 (WinBuild.160101.0800)\nDescription: WMI Commandline Utility\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: wmic.exe\nCommandLine: wmic  /node:FS01 /user:C0015\\Administrator /password:*** process call create \"cmd /c C:\\ProgramData\\run-def.cmd\"\nCurrentDirectory: C:\\Users\\Administrator\\Documents\\\nUser: C0015\\Administrator\nLogonGuid: {88E52A21-805F-6B01-8452-3D0000000000}\nLogonId: 0x3d5284\nTerminalSessionId: 0\nIntegrityLevel: High\nHashes: SHA256=CD7AB08D987F6A2BFC7AFFA1C43C461CC483D8FBF40BCA0B31A6C6194EA9ABD4,IMPHASH=527C7C66CDD13D72D793BCA3A417BCBE\nParentProcessGuid: {88E52A21-805F-6B01-ED00-000000003B00}\nParentProcessId: 6320\nParentImage: C:\\Windows\\System32\\cmd.exe\nParentCommandLine: \"C:\\Windows\\system32\\cmd.exe\" /c \"wmic /node:FS01 /user:C0015\\Administrator /password:*** process call create \"cmd /c C:\\ProgramData\\run-def.cmd\"\"\nParentUser: C0015\\Administrator",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-11-21T11:28:31.832Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "Administrator"
+          ],
+          "hash": [
+            "cd7ab08d987f6a2bfc7affa1c43c461cc483d8fbf40bca0b31a6c6194ea9abd4",
+            "527c7c66cdd13d72d793bca3a417bcbe"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-11-21T11:28:38Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-11-21T11:28:33.498Z",
+          "kind": "event",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "Administrator"
+        }
+      },
+      "query_index": 0
+    }
+  ]
+}

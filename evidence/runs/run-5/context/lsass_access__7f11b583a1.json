@@ -1,0 +1,56 @@
+{
+  "behaviour": "lsass_access",
+  "index": "logs-windows.sysmon_operational-*",
+  "identifier": {
+    "field": "process.entity_id",
+    "value": "{88E52A21-80B8-6B01-1A01-000000003B00}",
+    "host": "ws01"
+  },
+  "alerts": [
+    "402c5044339fb514ffee476b9189863b0a18a86352cc42eb2f6ec5ea074bcc8b"
+  ],
+  "queries": [
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-11-21T11:27:00.000Z",
+                  "lte": "2026-11-21T11:33:00.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "ws01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "10"
+              }
+            },
+            {
+              "term": {
+                "process.entity_id": "{88E52A21-80B8-6B01-1A01-000000003B00}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-11-21T11:27:00.000Z",
+        "end": "2026-11-21T11:33:00.000Z"
+      },
+      "returned": 0,
+      "total": 0,
+      "relation": "eq"
+    }
+  ],
+  "returned": 0,
+  "truncated": false,
+  "sample": false,
+  "hits": []
+}

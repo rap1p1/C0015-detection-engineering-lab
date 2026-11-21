@@ -1,0 +1,95 @@
+{
+  "behaviour": "file_creation",
+  "index": "logs-windows.sysmon_operational-*",
+  "identifier": {
+    "field": "process.parent.entity_id",
+    "value": "{88E52A21-7E55-6B01-9700-000000003B00}",
+    "host": "ws01"
+  },
+  "alerts": [
+    "555b221d5bde64c30a43e9a656be193988b81eb5a7ed9acdc2e619e6fa1f7c3c",
+    "74888b1400a1769e8fcfdcb2d90276b3e920ffa3b7ac9dfeba79e6157cc2b38a"
+  ],
+  "queries": [
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-11-21T11:16:53.000Z",
+                  "lte": "2026-11-21T11:22:53.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "ws01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "11"
+              }
+            },
+            {
+              "term": {
+                "process.parent.entity_id": "{88E52A21-7E55-6B01-9700-000000003B00}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-11-21T11:16:53.000Z",
+        "end": "2026-11-21T11:22:53.000Z"
+      },
+      "returned": 0,
+      "total": 0,
+      "relation": "eq"
+    },
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-11-21T11:16:53.000Z",
+                  "lte": "2026-11-21T11:22:53.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "ws01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "11"
+              }
+            },
+            {
+              "term": {
+                "process.parent.entity_id": "{88E52A21-7E55-6B01-9700-000000003B00}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-11-21T11:16:53.000Z",
+        "end": "2026-11-21T11:22:53.000Z"
+      },
+      "returned": 0,
+      "total": 0,
+      "relation": "eq"
+    }
+  ],
+  "returned": 0,
+  "truncated": false,
+  "sample": false,
+  "hits": []
+}

@@ -30,8 +30,8 @@ What the run contains:
 | R03 | 1 | untrusted module load |
 | R04 | 1 | agent runs the planted script |
 | R06 | 2 | Defender disabled before the injection and again after the reboot |
-| R07 | 6 | wmic calls from WS01 |
-| R08 | 6 | WMI children on FS01 |
+| R07 | 3 | wmic calls from WS01 |
+| R08 | 3 | WMI children on FS01 |
 | R10 | 1 | shadow copies |
 | R11 | 1 | rclone transfer |
 | R12 | 1 | locker invocation |
@@ -39,11 +39,11 @@ What the run contains:
 | R14 | 6 | three injections, two threads each: WS01, FS01 before reboot, FS01 after reboot |
 | R15 | 7 | module loads, including the post-reboot one |
 | R16 | 3 | DNS lookups for `checkauj.com` |
-| R17 | 3 | each lookup followed by the 443 connection from the same process identity |
+| R17 | 9 | three sequences, each stored as three alert documents (E22, E3, sequence) |
 | R19 | 1 | `schtasks /create ... /sc onstart` |
 
-R05 (LSA secret) and R18 (discovery) were **not exercised in this run**; they were exercised in run-3.
-The catalog records the window above, so their zeroes here are honest, not gaps in the rule.
+All eighteen shipped rules fired in this run, including R05 (two LSA-secret requests) and R18 (three
+discovery documents). R17 contributes nine alert documents because one sequence is stored as three.
 
 ## Persistence result
 

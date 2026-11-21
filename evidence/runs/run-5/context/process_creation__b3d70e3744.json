@@ -1,0 +1,215 @@
+{
+  "behaviour": "process_creation",
+  "index": "logs-windows.sysmon_operational-*",
+  "identifier": {
+    "field": "process.entity_id",
+    "value": "{88E52A21-8081-6B01-8100-000000002300}",
+    "host": "fs01"
+  },
+  "alerts": [
+    "5f3a7ee8eee0504d77f96b4acf07438bc85406068ba247006560cfa47d56277e"
+  ],
+  "queries": [
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-11-21T11:26:05.000Z",
+                  "lte": "2026-11-21T11:32:05.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "fs01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "1"
+              }
+            },
+            {
+              "term": {
+                "process.entity_id": "{88E52A21-8081-6B01-8100-000000002300}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-11-21T11:26:05.000Z",
+        "end": "2026-11-21T11:32:05.000Z"
+      },
+      "returned": 1,
+      "total": 1,
+      "relation": "eq"
+    }
+  ],
+  "returned": 1,
+  "truncated": false,
+  "sample": false,
+  "hits": [
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaH93u2TxY-KOnAA5eCT",
+      "_source": {
+        "agent": {
+          "name": "FS01",
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "type": "filebeat",
+          "ephemeral_id": "6fab4ab3-07bd-4e05-a902-393ba704c333",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\ProgramData\\ransomware-sim.exe",
+            "-m",
+            "-net",
+            "-size",
+            "10",
+            "-nomutex",
+            "-p",
+            "C:\\C0015\\corpus"
+          ],
+          "parent": {
+            "args": [
+              "powershell",
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-File",
+              "C:\\ProgramData\\fs01-task.ps1"
+            ],
+            "name": "powershell.exe",
+            "pid": 1796,
+            "args_count": 6,
+            "entity_id": "{88E52A21-807E-6B01-7C00-000000002300}",
+            "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "command_line": "powershell  -NoProfile -ExecutionPolicy Bypass -File C:\\ProgramData\\fs01-task.ps1"
+          },
+          "pe": {
+            "imphash": "9b1c32c8188bab095286168e66414a26"
+          },
+          "name": "ransomware-sim.exe",
+          "pid": 4784,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 8,
+          "entity_id": "{88E52A21-8081-6B01-8100-000000002300}",
+          "hash": {
+            "sha256": "3c44c9b44fe5c6caf63fde9ac13a73f8c471f13f01bbf08eebedb98742e12441"
+          },
+          "executable": "C:\\ProgramData\\ransomware-sim.exe",
+          "command_line": "\"C:\\ProgramData\\ransomware-sim.exe\" -m -net -size 10 -nomutex -p C:\\C0015\\corpus"
+        },
+        "winlog": {
+          "record_id": "883458",
+          "computer_name": "FS01.c0015.lab",
+          "process": {
+            "pid": 2552,
+            "thread": {
+              "id": 3700
+            }
+          },
+          "event_id": "1",
+          "task": "Process Create (rule: ProcessCreate)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "LogonGuid": "{88E52A21-807E-6B01-9B5F-0E0000000000}",
+            "IntegrityLevel": "High",
+            "TerminalSessionId": "0",
+            "ParentUser": "C0015\\Administrator",
+            "LogonId": "0xe5f9b"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 5
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-11-21 11:29:05.443\nProcessGuid: {88E52A21-8081-6B01-8100-000000002300}\nProcessId: 4784\nImage: C:\\ProgramData\\ransomware-sim.exe\nFileVersion: -\nDescription: -\nProduct: -\nCompany: -\nOriginalFileName: -\nCommandLine: \"C:\\ProgramData\\ransomware-sim.exe\" -m -net -size 10 -nomutex -p C:\\C0015\\corpus\nCurrentDirectory: C:\\Windows\\system32\\\nUser: C0015\\Administrator\nLogonGuid: {88E52A21-807E-6B01-9B5F-0E0000000000}\nLogonId: 0xe5f9b\nTerminalSessionId: 0\nIntegrityLevel: High\nHashes: SHA256=3C44C9B44FE5C6CAF63FDE9AC13A73F8C471F13F01BBF08EEBEDB98742E12441,IMPHASH=9B1C32C8188BAB095286168E66414A26\nParentProcessGuid: {88E52A21-807E-6B01-7C00-000000002300}\nParentProcessId: 1796\nParentImage: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\nParentCommandLine: powershell  -NoProfile -ExecutionPolicy Bypass -File C:\\ProgramData\\fs01-task.ps1\nParentUser: C0015\\Administrator",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-11-21T11:29:05.443Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "Administrator"
+          ],
+          "hash": [
+            "3c44c9b44fe5c6caf63fde9ac13a73f8c471f13f01bbf08eebedb98742e12441",
+            "9b1c32c8188bab095286168e66414a26"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "FS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "192.168.106.155",
+            "192.168.50.30"
+          ],
+          "name": "fs01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-3B-C6-18",
+            "00-0C-29-3B-C6-22"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-11-21T11:29:07Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "kind": "event",
+          "created": "2026-11-21T11:29:06.441Z",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "Administrator"
+        }
+      },
+      "query_index": 0
+    }
+  ]
+}

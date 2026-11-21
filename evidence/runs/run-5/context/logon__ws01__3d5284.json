@@ -1,0 +1,421 @@
+{
+  "behaviour": "logon",
+  "index": "logs-system.security-*",
+  "identifier": {
+    "field": "LogonId",
+    "value": "0x3d5284",
+    "host": "ws01",
+    "fields": [
+      "winlog.event_data.TargetLogonId",
+      "winlog.event_data.LogonId",
+      "winlog.event_data.SubjectLogonId"
+    ]
+  },
+  "alerts": [
+    "ef7f5d50c0384cfd3d3489f8d1581ce49d2f983a350d6cbc53a8c1f2d04ba83a",
+    "03af5b712109e544b3d6598eb7e0a04207aed19ecdf478a1308129bc839d2ea6"
+  ],
+  "queries": [
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-11-21T11:25:31.000Z",
+                  "lte": "2026-11-21T11:31:31.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "ws01"
+              }
+            },
+            {
+              "terms": {
+                "event.code": [
+                  "4624",
+                  "4625"
+                ]
+              }
+            },
+            {
+              "bool": {
+                "should": [
+                  {
+                    "term": {
+                      "winlog.event_data.TargetLogonId": "0x3d5284"
+                    }
+                  },
+                  {
+                    "term": {
+                      "winlog.event_data.LogonId": "0x3d5284"
+                    }
+                  },
+                  {
+                    "term": {
+                      "winlog.event_data.SubjectLogonId": "0x3d5284"
+                    }
+                  }
+                ],
+                "minimum_should_match": 1
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-11-21T11:25:31.000Z",
+        "end": "2026-11-21T11:31:31.000Z"
+      },
+      "returned": 1,
+      "total": 1,
+      "relation": "eq"
+    },
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-11-21T11:26:02.000Z",
+                  "lte": "2026-11-21T11:32:02.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "ws01"
+              }
+            },
+            {
+              "terms": {
+                "event.code": [
+                  "4624",
+                  "4625"
+                ]
+              }
+            },
+            {
+              "bool": {
+                "should": [
+                  {
+                    "term": {
+                      "winlog.event_data.TargetLogonId": "0x3d5284"
+                    }
+                  },
+                  {
+                    "term": {
+                      "winlog.event_data.LogonId": "0x3d5284"
+                    }
+                  },
+                  {
+                    "term": {
+                      "winlog.event_data.SubjectLogonId": "0x3d5284"
+                    }
+                  }
+                ],
+                "minimum_should_match": 1
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-11-21T11:26:02.000Z",
+        "end": "2026-11-21T11:32:02.000Z"
+      },
+      "returned": 1,
+      "total": 1,
+      "relation": "eq"
+    }
+  ],
+  "returned": 2,
+  "truncated": false,
+  "sample": false,
+  "hits": [
+    {
+      "_index": ".ds-logs-system.security-c0015-2026.10.24-000002",
+      "_id": "AaH93e2TxY-KOnCR46D5",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "ephemeral_id": "e2cc1c8a-f840-45c1-a9df-e06829f24199",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "pid": 0
+        },
+        "winlog": {
+          "computer_name": "WS01.c0015.lab",
+          "process": {
+            "pid": 676,
+            "thread": {
+              "id": 724
+            }
+          },
+          "keywords": [
+            "Audit Success"
+          ],
+          "logon": {
+            "id": "0x0",
+            "type": "Network"
+          },
+          "channel": "Security",
+          "event_data": {
+            "VirtualAccount": "No",
+            "LmPackageName": "NTLM V2",
+            "ElevatedToken": "Yes",
+            "TargetDomainName": "C0015",
+            "LogonProcessName": "NtLmSsp ",
+            "LogonType": "3",
+            "SubjectLogonId": "0x0",
+            "KeyLength": "128",
+            "TargetLogonId": "0x3d5284",
+            "TargetLinkedLogonId": "0x0",
+            "ImpersonationLevel": "Impersonation",
+            "TargetUserName": "Administrator",
+            "SubjectUserSid": "S-1-0-0",
+            "TargetUserSid": "S-1-5-21-497667922-586690666-3138289104-500",
+            "AuthenticationPackageName": "NTLM"
+          },
+          "opcode": "Info",
+          "version": 2,
+          "record_id": "40425",
+          "task": "Logon",
+          "event_id": "4624",
+          "provider_guid": "{54849625-5478-4994-a5ba-3e3b0328c30d}",
+          "activity_id": "{1eff39cd-79aa-0000-a73a-ff1eaa79dd01}",
+          "provider_name": "Microsoft-Windows-Security-Auditing"
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "source": {
+          "port": 60337,
+          "ip": "fe80::9ea9:d206:a0d3:755e",
+          "domain": "LAPTOP-R5EVJBNU"
+        },
+        "message": "An account was successfully logged on.\n\nSubject:\n\tSecurity ID:\t\tS-1-0-0\n\tAccount Name:\t\t-\n\tAccount Domain:\t\t-\n\tLogon ID:\t\t0x0\n\nLogon Information:\n\tLogon Type:\t\t3\n\tRestricted Admin Mode:\t-\n\tVirtual Account:\t\tNo\n\tElevated Token:\t\tYes\n\nImpersonation Level:\t\tImpersonation\n\nNew Logon:\n\tSecurity ID:\t\tS-1-5-21-497667922-586690666-3138289104-500\n\tAccount Name:\t\tAdministrator\n\tAccount Domain:\t\tC0015\n\tLogon ID:\t\t0x3D5284\n\tLinked Logon ID:\t\t0x0\n\tNetwork Account Name:\t-\n\tNetwork Account Domain:\t-\n\tLogon GUID:\t\t{00000000-0000-0000-0000-000000000000}\n\nProcess Information:\n\tProcess ID:\t\t0x0\n\tProcess Name:\t\t-\n\nNetwork Information:\n\tWorkstation Name:\tLAPTOP-R5EVJBNU\n\tSource Network Address:\tfe80::9ea9:d206:a0d3:755e\n\tSource Port:\t\t60337\n\nDetailed Authentication Information:\n\tLogon Process:\t\tNtLmSsp \n\tAuthentication Package:\tNTLM\n\tTransited Services:\t-\n\tPackage Name (NTLM only):\tNTLM V2\n\tKey Length:\t\t128\n\nThis event is generated when a logon session is created. It is generated on the computer that was accessed.\n\nThe subject fields indicate the account on the local system which requested the logon. This is most commonly a service such as the Server service, or a local process such as Winlogon.exe or Services.exe.\n\nThe logon type field indicates the kind of logon that occurred. The most common types are 2 (interactive) and 3 (network).\n\nThe New Logon fields indicate the account for whom the new logon was created, i.e. the account that was logged on.\n\nThe network fields indicate where a remote logon request originated. Workstation name is not always available and may be left blank in some cases.\n\nThe impersonation level field indicates the extent to which a process in the logon session can impersonate.\n\nThe authentication information fields provide detailed information about this specific logon request.\n\t- Logon GUID is a unique identifier that can be used to correlate this event with a KDC event.\n\t- Transited services indicate which intermediate services have participated in this logon request.\n\t- Package name indicates which sub-protocol was used among the NTLM protocols.\n\t- Key length indicates the length of the generated session key. This will be 0 if no session key was requested.",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-11-21T11:28:31.465Z",
+        "ecs": {
+          "version": "8.11.0"
+        },
+        "related": {
+          "ip": [
+            "fe80::9ea9:d206:a0d3:755e"
+          ],
+          "user": [
+            "Administrator"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "system.security"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-11-21T11:28:38Z",
+          "code": "4624",
+          "provider": "Microsoft-Windows-Security-Auditing",
+          "created": "2026-11-21T11:28:33.184Z",
+          "kind": "event",
+          "action": "logged-in",
+          "category": [
+            "authentication"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "system.security",
+          "outcome": "success"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "Administrator",
+          "id": "S-1-5-21-497667922-586690666-3138289104-500"
+        }
+      },
+      "query_index": 0
+    },
+    {
+      "_index": ".ds-logs-system.security-c0015-2026.10.24-000002",
+      "_id": "AaH93e2TxY-KOnCR46D5",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "ephemeral_id": "e2cc1c8a-f840-45c1-a9df-e06829f24199",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "pid": 0
+        },
+        "winlog": {
+          "computer_name": "WS01.c0015.lab",
+          "process": {
+            "pid": 676,
+            "thread": {
+              "id": 724
+            }
+          },
+          "keywords": [
+            "Audit Success"
+          ],
+          "logon": {
+            "id": "0x0",
+            "type": "Network"
+          },
+          "channel": "Security",
+          "event_data": {
+            "VirtualAccount": "No",
+            "LmPackageName": "NTLM V2",
+            "ElevatedToken": "Yes",
+            "TargetDomainName": "C0015",
+            "LogonProcessName": "NtLmSsp ",
+            "LogonType": "3",
+            "SubjectLogonId": "0x0",
+            "KeyLength": "128",
+            "TargetLogonId": "0x3d5284",
+            "TargetLinkedLogonId": "0x0",
+            "ImpersonationLevel": "Impersonation",
+            "TargetUserName": "Administrator",
+            "SubjectUserSid": "S-1-0-0",
+            "TargetUserSid": "S-1-5-21-497667922-586690666-3138289104-500",
+            "AuthenticationPackageName": "NTLM"
+          },
+          "opcode": "Info",
+          "version": 2,
+          "record_id": "40425",
+          "task": "Logon",
+          "event_id": "4624",
+          "provider_guid": "{54849625-5478-4994-a5ba-3e3b0328c30d}",
+          "activity_id": "{1eff39cd-79aa-0000-a73a-ff1eaa79dd01}",
+          "provider_name": "Microsoft-Windows-Security-Auditing"
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "source": {
+          "port": 60337,
+          "ip": "fe80::9ea9:d206:a0d3:755e",
+          "domain": "LAPTOP-R5EVJBNU"
+        },
+        "message": "An account was successfully logged on.\n\nSubject:\n\tSecurity ID:\t\tS-1-0-0\n\tAccount Name:\t\t-\n\tAccount Domain:\t\t-\n\tLogon ID:\t\t0x0\n\nLogon Information:\n\tLogon Type:\t\t3\n\tRestricted Admin Mode:\t-\n\tVirtual Account:\t\tNo\n\tElevated Token:\t\tYes\n\nImpersonation Level:\t\tImpersonation\n\nNew Logon:\n\tSecurity ID:\t\tS-1-5-21-497667922-586690666-3138289104-500\n\tAccount Name:\t\tAdministrator\n\tAccount Domain:\t\tC0015\n\tLogon ID:\t\t0x3D5284\n\tLinked Logon ID:\t\t0x0\n\tNetwork Account Name:\t-\n\tNetwork Account Domain:\t-\n\tLogon GUID:\t\t{00000000-0000-0000-0000-000000000000}\n\nProcess Information:\n\tProcess ID:\t\t0x0\n\tProcess Name:\t\t-\n\nNetwork Information:\n\tWorkstation Name:\tLAPTOP-R5EVJBNU\n\tSource Network Address:\tfe80::9ea9:d206:a0d3:755e\n\tSource Port:\t\t60337\n\nDetailed Authentication Information:\n\tLogon Process:\t\tNtLmSsp \n\tAuthentication Package:\tNTLM\n\tTransited Services:\t-\n\tPackage Name (NTLM only):\tNTLM V2\n\tKey Length:\t\t128\n\nThis event is generated when a logon session is created. It is generated on the computer that was accessed.\n\nThe subject fields indicate the account on the local system which requested the logon. This is most commonly a service such as the Server service, or a local process such as Winlogon.exe or Services.exe.\n\nThe logon type field indicates the kind of logon that occurred. The most common types are 2 (interactive) and 3 (network).\n\nThe New Logon fields indicate the account for whom the new logon was created, i.e. the account that was logged on.\n\nThe network fields indicate where a remote logon request originated. Workstation name is not always available and may be left blank in some cases.\n\nThe impersonation level field indicates the extent to which a process in the logon session can impersonate.\n\nThe authentication information fields provide detailed information about this specific logon request.\n\t- Logon GUID is a unique identifier that can be used to correlate this event with a KDC event.\n\t- Transited services indicate which intermediate services have participated in this logon request.\n\t- Package name indicates which sub-protocol was used among the NTLM protocols.\n\t- Key length indicates the length of the generated session key. This will be 0 if no session key was requested.",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-11-21T11:28:31.465Z",
+        "ecs": {
+          "version": "8.11.0"
+        },
+        "related": {
+          "ip": [
+            "fe80::9ea9:d206:a0d3:755e"
+          ],
+          "user": [
+            "Administrator"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "system.security"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-11-21T11:28:38Z",
+          "code": "4624",
+          "provider": "Microsoft-Windows-Security-Auditing",
+          "created": "2026-11-21T11:28:33.184Z",
+          "kind": "event",
+          "action": "logged-in",
+          "category": [
+            "authentication"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "system.security",
+          "outcome": "success"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "Administrator",
+          "id": "S-1-5-21-497667922-586690666-3138289104-500"
+        }
+      },
+      "query_index": 1
+    }
+  ]
+}

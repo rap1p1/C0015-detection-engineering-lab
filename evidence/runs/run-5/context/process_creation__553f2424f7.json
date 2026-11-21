@@ -1,0 +1,216 @@
+{
+  "behaviour": "process_creation",
+  "index": "logs-windows.sysmon_operational-*",
+  "identifier": {
+    "field": "process.entity_id",
+    "value": "{88E52A21-7E59-6B01-9B00-000000003B00}",
+    "host": "ws01"
+  },
+  "alerts": [
+    "555b221d5bde64c30a43e9a656be193988b81eb5a7ed9acdc2e619e6fa1f7c3c"
+  ],
+  "queries": [
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-11-21T11:16:53.000Z",
+                  "lte": "2026-11-21T11:22:53.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "ws01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "1"
+              }
+            },
+            {
+              "term": {
+                "process.entity_id": "{88E52A21-7E59-6B01-9B00-000000003B00}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-11-21T11:16:53.000Z",
+        "end": "2026-11-21T11:22:53.000Z"
+      },
+      "returned": 1,
+      "total": 1,
+      "relation": "eq"
+    }
+  ],
+  "returned": 1,
+  "truncated": false,
+  "sample": false,
+  "hits": [
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaH91e2TxY-KOnCkxPZi",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "ephemeral_id": "e2cc1c8a-f840-45c1-a9df-e06829f24199",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\Windows\\System32\\mshta.exe",
+            "C:\\Users\\Public\\C0015\\compareforfor.hta"
+          ],
+          "parent": {
+            "args": [
+              "C:\\Program Files\\Microsoft Office\\Root\\Office16\\WINWORD.EXE",
+              "C:\\Users\\Public\\Desktop\\decree-08.03.2021.docm"
+            ],
+            "name": "WINWORD.EXE",
+            "pid": 7552,
+            "args_count": 2,
+            "entity_id": "{88E52A21-7E55-6B01-9700-000000003B00}",
+            "executable": "C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE",
+            "command_line": "\"C:\\Program Files\\Microsoft Office\\Root\\Office16\\WINWORD.EXE\"  \"C:\\Users\\Public\\Desktop\\decree-08.03.2021.docm\""
+          },
+          "pe": {
+            "file_version": "11.00.19041.3636 (WinBuild.160101.0800)",
+            "product": "Internet Explorer",
+            "imphash": "482d661acb78b36340af7beb797951ee",
+            "description": "Microsoft (R) HTML Application host",
+            "original_file_name": "MSHTA.EXE",
+            "company": "Microsoft Corporation"
+          },
+          "name": "mshta.exe",
+          "pid": 7884,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 2,
+          "entity_id": "{88E52A21-7E59-6B01-9B00-000000003B00}",
+          "hash": {
+            "sha256": "90d204ccbd5290c6e4fcc39e9ec05f791300413136efd5b6b5710ec1347a6e1d"
+          },
+          "executable": "C:\\Windows\\System32\\mshta.exe",
+          "command_line": "\"C:\\Windows\\System32\\mshta.exe\"  \"C:\\Users\\Public\\C0015\\compareforfor.hta\""
+        },
+        "winlog": {
+          "record_id": "1577217",
+          "computer_name": "WS01.c0015.lab",
+          "process": {
+            "pid": 2416,
+            "thread": {
+              "id": 5368
+            }
+          },
+          "event_id": "1",
+          "task": "Process Create (rule: ProcessCreate)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "LogonGuid": "{88E52A21-7E37-6B01-156C-040000000000}",
+            "Description": "Microsoft (R) HTML Application host",
+            "TerminalSessionId": "1",
+            "IntegrityLevel": "Medium",
+            "Product": "Internet Explorer",
+            "ParentUser": "C0015\\duc.user",
+            "FileVersion": "11.00.19041.3636 (WinBuild.160101.0800)",
+            "LogonId": "0x46c15"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "version": 5,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-11-21 11:19:53.311\nProcessGuid: {88E52A21-7E59-6B01-9B00-000000003B00}\nProcessId: 7884\nImage: C:\\Windows\\System32\\mshta.exe\nFileVersion: 11.00.19041.3636 (WinBuild.160101.0800)\nDescription: Microsoft (R) HTML Application host\nProduct: Internet Explorer\nCompany: Microsoft Corporation\nOriginalFileName: MSHTA.EXE\nCommandLine: \"C:\\Windows\\System32\\mshta.exe\"  \"C:\\Users\\Public\\C0015\\compareforfor.hta\"\nCurrentDirectory: C:\\Windows\\system32\\\nUser: C0015\\duc.user\nLogonGuid: {88E52A21-7E37-6B01-156C-040000000000}\nLogonId: 0x46c15\nTerminalSessionId: 1\nIntegrityLevel: Medium\nHashes: SHA256=90D204CCBD5290C6E4FCC39E9EC05F791300413136EFD5B6B5710EC1347A6E1D,IMPHASH=482D661ACB78B36340AF7BEB797951EE\nParentProcessGuid: {88E52A21-7E55-6B01-9700-000000003B00}\nParentProcessId: 7552\nParentImage: C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE\nParentCommandLine: \"C:\\Program Files\\Microsoft Office\\Root\\Office16\\WINWORD.EXE\"  \"C:\\Users\\Public\\Desktop\\decree-08.03.2021.docm\"\nParentUser: C0015\\duc.user",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-11-21T11:19:53.311Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "duc.user"
+          ],
+          "hash": [
+            "90d204ccbd5290c6e4fcc39e9ec05f791300413136efd5b6b5710ec1347a6e1d",
+            "482d661acb78b36340af7beb797951ee"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-11-21T11:19:59Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "kind": "event",
+          "created": "2026-11-21T11:19:53.934Z",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "duc.user"
+        }
+      },
+      "query_index": 0
+    }
+  ]
+}

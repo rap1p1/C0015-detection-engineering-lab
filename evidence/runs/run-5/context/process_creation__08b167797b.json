@@ -1,0 +1,216 @@
+{
+  "behaviour": "process_creation",
+  "index": "logs-windows.sysmon_operational-*",
+  "identifier": {
+    "field": "process.parent.entity_id",
+    "value": "{88E52A21-7E59-6B01-9B00-000000003B00}",
+    "host": "ws01"
+  },
+  "alerts": [
+    "41f740128425d673f9708fe007ec39a4465fda5427f091e891e7da59683904c1"
+  ],
+  "queries": [
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-11-21T11:16:53.000Z",
+                  "lte": "2026-11-21T11:22:53.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "ws01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "1"
+              }
+            },
+            {
+              "term": {
+                "process.parent.entity_id": "{88E52A21-7E59-6B01-9B00-000000003B00}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-11-21T11:16:53.000Z",
+        "end": "2026-11-21T11:22:53.000Z"
+      },
+      "returned": 1,
+      "total": 1,
+      "relation": "eq"
+    }
+  ],
+  "returned": 1,
+  "truncated": false,
+  "sample": false,
+  "hits": [
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaH91e2TxY-KOnCkxPee",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "type": "filebeat",
+          "ephemeral_id": "e2cc1c8a-f840-45c1-a9df-e06829f24199",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\Windows\\System32\\regsvr32.exe",
+            "C:\\Users\\Public\\compareForfor.jpg"
+          ],
+          "parent": {
+            "args": [
+              "C:\\Windows\\System32\\mshta.exe",
+              "C:\\Users\\Public\\C0015\\compareforfor.hta"
+            ],
+            "name": "mshta.exe",
+            "pid": 7884,
+            "args_count": 2,
+            "entity_id": "{88E52A21-7E59-6B01-9B00-000000003B00}",
+            "executable": "C:\\Windows\\System32\\mshta.exe",
+            "command_line": "\"C:\\Windows\\System32\\mshta.exe\"  \"C:\\Users\\Public\\C0015\\compareforfor.hta\""
+          },
+          "pe": {
+            "file_version": "10.0.19041.1 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "0235ff9a007804882636bcccfb4d1a2f",
+            "description": "Microsoft(C) Register Server",
+            "original_file_name": "REGSVR32.EXE",
+            "company": "Microsoft Corporation"
+          },
+          "name": "regsvr32.exe",
+          "pid": 8004,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 2,
+          "entity_id": "{88E52A21-7E59-6B01-9D00-000000003B00}",
+          "hash": {
+            "sha256": "022cb167a29a32dae848be91aef721c74f1975af151807dafcc5ed832db246b7"
+          },
+          "executable": "C:\\Windows\\System32\\regsvr32.exe",
+          "command_line": "\"C:\\Windows\\System32\\regsvr32.exe\"  \"C:\\Users\\Public\\compareForfor.jpg\""
+        },
+        "winlog": {
+          "record_id": "1577240",
+          "computer_name": "WS01.c0015.lab",
+          "process": {
+            "pid": 2416,
+            "thread": {
+              "id": 5368
+            }
+          },
+          "task": "Process Create (rule: ProcessCreate)",
+          "event_id": "1",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "LogonGuid": "{88E52A21-7E37-6B01-156C-040000000000}",
+            "Description": "Microsoft(C) Register Server",
+            "TerminalSessionId": "1",
+            "IntegrityLevel": "Medium",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "ParentUser": "C0015\\duc.user",
+            "FileVersion": "10.0.19041.1 (WinBuild.160101.0800)",
+            "LogonId": "0x46c15"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "version": 5,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-11-21 11:19:53.821\nProcessGuid: {88E52A21-7E59-6B01-9D00-000000003B00}\nProcessId: 8004\nImage: C:\\Windows\\System32\\regsvr32.exe\nFileVersion: 10.0.19041.1 (WinBuild.160101.0800)\nDescription: Microsoft(C) Register Server\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: REGSVR32.EXE\nCommandLine: \"C:\\Windows\\System32\\regsvr32.exe\"  \"C:\\Users\\Public\\compareForfor.jpg\"\nCurrentDirectory: C:\\Windows\\system32\\\nUser: C0015\\duc.user\nLogonGuid: {88E52A21-7E37-6B01-156C-040000000000}\nLogonId: 0x46c15\nTerminalSessionId: 1\nIntegrityLevel: Medium\nHashes: SHA256=022CB167A29A32DAE848BE91AEF721C74F1975AF151807DAFCC5ED832DB246B7,IMPHASH=0235FF9A007804882636BCCCFB4D1A2F\nParentProcessGuid: {88E52A21-7E59-6B01-9B00-000000003B00}\nParentProcessId: 7884\nParentImage: C:\\Windows\\System32\\mshta.exe\nParentCommandLine: \"C:\\Windows\\System32\\mshta.exe\"  \"C:\\Users\\Public\\C0015\\compareforfor.hta\"\nParentUser: C0015\\duc.user",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-11-21T11:19:53.821Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "duc.user"
+          ],
+          "hash": [
+            "022cb167a29a32dae848be91aef721c74f1975af151807dafcc5ed832db246b7",
+            "0235ff9a007804882636bcccfb4d1a2f"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-11-21T11:19:59Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "kind": "event",
+          "created": "2026-11-21T11:19:55.878Z",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "C0015",
+          "name": "duc.user"
+        }
+      },
+      "query_index": 0
+    }
+  ]
+}

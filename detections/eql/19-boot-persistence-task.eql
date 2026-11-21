@@ -1,0 +1,4 @@
+process where event.code == "1"
+  and process.name : "schtasks.exe"
+  and process.command_line : "*/create *"
+  and process.command_line : "*/sc onstart*"

@@ -64,23 +64,24 @@ parsed and every field it names exists in this pipeline; the matches are in each
 
 | Rule | Matches | Behaviour |
 |---|---|---|
-| R01 | 1 | office spawns script host |
+| R01 | 2 | office spawns script host |
 | R02 | 1 | script host starts loader |
 | R03 | 1 | loader loads untrusted module |
 | R04 | 1 | agent executes planted script |
-| R05 | 1 | LSA secrets requested |
-| R06 | 1 | defender real-time protection disable requested |
-| R07 | 3 | wmi remote process creation |
-| R08 | 3 | wmi hosted child process |
+| R05 | 0 | LSA secrets requested |
+| R06 | 2 | defender real-time protection disable requested |
+| R07 | 6 | wmi remote process creation |
+| R08 | 6 | wmi hosted child process |
 | R10 | 1 | shadow copy deletion requested |
 | R11 | 1 | rclone transfer invocation |
 | R12 | 1 | locker simulator invocation |
 | R13 | 1 | script written into agent checks |
-| R14 | 4 | remote thread into service host |
-| R15 | 5 | module loaded from user path |
-| R16 | 2 | campaign-domain lookup |
-| R17 | 2 | same process resolves the domain then connects |
-| R18 | 4 | domain and trust discovery |
+| R14 | 6 | remote thread into service host |
+| R15 | 7 | module loaded from user path |
+| R16 | 3 | campaign-domain lookup |
+| R17 | 3 | same process resolves the domain then connects |
+| R18 | 0 | domain and trust discovery |
+| R19 | 1 | boot persistence task created |
 
 A match is not a verdict: the engine check proves the query and the fields, not precision. Every rule
 fires on this chain and every rule is an alert.

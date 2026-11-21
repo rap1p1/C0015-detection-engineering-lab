@@ -2,9 +2,9 @@
 
 Generated from [`catalog.json`](catalog.json) by `tools/detections/catalog.py`. Do not edit.
 
-- shipped rules: **17**
+- shipped rules: **18**
 - retired rules: **1**
-- roles: alert 15, building_block 2
+- roles: alert 16, building_block 2
 
 | ID | Rule | Role | Severity | ATT&CK | Query |
 |---|---|---|---|---|---|
@@ -25,6 +25,7 @@ Generated from [`catalog.json`](catalog.json) by `tools/detections/catalog.py`. 
 | C0015-R16 | campaign-domain lookup | alert | medium | T1071.004 Application Layer Protocol: DNS | [`16-dns-query-campaign-domain.eql`](eql/16-dns-query-campaign-domain.eql) |
 | C0015-R17 | same process resolves the domain then connects | alert | high | T1071.001 Application Layer Protocol: Web Protocols | [`17-dns-then-beacon-connection.eql`](eql/17-dns-then-beacon-connection.eql) |
 | C0015-R18 | domain and trust discovery | alert | medium | T1087.002 Account Discovery: Domain Account | [`18-discovery-commands.eql`](eql/18-discovery-commands.eql) |
+| C0015-R19 | boot persistence task created | alert | high | T1053.005 Scheduled Task/Job: Scheduled Task | [`19-boot-persistence-task.eql`](eql/19-boot-persistence-task.eql) |
 
 ## Retired
 

@@ -373,25 +373,26 @@ The rule set and its claims live in [`detections/catalog.json`](detections/catal
 [`detections/INDEX.md`](detections/INDEX.md) is generated from it. Roles separate finished alerts from
 and each entry records what it does not prove.
 
-| Rule | Behaviour | Role | ATT&CK | Matches on the 2026-11-20 run |
+| Rule | Behaviour | Role | ATT&CK | Matches on the last run |
 |---|---|---|---|---|
-| R01 | office spawns script host | alert | T1204.002 | 1 |
+| R01 | office spawns script host | alert | T1204.002 | 2 |
 | R02 | script host starts loader | alert | T1218.010 | 1 |
 | R03 | loader loads untrusted module | alert | T1218.010 | 1 |
 | R04 | agent executes planted script | alert | T1059.001 | 1 |
-| R05 | LSA secrets requested | alert | T1003.004 | 1 |
-| R06 | defender real-time protection disable requested | alert | T1562.001 | 1 |
-| R07 | wmi remote process creation | alert | T1047 | 3 |
-| R08 | wmi hosted child process | building_block | T1047 | 3 |
+| R05 | LSA secrets requested | alert | T1003.004 | 0 |
+| R06 | defender real-time protection disable requested | alert | T1562.001 | 2 |
+| R07 | wmi remote process creation | alert | T1047 | 6 |
+| R08 | wmi hosted child process | building_block | T1047 | 6 |
 | R10 | shadow copy deletion requested | alert | T1490 | 1 |
 | R11 | rclone transfer invocation | alert | T1567.002 | 1 |
 | R12 | locker simulator invocation | alert | T1486 | 1 |
 | R13 | script written into agent checks | alert | T1574.010 | 1 |
-| R14 | remote thread into service host | alert | T1055 | 4 |
-| R15 | module loaded from user path | building_block | T1574 | 5 |
-| R16 | campaign-domain lookup | alert | T1071.004 | 2 |
-| R17 | same process resolves the domain then connects | alert | T1071.001 | 2 |
-| R18 | domain and trust discovery | alert | T1087.002 | 4 |
+| R14 | remote thread into service host | alert | T1055 | 6 |
+| R15 | module loaded from user path | building_block | T1574 | 7 |
+| R16 | campaign-domain lookup | alert | T1071.004 | 3 |
+| R17 | same process resolves the domain then connects | alert | T1071.001 | 3 |
+| R18 | domain and trust discovery | alert | T1087.002 | 0 |
+| R19 | boot persistence task created | alert | T1053.005 | 1 |
 
 A match is not a verdict. The engine check proves the query parses and the fields exist; precision is
 measured against the run, not assumed. All counts come from one run window, `16:45Z -> 17:05Z`: the document, the injection, the discovery, the WMI pivot, the exfiltration and the impact. The per-hit notes are in [`detections/validation.md`](detections/validation.md).

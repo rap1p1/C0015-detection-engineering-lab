@@ -13,3 +13,5 @@ What the lab substitutes for the campaign, and what it cannot show.
 
 The source report does not document the privilege step, so the lab makes it explicit instead of pretending
 it was observed.
+
+| Persistence across reboot | a scheduled task created by the payload at run time | proves the creation path, not GPO or logon-script persistence |

@@ -15,6 +15,7 @@
 | R10 | shadow copies deleted |
 | R11 | `rclone.exe` transfer invocation |
 | R12 | the locker starts with its name and the full flag set |
+| R19 | `C0015Persist` is created with `/sc onstart /ru SYSTEM` |
 
 ## Investigation
 
@@ -24,14 +25,17 @@
    E7 for `beacon.dll` comes from `svchost.exe`, not from `rundll32.exe`.
 4. Confirm the DNS lookup and the 443 connection belong to the same `process.entity_id`.
 5. Confirm rclone's command line and exit code; there is no receiver inventory.
-6. Confirm the shadow copies were deleted and the corpus was renamed with notes.
+6. Confirm the boot task was created by the payload and that the beacon returned after the reboot.
+7. Confirm the shadow copies were deleted and the corpus was renamed with notes.
 
 ## What the chain proves and does not
 
 - Proves: the recovered domain administrator credential was used for remote execution, privilege
   escalation on FS01 (SYSTEM through the service host) and impact.
-- Does not prove: persistence across a reboot, that data reached the cloud remote, or that the encryption
-  is reversible. The injector runs code in an existing service host; it does not install a service.
+- Proves: persistence across one reboot. `C0015Persist` was created from the payload, the host was
+  rebooted, and a new beacon session appeared in `svchost.exe` (PID 788).
+- Does not prove: survival of the task being deleted, delivery to the cloud remote, or reversible
+  encryption. The task runs the injector; it does not install a service.
 
 ## Evidence to capture
 

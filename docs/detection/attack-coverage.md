@@ -23,6 +23,7 @@ campaign achieved.
 | Command and Control | T1071.004 Application Layer Protocol: DNS | C0015-R16 | alert | A host resolves the campaign domain used by the C2 listener. | Domain-specific; a rotated domain or a direct-IP implant is missed. A DNS query alone does not prove a tunnel. |
 | Command and Control | T1071.001 Application Layer Protocol: Web Protocols | C0015-R17 | alert | The same process resolves checkauj.com and then opens 443 to the listener. | Lab listener address; join is host and process identity, so a resolver in one process and a connection in another will not match. |
 | Discovery | T1087.002 Account Discovery: Domain Account | C0015-R18 | alert | net or nltest enumerates domain admins, local administrators, trusts or the domain computer list. | Administrators run the same commands; correlate with the session that spawned them and the host role. |
+| Persistence | T1053.005 Scheduled Task/Job: Scheduled Task | C0015-R19 | alert | A task is created to run at boot; the command line is recorded for triage. | Installers and maintenance agents also create boot tasks; the account, the binary and the host role decide. |
 
 ## Not covered by a rule
 

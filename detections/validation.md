@@ -1,63 +1,64 @@
 # Validation - one run, one window
 
-The whole chain was exercised once, with the beacon generated against the campaign domain, and every
-shipped rule was checked inside that single window.
+The chain was exercised end to end, including boot persistence, in a single window.
 
 | | |
 |---|---|
-| Window | `2026-11-20T16:45:00Z` - `2026-11-20T17:05:00Z` |
+| Window | `2026-11-21T05:00:00Z` - `2026-11-21T05:35:00Z` |
 | Stack | Elasticsearch 9.5.3, Sysmon profile `infra/sysmon/sysmon-c0015-balanced.xml` |
-| Rule set | 17 shipped, 1 retired (R09) |
-| Matches | 33 |
-| Kibana alerts | 35 in `16:45-17:10Z` (the scheduler window runs past the engine window) |
+| Rule set | 18 shipped, 1 retired (R09) |
+| Matches | 44 |
 
 What the run contains:
 
-- document open on WS01, macro writes `config.ini` and the HTA, `mshta`, `regsvr32`, loader drops
-  `update.ps1`;
-- HealthMonitor runs the script as SYSTEM, downloads `injector.dll` and `beacon.dll`, starts
-  `rundll32 injector.dll,Run`; the injector puts the beacon into a SYSTEM `svchost.exe`;
-- discovery from the SYSTEM context: `net group "domain admins" /dom`, `net localgroup administrator`,
-  `nltest /domain_trusts /all_trusts`, `net view /all /domain`, `tasklist /s FS01`, `ping`;
-- `mimikatz lsadump::secrets` returns the `_SC_C0015Backup` secret for `C0015\Administrator`;
-- WMI from WS01 disables Defender on FS01, then runs `143.dll` (the injector) and the beacon lands in a
-  SYSTEM `svchost.exe` on FS01;
-- `fs01-task.ps1`: defences pass, injection pass, `rclone` exit 0, `vssadmin delete shadows`, locker
-  `renamed=40; notes=4`.
+- document on WS01, macro writes `config.ini` and the HTA, `mshta`, `regsvr32`, loader drops `update.ps1`;
+- HealthMonitor runs the script as SYSTEM, downloads `injector.dll` and `beacon.dll`, starts the
+  injector; the beacon lands in a SYSTEM `svchost.exe`;
+- WMI from WS01 disables Defender on FS01, runs `143.dll`, and the beacon lands in `svchost.exe` there;
+- **`persist-task.ps1` creates `C0015Persist` (`/sc onstart /ru SYSTEM`) from the payload**; FS01 is
+  rebooted and the injector runs from the task, so the beacon returns in a new `svchost.exe` (PID 788);
+- after the reboot the task re-disables Defender, runs `rclone` (exit 0), deletes shadow copies and runs
+  the locker (`renamed=40; notes=4`).
 
-## Injection hits
+## What each rule saw
 
-Each injection starts two remote threads, so R14 counts two events per attempt.
-
-| Host | Threads | Count |
+| Rule | Matches | Note |
 |---|---|---|
-| WS01 | LoadLibrary + StartW | 2 |
-| FS01 | LoadLibrary + StartW | 2 |
+| R01 | 2 | Word to script host |
+| R02 | 1 | script host to regsvr32 |
+| R03 | 1 | untrusted module load |
+| R04 | 1 | agent runs the planted script |
+| R06 | 2 | Defender disabled before the injection and again after the reboot |
+| R07 | 6 | wmic calls from WS01 |
+| R08 | 6 | WMI children on FS01 |
+| R10 | 1 | shadow copies |
+| R11 | 1 | rclone transfer |
+| R12 | 1 | locker invocation |
+| R13 | 1 | script written into checks |
+| R14 | 6 | three injections, two threads each: WS01, FS01 before reboot, FS01 after reboot |
+| R15 | 7 | module loads, including the post-reboot one |
+| R16 | 3 | DNS lookups for `checkauj.com` |
+| R17 | 3 | each lookup followed by the 443 connection from the same process identity |
+| R19 | 1 | `schtasks /create ... /sc onstart` |
 
-R15 has five matches:
+R05 (LSA secret) and R18 (discovery) were **not exercised in this run**; they were exercised in run-3.
+The catalog records the window above, so their zeroes here are honest, not gaps in the rule.
 
-- `svchost.exe` loads `beacon.dll` on WS01 and on FS01: the target side of the injection;
-- `rundll32.exe` loads `beacon.dll` on both hosts: the injector's own local mapping;
-- `rundll32.exe` loads `injector.dll`: the injector itself.
+## Persistence result
 
-Two of the five confirm the service-host load; the others are the source side. That is why R15 is a
-building block.
+| Check | Result |
+|---|---|
+| Task created by the payload | `C0015Persist`, `Status: Ready` |
+| Task runs at boot | yes, `Last Run` after the reboot |
+| Beacon after reboot | new session `a796ef3b` in `svchost.exe` (PID 788), user `C0015\FS01$` |
+| Impact after reboot | `fs01_task.log` all gates pass, `renamed=40; notes=4` |
 
-## Network and discovery hits
-
-| Rule | Count | What it saw |
-|---|---|---|
-| R16 | 2 | `svchost.exe` resolves exactly `checkauj.com` on WS01 and FS01 |
-| R17 | 2 | the same process identity (host + `process.entity_id`) resolves the domain and then connects to `192.168.50.100:443`; WS01 `{88E52A21-7A5E-...3200}`, FS01 `{88E52A21-6F73-...1B00}` |
-| R18 | 4 | `net.exe` and its child `net1.exe` for `net group "domain admins"`, `nltest` for the trusts, `net view` for the domain list. `ping` and `tasklist` were run but are not part of the query. |
-
-The IP-based beacon from earlier runs produced no DNS event at all. This run uses the domain, so E22 and
-E3 are both present, and the two network rules no longer need a separate run.
+Defender re-enabled itself at boot; the task had to disable it again before the impact step. That is a
+property of the lab image, not of the chain.
 
 ## Limits
 
-- E8 is collected only for `svchost.exe` targets (profile filter); injection into other processes is out
-  of scope for R14.
-- E7 includes all of `C:\ProgramData\`; the `c0015` entry sits inside that broader include.
-- There is no receiver-side evidence for the exfiltration; R11 proves the invocation, not the delivery.
-- A match is not a verdict: the engine proves the query and the fields, not precision.
+- E8 is collected only for `svchost.exe` targets; injection into other processes is out of scope for R14.
+- E7 includes all of `C:\ProgramData\`; the `c0015` entry is inside that broader include.
+- No receiver-side evidence for exfiltration; R11 proves the invocation, not the delivery.
+- A match is not a verdict.

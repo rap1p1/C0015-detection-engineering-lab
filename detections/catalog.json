@@ -36,10 +36,10 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T16:45:00Z",
-          "end": "2026-11-20T17:05:00Z"
+          "start": "2026-11-21T05:00:00Z",
+          "end": "2026-11-21T05:35:00Z"
         },
-        "matches": 1,
+        "matches": 2,
         "truncated": false,
         "error": null,
         "note": "Query parse and field existence only; matches are not classified as true or false positives."
@@ -80,8 +80,8 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T16:45:00Z",
-          "end": "2026-11-20T17:05:00Z"
+          "start": "2026-11-21T05:00:00Z",
+          "end": "2026-11-21T05:35:00Z"
         },
         "matches": 1,
         "truncated": false,
@@ -124,8 +124,8 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T16:45:00Z",
-          "end": "2026-11-20T17:05:00Z"
+          "start": "2026-11-21T05:00:00Z",
+          "end": "2026-11-21T05:35:00Z"
         },
         "matches": 1,
         "truncated": false,
@@ -168,8 +168,8 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T16:45:00Z",
-          "end": "2026-11-20T17:05:00Z"
+          "start": "2026-11-21T05:00:00Z",
+          "end": "2026-11-21T05:35:00Z"
         },
         "matches": 1,
         "truncated": false,
@@ -212,10 +212,10 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T16:45:00Z",
-          "end": "2026-11-20T17:05:00Z"
+          "start": "2026-11-21T05:00:00Z",
+          "end": "2026-11-21T05:35:00Z"
         },
-        "matches": 1,
+        "matches": 0,
         "truncated": false,
         "error": null,
         "note": "Query parse and field existence only; matches are not classified as true or false positives."
@@ -256,10 +256,10 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T16:45:00Z",
-          "end": "2026-11-20T17:05:00Z"
+          "start": "2026-11-21T05:00:00Z",
+          "end": "2026-11-21T05:35:00Z"
         },
-        "matches": 1,
+        "matches": 2,
         "truncated": false,
         "error": null,
         "note": "Query parse and field existence only; matches are not classified as true or false positives."
@@ -300,10 +300,10 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T16:45:00Z",
-          "end": "2026-11-20T17:05:00Z"
+          "start": "2026-11-21T05:00:00Z",
+          "end": "2026-11-21T05:35:00Z"
         },
-        "matches": 3,
+        "matches": 6,
         "truncated": false,
         "error": null,
         "note": "Query parse and field existence only; matches are not classified as true or false positives."
@@ -344,10 +344,10 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T16:45:00Z",
-          "end": "2026-11-20T17:05:00Z"
+          "start": "2026-11-21T05:00:00Z",
+          "end": "2026-11-21T05:35:00Z"
         },
-        "matches": 3,
+        "matches": 6,
         "truncated": false,
         "error": null,
         "note": "Query parse and field existence only; matches are not classified as true or false positives."
@@ -434,8 +434,8 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T16:45:00Z",
-          "end": "2026-11-20T17:05:00Z"
+          "start": "2026-11-21T05:00:00Z",
+          "end": "2026-11-21T05:35:00Z"
         },
         "matches": 1,
         "truncated": false,
@@ -478,8 +478,8 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T16:45:00Z",
-          "end": "2026-11-20T17:05:00Z"
+          "start": "2026-11-21T05:00:00Z",
+          "end": "2026-11-21T05:35:00Z"
         },
         "matches": 1,
         "truncated": false,
@@ -522,8 +522,8 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T16:45:00Z",
-          "end": "2026-11-20T17:05:00Z"
+          "start": "2026-11-21T05:00:00Z",
+          "end": "2026-11-21T05:35:00Z"
         },
         "matches": 1,
         "truncated": false,
@@ -566,8 +566,8 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T16:45:00Z",
-          "end": "2026-11-20T17:05:00Z"
+          "start": "2026-11-21T05:00:00Z",
+          "end": "2026-11-21T05:35:00Z"
         },
         "matches": 1,
         "truncated": false,
@@ -610,10 +610,10 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T16:45:00Z",
-          "end": "2026-11-20T17:05:00Z"
+          "start": "2026-11-21T05:00:00Z",
+          "end": "2026-11-21T05:35:00Z"
         },
-        "matches": 4,
+        "matches": 6,
         "truncated": false,
         "error": null,
         "note": "Query parse and field existence only; matches are not classified as true or false positives."
@@ -654,10 +654,10 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T16:45:00Z",
-          "end": "2026-11-20T17:05:00Z"
+          "start": "2026-11-21T05:00:00Z",
+          "end": "2026-11-21T05:35:00Z"
         },
-        "matches": 5,
+        "matches": 7,
         "truncated": false,
         "error": null,
         "note": "Query parse and field existence only; matches are not classified as true or false positives."
@@ -698,10 +698,10 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T16:45:00Z",
-          "end": "2026-11-20T17:05:00Z"
+          "start": "2026-11-21T05:00:00Z",
+          "end": "2026-11-21T05:35:00Z"
         },
-        "matches": 2,
+        "matches": 3,
         "truncated": false,
         "error": null,
         "note": "Query parse and field existence only; matches are not classified as true or false positives."
@@ -743,10 +743,10 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T16:45:00Z",
-          "end": "2026-11-20T17:05:00Z"
+          "start": "2026-11-21T05:00:00Z",
+          "end": "2026-11-21T05:35:00Z"
         },
-        "matches": 2,
+        "matches": 3,
         "truncated": false,
         "error": null,
         "note": "Query parse and field existence only; matches are not classified as true or false positives."
@@ -787,10 +787,54 @@
         "kind": "engine_run",
         "engine": "elasticsearch 9.5.3",
         "window": {
-          "start": "2026-11-20T16:45:00Z",
-          "end": "2026-11-20T17:05:00Z"
+          "start": "2026-11-21T05:00:00Z",
+          "end": "2026-11-21T05:35:00Z"
         },
-        "matches": 4,
+        "matches": 0,
+        "truncated": false,
+        "error": null,
+        "note": "Query parse and field existence only; matches are not classified as true or false positives."
+      }
+    },
+    {
+      "id": "C0015-R19",
+      "revision": 1,
+      "name": "boot persistence task created",
+      "file": "detections/eql/19-boot-persistence-task.eql",
+      "sha256": "a2e31c4c7cc3243862d8f1c8b2147ad934a80709156045c22cce5202e82f7430",
+      "status": "shipped",
+      "role": "alert",
+      "severity": "high",
+      "risk_score": 73,
+      "attck": {
+        "tactic_id": "TA0003",
+        "tactic_name": "Persistence",
+        "technique_id": "T1053.005",
+        "technique_name": "Scheduled Task/Job: Scheduled Task"
+      },
+      "description": "A task is created to run at boot; the command line is recorded for triage.",
+      "limitations": "Installers and maintenance agents also create boot tasks; the account, the binary and the host role decide.",
+      "prerequisites": [
+        "Sysmon 1"
+      ],
+      "deployment": {
+        "index": [
+          "logs-windows.sysmon_operational-*"
+        ],
+        "timestamp_field": "@timestamp",
+        "interval": "1m",
+        "lookback": "now-3m",
+        "max_signals": 100,
+        "enabled": true
+      },
+      "validation": {
+        "kind": "engine_run",
+        "engine": "elasticsearch 9.5.3",
+        "window": {
+          "start": "2026-11-21T05:00:00Z",
+          "end": "2026-11-21T05:35:00Z"
+        },
+        "matches": 1,
         "truncated": false,
         "error": null,
         "note": "Query parse and field existence only; matches are not classified as true or false positives."

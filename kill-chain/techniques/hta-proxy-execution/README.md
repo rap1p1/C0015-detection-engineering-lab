@@ -20,4 +20,12 @@ commands and the checks after each step. Anything this phase writes is listed in
 <!-- Elastic capture for this phase: elastic-hta-proxy-execution.png -->
 <!-- Manual capture for this phase: manual-hta-proxy-execution.png -->
 
-No capture yet: the chain is being rebuilt and the first run of this design has not been recorded.
+Run 6, 2026-11-21, WS01.
+
+| UTC | Event | Locator | Excerpt |
+|---|---|---|---|
+| 11:48:10.978 | E1 | `AaH97-2TxY-KOnGPUq0_` | `mshta.exe  "C:\Users\Public\C0015\compareforfor.hta"`, parent `WINWORD.EXE` |
+| 11:48:12.233 | E1 | `AaH97-2TxY-KOnGPUq1e` | `regsvr32.exe  "C:\Users\Public\compareForfor.jpg"`, parent `mshta.exe` |
+
+The proxy edge is the chain `WINWORD.EXE -> mshta.exe -> regsvr32.exe`: Word never starts `regsvr32`
+directly.

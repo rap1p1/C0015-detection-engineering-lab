@@ -446,7 +446,7 @@
       "revision": 1,
       "name": "locker simulator invocation",
       "file": "detections/eql/12-locker-invocation.eql",
-      "sha256": "05b99b0ef6d7da4b7ee4787ea2c2ecccbb7d5e0e051f076e609ee482e688d8c5",
+      "sha256": "8beae69d5fbbd60d8ed0d77b98780c079a6b1f65fc2c1cc6aa60ce006c35a084",
       "status": "shipped",
       "role": "alert",
       "severity": "high",

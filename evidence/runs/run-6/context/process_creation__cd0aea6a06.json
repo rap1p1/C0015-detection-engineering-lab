@@ -1,0 +1,222 @@
+{
+  "behaviour": "process_creation",
+  "index": "logs-windows.sysmon_operational-*",
+  "identifier": {
+    "field": "process.entity_id",
+    "value": "{88E52A21-8928-6B01-8400-000000002500}",
+    "host": "fs01"
+  },
+  "alerts": [
+    "50ec9fa4db540cfcf0ee097a4231128bf4c84a42c7d348c5c7a329b89f8690fe"
+  ],
+  "queries": [
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-11-21T12:03:00.000Z",
+                  "lte": "2026-11-21T12:09:00.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "fs01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "1"
+              }
+            },
+            {
+              "term": {
+                "process.entity_id": "{88E52A21-8928-6B01-8400-000000002500}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-11-21T12:03:00.000Z",
+        "end": "2026-11-21T12:09:00.000Z"
+      },
+      "returned": 1,
+      "total": 1,
+      "relation": "eq"
+    }
+  ],
+  "returned": 1,
+  "truncated": false,
+  "sample": false,
+  "hits": [
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaH9_-2TxY-KOnHLj1ep",
+      "_source": {
+        "agent": {
+          "name": "FS01",
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "ephemeral_id": "029c2f1b-a216-41d7-956b-860f348fdc4d",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\Windows\\system32\\vssadmin.exe",
+            "delete",
+            "shadows",
+            "/all",
+            "/quiet"
+          ],
+          "parent": {
+            "args": [
+              "powershell",
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-File",
+              "C:\\ProgramData\\fs01-task.ps1"
+            ],
+            "name": "powershell.exe",
+            "pid": 3504,
+            "args_count": 6,
+            "entity_id": "{88E52A21-8926-6B01-8200-000000002500}",
+            "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "command_line": "powershell  -NoProfile -ExecutionPolicy Bypass -File C:\\ProgramData\\fs01-task.ps1"
+          },
+          "pe": {
+            "file_version": "10.0.19041.1 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "c1edc431cd345f0a0f32019895d13fce",
+            "description": "Command Line Interface for Microsoft\u00ae Volume Shadow Copy Service ",
+            "original_file_name": "VSSADMIN.EXE",
+            "company": "Microsoft Corporation"
+          },
+          "name": "vssadmin.exe",
+          "pid": 5020,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 5,
+          "entity_id": "{88E52A21-8928-6B01-8400-000000002500}",
+          "hash": {
+            "sha256": "8c1fabcc2196e4d096b7d155837c5f699ad7f55edbf84571e4f8e03500b7a8b0"
+          },
+          "executable": "C:\\Windows\\System32\\vssadmin.exe",
+          "command_line": "\"C:\\Windows\\system32\\vssadmin.exe\" delete shadows /all /quiet"
+        },
+        "winlog": {
+          "record_id": "901260",
+          "computer_name": "FS01.c0015.lab",
+          "process": {
+            "pid": 2440,
+            "thread": {
+              "id": 3464
+            }
+          },
+          "event_id": "1",
+          "task": "Process Create (rule: ProcessCreate)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "LogonGuid": "{88E52A21-87FE-6B01-E703-000000000000}",
+            "Description": "Command Line Interface for Microsoft\u00ae Volume Shadow Copy Service ",
+            "IntegrityLevel": "System",
+            "TerminalSessionId": "0",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "ParentUser": "NT AUTHORITY\\SYSTEM",
+            "FileVersion": "10.0.19041.1 (WinBuild.160101.0800)",
+            "LogonId": "0x3e7"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 5
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "c2752d54-6aa0-40f3-ab8e-4e7ec9092a55",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-11-21 12:06:00.760\nProcessGuid: {88E52A21-8928-6B01-8400-000000002500}\nProcessId: 5020\nImage: C:\\Windows\\System32\\vssadmin.exe\nFileVersion: 10.0.19041.1 (WinBuild.160101.0800)\nDescription: Command Line Interface for Microsoft\u00ae Volume Shadow Copy Service \nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: VSSADMIN.EXE\nCommandLine: \"C:\\Windows\\system32\\vssadmin.exe\" delete shadows /all /quiet\nCurrentDirectory: C:\\Windows\\system32\\\nUser: NT AUTHORITY\\SYSTEM\nLogonGuid: {88E52A21-87FE-6B01-E703-000000000000}\nLogonId: 0x3e7\nTerminalSessionId: 0\nIntegrityLevel: System\nHashes: SHA256=8C1FABCC2196E4D096B7D155837C5F699AD7F55EDBF84571E4F8E03500B7A8B0,IMPHASH=C1EDC431CD345F0A0F32019895D13FCE\nParentProcessGuid: {88E52A21-8926-6B01-8200-000000002500}\nParentProcessId: 3504\nParentImage: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\nParentCommandLine: powershell  -NoProfile -ExecutionPolicy Bypass -File C:\\ProgramData\\fs01-task.ps1\nParentUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-11-21T12:06:00.760Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ],
+          "hash": [
+            "8c1fabcc2196e4d096b7d155837c5f699ad7f55edbf84571e4f8e03500b7a8b0",
+            "c1edc431cd345f0a0f32019895d13fce"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "FS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "family": "windows",
+            "type": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "192.168.106.155",
+            "192.168.50.30"
+          ],
+          "name": "fs01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-3B-C6-18",
+            "00-0C-29-3B-C6-22"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-11-21T12:06:01Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "kind": "event",
+          "created": "2026-11-21T12:06:01.717Z",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    }
+  ]
+}

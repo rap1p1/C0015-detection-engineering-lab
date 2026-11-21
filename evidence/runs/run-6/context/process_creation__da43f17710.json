@@ -1,0 +1,384 @@
+{
+  "behaviour": "process_creation",
+  "index": "logs-windows.sysmon_operational-*",
+  "identifier": {
+    "field": "process.parent.entity_id",
+    "value": "{88E52A21-85F1-6B01-D200-000000003D00}",
+    "host": "ws01"
+  },
+  "alerts": [
+    "d942612d01e247a1543f6f23ca39cd29c5f318d8c10d40e9efd377995cd54fd3"
+  ],
+  "queries": [
+    {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "2026-11-21T11:49:17.000Z",
+                  "lte": "2026-11-21T11:55:17.000Z"
+                }
+              }
+            },
+            {
+              "term": {
+                "host.name": "ws01"
+              }
+            },
+            {
+              "term": {
+                "event.code": "1"
+              }
+            },
+            {
+              "term": {
+                "process.parent.entity_id": "{88E52A21-85F1-6B01-D200-000000003D00}"
+              }
+            }
+          ]
+        }
+      },
+      "window": {
+        "start": "2026-11-21T11:49:17.000Z",
+        "end": "2026-11-21T11:55:17.000Z"
+      },
+      "returned": 2,
+      "total": 2,
+      "relation": "eq"
+    }
+  ],
+  "returned": 2,
+  "truncated": false,
+  "sample": false,
+  "hits": [
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaH98-2TxY-KOnFQXSsj",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "ephemeral_id": "d6f7963e-bdd7-4805-98d2-8753f7996dc9",
+          "type": "filebeat",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "\\??\\C:\\Windows\\system32\\conhost.exe",
+            "0xffffffff",
+            "-ForceV1"
+          ],
+          "parent": {
+            "args": [
+              "net.exe",
+              "group",
+              "domain admins",
+              "/dom"
+            ],
+            "name": "net.exe",
+            "pid": 1872,
+            "args_count": 4,
+            "entity_id": "{88E52A21-85F1-6B01-D200-000000003D00}",
+            "executable": "C:\\Windows\\System32\\net.exe",
+            "command_line": "net.exe group \"domain admins\" /dom"
+          },
+          "pe": {
+            "file_version": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "0f64302d3280de299f4c51a78746f606",
+            "description": "Console Window Host",
+            "original_file_name": "CONHOST.EXE",
+            "company": "Microsoft Corporation"
+          },
+          "name": "conhost.exe",
+          "pid": 2688,
+          "working_directory": "C:\\Windows",
+          "args_count": 3,
+          "entity_id": "{88E52A21-85F1-6B01-D300-000000003D00}",
+          "hash": {
+            "sha256": "c43cf46192da061dd6169e55aac4d2d08a6c33c039a7dac0d88aa897661cbc87"
+          },
+          "executable": "C:\\Windows\\System32\\conhost.exe",
+          "command_line": "\\??\\C:\\Windows\\system32\\conhost.exe 0xffffffff -ForceV1"
+        },
+        "winlog": {
+          "record_id": "1591812",
+          "computer_name": "WS01.c0015.lab",
+          "process": {
+            "pid": 2464,
+            "thread": {
+              "id": 4356
+            }
+          },
+          "event_id": "1",
+          "task": "Process Create (rule: ProcessCreate)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "Description": "Console Window Host",
+            "LogonGuid": "{88E52A21-84DB-6B01-E703-000000000000}",
+            "TerminalSessionId": "0",
+            "IntegrityLevel": "System",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "ParentUser": "NT AUTHORITY\\SYSTEM",
+            "FileVersion": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "LogonId": "0x3e7"
+          },
+          "opcode": "Info",
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          },
+          "version": 5
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-11-21 11:52:17.357\nProcessGuid: {88E52A21-85F1-6B01-D300-000000003D00}\nProcessId: 2688\nImage: C:\\Windows\\System32\\conhost.exe\nFileVersion: 10.0.19041.3636 (WinBuild.160101.0800)\nDescription: Console Window Host\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: CONHOST.EXE\nCommandLine: \\??\\C:\\Windows\\system32\\conhost.exe 0xffffffff -ForceV1\nCurrentDirectory: C:\\Windows\nUser: NT AUTHORITY\\SYSTEM\nLogonGuid: {88E52A21-84DB-6B01-E703-000000000000}\nLogonId: 0x3e7\nTerminalSessionId: 0\nIntegrityLevel: System\nHashes: SHA256=C43CF46192DA061DD6169E55AAC4D2D08A6C33C039A7DAC0D88AA897661CBC87,IMPHASH=0F64302D3280DE299F4C51A78746F606\nParentProcessGuid: {88E52A21-85F1-6B01-D200-000000003D00}\nParentProcessId: 1872\nParentImage: C:\\Windows\\System32\\net.exe\nParentCommandLine: net.exe group \"domain admins\" /dom\nParentUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-11-21T11:52:17.357Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ],
+          "hash": [
+            "c43cf46192da061dd6169e55aac4d2d08a6c33c039a7dac0d88aa897661cbc87",
+            "0f64302d3280de299f4c51a78746f606"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-11-21T11:52:23Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "created": "2026-11-21T11:52:18.723Z",
+          "kind": "event",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    },
+    {
+      "_index": ".ds-logs-windows.sysmon_operational-c0015-2026.10.24-000002",
+      "_id": "AaH98-2TxY-KOnFQXSsk",
+      "_source": {
+        "agent": {
+          "name": "WS01",
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "type": "filebeat",
+          "ephemeral_id": "d6f7963e-bdd7-4805-98d2-8753f7996dc9",
+          "version": "9.5.3"
+        },
+        "process": {
+          "args": [
+            "C:\\Windows\\system32\\net1",
+            "group",
+            "domain admins",
+            "/dom"
+          ],
+          "parent": {
+            "args": [
+              "net.exe",
+              "group",
+              "domain admins",
+              "/dom"
+            ],
+            "name": "net.exe",
+            "pid": 1872,
+            "args_count": 4,
+            "entity_id": "{88E52A21-85F1-6B01-D200-000000003D00}",
+            "executable": "C:\\Windows\\System32\\net.exe",
+            "command_line": "net.exe group \"domain admins\" /dom"
+          },
+          "pe": {
+            "file_version": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "imphash": "537aef5b177e3302247dab07a052b2d8",
+            "description": "Net Command",
+            "original_file_name": "net1.exe",
+            "company": "Microsoft Corporation"
+          },
+          "name": "net1.exe",
+          "pid": 4564,
+          "working_directory": "C:\\Windows\\system32\\",
+          "args_count": 4,
+          "entity_id": "{88E52A21-85F1-6B01-D400-000000003D00}",
+          "hash": {
+            "sha256": "e62071aa18768dd88acaf97fa7b1f2fec9fcce89736c1ee9a800699328d196ea"
+          },
+          "executable": "C:\\Windows\\System32\\net1.exe",
+          "command_line": "C:\\Windows\\system32\\net1 group \"domain admins\" /dom"
+        },
+        "winlog": {
+          "computer_name": "WS01.c0015.lab",
+          "record_id": "1591813",
+          "process": {
+            "pid": 2464,
+            "thread": {
+              "id": 4356
+            }
+          },
+          "event_id": "1",
+          "task": "Process Create (rule: ProcessCreate)",
+          "provider_guid": "{5770385F-C22A-43E0-BF4C-06F5698FFBD9}",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_data": {
+            "Company": "Microsoft Corporation",
+            "Description": "Net Command",
+            "LogonGuid": "{88E52A21-84DB-6B01-E703-000000000000}",
+            "IntegrityLevel": "System",
+            "TerminalSessionId": "0",
+            "ParentUser": "NT AUTHORITY\\SYSTEM",
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "FileVersion": "10.0.19041.3636 (WinBuild.160101.0800)",
+            "LogonId": "0x3e7"
+          },
+          "provider_name": "Microsoft-Windows-Sysmon",
+          "opcode": "Info",
+          "version": 5,
+          "user": {
+            "identifier": "S-1-5-18",
+            "domain": "NT AUTHORITY",
+            "name": "SYSTEM",
+            "type": "User"
+          }
+        },
+        "log": {
+          "level": "information"
+        },
+        "elastic_agent": {
+          "id": "a6d6f3d2-78d0-4e95-a44c-0e5fc12b1a88",
+          "version": "9.5.3",
+          "snapshot": false
+        },
+        "message": "Process Create:\nRuleName: -\nUtcTime: 2026-11-21 11:52:17.387\nProcessGuid: {88E52A21-85F1-6B01-D400-000000003D00}\nProcessId: 4564\nImage: C:\\Windows\\System32\\net1.exe\nFileVersion: 10.0.19041.3636 (WinBuild.160101.0800)\nDescription: Net Command\nProduct: Microsoft\u00ae Windows\u00ae Operating System\nCompany: Microsoft Corporation\nOriginalFileName: net1.exe\nCommandLine: C:\\Windows\\system32\\net1 group \"domain admins\" /dom\nCurrentDirectory: C:\\Windows\\system32\\\nUser: NT AUTHORITY\\SYSTEM\nLogonGuid: {88E52A21-84DB-6B01-E703-000000000000}\nLogonId: 0x3e7\nTerminalSessionId: 0\nIntegrityLevel: System\nHashes: SHA256=E62071AA18768DD88ACAF97FA7B1F2FEC9FCCE89736C1EE9A800699328D196EA,IMPHASH=537AEF5B177E3302247DAB07A052B2D8\nParentProcessGuid: {88E52A21-85F1-6B01-D200-000000003D00}\nParentProcessId: 1872\nParentImage: C:\\Windows\\System32\\net.exe\nParentCommandLine: net.exe group \"domain admins\" /dom\nParentUser: NT AUTHORITY\\SYSTEM",
+        "input": {
+          "type": "winlog"
+        },
+        "@timestamp": "2026-11-21T11:52:17.387Z",
+        "ecs": {
+          "version": "8.17.0"
+        },
+        "related": {
+          "user": [
+            "SYSTEM"
+          ],
+          "hash": [
+            "e62071aa18768dd88acaf97fa7b1f2fec9fcce89736c1ee9a800699328d196ea",
+            "537aef5b177e3302247dab07a052b2d8"
+          ]
+        },
+        "data_stream": {
+          "namespace": "c0015",
+          "type": "logs",
+          "dataset": "windows.sysmon_operational"
+        },
+        "host": {
+          "hostname": "WS01",
+          "os": {
+            "build": "19045.3803",
+            "kernel": "10.0.19041.3803 (WinBuild.160101.0800)",
+            "name": "Windows 10 Pro",
+            "type": "windows",
+            "family": "windows",
+            "version": "10.0",
+            "platform": "windows"
+          },
+          "ip": [
+            "fe80::a7db:e701:40fd:fff7",
+            "192.168.50.20",
+            "fe80::1ec6:790e:c5d8:664f",
+            "192.168.106.136"
+          ],
+          "name": "ws01",
+          "id": "88e52a21-1605-4868-9e88-53ea14415caa",
+          "mac": [
+            "00-0C-29-BF-09-D2",
+            "00-0C-29-BF-09-DC"
+          ],
+          "architecture": "x86_64"
+        },
+        "event": {
+          "agent_id_status": "verified",
+          "ingested": "2026-11-21T11:52:23Z",
+          "code": "1",
+          "provider": "Microsoft-Windows-Sysmon",
+          "kind": "event",
+          "created": "2026-11-21T11:52:18.723Z",
+          "action": "Process creation",
+          "category": [
+            "process"
+          ],
+          "type": [
+            "start"
+          ],
+          "dataset": "windows.sysmon_operational"
+        },
+        "user": {
+          "domain": "NT AUTHORITY",
+          "name": "SYSTEM",
+          "id": "S-1-5-18"
+        }
+      },
+      "query_index": 0
+    }
+  ]
+}

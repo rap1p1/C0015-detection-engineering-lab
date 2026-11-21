@@ -20,4 +20,17 @@ commands and the checks after each step. Anything this phase writes is listed in
 <!-- Elastic capture for this phase: elastic-credential-access-lsa-secrets.png -->
 <!-- Manual capture for this phase: manual-credential-access-lsa-secrets.png -->
 
-No capture yet: the chain is being rebuilt and the first run of this design has not been recorded.
+Run 6, 2026-11-21, WS01. Mimikatz was uploaded over the C2 session and executed as SYSTEM.
+
+| UTC | Event | Locator | Excerpt |
+|---|---|---|---|
+| 11:53:18.449 | E1 | `AaH99O2TxY-KOnE_YPUA` | `C:\ProgramData\c0015\mimi.exe  privilege::debug lsadump::secrets exit`, parent `cmd.exe` |
+
+Output in `mimi.out` (password redacted here, never committed):
+
+```
+Secret  : _SC_C0015Backup / service 'C0015Backup' with username : C0015\Administrator
+cur/text: ***REDACTED***
+```
+
+That value is the credential every WMI call in the next phase uses.

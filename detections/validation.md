@@ -81,3 +81,22 @@ Fixture controls for R02/R04/R05/R06/R12/R18 were attempted on a synthetic index
 returned zero there, including the positive documents. That is a fixture problem, not a rule result; the
 controls are **not** confirmed. The positive replay above is engine output on the real runs.
 
+## Run 6 - replay with all post-compromise actions over C2
+
+| | |
+|---|---|
+| Window | `2026-11-21T11:42:00Z` - `2026-11-21T12:08:00Z` |
+| Bundle | [`evidence/runs/run-6/`](../evidence/runs/run-6/run.json) (`cap-run6-1`) |
+| Alert documents | 48 from 18 rules (45 resolved, 3 partial) |
+| Unresolved ancestor entries | 6, all nested `signal` ancestors with no `_index` ("missing locator") |
+| Session path | docm -> mshta -> regsvr32 -> `update.ps1` -> injector -> `svchost.exe`; every later action issued from the Sliver session on WS01 |
+
+The chain reached the same end state as the run above (boot persistence, post-reboot beacon,
+`renamed=40; notes=4`) but the FS01 side was driven only by WMI with the credential recovered from
+`_SC_C0015Backup`; no WinRM or RDP was used in the attack path, and the FS01 reboot was an operator
+action. Per-alert locators are in [`run-6-alerts.md`](run-6-alerts.md), and the raw log excerpts are in
+the `## Evidence` block of each `kill-chain/techniques/*/README.md` page.
+
+Differences worth recording: 18 rules produced documents (R18 fired here, R05 fired here), and the
+post-reboot session is `51cd245d` in `svchost.exe` PID 772 rather than the PID in the table above.
+

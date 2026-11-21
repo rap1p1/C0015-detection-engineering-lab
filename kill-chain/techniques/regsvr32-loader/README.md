@@ -20,4 +20,13 @@ commands and the checks after each step. Anything this phase writes is listed in
 <!-- Elastic capture for this phase: elastic-regsvr32-loader.png -->
 <!-- Manual capture for this phase: manual-regsvr32-loader.png -->
 
-No capture yet: the chain is being rebuilt and the first run of this design has not been recorded.
+Run 6, 2026-11-21, WS01.
+
+| UTC | Event | Locator | Excerpt |
+|---|---|---|---|
+| 11:48:12.285 | E7 | `AaH97-2TxY-KOnGPUq1n` | `regsvr32.exe` loads `C:\Users\Public\compareForfor.jpg`; `Signed=false`, `SignatureStatus=Unavailable`, user `duc.user` |
+| 11:48:12.295 | E11 | `AaH97-2TxY-KOnGPUq1o` | `regsvr32.exe` writes `C:\ProgramData\HealthMonitor\checks\loader.log` |
+| 11:48:12.427 | E11 | `AaH97-2TxY-KOnGPUq1y` | `regsvr32.exe` writes `C:\ProgramData\HealthMonitor\checks\update.ps1` |
+
+The module load is the detection: the `.jpg` extension does not matter, the E7 image path and signature
+do.

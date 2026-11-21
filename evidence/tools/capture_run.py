@@ -41,6 +41,15 @@ SECRET_ARG = re.compile(r"(/(?:password|p)[:\s]+)(\"[^\"]*\"|'[^']*'|\S+)", re.I
 SECRET_SWITCH = re.compile(r"(-Password\s+)(\"[^\"]*\"|'[^']*'|\S+)", re.IGNORECASE)
 SECRET_ASSIGN = re.compile(r"(password=)(\"[^\"]*\"|'[^']*'|\S+)", re.IGNORECASE)
 SECRET_VALUE = re.compile(r"(Summer2026!|Zq7!Kernel-Lab-2026#x|Password123!|Helpdesk2026!|Welcome1!)")
+# Extra values to redact, supplied at run time so no lab secret lives in the repository.
+#   C0015_REDACT_VALUES="value1,value2"
+PASSWORD_SWITCHES = {"/p", "/password", "-p", "-password", "--password"}
+
+
+def extra_secrets() -> list[str]:
+    raw = os.environ.get("C0015_REDACT_VALUES", "")
+    return [item.strip() for item in raw.split(",") if item.strip()]
+
 
 
 def get_field(document, path, default=None):
@@ -64,12 +73,21 @@ def redact(value):
     if isinstance(value, dict):
         return {k: redact(v) for k, v in value.items()}
     if isinstance(value, list):
-        return [redact(v) for v in value]
+        out = []
+        for index, item in enumerate(value):
+            if (index > 0 and isinstance(value[index - 1], str)
+                    and value[index - 1].lower() in PASSWORD_SWITCHES and isinstance(item, str)):
+                out.append("***")  # the token after /p or /password is the password
+            else:
+                out.append(redact(item))
+        return out
     if isinstance(value, str):
         value = SECRET_ARG.sub(r"\1***", value)
         value = SECRET_SWITCH.sub(r"\1***", value)
         value = SECRET_ASSIGN.sub(r"\1***", value)
         value = SECRET_VALUE.sub("***", value)
+        for secret in extra_secrets():
+            value = value.replace(secret, "***")
     return value
 
 

@@ -20,4 +20,22 @@ commands and the checks after each step. Anything this phase writes is listed in
 <!-- Elastic capture for this phase: elastic-agent-privilege-escalation.png -->
 <!-- Manual capture for this phase: manual-agent-privilege-escalation.png -->
 
-No capture yet: the chain is being rebuilt and the first run of this design has not been recorded.
+Run 6, 2026-11-21, WS01. The HealthMonitor service ran the script the loader planted seven seconds
+after it landed.
+
+| UTC | Event | Locator | Excerpt |
+|---|---|---|---|
+| 11:48:41.029 | E1 | `AaH98O2TxY-KOnEHVHmi` | `powershell.exe -NoProfile -ExecutionPolicy Bypass -File "C:\ProgramData\HealthMonitor\checks\update.ps1"`, user `SYSTEM` |
+| 11:48:41.950 | E11 | `AaH98O2TxY-KOnEHVHnf` | `update.ps1` writes `C:\ProgramData\c0015\beacon.dll` |
+
+`C:\ProgramData\HealthMonitor\agent.log` at the same moment:
+
+```
+running update.ps1
+18:48:41 update.ps1 start as nt authority\system
+18:48:41 downloaded injector.dll
+18:49:43 downloaded beacon.dll
+18:49:43 injector started
+18:49:48 inject.log: === injector done ===
+done
+```

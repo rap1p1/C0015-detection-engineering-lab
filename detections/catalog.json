@@ -50,7 +50,7 @@
       "revision": 1,
       "name": "script host starts loader",
       "file": "detections/eql/02-script-host-starts-loader.eql",
-      "sha256": "604eb9b439921049a4abfa3edd2b3cacbb1b7aeeed7be28e79ca1534e3469512",
+      "sha256": "0da64cbe3b3ec167f467393b82200e4d4c27cb95cf5e8245398ab7f8f44d4edb",
       "status": "shipped",
       "role": "alert",
       "severity": "high",
@@ -182,7 +182,7 @@
       "revision": 1,
       "name": "LSA secrets requested",
       "file": "detections/eql/05-credential-tool-lsa-secrets.eql",
-      "sha256": "6dc7c2ebf7c0fa16a05208c8e5e52ca5ae2686dce1baf18d9f1a036a5e120c5e",
+      "sha256": "f764c508aec2d5a9a7d00d150055eff12107965d15a31f7940e32deedbba8c75",
       "status": "shipped",
       "role": "alert",
       "severity": "high",
@@ -194,7 +194,7 @@
         "technique_name": "OS Credential Dumping: LSA Secrets"
       },
       "description": "A command line asks mimikatz for LSA secrets.",
-      "limitations": "String match: a renamed tool that assembles the argument at runtime is missed; the string can appear as data.",
+      "limitations": "Exact argument; a tool that hides the string inside a larger argument is missed. The recovered secret needs its own artifact.",
       "prerequisites": [
         "Sysmon 1"
       ],
@@ -446,7 +446,7 @@
       "revision": 1,
       "name": "locker simulator invocation",
       "file": "detections/eql/12-locker-invocation.eql",
-      "sha256": "8beae69d5fbbd60d8ed0d77b98780c079a6b1f65fc2c1cc6aa60ce006c35a084",
+      "sha256": "05b99b0ef6d7da4b7ee4787ea2c2ecccbb7d5e0e051f076e609ee482e688d8c5",
       "status": "shipped",
       "role": "alert",
       "severity": "high",
@@ -458,7 +458,7 @@
         "technique_name": "Data Encrypted for Impact"
       },
       "description": "The Conti-style locker is started with its deployment flag set.",
-      "limitations": "Keys on this family argument shape and on the simulator name; a repacked locker is missed.",
+      "limitations": "Exact flags; a different flag set is missed. Name plus the four flags, not the note.",
       "prerequisites": [
         "Sysmon 11"
       ],

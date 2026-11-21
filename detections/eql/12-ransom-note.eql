@@ -1,0 +1,6 @@
+process where event.code == "1"
+  and process.name : ("locker.exe", "ransomware-sim.exe")
+  and process.args : "-m"
+  and process.args : "-net"
+  and process.args : "-nomutex"
+  and process.args : "-p"

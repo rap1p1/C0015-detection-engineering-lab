@@ -65,17 +65,19 @@ property of the lab image, not of the chain.
 - A match is not a verdict.
 
 
-## Negative controls (current status)
+## Rule changes and controls
 
-| Rule | Positive | Negative | Result |
-|---|---|---|---|
-| R11 | run-4 `AaH8lO2TxY-KOm3jyi2z`, `process.args` contains `copy` | fixture with `version` and a config path containing ` copy ` | 1 / 0 |
-| R16 | `checkauj.com` | `notcheckauj.com` | 1 / 0 |
-| R17 | fixture, same `host.id` and `process.entity_id`, E3 30 s after E22 | same pair, only the E3 `entity_id` changed | 1 / 0 sequences, both branches still 1 |
-| R19 | real `/create` `AaH8je2TxY-KOm0HrUjG` | real `/query` `AaH8me2TxY-KOm2-1b1H` | 1 / 0 |
+| Rule | Change | Replay result |
+|---|---|---|
+| R02 | matches `process.args` (`*.jpg`, Public, AppData) instead of a command-line substring | run-3 1, run-4 1 (unchanged) |
+| R05 | exact argument `lsadump::secrets` | run-3 1, run-4 0 (unchanged) |
+| R12 | exact flags `-m -net -nomutex -p` | run-3 1, run-4 1 (unchanged) |
+| R18 | kept on command line | run-3 4, run-4 0 (unchanged) |
 
-The R17 fixture ran correctly after normalizing `event.category` to an array and `destination.port` to a number; because both changed at once, the experiment does not isolate which one caused the earlier zero. With that shape, the E22 branch, the E3 branch and the sequence all returned 1; changing
-only the connection event's `process.entity_id` dropped the sequence to 0 while both branches stayed at 1.
-That is the evidence that the join key, and not the individual filters, creates the match.
+The argument migration for R18 would raise run-3 from four to six documents (`net.exe` and `net1.exe`
+both match the group branches), so it was not shipped.
 
-Not yet run: R02, R04, R05, R06, R12, R18 controls.
+Fixture controls for R02/R04/R05/R06/R12/R18 were attempted on a synthetic index, but every query
+returned zero there, including the positive documents. That is a fixture problem, not a rule result; the
+controls are **not** confirmed. The positive replay above is engine output on the real runs.
+

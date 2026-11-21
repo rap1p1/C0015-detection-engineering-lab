@@ -1,5 +1,12 @@
 # Loaders and unsigned module
 
+## Tooling
+
+```text
+regsvr32.exe C:\Users\Public\compareForfor.jpg
+loader writes C:\ProgramData\HealthMonitor\checks\loader.log and update.ps1
+```
+
 | | |
 |---|---|
 | Chain phase | Loaders and unsigned module |
@@ -18,9 +25,10 @@ commands and the checks after each step. Anything this phase writes is listed in
 ## Evidence
 
 ![Word after the loader was registered](../../../docs/evidence/run-6/delivery/02-regsvr32-dialog.png)
+Word still open after `regsvr32` registered the staged loader.
+
 ![loader.log](../../../docs/evidence/run-6/delivery/04-loader-log.png)
-
-
+`loader.log` written into the HealthMonitor checks directory.
 
 Run 6, 2026-11-21, WS01.
 
@@ -32,3 +40,17 @@ Run 6, 2026-11-21, WS01.
 
 The module load is the detection: the `.jpg` extension does not matter, the E7 image path and signature
 do.
+
+### Query screenshots (run-6)
+
+![Query 3](../../../detections/queries/03-loader-invocation/screenshot.jpg)
+
+Loader invocation: `regsvr32.exe` with `compareForfor.jpg`.
+
+![Query 4](../../../detections/queries/04-untrusted-module-load/screenshot.jpg)
+
+Untrusted module load: E7 for the `.jpg`, `dll.code_signature.trusted:false`.
+
+![Query 5](../../../detections/queries/05-script-written-into-the-agent-checks/screenshot.jpg)
+
+The loader writes `loader.log` and `update.ps1` into the HealthMonitor checks directory.

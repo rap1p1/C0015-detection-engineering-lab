@@ -97,3 +97,87 @@ fires on this chain and every rule is an alert.
   joins on; the same document repeated, so a hit count is not a write count.
 
 Screenshots from the run: [`docs/evidence/run-6/README.md`](../docs/evidence/run-6/README.md).
+
+## Alert views (run-6)
+
+![Query 42](queries/42-all-c0015-alerts/screenshot.jpg)
+
+All 48 C0015 alert documents in the window.
+
+![Query 43 ws01](queries/43-alerts-per-host/screenshot-1.jpg)
+
+Alerts per host: `fs01`.
+
+![Query 43 fs01](queries/43-alerts-per-host/screenshot-2.jpg)
+
+Alerts per host: `ws01`.
+
+### One rule at a time
+
+![Query 44 r01](queries/44-alerts-per-rule/screenshot-1.jpg)
+
+`c0015-r01` on its own.
+
+![Query 44 r02](queries/44-alerts-per-rule/screenshot-2.jpg)
+
+`c0015-r02` on its own.
+
+![Query 44 r03](queries/44-alerts-per-rule/screenshot-3.jpg)
+
+`c0015-r03` on its own.
+
+![Query 44 r04](queries/44-alerts-per-rule/screenshot-4.jpg)
+
+`c0015-r04` on its own.
+
+![Query 44 r05](queries/44-alerts-per-rule/screenshot-5.jpg)
+
+`c0015-r05` on its own.
+
+![Query 44 r06](queries/44-alerts-per-rule/screenshot-6.jpg)
+
+`c0015-r06` on its own.
+
+![Query 44 r07](queries/44-alerts-per-rule/screenshot-7.jpg)
+
+`c0015-r07` on its own.
+
+![Query 44 r08](queries/44-alerts-per-rule/screenshot-8.jpg)
+
+`c0015-r08` on its own.
+
+![Query 44 r10](queries/44-alerts-per-rule/screenshot-9.jpg)
+
+`c0015-r10` on its own.
+
+![Query 44 r11](queries/44-alerts-per-rule/screenshot-10.jpg)
+
+`c0015-r11` on its own.
+
+![Query 44 r12](queries/44-alerts-per-rule/screenshot-11.jpg)
+
+`c0015-r12` on its own.
+
+![Query 44 r13](queries/44-alerts-per-rule/screenshot-12.jpg)
+
+`c0015-r13` on its own.
+
+![Query 44 r15](queries/44-alerts-per-rule/screenshot-13.jpg)
+
+`c0015-r15` on its own.
+
+![Query 44 r16](queries/44-alerts-per-rule/screenshot-14.jpg)
+
+`c0015-r16` on its own.
+
+![Query 44 r14](queries/44-alerts-per-rule/screenshot-15.jpg)
+
+`c0015-r14` on its own.
+
+![Query 44 r17](queries/44-alerts-per-rule/screenshot-16.jpg)
+
+`c0015-r17` on its own.
+
+![Query 44 r19](queries/44-alerts-per-rule/screenshot-17.jpg)
+
+`c0015-r19` on its own.

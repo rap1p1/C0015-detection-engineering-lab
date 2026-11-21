@@ -1,5 +1,13 @@
 # Document and macro
 
+## Tooling
+
+```text
+decree-08.03.2021.docm opened as C0015\duc.user
+macro writes C:\Users\Public\C0015\config.ini and compareforfor.hta
+macro starts: mshta.exe C:\Users\Public\C0015\compareforfor.hta
+```
+
 | | |
 |---|---|
 | Chain phase | Document and macro |
@@ -18,9 +26,10 @@ commands and the checks after each step. Anything this phase writes is listed in
 ## Evidence
 
 ![Document downloaded on WS01](../../../docs/evidence/run-6/delivery/01-docm-download.png)
+The `.docm` downloaded to the public desktop on WS01.
+
 ![Delivery alerts](../../../docs/evidence/run-6/delivery/05-delivery-alerts.png)
-
-
+R01, R02 and R03 in one alert view.
 
 Run 6, 2026-11-21, WS01. The document was opened by the autologon `duc.user` session and the whole
 delivery ran in under seven seconds.
@@ -36,3 +45,17 @@ delivery ran in under seven seconds.
 
 The last two are the hand-off to the agent phase: the loader drops its script into the directory the
 HealthMonitor service executes.
+
+### Query screenshots (run-6)
+
+![Query 1](../../../detections/queries/01-office-starts-a-script-host/screenshot.jpg)
+
+Office starts a script host: `WINWORD.EXE` -> `mshta.exe`, `ws01`.
+
+![Query 2](../../../detections/queries/02-mshta/screenshot.jpg)
+
+The HTA host: `mshta.exe` running `compareforfor.hta`, `ws01`.
+
+![Query 7](../../../detections/queries/07-all-three-delivery-alerts/screenshot.jpg)
+
+All three delivery alerts (R01, R02, R03) in the window.

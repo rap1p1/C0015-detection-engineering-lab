@@ -33,3 +33,15 @@ backup service. The **request** is the alert; the recovered `_SC_C0015Backup` va
 artifact, recorded separately and redacted.
 
 It does not prove the secret was used, or that LSASS was touched: `lsadump::secrets` is not `sekurlsa`.
+
+## Evidence (run-6)
+
+Run window `2026-11-21T11:45:00Z` - `2026-11-21T12:10:00Z`. Each image is the query result for the step, in run order.
+
+| Step | KQL | Image | What it proves |
+|---:|---|---|---|
+| 6 | `event.code:1 and process.name:"powershell.exe" and process.command_line:*HealthMonitor*checks*` | ![Q6](../../detections/queries/06-agent-runs-the-script/screenshot.jpg) | The agent runs the planted script as SYSTEM |
+| 13 | `kibana.alert.rule.rule_id:"c0015-r18"` | ![Q13](../../detections/queries/13-r18-alerts/screenshot.jpg) | R18 for the discovery commands |
+| 14 | `event.code:1 and process.command_line:*lsadump::secrets*` | ![Q14](../../detections/queries/14-lsa-secret-request/screenshot.jpg) | `lsadump::secrets` request |
+| 15 | `event.code:1 and process.name:"mimi.exe"` | ![Q15](../../detections/queries/15-mimikatz-process/screenshot.jpg) | `mimi.exe` process creation |
+| 16 | `kibana.alert.rule.rule_id:"c0015-r05"` | ![Q16](../../detections/queries/16-r05-alert/screenshot.jpg) | R05 for the LSA secret request |

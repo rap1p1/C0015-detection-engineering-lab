@@ -1,5 +1,13 @@
 # Agent privilege escalation
 
+## Tooling
+
+```text
+HealthMonitor service (LocalSystem) runs C:\ProgramData\HealthMonitor\checks\*.ps1
+update.ps1 downloads injector.dll and beacon.dll
+update.ps1 runs: rundll32.exe injector.dll,Run
+```
+
 | | |
 |---|---|
 | Chain phase | Agent privilege escalation |
@@ -18,9 +26,10 @@ commands and the checks after each step. Anything this phase writes is listed in
 ## Evidence
 
 ![agent.log](../../../docs/evidence/run-6/agent/01-agent-log.png)
+`agent.log`: the service downloads the injector and the beacon, then reports `injector done`.
+
 ![SYSTEM session](../../../docs/evidence/run-6/agent/02-system-session.png)
-
-
+The planted script runs as `nt authority\system`.
 
 Run 6, 2026-11-21, WS01. The HealthMonitor service ran the script the loader planted seven seconds
 after it landed.
@@ -41,3 +50,9 @@ running update.ps1
 18:49:48 inject.log: === injector done ===
 done
 ```
+
+### Query screenshots (run-6)
+
+![Query 6](../../../detections/queries/06-agent-runs-the-script/screenshot.jpg)
+
+The agent runs `update.ps1` as SYSTEM from the checks directory.

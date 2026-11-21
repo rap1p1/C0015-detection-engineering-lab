@@ -1,5 +1,11 @@
 # Credential access from LSA secrets
 
+## Tooling
+
+```text
+mimi.exe privilege::debug lsadump::secrets exit
+```
+
 | | |
 |---|---|
 | Chain phase | Credential access from LSA secrets |
@@ -18,9 +24,10 @@ commands and the checks after each step. Anything this phase writes is listed in
 ## Evidence
 
 ![lsadump::secrets (password cropped)](../../../docs/evidence/run-6/credential/01-mimikatz-secret.png)
+`lsadump::secrets` output; the password value is cropped out of the frame.
+
 ![R05 alert](../../../docs/evidence/run-6/credential/02-r05-alert.png)
-
-
+R05 alert for the `lsadump::secrets` command line.
 
 Run 6, 2026-11-21, WS01. Mimikatz was uploaded over the C2 session and executed as SYSTEM.
 
@@ -36,3 +43,17 @@ cur/text: ***REDACTED***
 ```
 
 That value is the credential every WMI call in the next phase uses.
+
+### Query screenshots (run-6)
+
+![Query 14](../../../detections/queries/14-lsa-secret-request/screenshot.jpg)
+
+The `lsadump::secrets` command line, `ws01`.
+
+![Query 15](../../../detections/queries/15-mimikatz-process/screenshot.jpg)
+
+`mimi.exe` process creation under `cmd.exe`, `ws01`.
+
+![Query 16](../../../detections/queries/16-r05-alert/screenshot.jpg)
+
+R05 alert for the LSA secret request.

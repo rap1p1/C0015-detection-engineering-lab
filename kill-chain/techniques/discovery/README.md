@@ -1,5 +1,13 @@
 # Discovery
 
+## Tooling
+
+```text
+net.exe group "domain admins" /dom
+net.exe localgroup administrators
+nltest.exe /domain_trusts /all_trusts
+```
+
 | | |
 |---|---|
 | Chain phase | Discovery |
@@ -18,9 +26,10 @@ commands and the checks after each step. Anything this phase writes is listed in
 ## Evidence
 
 ![group and trust discovery](../../../docs/evidence/run-6/discovery/02-net-nltest.png)
+`net group` and `nltest` output from the beacon session.
+
 ![R18 alerts](../../../docs/evidence/run-6/discovery/04-r18-alerts.png)
-
-
+R18 alerts for the discovery commands.
 
 Run 6, 2026-11-21, WS01, issued through the C2 session (`execute -o`), 11:52:17 - 11:52:33.
 
@@ -50,3 +59,29 @@ List of domain trusts:
 ```
 
 `net view /all /domain` is skipped deliberately: it hangs in this lab with error 6118.
+
+### Query screenshots (run-6)
+
+![Query 8](../../../detections/queries/08-domain-group-enumeration/screenshot.jpg)
+
+Domain Admins enumeration via `net.exe`, `ws01`.
+
+![Query 9](../../../detections/queries/09-trust-enumeration/screenshot.jpg)
+
+Trust enumeration via `nltest.exe`, `ws01`.
+
+![Query 10](../../../detections/queries/10-local-group-enumeration/screenshot.jpg)
+
+Local Administrators enumeration, `ws01`.
+
+![Query 11](../../../detections/queries/11-connectivity-check/screenshot.jpg)
+
+Connectivity check with `ping.exe`; 0 rows in this window.
+
+![Query 12](../../../detections/queries/12-all-discovery-events/screenshot.jpg)
+
+All discovery events in one view, `ws01`.
+
+![Query 13](../../../detections/queries/13-r18-alerts/screenshot.jpg)
+
+R18 alerts: three documents for three discovery commands.

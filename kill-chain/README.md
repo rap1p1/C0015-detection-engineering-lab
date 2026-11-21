@@ -62,3 +62,16 @@ The fourteen rules in `detections/` cover this chain from the document edge to t
 records each rule's role, ATT&CK mapping and match count; R14 and R15 were validated on the injection test,
 the delivery rules on the earlier document run.
 
+## Whole-chain views (run-6)
+
+![Query 39](../detections/queries/39-process-chain-on-both-hosts/screenshot.jpg)
+
+Process chain on both hosts: Word, loader, agent, WMI and impact processes.
+
+![Query 40](../detections/queries/40-all-file-writes-of-interest/screenshot.jpg)
+
+File writes of interest: agent checks, `ProgramData\c0015` and the corpus.
+
+![Query 41](../detections/queries/41-everything-the-rules-can-see/screenshot.jpg)
+
+Every event type the rule set reads, both hosts, one view.

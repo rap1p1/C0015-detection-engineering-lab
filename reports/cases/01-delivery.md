@@ -28,3 +28,16 @@ A document started a shell, which started `mshta`, which started `regsvr32`, whi
 module from a user-writable path and wrote a script into the agent checks directory.
 
 It does not prove the script ran (case 02) or that the module's code executed beyond the load event.
+
+## Evidence (run-6)
+
+Run window `2026-11-21T11:45:00Z` - `2026-11-21T12:10:00Z`. Each image is the query result for the step, in run order.
+
+| Step | KQL | Image | What it proves |
+|---:|---|---|---|
+| 1 | `event.code:1 and process.parent.name:("WINWORD.EXE" or "EXCEL.EXE" or "POWERPNT.EXE" or "OUTLOOK.EXE") and process.name:("mshta.exe" or "cmd.exe" or "wscript.exe" or "cscript.exe" or "powershell.exe")` | ![Q1](../../detections/queries/01-office-starts-a-script-host/screenshot.jpg) | Word starts a script host |
+| 2 | `event.code:1 and process.name:"mshta.exe"` | ![Q2](../../detections/queries/02-mshta/screenshot.jpg) | `mshta.exe` runs the HTA |
+| 3 | `event.code:1 and process.name:"regsvr32.exe"` | ![Q3](../../detections/queries/03-loader-invocation/screenshot.jpg) | `regsvr32.exe` runs the staged `.jpg` |
+| 4 | `event.code:7 and process.name:"regsvr32.exe" and dll.code_signature.trusted:false` | ![Q4](../../detections/queries/04-untrusted-module-load/screenshot.jpg) | E7 shows the unsigned module load |
+| 5 | `event.code:11 and file.path:*HealthMonitor*checks*` | ![Q5](../../detections/queries/05-script-written-into-the-agent-checks/screenshot.jpg) | The loader writes `update.ps1` into the checks folder |
+| 7 | `kibana.alert.rule.rule_id:("c0015-r01" or "c0015-r02" or "c0015-r03")` | ![Q7](../../detections/queries/07-all-three-delivery-alerts/screenshot.jpg) | R01, R02 and R03 for the delivery chain |

@@ -1,5 +1,13 @@
 # Ransomware
 
+## Tooling
+
+```text
+vssadmin.exe delete shadows /all /quiet
+ransomware-sim.exe -m -net -size 10 -nomutex -p C:\C0015\corpus
+```
+
+
 | | |
 |---|---|
 | Chain phase | Ransomware |
@@ -36,3 +44,25 @@ Run 6, 2026-11-21, FS01, driven by `fs01-task.ps1` from the post-reboot beacon s
 
 Impact is a simulation: 40 files renamed, four notes written, no encryption. The verifier checks the
 counts before the task reports success.
+
+### Query screenshots (run-6)
+
+![Query 34](../../../detections/queries/34-shadow-copy-deletion/screenshot.jpg)
+
+`vssadmin delete shadows /all /quiet`, `fs01`.
+
+![Query 35](../../../detections/queries/35-locker-invocation/screenshot.jpg)
+
+Locker invocation: `ransomware-sim.exe -m -net -size 10 -nomutex -p ...`.
+
+![Query 36](../../../detections/queries/36-notes-written/screenshot.jpg)
+
+Notes written (`readme.txt`, E11).
+
+![Query 37](../../../detections/queries/37-ransom-note-extension-written/screenshot.jpg)
+
+Ransom-note extension written (`.c0015`, E11); 0 rows in this window.
+
+![Query 38](../../../detections/queries/38-r10-r11-r12-alerts/screenshot.jpg)
+
+R10, R11 and R12 alerts.

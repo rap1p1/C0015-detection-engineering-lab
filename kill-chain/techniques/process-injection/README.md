@@ -1,5 +1,13 @@
 # Process injection into the service host
 
+## Tooling
+
+```text
+rundll32.exe C:\ProgramData\143.dll,Run
+injector: OpenProcess(svchost) -> VirtualAllocEx/WriteProcessMemory -> remote LoadLibraryA
+then a second remote thread on the beacon's StartW export
+```
+
 | | |
 |---|---|
 | Chain phase | Beacon hosting |
@@ -18,10 +26,13 @@ second remote thread. The beacon lives in the service host, not in a process of 
 ## Evidence
 
 ![alert burst for one injection](../../../docs/evidence/run-6/injection/01-alert-burst.png)
-![FS01 inject.log](../../../docs/evidence/run-6/injection/02-fs01-inject-log.png)
+Alert burst for one injection on WS01.
 
+![FS01 inject.log](../../../docs/evidence/run-6/injection/02-fs01-inject-log.png)
+`inject.log` on FS01 ends with `=== injector done ===`.
 
 ![Alert burst for one injection](elastic-alert-burst.png)
+Alert burst for one injection, WS01.
 
 Kibana, WS01, 2026-11-21 17:05. One injection produced ten alert documents, and that is the expected
 shape:
@@ -73,3 +84,37 @@ StartW thread 4972 started in svchost pid 776
 Sliver `sessions` after each injection: WS01 `8f250992` in `svchost.exe` (776), FS01 `e6e3abfb` in
 `svchost.exe` (776). After the FS01 reboot a new session `51cd245d` appeared in `svchost.exe` (772),
 which is the boot-task beacon rather than the injected one.
+
+### Query screenshots (run-6)
+
+![Query 22](../../../detections/queries/22-remote-thread-into-svchost/screenshot.jpg)
+
+Remote thread into `svchost.exe` from `rundll32.exe` (E8).
+
+![Query 23](../../../detections/queries/23-beacon-module-loaded/screenshot.jpg)
+
+`beacon.dll` loaded inside `svchost.exe` (E7).
+
+![Query 24](../../../detections/queries/24-injector-invocation/screenshot.jpg)
+
+Injector invocation: `rundll32.exe ... 143.dll`.
+
+![Query 25](../../../detections/queries/25-r14-and-r15-alerts/screenshot.jpg)
+
+R14 and R15 alerts for the injection.
+
+![Query 26](../../../detections/queries/26-campaign-domain-lookup/screenshot.jpg)
+
+DNS lookup for `checkauj.com` (E22).
+
+![Query 27](../../../detections/queries/27-connection-to-the-listener/screenshot.jpg)
+
+Connection to the listener `192.168.50.100:443` (E3).
+
+![Query 28](../../../detections/queries/28-svchost-outbound-443/screenshot.jpg)
+
+`svchost.exe` outbound to 443.
+
+![Query 29](../../../detections/queries/29-r16-and-r17-alerts/screenshot.jpg)
+
+R16 and R17 alerts; R17 is 9 documents = 3 sequences x 3.

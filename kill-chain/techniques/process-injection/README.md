@@ -17,7 +17,18 @@ second remote thread. The beacon lives in the service host, not in a process of 
 
 ## Evidence
 
-<!-- Elastic capture for this phase: elastic-process-injection.png -->
-<!-- Manual capture for this phase: manual-process-injection.png -->
+![Alert burst for one injection](elastic-alert-burst.png)
 
-No capture yet: the chain is being rebuilt and the first run of this design has not been recorded.
+Kibana, WS01, 2026-11-21 17:05. One injection produced ten alert documents, and that is the expected
+shape:
+
+| Rule | Rows | Why |
+|---|---|---|
+| R14 | 2 | two remote threads per injection (`LoadLibraryA`, then `StartW`) |
+| R15 | 3 | module loads: `injector.dll` by `rundll32`, `beacon.dll` by `rundll32` and by `svchost` |
+| R16 | 1 | the DNS lookup for the campaign domain |
+| R17 | 3 | one sequence is three documents: the two component events plus the sequence alert |
+| R04 | 1 | the agent ran the planted script |
+
+R17's three rows are one incident, not three; R14's two rows are one injection. Count incidents by the
+sequence and by the injection, not by alert document.

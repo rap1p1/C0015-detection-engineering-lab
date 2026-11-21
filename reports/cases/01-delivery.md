@@ -13,6 +13,8 @@ page records the expected evidence and the questions the capture must answer.
 
 ## Investigation
 
+R02 records the invocation of `regsvr32`; R03 records that a module was actually loaded. They are two observations of the same step, not duplicates.
+
 1. Resolve the source event of the R03 alert and confirm the loading process is the `regsvr32` from R02.
 2. Walk the parent chain by entity id: regsvr32 -> mshta -> cmd -> Word.
 3. Confirm the module is untrusted and lives in a user-writable path.

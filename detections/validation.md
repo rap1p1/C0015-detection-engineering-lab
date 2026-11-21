@@ -47,9 +47,9 @@ building block.
 
 | Rule | Count | What it saw |
 |---|---|---|
-| R16 | 2 | `svchost.exe` resolves `checkauj.com` on WS01 and FS01 |
-| R17 | 2 | the lookup is followed by `svchost -> 192.168.50.100:443` within five minutes |
-| R18 | 4 | the discovery commands above, from the SYSTEM context |
+| R16 | 2 | `svchost.exe` resolves exactly `checkauj.com` on WS01 and FS01 |
+| R17 | 2 | the same process identity (host + `process.entity_id`) resolves the domain and then connects to `192.168.50.100:443`; WS01 `{88E52A21-7A5E-...3200}`, FS01 `{88E52A21-6F73-...1B00}` |
+| R18 | 4 | `net.exe` and its child `net1.exe` for `net group "domain admins"`, `nltest` for the trusts, `net view` for the domain list. `ping` and `tasklist` were run but are not part of the query. |
 
 The IP-based beacon from earlier runs produced no DNS event at all. This run uses the domain, so E22 and
 E3 are both present, and the two network rules no longer need a separate run.

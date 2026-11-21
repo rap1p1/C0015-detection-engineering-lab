@@ -78,8 +78,8 @@ parsed and every field it names exists in this pipeline; the matches are in each
 | R13 | 1 | script written into agent checks |
 | R14 | 4 | remote thread into service host |
 | R15 | 5 | module loaded from user path |
-| R16 | 2 | dns query for campaign domain |
-| R17 | 2 | dns lookup then beacon connection |
+| R16 | 2 | campaign-domain lookup |
+| R17 | 2 | same process resolves the domain then connects |
 | R18 | 4 | domain and trust discovery |
 
 A match is not a verdict: the engine check proves the query and the fields, not precision. Every rule

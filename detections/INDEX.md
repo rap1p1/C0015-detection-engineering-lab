@@ -22,8 +22,8 @@ Generated from [`catalog.json`](catalog.json) by `tools/detections/catalog.py`. 
 | C0015-R13 | script written into agent checks | alert | high | T1574.010 Hijack Execution Flow: Services File Permissions Weakness | [`13-agent-checks-write.eql`](eql/13-agent-checks-write.eql) |
 | C0015-R14 | remote thread into service host | alert | high | T1055 Process Injection | [`14-injection-into-svchost.eql`](eql/14-injection-into-svchost.eql) |
 | C0015-R15 | module loaded from user path | building_block | low | T1574 Hijack Execution Flow | [`15-module-from-user-path.eql`](eql/15-module-from-user-path.eql) |
-| C0015-R16 | dns query for campaign domain | alert | medium | T1071.004 Application Layer Protocol: DNS | [`16-dns-query-campaign-domain.eql`](eql/16-dns-query-campaign-domain.eql) |
-| C0015-R17 | dns lookup then beacon connection | alert | high | T1071.001 Application Layer Protocol: Web Protocols | [`17-dns-then-beacon-connection.eql`](eql/17-dns-then-beacon-connection.eql) |
+| C0015-R16 | campaign-domain lookup | alert | medium | T1071.004 Application Layer Protocol: DNS | [`16-dns-query-campaign-domain.eql`](eql/16-dns-query-campaign-domain.eql) |
+| C0015-R17 | same process resolves the domain then connects | alert | high | T1071.001 Application Layer Protocol: Web Protocols | [`17-dns-then-beacon-connection.eql`](eql/17-dns-then-beacon-connection.eql) |
 | C0015-R18 | domain and trust discovery | alert | medium | T1087.002 Account Discovery: Domain Account | [`18-discovery-commands.eql`](eql/18-discovery-commands.eql) |
 
 ## Retired

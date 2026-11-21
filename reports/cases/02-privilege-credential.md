@@ -11,6 +11,8 @@
 
 ## Investigation
 
+0. Confirm the discovery commands from the SYSTEM context (R18): `net group "domain admins" /dom`, `net localgroup administrator`, `nltest /domain_trusts`, `net view /all /domain`.
+
 1. Confirm the agent service runs as LocalSystem and that the checks directory is writable by Users.
 2. Confirm the script was written by the loader (same host, minutes earlier) and executed by the agent.
 3. Confirm the beacon started as SYSTEM.

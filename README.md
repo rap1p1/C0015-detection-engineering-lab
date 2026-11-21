@@ -389,8 +389,8 @@ and each entry records what it does not prove.
 | R13 | script written into agent checks | alert | T1574.010 | 1 |
 | R14 | remote thread into service host | alert | T1055 | 4 |
 | R15 | module loaded from user path | building_block | T1574 | 5 |
-| R16 | dns query for campaign domain | alert | T1071.004 | 2 |
-| R17 | dns lookup then beacon connection | alert | T1071.001 | 2 |
+| R16 | campaign-domain lookup | alert | T1071.004 | 2 |
+| R17 | same process resolves the domain then connects | alert | T1071.001 | 2 |
 | R18 | domain and trust discovery | alert | T1087.002 | 4 |
 
 A match is not a verdict. The engine check proves the query parses and the fields exist; precision is

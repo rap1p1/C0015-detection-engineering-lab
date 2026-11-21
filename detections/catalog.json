@@ -448,7 +448,7 @@
       "revision": 1,
       "name": "rclone transfer invocation",
       "file": "detections/eql/11-cloud-transfer.eql",
-      "sha256": "263c731da2ad680343a66f6d0bc21dfc4a5e2d7c4716da555d9ba16359a2b2b9",
+      "sha256": "56cd1b0e49a0f30abc34d7b3863484911251b0017cc186a0258f47ffb2b19f1e",
       "status": "shipped",
       "role": "alert",
       "severity": "high",
@@ -460,7 +460,7 @@
         "technique_name": "Exfiltration Over Web Service: Exfiltration to Cloud Storage"
       },
       "description": "rclone copies or syncs data to a remote destination.",
-      "limitations": "Matches the transfer subcommand in the command line; the direction (local copy, upload, download) is not proven by E1 alone.",
+      "limitations": "Matches the transfer subcommand as a token in the command line; the direction and the remote are still triage questions. A file named *copy* without the subcommand does not match.",
       "prerequisites": [
         "Sysmon 1"
       ],
@@ -666,9 +666,9 @@
     {
       "id": "C0015-R16",
       "revision": 1,
-      "name": "dns query for campaign domain",
+      "name": "campaign-domain lookup",
       "file": "detections/eql/16-dns-query-campaign-domain.eql",
-      "sha256": "30ef331c66c78b0134e3e963731e8c1990bda9a41b051da1dab087f0a210c66f",
+      "sha256": "19f97d4a2f34e3688e95491dda3f8c99954c9e7a2116613fde9b4bf4196e766a",
       "status": "shipped",
       "role": "alert",
       "severity": "medium",
@@ -710,9 +710,9 @@
     {
       "id": "C0015-R17",
       "revision": 1,
-      "name": "dns lookup then beacon connection",
+      "name": "same process resolves the domain then connects",
       "file": "detections/eql/17-dns-then-beacon-connection.eql",
-      "sha256": "88e2bff49577c7ca2243b4850652722303a17ba3560bced7207202bff4bd38da",
+      "sha256": "c5f739d2747eda33e2c68a99eef384a3fe1e0f747a5258de5169536b22bf50bd",
       "status": "shipped",
       "role": "alert",
       "severity": "high",
@@ -723,8 +723,8 @@
         "technique_id": "T1071.001",
         "technique_name": "Application Layer Protocol: Web Protocols"
       },
-      "description": "svchost resolves the campaign domain and then connects to the listener on 443 within five minutes.",
-      "limitations": "Lab-specific listener address; in production replace the address with the destination range or the domain resolution result.",
+      "description": "The same process resolves checkauj.com and then opens 443 to the listener.",
+      "limitations": "Lab listener address; join is host and process identity, so a resolver in one process and a connection in another will not match.",
       "prerequisites": [
         "Sysmon 3",
         "Sysmon 22"
@@ -735,7 +735,7 @@
         ],
         "timestamp_field": "@timestamp",
         "interval": "1m",
-        "lookback": "now-3m",
+        "lookback": "now-5m",
         "max_signals": 100,
         "enabled": true
       },

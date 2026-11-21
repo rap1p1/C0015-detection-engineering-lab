@@ -74,8 +74,7 @@ property of the lab image, not of the chain.
 | R17 | fixture, same `host.id` and `process.entity_id`, E3 30 s after E22 | same pair, only the E3 `entity_id` changed | 1 / 0 sequences, both branches still 1 |
 | R19 | real `/create` `AaH8je2TxY-KOm0HrUjG` | real `/query` `AaH8me2TxY-KOm2-1b1H` | 1 / 0 |
 
-The R17 fixture used two documents with `event.category` as an array (`["network"]`) and a numeric
-`destination.port`. With that shape, the E22 branch, the E3 branch and the sequence all returned 1; changing
+The R17 fixture ran correctly after normalizing `event.category` to an array and `destination.port` to a number; because both changed at once, the experiment does not isolate which one caused the earlier zero. With that shape, the E22 branch, the E3 branch and the sequence all returned 1; changing
 only the connection event's `process.entity_id` dropped the sequence to 0 while both branches stayed at 1.
 That is the evidence that the join key, and not the individual filters, creates the match.
 

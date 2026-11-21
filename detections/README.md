@@ -56,7 +56,7 @@ Neither is proven by a query parsing. See the evidence schema in
 for the fields an export must carry to be checkable.
 ## Validation status
 
-Per-hit classification and provenance: [`validation.md`](validation.md).
+Per-hit classification and provenance: [`validation.md`](validation.md). The 49 alert documents with their source locators: [`run-4-alerts.md`](run-4-alerts.md).
 
 All seventeen shipped rules were run with `detections/tools/engine_check.py` against Elasticsearch 9.5.3 on the
 window `2026-11-20T16:45Z -> 2026-11-20T17:05Z`, the single run that exercised the current chain (document, agent, injection, WMI, exfiltration, impact). Every query

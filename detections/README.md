@@ -56,10 +56,10 @@ Neither is proven by a query parsing. See the evidence schema in
 for the fields an export must carry to be checkable.
 ## Validation status
 
-Per-hit classification and provenance: [`validation.md`](validation.md). The 49 alert documents with their source locators: [`run-4-alerts.md`](run-4-alerts.md).
+Per-hit classification and provenance: [`validation.md`](validation.md). The 48 alert documents with their source locators: [`run-6-alerts.md`](run-6-alerts.md).
 
-All seventeen shipped rules were run with `detections/tools/engine_check.py` against Elasticsearch 9.5.3 on the
-window `2026-11-20T16:45Z -> 2026-11-20T17:05Z`, the single run that exercised the current chain (document, agent, injection, WMI, exfiltration, impact). Every query
+All eighteen shipped rules were run with `detections/tools/engine_check.py` against Elasticsearch 9.5.3 on the
+window `2026-11-21T11:45Z -> 2026-11-21T12:10Z`, the run that exercised the current chain (document, agent, injection, discovery, credential, WMI, persistence, exfiltration, impact). Every query
 parsed and every field it names exists in this pipeline; the matches are in each catalog entry.
 
 | Rule | Matches | Behaviour |
@@ -68,10 +68,10 @@ parsed and every field it names exists in this pipeline; the matches are in each
 | R02 | 1 | script host starts loader |
 | R03 | 1 | loader loads untrusted module |
 | R04 | 1 | agent executes planted script |
-| R05 | 0 | LSA secrets requested |
+| R05 | 2 | LSA secrets requested |
 | R06 | 2 | defender real-time protection disable requested |
-| R07 | 6 | wmi remote process creation |
-| R08 | 6 | wmi hosted child process |
+| R07 | 3 | wmi remote process creation |
+| R08 | 3 | wmi hosted child process |
 | R10 | 1 | shadow copy deletion requested |
 | R11 | 1 | rclone transfer invocation |
 | R12 | 1 | locker simulator invocation |
@@ -79,8 +79,8 @@ parsed and every field it names exists in this pipeline; the matches are in each
 | R14 | 6 | remote thread into service host |
 | R15 | 7 | module loaded from user path |
 | R16 | 3 | campaign-domain lookup |
-| R17 | 3 | same process resolves the domain then connects |
-| R18 | 0 | domain and trust discovery |
+| R17 | 9 | same process resolves the domain then connects |
+| R18 | 3 | domain and trust discovery |
 | R19 | 1 | boot task creation requested |
 
 A match is not a verdict: the engine check proves the query and the fields, not precision. Every rule

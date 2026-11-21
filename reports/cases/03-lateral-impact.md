@@ -1,43 +1,48 @@
-# Case 03 - WMI to FS01, exfiltration and impact
+# Case 03 - WMI, injection, persistence across reboot and impact
 
-**Status:** evidence pending.
+**Run:** `run-4`, window `2026-11-21T05:00Z - 05:35Z`. This is the reference case.
 
 ## Expected alerts
 
-| Rule | What it should show |
+| Rule | Run-4 matches | What it shows |
+|---|---|---|
+| R07 | 6 | `wmic /node:FS01` from WS01 |
+| R08 | 6 | WMI children on FS01 |
+| R14 | 6 | remote threads into `svchost.exe` |
+| R15 | 7 | module loads from the staging path |
+| R16/R17 | 3 / 3 | DNS `checkauj.com` and the 443 connection from the same identity |
+| R19 | 1 | `/create ... /sc onstart` |
+| R10/R11/R12 | 1 / 1 / 1 | shadow copies, rclone, locker |
+
+## Persistence timeline
+
+| Time (UTC) | Source | What it records |
+|---|---|---|
+| 05:20:59.059 | E1, locator `AaH8je2TxY-KOm0HrUjG` | `schtasks /create` with `/sc onstart /ru SYSTEM` (R19; this is the create, not a query) |
+| 05:20:59 | `C:\ProgramData\c0015\persist.log` | `=== persist ready ===`, task `Ready` (operator artifact) |
+| 05:22:49 | operator | FS01 rebooted |
+| after boot | `schtasks /query` | `Last Run` set, task ran |
+| after boot | Sliver session `a796ef3b` | new beacon in `svchost.exe` (PID 788) |
+| 05:29:26-05:29:28 | `fs01_task.log` | defences, injection, rclone, impact all pass |
+
+The middle of the chain (task actually running at boot) is confirmed by the task `Last Run` and the new
+`svchost` session; the E8/E7 of that new instance are part of the run-4 totals, with the full locator
+list in `evidence/runs/run-4`.
+
+## Identity
+
+| Stage | Account |
 |---|---|
-| R06 | Defender real-time protection disabled on FS01 |
-| R07 | `wmic /node:FS01 ... process call create` on WS01 |
-| R08 | `WmiPrvSE.exe` child on FS01 |
-| R14 | remote thread into `svchost.exe` (two threads per injection: LoadLibrary and StartW) |
-| R15 | `beacon.dll` loaded from `C:\ProgramData` |
-| R16/R17 | `svchost` resolves `checkauj.com` and then connects to the listener |
-| R10 | shadow copies deleted |
-| R11 | `rclone.exe` transfer invocation |
-| R12 | the locker starts with its name and the full flag set |
-| R19 | `C0015Persist` is created with `/sc onstart /ru SYSTEM` |
+| injector on WS01 | SYSTEM (agent) |
+| beacon in `svchost` on WS01 | SYSTEM |
+| WMI call to FS01 | `C0015\Administrator` |
+| injector and beacon on FS01 | SYSTEM (`C0015\FS01$` on the network) |
+| `rclone`, `vssadmin`, locker on FS01 | `C0015\Administrator` (E1 user field) |
 
-## Investigation
+## What it proves
 
-1. Confirm the network logon on FS01 for `C0015\Administrator` and the WMI child process.
-2. Confirm the Defender change happened before the injector ran.
-3. Confirm the two E8 events for the FS01 injection share the host and the thread pair, and that the
-   E7 for `beacon.dll` comes from `svchost.exe`, not from `rundll32.exe`.
-4. Confirm the DNS lookup and the 443 connection belong to the same `process.entity_id`.
-5. Confirm rclone's command line and exit code; there is no receiver inventory.
-6. Confirm the boot task was created by the payload and that the beacon returned after the reboot.
-7. Confirm the shadow copies were deleted and the corpus was renamed with notes.
+The credential was used for remote execution, the beacon was placed in an existing service host, a boot
+task was created by the payload and survived one reboot, and the impact steps ran after the reboot.
 
-## What the chain proves and does not
-
-- Proves: the recovered domain administrator credential was used for remote execution, privilege
-  escalation on FS01 (SYSTEM through the service host) and impact.
-- Proves: persistence across one reboot. `C0015Persist` was created from the payload, the host was
-  rebooted, and a new beacon session appeared in `svchost.exe` (PID 788).
-- Does not prove: survival of the task being deleted, delivery to the cloud remote, or reversible
-  encryption. The task runs the injector; it does not install a service.
-
-## Evidence to capture
-
-- 4624 type 3 with the administrator account, the E8 remote thread, the E7 module load, rclone command line, note and rename counts.
-
+It does not prove persistence across task deletion, delivery to the cloud remote, or reversible
+encryption. R14's six matches are three injections with two threads each, not six successful injections.

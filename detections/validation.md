@@ -6,8 +6,9 @@ The chain was exercised end to end, including boot persistence, in a single wind
 |---|---|
 | Window | `2026-11-21T05:00:00Z` - `2026-11-21T05:35:00Z` |
 | Stack | Elasticsearch 9.5.3, Sysmon profile `infra/sysmon/sysmon-c0015-balanced.xml` |
-| Rule set | 18 shipped, 1 retired (R09) |
-| Matches | 44 |
+| Rule set | 18 shipped |
+| Matches | 43 |
+| Kibana alert documents | 49 (46 resolved, 3 partial) |
 
 What the run contains:
 

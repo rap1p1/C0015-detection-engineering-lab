@@ -27,6 +27,13 @@ that credential - a monitoring agent that executes scripts from a user-writable 
 service that stores the domain administrator password in LSA secrets - and records the substitution in
 [`docs/study/gaps.md`](docs/study/gaps.md). It is a lab weakness, not a claim about the campaign.
 
+## Read this first (5 minutes)
+
+1. `docs/study/architecture.md` - hosts, accounts, the two lab weaknesses.
+2. [`reports/tickets/T-003-lateral-impact.md`](reports/tickets/T-003-lateral-impact.md) - the complete case: WMI, injection, persistence across a reboot, impact.
+3. [`detections/README.md`](detections/README.md) - the rule table and the validation window.
+4. `detections/eql/14-injection-into-svchost.eql`, `17-dns-then-beacon-connection.eql`, `19-boot-persistence-task.eql` - the three rules that carry the scenario.
+
 ## Start here
 
 Three ways in, depending on what you want to check.
@@ -395,7 +402,7 @@ and each entry records what it does not prove.
 | R19 | boot persistence task created | alert | T1053.005 | 1 |
 
 A match is not a verdict. The engine check proves the query parses and the fields exist; precision is
-measured against the run, not assumed. All counts come from one run window, `16:45Z -> 17:05Z`: the document, the injection, the discovery, the WMI pivot, the exfiltration and the impact. The per-hit notes are in [`detections/validation.md`](detections/validation.md).
+measured against the run, not assumed. Counts come from the two captured runs; the table below is run-4 (`16:45Z` is run-3): the document, the injection, the discovery, the WMI pivot, the exfiltration and the impact. The per-hit notes are in [`detections/validation.md`](detections/validation.md).
 
 ## How to run the lab
 

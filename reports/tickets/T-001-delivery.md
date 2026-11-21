@@ -2,28 +2,23 @@
 
 | Field | Value |
 |---|---|
-| Case | [01-delivery](../cases/01-delivery.md) |
+| Run | run-4 (2026-11-21 05:00-05:35Z) |
 | Host | WS01 |
 | Account | `C0015\duc.user` (standard) |
 | Priority | High |
-| Status | Open - evidence pending |
+| Status | Open - evidence captured |
 
 ## Summary
 
-A Word document started `cmd.exe`, which started `mshta.exe`, which started `regsvr32.exe` on a staged
-`.jpg`; the module is unsigned.
+Word started a script host, which started `regsvr32` on a staged `.jpg`; the module is untrusted and the
+loader wrote a script into the HealthMonitor checks directory.
 
-## Findings
+## Evidence
 
-- Parent chain by entity id: Word -> cmd -> mshta -> regsvr32.
-- The module is unsigned and lives under `C:\Users\Public`.
-- The loader wrote a script into the HealthMonitor checks directory.
+- R01/R02: E1 chain on WS01; representative E1 `AaH8fO2TxY-KOm1PbsjC`.
+- R03: E7 `AaH8hO2TxY-KOm2Njkvd`, `dll.code_signature.trusted=false`.
+- R13: E11 `AaH8g-2TxY-KOm0gigB5` (the write is shared with T-002).
 
-## Unknowns
+## Open questions
 
-- Whether the module executed.
-- What the script did (covered by T-002).
-
-## Actions and escalation
-
-Triage complete; escalate to T-002 once the agent child process is confirmed.
+Whether the module executed beyond the load, and what the script did - tracked in T-002.

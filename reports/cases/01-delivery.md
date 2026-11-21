@@ -1,32 +1,30 @@
-# Case 01 - Document to loader
+# Case 01 - Delivery: document to loader
 
-**Status:** evidence pending. The chain was rebuilt in November 2026 and has not been captured yet; this
-page records the expected evidence and the questions the capture must answer.
+**Run:** `run-4`, window `2026-11-21T05:00Z - 05:35Z`. This case uses run-4 only.
 
 ## Expected alerts
 
-| Rule | What it should show |
-|---|---|
-| R01 office spawns script host | `WINWORD.EXE` -> `cmd.exe /c mshta ...` on WS01 as `duc.user` |
-| R02 script host starts loader | `mshta.exe` -> `regsvr32.exe C:\Users\Public\compareForfor.jpg` |
-| R03 loader loads untrusted module | Sysmon 7 for that `.jpg`, signed false, same process entity |
+| Rule | Run-4 matches | What it shows |
+|---|---|---|
+| R01 | 2 | Word starts a script host |
+| R02 | 1 | script host starts `regsvr32` |
+| R03 | 1 | `regsvr32` loads an untrusted module |
 
-## Investigation
+## Evidence
 
-R02 records the invocation of `regsvr32`; R03 records that a module was actually loaded. They are two observations of the same step, not duplicates.
+| Step | Locator | What it shows |
+|---|---|---|
+| script host | `logs-windows.sysmon_operational-*` / `AaH8fO2TxY-KOm1PbsjC` | E1 `mshta.exe` under the Office chain |
+| module load | `logs-windows.sysmon_operational-*` / `AaH8hO2TxY-KOm2Njkvd` | E7 for the loader, `dll.code_signature.trusted = false` |
+| script write | `logs-windows.sysmon_operational-*` / `AaH8g-2TxY-KOm0gigB5` | E11 `regsvr32.exe` writes into `HealthMonitor\checks` |
 
-1. Resolve the source event of the R03 alert and confirm the loading process is the `regsvr32` from R02.
-2. Walk the parent chain by entity id: regsvr32 -> mshta -> cmd -> Word.
-3. Confirm the module is untrusted and lives in a user-writable path.
-4. Look for the loader's write into `C:\ProgramData\HealthMonitor\checks` (Sysmon 11).
+R02 records the invocation of `regsvr32`; R03 records that a module was actually loaded. They are two
+observations of the same step, not duplicates. Cite "untrusted" because the field is a trust verdict,
+not a signature verdict.
 
-## What the chain proves and does not
+## What it proves
 
-- Proves: a document started a shell, which started `mshta`, which started `regsvr32`, which loaded an
-  untrusted module and dropped a script.
-- Does not prove: that the module executed, that the script ran, or that the agent executed it.
+A document started a shell, which started `mshta`, which started `regsvr32`, which loaded an untrusted
+module from a user-writable path and wrote a script into the agent checks directory.
 
-## Evidence to capture
-
-- R01/R02/R03 alert screenshots and the process-creation table with entity ids.
-- The Sysmon 11 write of `update.ps1` into the checks directory.
+It does not prove the script ran (case 02) or that the module's code executed beyond the load event.

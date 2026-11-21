@@ -354,52 +354,6 @@
       }
     },
     {
-      "id": "C0015-R09",
-      "revision": 1,
-      "name": "service installed from user path",
-      "status": "retired",
-      "role": "alert",
-      "severity": "high",
-      "risk_score": 73,
-      "attck": {
-        "tactic_id": "TA0003",
-        "tactic_name": "Persistence",
-        "technique_id": "T1543.003",
-        "technique_name": "Create or Modify System Process: Windows Service"
-      },
-      "description": "Retired with the injection chain: the scenario no longer installs a service, so the rule has no subject and its validation is historical.",
-      "limitations": "Retained for the record only; do not enable.",
-      "prerequisites": [
-        "Service Control Manager 7045"
-      ],
-      "deployment": {
-        "index": [
-          "logs-system.system-*"
-        ],
-        "timestamp_field": "@timestamp",
-        "interval": "1m",
-        "lookback": "now-3m",
-        "max_signals": 100,
-        "enabled": false
-      },
-      "validation": {
-        "kind": "engine_run",
-        "engine": "elasticsearch 9.5.3",
-        "window": {
-          "start": "2026-11-20T15:40:00Z",
-          "end": "2026-11-20T16:00:00Z"
-        },
-        "matches": 0,
-        "truncated": false,
-        "error": null,
-        "note": "Retired; no engine run."
-      },
-      "retirement": {
-        "reason": "The injection chain does not install a service; the rule has no subject.",
-        "date": "2026-11-20"
-      }
-    },
-    {
       "id": "C0015-R10",
       "revision": 1,
       "name": "shadow copy deletion requested",
@@ -451,16 +405,16 @@
       "sha256": "56cd1b0e49a0f30abc34d7b3863484911251b0017cc186a0258f47ffb2b19f1e",
       "status": "shipped",
       "role": "alert",
-      "severity": "high",
-      "risk_score": 73,
+      "severity": "medium",
+      "risk_score": 47,
       "attck": {
         "tactic_id": "TA0010",
         "tactic_name": "Exfiltration",
         "technique_id": "T1567.002",
         "technique_name": "Exfiltration Over Web Service: Exfiltration to Cloud Storage"
       },
-      "description": "rclone copies or syncs data to a remote destination.",
-      "limitations": "Matches the transfer subcommand as a token in the command line; the direction and the remote are still triage questions. A file named *copy* without the subcommand does not match.",
+      "description": "rclone is invoked with a transfer subcommand token in its command line; direction and remote are triage questions.",
+      "limitations": "This pipeline has no process.args, so the subcommand is matched as a token with surrounding spaces; a quoted path containing \" copy \" can still match. Treat as invocation, not as proof of cloud upload.",
       "prerequisites": [
         "Sysmon 1"
       ],
@@ -769,7 +723,7 @@
         "technique_name": "Account Discovery: Domain Account"
       },
       "description": "net or nltest enumerates domain admins, local administrators, trusts or the domain computer list.",
-      "limitations": "Administrators run the same commands; correlate with the session that spawned them and the host role.",
+      "limitations": "Administrators run the same commands; net.exe and net1.exe both appear for one request. ping and tasklist are not part of this query.",
       "prerequisites": [
         "Sysmon 1"
       ],
@@ -799,7 +753,7 @@
     {
       "id": "C0015-R19",
       "revision": 1,
-      "name": "boot persistence task created",
+      "name": "boot task creation requested",
       "file": "detections/eql/19-boot-persistence-task.eql",
       "sha256": "a2e31c4c7cc3243862d8f1c8b2147ad934a80709156045c22cce5202e82f7430",
       "status": "shipped",

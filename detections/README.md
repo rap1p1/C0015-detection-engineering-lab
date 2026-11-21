@@ -81,7 +81,7 @@ parsed and every field it names exists in this pipeline; the matches are in each
 | R16 | 3 | campaign-domain lookup |
 | R17 | 3 | same process resolves the domain then connects |
 | R18 | 0 | domain and trust discovery |
-| R19 | 1 | boot persistence task created |
+| R19 | 1 | boot task creation requested |
 
 A match is not a verdict: the engine check proves the query and the fields, not precision. Every rule
 fires on this chain and every rule is an alert.
@@ -90,8 +90,6 @@ fires on this chain and every rule is an alert.
 
 - `E7` carries the module in `dll.path` and the trust verdict in `dll.code_signature.trusted`, not in
   `winlog.event_data.ImageLoaded`.
-- `7045` carries `winlog.event_data.ImagePath`, `ServiceName`, `StartType` and `AccountName`; R09 keys on
-  the image path.
 - The captured run produced no `E11` document for the corpus note or for the renamed files, which is why R12
   keys on the locker command line. Whether the profile filtered them or they never reached ingest was not
   established; do not attribute it to the profile without checking FS01.

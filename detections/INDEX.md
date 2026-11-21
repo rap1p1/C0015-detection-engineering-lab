@@ -3,7 +3,7 @@
 Generated from [`catalog.json`](catalog.json) by `tools/detections/catalog.py`. Do not edit.
 
 - shipped rules: **18**
-- retired rules: **1**
+- retired rules: **0**
 - roles: alert 16, building_block 2
 
 | ID | Rule | Role | Severity | ATT&CK | Query |
@@ -17,7 +17,7 @@ Generated from [`catalog.json`](catalog.json) by `tools/detections/catalog.py`. 
 | C0015-R07 | wmi remote process creation | alert | high | T1047 Windows Management Instrumentation | [`07-wmi-remote-execution-source.eql`](eql/07-wmi-remote-execution-source.eql) |
 | C0015-R08 | wmi hosted child process | building_block | medium | T1047 Windows Management Instrumentation | [`08-wmi-hosted-child-process.eql`](eql/08-wmi-hosted-child-process.eql) |
 | C0015-R10 | shadow copy deletion requested | alert | high | T1490 Inhibit System Recovery | [`10-shadow-copy-deletion.eql`](eql/10-shadow-copy-deletion.eql) |
-| C0015-R11 | rclone transfer invocation | alert | high | T1567.002 Exfiltration Over Web Service: Exfiltration to Cloud Storage | [`11-cloud-transfer.eql`](eql/11-cloud-transfer.eql) |
+| C0015-R11 | rclone transfer invocation | alert | medium | T1567.002 Exfiltration Over Web Service: Exfiltration to Cloud Storage | [`11-cloud-transfer.eql`](eql/11-cloud-transfer.eql) |
 | C0015-R12 | locker simulator invocation | alert | high | T1486 Data Encrypted for Impact | [`12-locker-invocation.eql`](eql/12-locker-invocation.eql) |
 | C0015-R13 | script written into agent checks | alert | high | T1574.010 Hijack Execution Flow: Services File Permissions Weakness | [`13-agent-checks-write.eql`](eql/13-agent-checks-write.eql) |
 | C0015-R14 | remote thread into service host | alert | high | T1055 Process Injection | [`14-injection-into-svchost.eql`](eql/14-injection-into-svchost.eql) |
@@ -25,10 +25,4 @@ Generated from [`catalog.json`](catalog.json) by `tools/detections/catalog.py`. 
 | C0015-R16 | campaign-domain lookup | alert | medium | T1071.004 Application Layer Protocol: DNS | [`16-dns-query-campaign-domain.eql`](eql/16-dns-query-campaign-domain.eql) |
 | C0015-R17 | same process resolves the domain then connects | alert | high | T1071.001 Application Layer Protocol: Web Protocols | [`17-dns-then-beacon-connection.eql`](eql/17-dns-then-beacon-connection.eql) |
 | C0015-R18 | domain and trust discovery | alert | medium | T1087.002 Account Discovery: Domain Account | [`18-discovery-commands.eql`](eql/18-discovery-commands.eql) |
-| C0015-R19 | boot persistence task created | alert | high | T1053.005 Scheduled Task/Job: Scheduled Task | [`19-boot-persistence-task.eql`](eql/19-boot-persistence-task.eql) |
-
-## Retired
-
-| ID | Rule | Reason |
-|---|---|---|
-| C0015-R09 | service installed from user path | The injection chain does not install a service; the rule has no subject. |
+| C0015-R19 | boot task creation requested | alert | high | T1053.005 Scheduled Task/Job: Scheduled Task | [`19-boot-persistence-task.eql`](eql/19-boot-persistence-task.eql) |

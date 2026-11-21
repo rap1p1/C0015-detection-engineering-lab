@@ -402,7 +402,7 @@
       "revision": 1,
       "name": "rclone transfer invocation",
       "file": "detections/eql/11-cloud-transfer.eql",
-      "sha256": "56cd1b0e49a0f30abc34d7b3863484911251b0017cc186a0258f47ffb2b19f1e",
+      "sha256": "bf9222dbc9bd28769fa08e08de631ce49cfe5d22bc15aef15bc202f6ff7c805f",
       "status": "shipped",
       "role": "alert",
       "severity": "medium",
@@ -413,8 +413,8 @@
         "technique_id": "T1567.002",
         "technique_name": "Exfiltration Over Web Service: Exfiltration to Cloud Storage"
       },
-      "description": "rclone is invoked with a transfer subcommand token in its command line; direction and remote are triage questions.",
-      "limitations": "This pipeline has no process.args, so the subcommand is matched as a token with surrounding spaces; a quoted path containing \" copy \" can still match. Treat as invocation, not as proof of cloud upload.",
+      "description": "rclone is invoked with an argument equal to copy, sync or move.",
+      "limitations": "The argument is the subcommand token; direction and remote are triage questions. This pipeline indexes process.args, so a quoted path containing \" copy \" does not match.",
       "prerequisites": [
         "Sysmon 1"
       ],

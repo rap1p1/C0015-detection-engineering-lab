@@ -17,8 +17,6 @@ commands and the checks after each step. Anything this phase writes is listed in
 
 ## Evidence
 
-<!-- Elastic capture for this phase: elastic-conti-ransomware.png -->
-<!-- Manual capture for this phase: manual-conti-ransomware.png -->
 
 Run 6, 2026-11-21, FS01, driven by `fs01-task.ps1` from the post-reboot beacon session.
 

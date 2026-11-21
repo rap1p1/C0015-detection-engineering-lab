@@ -206,7 +206,7 @@ Two points are unresolved. The credential used for the WMI pivot has no document
 access is recorded before the pivot, and no credential material appears in the report. And the
 ProcessHacker step is described as likely LSASS access rather than a confirmed dump.
 
-The lab does not invent either. It supplies the missing privilege through a documented configuration
+The lab does not invent either. It supplies the extra privilege through a documented configuration
 weakness and recovers the pivot credential from a stored secret, and it states both choices in the
 technique folders and in [`docs/study/gaps.md`](docs/study/gaps.md). It does not claim the campaign
 performed those exact steps.
@@ -339,7 +339,7 @@ flowchart TD
 ## Repository structure
 
 ```
-kill-chain/                    the chain, one folder per phase, with evidence placeholders
+kill-chain/                    the chain, one folder per phase, with captured evidence
 │   README.md                  the narrative and the phase map
 │   techniques/                delivery, hta, loader, agent, credential, wmi, service, discovery,
 │                              exfiltration, ransomware
@@ -370,7 +370,7 @@ kill-chain/                    the chain, one folder per phase, with evidence pl
 ```
 
 Each folder under `kill-chain/techniques/` covers one behaviour rather than one tool, so the folder
-name still describes the activity after a tool substitution. The executable artefacts live in
+name describes the activity after a tool substitution. The executable artefacts live in
 `attack-playbook/payloads/`, the commands the operator runs live in `tools/`, and the rules live in
 `detections/eql/`.
 

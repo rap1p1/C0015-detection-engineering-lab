@@ -21,8 +21,6 @@ commands and the checks after each step. Anything this phase writes is listed in
 ![Delivery alerts](../../../docs/evidence/run-6/delivery/05-delivery-alerts.png)
 
 
-<!-- Elastic capture for this phase: elastic-delivery-macro-document.png -->
-<!-- Manual capture for this phase: manual-delivery-macro-document.png -->
 
 Run 6, 2026-11-21, WS01. The document was opened by the autologon `duc.user` session and the whole
 delivery ran in under seven seconds.

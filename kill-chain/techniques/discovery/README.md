@@ -21,8 +21,6 @@ commands and the checks after each step. Anything this phase writes is listed in
 ![R18 alerts](../../../docs/evidence/run-6/discovery/04-r18-alerts.png)
 
 
-<!-- Elastic capture for this phase: elastic-discovery.png -->
-<!-- Manual capture for this phase: manual-discovery.png -->
 
 Run 6, 2026-11-21, WS01, issued through the C2 session (`execute -o`), 11:52:17 - 11:52:33.
 
@@ -51,4 +49,4 @@ List of domain trusts:
     0: C0015 c0015.lab (NT 5) (Forest Tree Root) (Primary Domain) (Native)
 ```
 
-`net view /all /domain` was not run: it hangs in this lab with error 6118.
+`net view /all /domain` is skipped deliberately: it hangs in this lab with error 6118.

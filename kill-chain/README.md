@@ -52,13 +52,9 @@ FS01  SYSTEM (beacon)
 
 ## Evidence status
 
-Each technique folder has an `## Evidence` section with two placeholders:
-
-- `elastic-<phase>.png` - the alert or event as it appears in Kibana,
-- `manual-<phase>.png` - the screen from the manual run.
-
-They are intentionally empty until the first run of this chain is captured. Do not add images before the
-corresponding documents exist.
+Each technique folder has an `## Evidence` section with the captures from run-6. The screenshots live
+under [`docs/evidence/run-6/`](../docs/evidence/run-6/README.md), grouped by phase; the technique page
+embeds the ones that belong to it and keeps the Elastic excerpts next to them.
 
 ## Rules
 

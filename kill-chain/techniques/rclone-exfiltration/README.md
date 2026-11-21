@@ -17,8 +17,6 @@ commands and the checks after each step. Anything this phase writes is listed in
 
 ## Evidence
 
-<!-- Elastic capture for this phase: elastic-rclone-exfiltration.png -->
-<!-- Manual capture for this phase: manual-rclone-exfiltration.png -->
 
 Run 6, 2026-11-21, FS01, executed by `fs01-task.ps1` from the beacon session.
 

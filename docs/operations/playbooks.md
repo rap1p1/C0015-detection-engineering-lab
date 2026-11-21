@@ -16,7 +16,7 @@
 3. Confirm mimikatz execution and whether the target was LSASS or LSA secrets.
 4. Escalate: a SYSTEM child of a monitoring agent is a privilege escalation, not a maintenance action.
 5. Close only with a documented change ticket that explains the script.
-6. Insufficient information when the agent log is missing; treat the absence as telemetry loss.
+6. Insufficient information when the agent log is unavailable; treat the absence as telemetry loss.
 
 ## P3 - Lateral movement, injection, exfiltration and impact (R06, R07, R08, R14, R15, R11, R12)
 
@@ -25,4 +25,4 @@
 3. Confirm rclone execution and its command line; there is no receiver proof.
 4. Escalate to incident response once a service or a note is confirmed.
 5. Close only after the host is rebuilt and the corpus restored from baseline.
-6. Insufficient information when the target-side events are missing; do not infer from source alone.
+6. Insufficient information when the target-side events are unavailable; do not infer from source alone.

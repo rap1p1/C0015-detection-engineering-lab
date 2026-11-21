@@ -21,8 +21,6 @@ commands and the checks after each step. Anything this phase writes is listed in
 ![R05 alert](../../../docs/evidence/run-6/credential/02-r05-alert.png)
 
 
-<!-- Elastic capture for this phase: elastic-credential-access-lsa-secrets.png -->
-<!-- Manual capture for this phase: manual-credential-access-lsa-secrets.png -->
 
 Run 6, 2026-11-21, WS01. Mimikatz was uploaded over the C2 session and executed as SYSTEM.
 

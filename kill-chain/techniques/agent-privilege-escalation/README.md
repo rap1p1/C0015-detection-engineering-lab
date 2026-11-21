@@ -21,8 +21,6 @@ commands and the checks after each step. Anything this phase writes is listed in
 ![SYSTEM session](../../../docs/evidence/run-6/agent/02-system-session.png)
 
 
-<!-- Elastic capture for this phase: elastic-agent-privilege-escalation.png -->
-<!-- Manual capture for this phase: manual-agent-privilege-escalation.png -->
 
 Run 6, 2026-11-21, WS01. The HealthMonitor service ran the script the loader planted seven seconds
 after it landed.

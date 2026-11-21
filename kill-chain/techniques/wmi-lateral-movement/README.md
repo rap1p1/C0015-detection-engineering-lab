@@ -22,8 +22,6 @@ commands and the checks after each step. Anything this phase writes is listed in
 ![R06 and R08](../../../docs/evidence/run-6/lateral/03-r06-r08-alerts.png)
 
 
-<!-- Elastic capture for this phase: elastic-wmi-lateral-movement.png -->
-<!-- Manual capture for this phase: manual-wmi-lateral-movement.png -->
 
 Run 6, 2026-11-21. Every call below was issued from the WS01 C2 session; nothing was run from the host.
 

@@ -88,7 +88,7 @@ controls are **not** confirmed. The positive replay above is engine output on th
 | Window | `2026-11-21T11:42:00Z` - `2026-11-21T12:08:00Z` |
 | Bundle | [`evidence/runs/run-6/`](../evidence/runs/run-6/run.json) (`cap-run6-1`) |
 | Alert documents | 48 from 18 rules (45 resolved, 3 partial) |
-| Unresolved ancestor entries | 6, all nested `signal` ancestors with no `_index` ("missing locator") |
+| Ancestor entries without a locator | 6, all nested `signal` ancestors that carry no `_index`; the alert document itself is resolved |
 | Session path | docm -> mshta -> regsvr32 -> `update.ps1` -> injector -> `svchost.exe`; every later action issued from the Sliver session on WS01 |
 
 The chain reached the same end state as the run above (boot persistence, post-reboot beacon,

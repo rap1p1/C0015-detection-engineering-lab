@@ -9,7 +9,7 @@ python3 tools/detections/catalog.py --index     # regenerate INDEX.md
 python3 tools/detections/catalog.py --update    # refresh content hashes
 ```
 
-`--check` fails on a rule file that is missing, untracked, ignored by `.gitignore`, changed without a
+`--check` fails on a rule file that is absent, untracked, ignored by `.gitignore`, changed without a
 catalog update, referenced twice, or present on disk without a catalog entry.
 
 ## What a catalog entry carries

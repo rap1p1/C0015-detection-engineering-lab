@@ -21,8 +21,6 @@ commands and the checks after each step. Anything this phase writes is listed in
 ![loader.log](../../../docs/evidence/run-6/delivery/04-loader-log.png)
 
 
-<!-- Elastic capture for this phase: elastic-regsvr32-loader.png -->
-<!-- Manual capture for this phase: manual-regsvr32-loader.png -->
 
 Run 6, 2026-11-21, WS01.
 

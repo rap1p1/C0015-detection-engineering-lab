@@ -20,8 +20,6 @@ commands and the checks after each step. Anything this phase writes is listed in
 ![mshta running the staged HTA](../../../docs/evidence/run-6/delivery/03-mshta-process.png)
 
 
-<!-- Elastic capture for this phase: elastic-hta-proxy-execution.png -->
-<!-- Manual capture for this phase: manual-hta-proxy-execution.png -->
 
 Run 6, 2026-11-21, WS01.
 

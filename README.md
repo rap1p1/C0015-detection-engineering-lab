@@ -1,10 +1,5 @@
 # C0015 - BazarLoader to Conti, reconstructed for detection engineering
 
-![ATT&CK](https://img.shields.io/badge/ATT%26CK-9%20techniques%20mapped-informational)
-![techniques](https://img.shields.io/badge/techniques-10-blue)
-![EQL](https://img.shields.io/badge/EQL-13%20rules-green)
-![License](https://img.shields.io/badge/license-MIT-lightgrey)
-
 Between 2 and 6 August 2021, an operator entered a corporate network through a weaponised Word
 document, moved a beacon into `winlogon.exe`, pivoted to a backup server through WMI, exfiltrated data
 to MEGA with `rclone` over two evenings, and encrypted the estate with Conti from a batch file. The
